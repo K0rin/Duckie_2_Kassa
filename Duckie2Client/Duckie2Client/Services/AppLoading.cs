@@ -7,7 +7,6 @@ public sealed class AppLoading
 {
     // An event notifies about an action completion.
     public event Action<int>? ActionCompleted;
-
     public async Task ExecuteActionAsync()
     {
         for (int i = 0; i < 5; i++)
@@ -18,7 +17,6 @@ public sealed class AppLoading
             OnActionCompleted(i);
         }
     }
-
     private void OnActionCompleted(int actionNumber)
     {
         ActionCompleted?.Invoke(actionNumber);
