@@ -19,11 +19,8 @@ public partial class SplashWindow : Window
     }
     protected override void OnLoaded(RoutedEventArgs routedEventArgs)
     {
-        // StartAnimation();
-        
         // Begin the Application loading.
         DuckieLoad();
-        
     }
     private async void DuckieLoad()
     {
@@ -39,10 +36,10 @@ public partial class SplashWindow : Window
         StatusMessage.Text = "All done";
         await Task.Delay(1500);
         
-        // await Dispatcher.UIThread.InvokeAsync(() =>
-        // {
-        //     _mainAction?.Invoke();
-        //     Close();
-        // });
+        await Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            _mainAction?.Invoke();
+            Close();
+        });
     }
 }

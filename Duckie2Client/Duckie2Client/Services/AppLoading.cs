@@ -9,7 +9,7 @@ public sealed class AppLoading
     public event Action<int>? ActionCompleted;
     public async Task ExecuteActionAsync()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 15; i++)
         {
             // todo: do loading.
             Console.WriteLine($"Task {i} in progress...");
