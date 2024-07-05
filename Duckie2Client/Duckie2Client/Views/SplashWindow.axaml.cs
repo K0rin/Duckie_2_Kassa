@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Duckie2Client.Libs;
+using Duckie2Client.Services;
 
 namespace Duckie2Client.Views;
 
@@ -18,13 +19,24 @@ public partial class SplashWindow : Window
     }
     protected override void OnLoaded(RoutedEventArgs routedEventArgs)
     {
-        DummyLoad();
+        // Begin the Application loading.
+        DuckieLoad();
     }
-    private async void DummyLoad()
-    {
-        // Do some background stuff here.
-        await Task.Delay(3000);
 
+    private async void DuckieLoad()
+    {
+        var appLoading = new AppLoading();
+        // Subscribe on event.
+        appLoading.ActionCompleted += actionNumber =>
+        {
+            StatusMessage.Text = $"Action {actionNumber}";
+        };
+        // Run tasks.
+        await appLoading.ExecuteActionAsync();
+
+        StatusMessage.Text = "All done";
+        await Task.Delay(1500);
+        
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
             _mainAction?.Invoke();
