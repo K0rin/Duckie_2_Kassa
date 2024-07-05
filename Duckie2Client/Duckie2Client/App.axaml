@@ -3,7 +3,8 @@
              x:Class="Duckie2Client.App"
              xmlns:local="using:Duckie2Client"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" 
+             or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -12,4 +13,18 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+             
+     <Application.Resources>
+
+         <FontFamily x:Key="FontRubik">
+             avares://Duckie2Client/Assets/Fonts/Rubik-Bold.ttf#Rubik 
+         </FontFamily>
+         
+         <FontFamily x:Key="FontRubikRegular">
+             avares://Duckie2Client/Assets/Fonts/Rubik-Regular.ttf#Rubik 
+         </FontFamily>
+         
+     </Application.Resources>
+             
 </Application>
+
