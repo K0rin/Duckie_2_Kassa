@@ -1,8 +1,10 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Duckie2Client.ViewModels;
 using Duckie2Client.Views;
+using Avalonia.Controls;
 
 namespace Duckie2Client;
 
@@ -30,8 +32,10 @@ public partial class App : Application
                 
                 desktop.MainWindow = mainWindow;
             });
+            // CenterWindowOnScreen(desktop.MainWindow);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
+
 }
