@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Models\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,5 +21,21 @@
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.11" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.11" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\StartWindow\StartWindow.axaml.cs">
+        <DependentUpon>StartWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\LoadingProcess.axaml.cs">
+        <DependentUpon>LoadingProcess.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Views\StartWindowMembers\LoadingProcess.axaml" />
     </ItemGroup>
 </Project>

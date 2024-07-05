@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Duckie2Client.Views;
 
-public partial class MainWindow : Window
+public partial class MainAppWindow : Window
 {
-    public MainWindow()
+    public MainAppWindow()
     {
         InitializeComponent();
     }
