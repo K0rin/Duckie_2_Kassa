@@ -16,7 +16,7 @@
              
      <Application.Resources>
 
-         <FontFamily x:Key="FontRubik">
+         <FontFamily x:Key="FontRubikBold">
              avares://Duckie2Client/Assets/Fonts/Rubik-Bold.ttf#Rubik 
          </FontFamily>
          

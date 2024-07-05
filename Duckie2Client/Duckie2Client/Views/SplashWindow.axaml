@@ -11,12 +11,12 @@
         WindowStartupLocation="CenterScreen"
         SystemDecorations="None"
         Title="SplashScreen"
-        Background="#8ECAE6">
+        Background="#219EBC">
 
     <Window.Styles>
         <Style Selector="Canvas.RubberDuckCanvas">
             <Style.Animations>
-                <Animation Duration="0:0:1"
+                <Animation Duration="0:0:3"
                            IterationCount="Infinite">
 
                     <KeyFrame Cue="0%">
@@ -36,6 +36,26 @@
 
     <DockPanel VerticalAlignment="Center">
 
+        <StackPanel HorizontalAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Orientation="Horizontal">
+            <TextBlock Text="Duckie 2.0"
+                       Foreground="#023047"
+                       FontFamily="{StaticResource FontRubikBold}"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       >
+            </TextBlock>
+            <TextBlock Text="Admin"
+                       Foreground="#FFB703"
+                       FontFamily="{StaticResource FontRubikRegular}"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       Margin="2,0,0,0"
+                       >
+            </TextBlock>
+        </StackPanel>
+
         <Canvas DockPanel.Dock="Top"
                 Height="44">
             <Canvas Left="0"
@@ -54,7 +74,7 @@
                 Foreground="#023047"
                 FontFamily="{StaticResource FontRubikRegular}"
                 FontSize="14"
-                FontWeight="Bold" />
+                Height="14" />
         </Panel>
 
     </DockPanel>
