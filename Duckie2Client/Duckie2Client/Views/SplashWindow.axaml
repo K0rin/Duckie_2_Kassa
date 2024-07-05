@@ -43,16 +43,14 @@
                        Foreground="#023047"
                        FontFamily="{StaticResource FontRubikBold}"
                        FontSize="20"
-                       HorizontalAlignment="Center"
-                       >
+                       HorizontalAlignment="Center">
             </TextBlock>
             <TextBlock Text="Admin"
                        Foreground="#FFB703"
                        FontFamily="{StaticResource FontRubikRegular}"
                        FontSize="16"
                        VerticalAlignment="Center"
-                       Margin="2,0,0,0"
-                       >
+                       Margin="2,0,0,0">
             </TextBlock>
         </StackPanel>
 
