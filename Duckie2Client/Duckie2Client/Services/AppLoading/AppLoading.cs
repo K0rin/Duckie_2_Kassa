@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Duckie2Client.Services.AppLoading;
@@ -7,24 +8,27 @@ public sealed class AppLoading
 {
     // An event notifies about an action completion.
     public event Action<string>? ActionCompleted;
-    public async Task LoadAppActionAsync()
+
+    public async Task<bool> LoadAppActionAsync()
     {
-        // Check if SQL Server service is running.
-        
-        var serviceRunningCheck = new ServiceRunningCheck(ActionCompleted);
-        var result = await serviceRunningCheck.TemplateMethod();
-
-        if (result)
+        var loadingJobs = new List<LoadingJob>
         {
-            Console.WriteLine("ok");
-        }
-        else
+            new ServiceRunningCheck(ActionCompleted),
+            new DatabaseConnectionCheck(ActionCompleted)
+        };
+        var result = false;
+        // Run all jobs from the list.
+        foreach (var job in loadingJobs)
         {
-            Console.WriteLine("bad");
+            result = await job.CallJob();
+
+            if (!result)
+            {
+                // If a job fails, stop loading and return.
+                break;
+            }
         }
 
-
-
+        return result;
     }
-
 }

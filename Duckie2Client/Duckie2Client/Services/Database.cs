@@ -2,7 +2,7 @@
 
 public class Database
 {
-   public bool IsDBServcieRun()
+   public bool IsDbServcieRun()
    {
       return true;
    }
