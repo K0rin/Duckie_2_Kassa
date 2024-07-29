@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Duckie2Client.Libs;
-using Duckie2Client.Services;
+using Duckie2Client.Services.AppLoading;
 
 namespace Duckie2Client.Views;
 
@@ -31,7 +31,7 @@ public partial class SplashWindow : Window
             StatusMessage.Text = actionMessage;
         };
         // Run tasks.
-        await appLoading.ExecuteActionAsync();
+        await appLoading.LoadAppActionAsync();
 
         StatusMessage.Text = "All done";
         await Task.Delay(1500);

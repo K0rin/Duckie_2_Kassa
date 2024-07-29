@@ -1,4 +1,4 @@
-﻿namespace Duckie2Client.Libs;
+﻿namespace Duckie2Client.Services.AppLoading;
 
 public class LoadingMessages(
     string start,

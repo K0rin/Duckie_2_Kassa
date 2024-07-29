@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Duckie2Client.Libs;
-
-public abstract class AppLoadingTemplateMethod(Action<string>? action)
+namespace Duckie2Client.Services.AppLoading;
+/// <summary>
+/// Template method for loading tasks.
+/// </summary>
+/// <param name="action"></param>
+public abstract class LoadingJob(Action<string>? action)
 {
     private event Action<string>? Action = action;
 

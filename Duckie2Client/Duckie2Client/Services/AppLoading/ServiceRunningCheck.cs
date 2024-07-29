@@ -1,12 +1,11 @@
 ﻿using System;
 using Duckie2Client.Libs;
 
-namespace Duckie2Client.Services;
+namespace Duckie2Client.Services.AppLoading;
 
-public class AppLoadingMethodServiceRunning : AppLoadingTemplateMethod
+public class ServiceRunningCheck : LoadingJob
 {
-    public AppLoadingMethodServiceRunning(Action<string>? action) :
-        base(action)
+    public ServiceRunningCheck(Action<string>? action) : base(action)
     {
         LoadingMessages = new LoadingMessages(
             "Check Server running...",
