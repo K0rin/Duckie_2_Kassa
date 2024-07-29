@@ -6,19 +6,28 @@ namespace Duckie2Client.Services;
 public sealed class AppLoading
 {
     // An event notifies about an action completion.
-    public event Action<int>? ActionCompleted;
+    public event Action<string>? ActionCompleted;
     public async Task ExecuteActionAsync()
     {
-        for (int i = 0; i < 15; i++)
+        // Check if SQL Server service is running.
+        
+        var t1 = new AppLoadingMethodServiceRunning(ActionCompleted);
+        var result = await t1.TemplateMethod();
+
+        if (result)
         {
-            // todo: do loading.
-            Console.WriteLine($"Task {i} in progress...");
-            await Task.Delay(1000);
-            OnActionCompleted(i);
+            Console.WriteLine("ok");
         }
+        else
+        {
+            Console.WriteLine("bad");
+        }
+
+
+
     }
-    private void OnActionCompleted(int actionNumber)
+    private void OnActionCompleted(string actionMessage)
     {
-        ActionCompleted?.Invoke(actionNumber);
+        ActionCompleted?.Invoke(actionMessage);
     }
 }

@@ -26,9 +26,9 @@ public partial class SplashWindow : Window
     {
         var appLoading = new AppLoading();
         // Subscribe on event.
-        appLoading.ActionCompleted += actionNumber =>
+        appLoading.ActionCompleted += actionMessage =>
         {
-            StatusMessage.Text = $"Action {actionNumber}";
+            StatusMessage.Text = actionMessage;
         };
         // Run tasks.
         await appLoading.ExecuteActionAsync();
