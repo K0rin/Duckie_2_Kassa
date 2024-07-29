@@ -26,8 +26,5 @@ public sealed class AppLoading
 
 
     }
-    private void OnActionCompleted(string actionMessage)
-    {
-        ActionCompleted?.Invoke(actionMessage);
-    }
+
 }
