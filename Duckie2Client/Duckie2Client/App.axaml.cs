@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Duckie2Client.Libs;
 using Duckie2Client.ViewModels;
 using Duckie2Client.Views;
 
@@ -18,6 +19,12 @@ public partial class App : Application
         if (ApplicationLifetime
             is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var argsParser = new ArgsParser(
+                desktop.Args,
+                "mode");
+            argsParser.CheckArgs();
+
+
             desktop.MainWindow = new SplashWindow(() =>
             {
                 var mainWindow = new MainWindow
