@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="400"
+        d:DesignHeight="400"
+        x:Class="Duckie2Client.Views.SplashWindow"
+        Width="400"
+        Height="400"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        Title="SplashScreen"
+        Background="#219EBC">
+
+    <Window.Styles>
+        <Style Selector="Canvas.RubberDuckCanvas">
+            <Style.Animations>
+                <Animation Duration="0:0:3"
+                           IterationCount="Infinite">
+
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Left"
+                                Value="-44" />
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Left"
+                                Value="400" />
+                    </KeyFrame>
+
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel VerticalAlignment="Center">
+
+        <StackPanel HorizontalAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Orientation="Horizontal">
+            <TextBlock Text="Duckie 2.0"
+                       Foreground="#023047"
+                       FontFamily="{StaticResource FontRubikBold}"
+                       FontSize="20"
+                       HorizontalAlignment="Center">
+            </TextBlock>
+            <TextBlock Text="Admin"
+                       Foreground="#FFB703"
+                       FontFamily="{StaticResource FontRubikRegular}"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       Margin="2,0,0,0">
+            </TextBlock>
+        </StackPanel>
+
+        <Canvas DockPanel.Dock="Top"
+                Height="44">
+            <Canvas Left="0"
+                    Classes="RubberDuckCanvas">
+                <Image Source="/Assets/rubber-duck.png"
+                       Height="44"
+                       Width="44" />
+            </Canvas>
+        </Canvas>
+
+        <Panel HorizontalAlignment="Center">
+            <TextBlock
+                Name="StatusMessage"
+                Text="Welcome to Duckie 2"
+                Foreground="#023047"
+                FontFamily="{StaticResource FontRubikRegular}"
+                FontSize="14"
+                Height="16" />
+        </Panel>
+
+    </DockPanel>
+
+</Window>
