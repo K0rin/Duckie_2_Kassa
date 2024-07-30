@@ -19,11 +19,13 @@ public partial class App : Application
         if (ApplicationLifetime
             is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var argsParser = new ArgsParser(
-                desktop.Args,
-                "mode");
+            var argsParser = new ArgsParser(desktop.Args, "mode");
             argsParser.CheckArgs();
 
+            if (!MultiInstance.IsSingleInstance(desktop.Args[1]))
+            {
+                desktop.Shutdown();
+            }
 
             desktop.MainWindow = new SplashWindow(() =>
             {
