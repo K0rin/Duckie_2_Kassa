@@ -23,6 +23,10 @@ sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // FIX: LINUX:
+        // System.InvalidOperationException:
+        // Cannot perform requested operation because the Dispatcher shut down
+        
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 }

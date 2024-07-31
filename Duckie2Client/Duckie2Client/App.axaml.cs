@@ -14,15 +14,19 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    private readonly MultiInstance _multiInstance = new();
+
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime
             is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            desktop.Exit += OnExit;
+
             var argsParser = new ArgsParser(desktop.Args, "mode");
             argsParser.CheckArgs();
 
-            if (!MultiInstance.IsSingleInstance(desktop.Args[1]))
+            if (!_multiInstance.IsSingleInstance(desktop.Args[1]))
             {
                 desktop.Shutdown();
             }
@@ -42,5 +46,11 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void OnExit(object? sender,
+        ControlledApplicationLifetimeExitEventArgs e)
+    {
+        _multiInstance.UnlockFile();
     }
 }
