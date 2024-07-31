@@ -97,4 +97,19 @@ public class MultiInstance
         _linuxLockFile?.Close();
         if (_linuxLockFilePath != null) File.Delete(_linuxLockFilePath);
     }
+
+    public void SetInstanceForeground()
+    {
+        /*
+          var current = Process.GetCurrentProcess();
+
+          foreach (var process in Process.GetProcessesByName(current.ProcessName))
+          {
+              if (process.Id == current.Id) continue;
+              SetForegroundWindow(process.MainWindowHandle);
+              break;
+          }
+         */
+        // TODO: IMPLEMENT
+    }
 }

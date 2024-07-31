@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Duckie2Client.Libs;
+using Duckie2Client.Libs.ErrorCollection;
 using Duckie2Client.ViewModels;
 using Duckie2Client.Views;
 
@@ -23,11 +24,15 @@ public partial class App : Application
         {
             desktop.Exit += OnExit;
 
+            // Check command line parameters.
             var argsParser = new ArgsParser(desktop.Args, "mode");
-            argsParser.CheckArgs();
-
+            var parseResult = argsParser.CheckArgs();
+            if (parseResult != null) desktop.Shutdown((int)parseResult.Value);
+            
+            // Check number of the app instances.
             if (!_multiInstance.IsSingleInstance(desktop.Args[1]))
             {
+                _multiInstance.SetInstanceForeground();
                 desktop.Shutdown();
             }
 
