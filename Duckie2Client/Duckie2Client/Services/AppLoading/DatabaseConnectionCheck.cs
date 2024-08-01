@@ -13,11 +13,11 @@ public class DatabaseConnectionCheck : LoadingJob
             "Database connection...",
             "Database connection successful.",
             "Database connection error.");
-
     }
+
     protected override bool DoTask()
     {
         // TODO: Check database connection.
-        return false;
+        return true;
     }
 }

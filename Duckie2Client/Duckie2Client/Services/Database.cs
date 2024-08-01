@@ -2,8 +2,8 @@
 
 public class Database
 {
-   public bool IsDbServcieRun()
-   {
-      return true;
-   }
+    public bool IsDbServiseRun()
+    {
+        return true;
+    }
 }

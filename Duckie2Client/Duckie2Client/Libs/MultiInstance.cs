@@ -31,18 +31,12 @@ public class MultiInstance
         var name = $"{NamePrefix}{mutexName}";
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
             result = WindowsType(name);
-        }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
             result = LinuxType(name);
-        }
         else
-        {
             throw new PlatformNotSupportedException(
                 "Unsupported operating system.");
-        }
 
         return result;
     }
@@ -93,6 +87,7 @@ public class MultiInstance
     public void UnlockFile()
     {
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
+        // TODO: is file exists?
         _linuxLockFile?.Unlock(0, 0);
         _linuxLockFile?.Close();
         if (_linuxLockFilePath != null) File.Delete(_linuxLockFilePath);

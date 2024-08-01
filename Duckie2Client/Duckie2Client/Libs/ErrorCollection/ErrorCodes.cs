@@ -14,10 +14,16 @@ public enum ErrorCodes
     OptionInvalidName = 103,
 
     // "There is no such application working mode: {*}."
-    InvalidAppMode = 104
+    InvalidAppMode = 104,
+
+    // "Application instance is already ran."
+    ApplicationInstanceAlreadyExists = 105,
+
+    // "Cannot create main window. Unknown application mode."
+    UnknownAppMode = 106
 }
 
-public static class Extensions
+public static class ErrorCodesExtensions
 {
     public static string GetErrorName(this ErrorCodes e)
     {

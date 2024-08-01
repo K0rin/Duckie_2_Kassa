@@ -11,14 +11,14 @@ public class ServiceRunningCheck : LoadingJob
     {
         LoadingMessages = new LoadingMessages(
             "Check Server running...",
-            "Server is running.", 
+            "Server is running.",
             "Server is not running.");
     }
 
     protected override bool DoTask()
     {
         var db = new Database();
-        var status = db.IsDbServcieRun();
+        var status = db.IsDbServiseRun();
         return status;
     }
 }

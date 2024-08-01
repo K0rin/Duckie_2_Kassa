@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -17,18 +18,31 @@ namespace Duckie2Client.Views;
 public partial class SplashWindow : Window
 {
     private readonly Action? _mainAction;
+    private AppModes _appMode;
 
-    public SplashWindow(Action mainAction)
+    public SplashWindow(Action mainAction, AppModes appMode)
     {
         InitializeComponent();
         Ui.CenterWindowOnScreen(this);
         _mainAction = mainAction;
+        _appMode = appMode;
     }
 
     protected override void OnLoaded(RoutedEventArgs routedEventArgs)
     {
+        SetModeNameText();
         // Begin the Application loading.
         DuckieLoad();
+    }
+
+    private void SetModeNameText()
+    {
+        var modeNames = new Dictionary<AppModes, string>
+        {
+            { AppModes.Console, "Admin" },
+            { AppModes.Kassa, "Kassa" }
+        };
+        ApplicationModeName.Text = modeNames[_appMode];
     }
 
     /// <summary>

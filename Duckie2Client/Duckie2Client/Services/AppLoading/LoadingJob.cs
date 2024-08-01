@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 namespace Duckie2Client.Services.AppLoading;
+
 /// <summary>
 /// Template method for loading tasks.
 /// </summary>
@@ -12,16 +13,21 @@ public abstract class LoadingJob(Action<string>? action)
 
     public async Task<bool> CallJob()
     {
+        // ::debug::
+        var overallTimer = 1000;
+
         // Show a start message before performing a custom functionality.
         ShowStatusMessage(LoadingMessages.Start);
-        await Task.Delay(3000);
+        // ::debug::
+        await Task.Delay(overallTimer);
         // Run custom functionality.
         var result = DoTask();
         // Show an end message after a custom job done.
         ShowStatusMessage(result
             ? LoadingMessages.GoodStatus
             : LoadingMessages.BadStatus);
-        await Task.Delay(3000);
+        // ::debug::
+        await Task.Delay(overallTimer);
         return result;
     }
 

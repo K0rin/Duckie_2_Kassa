@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Duckie2Client.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        x:Class="Duckie2Client.Views.KassaWindow"
+        x:DataType="vm:KassaWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Duckie2: Console">
+        Title="Duckie2: Kassa">
 
     <Design.DataContext>
         <!-- 
@@ -15,10 +15,10 @@
          to set the actual DataContext for runtime, set the DataContext 
          property in code (look at App.axaml.cs) 
         -->
-        <vm:MainWindowViewModel />
+        <vm:KassaWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="console"
+    <TextBlock Text="Kassa"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
 
