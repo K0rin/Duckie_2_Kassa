@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.AppLoading;
@@ -28,10 +27,7 @@ public partial class SplashWindow : Window
         _mainAction = mainAction;
         _appMode = appMode;
     }
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+
 
     protected override void OnLoaded(RoutedEventArgs routedEventArgs)
     {
