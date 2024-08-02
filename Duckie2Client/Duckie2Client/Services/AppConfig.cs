@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
 
 namespace Duckie2Client.Services;
@@ -6,8 +9,7 @@ namespace Duckie2Client.Services;
 public class DuckieConfig
 {
     public IConfiguration Configuration { get; }
-    private const string ConfigFile = "_appsettings.json";
-
+    private const string ConfigFile = "appsettings.json";
 
     public DuckieConfig()
     {
@@ -17,12 +19,6 @@ public class DuckieConfig
         Configuration = new ConfigurationBuilder()
             .AddJsonFile(ConfigFile)
             .Build();
-
-        // var title = Convert.ToInt32(Configuration["DatabaseServiceType"]);
-        // if (title == (int)DatabaseServiceType.Standalone)
-        // {
-        //     
-        // }
     }
 
     private void SearchConfigFile()
@@ -44,6 +40,17 @@ public class DuckieConfig
 
     public void CheckConfigFileIntegrity()
     {
-        // todo: implement
+        try
+        {
+            using var sr = new StreamReader(ConfigFile);
+            var json = sr.ReadToEnd();
+            JsonNode.Parse(json);
+        }
+        catch (JsonException)
+        {
+            // Json structure is invalid.
+            CreateDefaultSettingsFile();
+        }
+
     }
 }

@@ -82,11 +82,14 @@ public partial class App : Application
         var initialSetupOption = Convert.ToInt32(
             conf.Configuration[SettingsFileOptions.InitialSetup]);
 
-        if (initialSetupOption == (int)InitialSetup.Show) return null;
-
-        return new InitialSetupWizardWindow
+        return initialSetupOption switch
         {
-            DataContext = new InitialSetupWizardViewModel()
+            (int)InitialSetup.Hide => null,
+            (int)InitialSetup.Show => new InitialSetupWizardWindow
+            {
+                DataContext = new InitialSetupWizardViewModel()
+            },
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

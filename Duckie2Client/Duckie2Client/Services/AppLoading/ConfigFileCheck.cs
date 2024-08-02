@@ -9,13 +9,19 @@ public class ConfigFileCheck : LoadingJob
         LoadingMessages = new LoadingMessages(
             "Config file checking...",
             "Config file is valid.",
-            "Config file is invalid.");
+            "An error occured during checking the config file.");
     }
 
     protected override bool DoTask()
     {
-        var config = new DuckieConfig();
-
+        try
+        {
+            _ = new DuckieConfig();
+        }
+        catch (Exception)
+        {
+            return false;
+        }
 
         return true;
     }
