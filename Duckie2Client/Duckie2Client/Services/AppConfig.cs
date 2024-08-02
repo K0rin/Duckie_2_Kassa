@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using Duckie2Client.Libs.Enums;
 using Microsoft.Extensions.Configuration;
 
 namespace Duckie2Client.Services;

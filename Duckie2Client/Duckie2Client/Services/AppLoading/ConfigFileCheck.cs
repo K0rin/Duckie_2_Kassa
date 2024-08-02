@@ -14,18 +14,6 @@ public class ConfigFileCheck : LoadingJob
 
     protected override bool DoTask()
     {
-        // TODO: Check config file.
-        // Todo: Call methods of the Config class.
-
-        /*
-        - Is file exists?
-          - Create file with default structure and values if it does not exist.
-
-        - Valid JSON format of the file.
-          - If the file has invalid structure, show error message to user on
-            the splash screen.
-        */
-
         var config = new DuckieConfig();
 
 
