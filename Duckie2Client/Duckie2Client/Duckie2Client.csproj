@@ -19,15 +19,44 @@
             <DependentUpon>KassaWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Resources\Resources1.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources1.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\ConfigFileDeafultContext.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ConfigFileDeafultContext.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia" Version="11.1.1" />
-      <PackageReference Include="Avalonia.Desktop" Version="11.1.1" />
-      <PackageReference Include="Avalonia.Diagnostics" Version="11.1.1" />
-      <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.1" />
-      <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.1" />
-      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1" />
+        <PackageReference Include="Avalonia" Version="11.1.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.1"/>
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.1.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.1"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.1"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Resources1.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+            <LogicalName>Duckie2Client.Resources.Resources1.resources</LogicalName>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\ConfigFileDeafultContext.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>ConfigFileDeafultContext.Designer.cs</LastGenOutput>
+            <LogicalName>Duckie2Client.Resources.ConfigFileDeafultContext.resources</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
 </Project>

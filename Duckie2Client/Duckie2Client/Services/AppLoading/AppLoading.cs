@@ -13,6 +13,7 @@ public sealed class AppLoading
     {
         var loadingJobs = new List<LoadingJob>
         {
+            new ConfigFileCheck(ActionCompleted),
             new ServiceRunningCheck(ActionCompleted),
             new DatabaseConnectionCheck(ActionCompleted)
         };
@@ -23,10 +24,8 @@ public sealed class AppLoading
             result = await job.CallJob();
 
             if (!result)
-            {
                 // If a job fails, stop loading and return.
                 break;
-            }
         }
 
         return result;
