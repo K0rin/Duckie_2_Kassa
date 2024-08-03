@@ -4,5 +4,5 @@ public static class SettingsFileOptions
 {
     public const string InitialSetup = "InitialSetup";
     public const string DatabaseServiceType = "DatabaseServiceType";
-    public const string UILanguage = "UILanguage";
+    public const string UiLanguage = "UILanguage";
 }

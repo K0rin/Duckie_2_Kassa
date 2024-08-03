@@ -1,7 +1,6 @@
 using System;
-using Duckie2Client.Libs.Enums;
 
-namespace Duckie2Client.Libs.ErrorCollection;
+namespace Duckie2Client.Libs.Enums;
 
 public enum ErrorCodes
 {

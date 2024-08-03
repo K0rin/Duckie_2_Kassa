@@ -24,7 +24,7 @@ public class Context(IStrategy strategy)
 
         var userDefinedCulture =
             new DuckieConfig().Configuration[
-                SettingsFileOptions.UILanguage];
+                SettingsFileOptions.UiLanguage];
 
         // TODO: LINUX
         var installedCulture = string.IsNullOrEmpty(userDefinedCulture)

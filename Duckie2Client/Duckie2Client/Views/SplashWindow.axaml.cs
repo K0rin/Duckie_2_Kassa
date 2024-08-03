@@ -12,7 +12,7 @@ using Duckie2Client.Services.AppLoading;
 namespace Duckie2Client.Views;
 
 /// <summary>
-///     Loading Screen.
+///     Loading Screen.<br/> 
 ///     This screen shows an application loading sequence.
 ///     In case of errors during the loading sequence, it shows error messages.
 /// </summary>

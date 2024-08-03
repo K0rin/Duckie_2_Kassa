@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Duckie2Client.Libs.ErrorCollection;
+using Duckie2Client.Libs.Enums;
 
 namespace Duckie2Client.Libs;
 

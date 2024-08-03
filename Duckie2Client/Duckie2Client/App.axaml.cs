@@ -5,7 +5,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
-using Duckie2Client.Libs.ErrorCollection;
 using Duckie2Client.Services;
 using Duckie2Client.ViewModels;
 using Duckie2Client.Views;
