@@ -11,7 +11,22 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="ArgumentInvalidNumber" xml:space="preserve">
-        <value>ru-ru</value>
+    <data name="101_ArgumentInvalidNumber" xml:space="preserve">
+        <value>Ошибочное число аргументов командной строки.</value>
+    </data>
+    <data name="105_ApplicationInstanceAlreadyExists" xml:space="preserve">
+        <value>Приложение уже запущено.</value>
+    </data>
+    <data name="102_ArgumentsHaveNoOption" xml:space="preserve">
+        <value>Режим работы приложения не указан.</value>
+    </data>
+    <data name="104_InvalidAppMode" xml:space="preserve">
+        <value>Указан некорректный режим работы приложения.</value>
+    </data>
+    <data name="106_UnknownAppMode" xml:space="preserve">
+        <value>Неизвестный режим работы приложения.</value>
+    </data>
+    <data name="103_OptionInvalidName" xml:space="preserve">
+        <value>Неизвестная опция.</value>
     </data>
 </root>

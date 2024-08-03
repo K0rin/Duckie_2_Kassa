@@ -11,7 +11,22 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="ArgumentInvalidNumber" xml:space="preserve">
-        <value>en</value>
+    <data name="101_ArgumentInvalidNumber" xml:space="preserve">
+        <value>Invalid number of command line arguments.</value>
+    </data>
+    <data name="102_ArgumentsHaveNoOption" xml:space="preserve">
+        <value>There is no option in a command line arguments.</value>
+    </data>
+    <data name="103_OptionInvalidName" xml:space="preserve">
+        <value>The option has invalid name.</value>
+    </data>
+    <data name="104_InvalidAppMode" xml:space="preserve">
+        <value>There is no such application working mode: {*}.</value>
+    </data>
+    <data name="105_ApplicationInstanceAlreadyExists" xml:space="preserve">
+        <value>Application instance is already ran.</value>
+    </data>
+    <data name="106_UnknownAppMode" xml:space="preserve">
+        <value>Cannot create main window. Unknown application mode.</value>
     </data>
 </root>

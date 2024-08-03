@@ -1,4 +1,8 @@
 using System;
+using System.Globalization;
+using Duckie2Client.Libs.Enums;
+using Duckie2Client.Resources;
+using Duckie2Client.Services;
 
 namespace Duckie2Client.Libs.ErrorCollection;
 
@@ -25,9 +29,18 @@ public enum ErrorCodes
 
 public static class ErrorCodesExtensions
 {
-    public static string GetErrorName(this ErrorCodes e)
+    public static string GetErrorMessage(this ErrorCodes e)
     {
-        // TODO: IMPLEMENT
-        throw new NotImplementedException();
+        var errorCode = (int)e;
+        var errorName = Enum.GetName(e);
+        var errorResourceName = $"{errorCode}_{errorName}";
+        var currentCulture =
+            new DuckieConfig().Configuration[
+                SettingsFileOptions.UILanguage];
+        var errorMessage = Resources1.ResourceManager.GetString(
+            errorResourceName,
+            CultureInfo.GetCultureInfo(currentCulture));
+
+        return errorMessage;
     }
 }

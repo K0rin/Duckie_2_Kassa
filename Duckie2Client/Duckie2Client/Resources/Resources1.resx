@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -23,7 +23,22 @@
             Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
-    <data name="ArgumentInvalidNumber" xml:space="preserve">
-        <value>def</value>
+    <data name="101_ArgumentInvalidNumber" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="102_ArgumentsHaveNoOption" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="103_OptionInvalidName" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="104_InvalidAppMode" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="105_ApplicationInstanceAlreadyExists" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="106_UnknownAppMode" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
     </data>
 </root>
