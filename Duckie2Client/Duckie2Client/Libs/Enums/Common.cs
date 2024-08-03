@@ -11,3 +11,8 @@ public enum InitialSetup
     Hide,
     Show
 }
+
+public enum ResourceTypes
+{
+    ErrorMessages
+}

@@ -1,8 +1,5 @@
 using System;
-using System.Globalization;
 using Duckie2Client.Libs.Enums;
-using Duckie2Client.Resources;
-using Duckie2Client.Services;
 
 namespace Duckie2Client.Libs.ErrorCollection;
 
@@ -34,12 +31,9 @@ public static class ErrorCodesExtensions
         var errorCode = (int)e;
         var errorName = Enum.GetName(e);
         var errorResourceName = $"{errorCode}_{errorName}";
-        var currentCulture =
-            new DuckieConfig().Configuration[
-                SettingsFileOptions.UILanguage];
-        var errorMessage = Resources1.ResourceManager.GetString(
+        var errorMessage = Localization.GetString(
             errorResourceName,
-            CultureInfo.GetCultureInfo(currentCulture));
+            ResourceTypes.ErrorMessages);
 
         return errorMessage;
     }
