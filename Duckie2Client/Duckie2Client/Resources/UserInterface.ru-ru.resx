@@ -1,0 +1,39 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms,
+            Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms,
+            Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="LoadingProcessDone" xml:space="preserve">
+        <value>Все готово.</value>
+    </data>
+    <data name="ConfigFileChecking" xml:space="preserve">
+        <value>Проверка файла конфигурации...</value>
+    </data>
+    <data name="ConfigFileValid" xml:space="preserve">
+        <value>Файл конфигурации впрядке.</value>
+    </data>
+    <data name="DatabaseConnectionValid" xml:space="preserve">
+        <value>Соединение с базой данных успешно.</value>
+    </data>
+    <data name="DatabaseConnectionCheck" xml:space="preserve">
+        <value>Соединение с базой данных...</value>
+    </data>
+    <data name="DBMSServiceRunCheck" xml:space="preserve">
+        <value>Поиск сервера баз данных...</value>
+    </data>
+    <data name="DBMSServiceRunCheckSuccess" xml:space="preserve">
+        <value>Сервер баз данных запущен.</value>
+    </data>
+</root>

@@ -1,5 +1,6 @@
 namespace Duckie2Client.Libs.Enums;
 
+// Config file options.
 public enum Common
 {
     Standalone,
@@ -12,7 +13,9 @@ public enum InitialSetup
     Show
 }
 
+// Resource type names
 public enum ResourceTypes
 {
-    ErrorMessages
+    ErrorMessages,
+    UserInterface
 }

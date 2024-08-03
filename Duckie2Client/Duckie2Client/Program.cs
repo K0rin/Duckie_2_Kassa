@@ -1,7 +1,6 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.ReactiveUI;
-using Duckie2Client.Libs.ErrorCollection;
 
 namespace Duckie2Client;
 
@@ -24,12 +23,6 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        var x = ErrorCodes.UnknownAppMode.GetErrorMessage();
-
-        Console.WriteLine(x);
-
-        return;
-
         // FIX: LINUX:
         // System.InvalidOperationException:
         // Cannot perform requested operation because the Dispatcher shut down

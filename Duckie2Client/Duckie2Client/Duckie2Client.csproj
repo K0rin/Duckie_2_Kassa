@@ -29,6 +29,11 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>ErrorMessages.resx</DependentUpon>
         </Compile>
+        <Compile Update="Resources\UserInterface.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>UserInterface.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -55,8 +60,8 @@
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\ErrorMessages.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
-            <LogicalName>Duckie2Client.Resources.Resources1.resources</LogicalName>
+            <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+            <LogicalName>Duckie2Client.Resources.ErrorMessages.resources</LogicalName>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\ErrorMessages.en.resx">
             <DependentUpon>ErrorMessages.resx</DependentUpon>
@@ -69,6 +74,23 @@
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\ErrorMessages.ru-ru.resx">
             <DependentUpon>ErrorMessages.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\UserInterface.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>UserInterface.Designer.cs</LastGenOutput>
+            <LogicalName>Duckie2Client.Resources.UserInterface.resources</LogicalName>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\UserInterface.en.resx">
+            <DependentUpon>UserInterface.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\UserInterface.en-us.resx">
+            <DependentUpon>UserInterface.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\UserInterface.ru.resx">
+            <DependentUpon>UserInterface.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\UserInterface.ru-ru.resx">
+            <DependentUpon>UserInterface.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
 </Project>

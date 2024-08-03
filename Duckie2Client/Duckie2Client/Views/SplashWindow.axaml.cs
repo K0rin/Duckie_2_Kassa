@@ -5,20 +5,21 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Duckie2Client.Libs;
+using Duckie2Client.Libs.Enums;
+using Duckie2Client.Resources;
 using Duckie2Client.Services.AppLoading;
 
 namespace Duckie2Client.Views;
 
 /// <summary>
-/// Loading Screen.
-///
-/// This screen shows an application loading sequence.
-/// In case of errors during the loading sequence, it shows error messages.
+///     Loading Screen.
+///     This screen shows an application loading sequence.
+///     In case of errors during the loading sequence, it shows error messages.
 /// </summary>
 public partial class SplashWindow : Window
 {
+    private readonly AppModes _appMode;
     private readonly Action? _mainAction;
-    private AppModes _appMode;
 
     public SplashWindow(Action mainAction, AppModes appMode)
     {
@@ -47,7 +48,7 @@ public partial class SplashWindow : Window
     }
 
     /// <summary>
-    /// Call an application loading sequence.
+    ///     Call an application loading sequence.
     /// </summary>
     private async void DuckieLoad()
     {
@@ -63,7 +64,9 @@ public partial class SplashWindow : Window
         if (result)
         {
             // Successful loading.
-            StatusMessage.Text = "All done";
+            StatusMessage.Text = Localization.GetString(
+                () => UserInterface.LoadingProcessDone,
+                ResourceTypes.UserInterface);
             await Task.Delay(1500);
             // Show main window and close the splash screen.
             await Dispatcher.UIThread.InvokeAsync(() =>
