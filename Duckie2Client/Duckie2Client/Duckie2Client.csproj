@@ -19,15 +19,15 @@
             <DependentUpon>KassaWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Resources\Resources1.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources1.resx</DependentUpon>
-        </Compile>
         <Compile Update="Resources\ConfigFileDeafultContext.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ConfigFileDeafultContext.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Resources1.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources1.resx</DependentUpon>
         </Compile>
     </ItemGroup>
 
@@ -48,15 +48,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Update="Resources\Resources1.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
-            <LogicalName>Duckie2Client.Resources.Resources1.resources</LogicalName>
-        </EmbeddedResource>
         <EmbeddedResource Update="Resources\ConfigFileDeafultContext.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>ConfigFileDeafultContext.Designer.cs</LastGenOutput>
             <LogicalName>Duckie2Client.Resources.ConfigFileDeafultContext.resources</LogicalName>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Resources1.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+            <LogicalName>Duckie2Client.Resources.Resources1.resources</LogicalName>
         </EmbeddedResource>
     </ItemGroup>
 </Project>
