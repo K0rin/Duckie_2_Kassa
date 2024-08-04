@@ -28,10 +28,20 @@ public partial class App : Application
         {
             desktop.Exit += OnExit;
 
+
             // Check command line parameters.
+            /* todo: refactor:
+            Убрать из метода создание объекта ArgsParser.
+            Метод не должен ничего возвращать, только выбрасывать исключение,
+            чтобы метод desktop.Shutdown вызывать только в одно месте.
+            */
             var argsParser = CheckCommandLineArguments(desktop);
 
             // Check number of the app instances.
+            /* todo: refactor:
+            Пусть метод _multiInstanceIsSingleInstance выбрасывает исключение,
+            чтобы здесь его ловить и вызывать Shutdown в одном месте (здесь).
+            */
             CheckAppInstancesNumber(desktop);
 
             desktop.MainWindow = new SplashWindow(() =>
@@ -83,6 +93,16 @@ public partial class App : Application
         return argsParser;
     }
 
+    /// <summary>
+    /// <para>Checks the <c>InitialSetup</c> option in the program settings
+    /// file <c>appsettings.json</c>.</para>
+    /// </summary>
+    /// <returns>
+    /// <para>If the option is set to <c>1</c> - returns the Window object of
+    /// the Initial Setup Wizard.</para>
+    /// <para>Otherwise, if the option is set to <c>0</c> - null.</para>
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private Window? ShowInitialSetupWizard()
     {
         // Read option 'InitialSetup' from the settings file
@@ -102,6 +122,22 @@ public partial class App : Application
         };
     }
 
+    /// <summary>
+    /// Returns a specific Window object depending on the working mode of
+    /// the application.
+    /// </summary>
+    /// <param name="appMode">
+    /// Application working modes:
+    /// <list type="bullet">
+    ///   <item>
+    ///     <description>console - </description>
+    ///   </item>
+    ///   <item>
+    ///     <description>kassa - </description>
+    ///   </item>
+    /// </list>
+    /// </param>
+    /// <exception cref="InvalidOperationException"></exception>
     private Window GetMainWindow(AppModes appMode)
     {
         // Return Initial Setup Wizard window if the settings file has option
@@ -124,12 +160,18 @@ public partial class App : Application
         };
 
         if (result == null)
+            // todo: add error message to resource file.
             throw new InvalidOperationException(
                 "Cannot create main window. Unknown application mode.");
 
         return result;
     }
 
+    /// <summary>
+    /// This method is called before exiting the application.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnExit(object? sender,
         ControlledApplicationLifetimeExitEventArgs e)
     {

@@ -12,11 +12,14 @@ using Duckie2Client.Services.AppLoading;
 namespace Duckie2Client.Views;
 
 /// <summary>
-///     Loading Screen.<br />
-///     This screen shows an application loading sequence.
-///     In case of errors during the loading sequence, it shows error messages.
+/// <para>Loading Screen.</para>
+/// <para>This screen shows an application loading sequence.</para>
+/// <para>In case of errors during the loading sequence, it shows error
+/// messages.</para>
 /// </summary>
+// ReSharper disable PartialTypeWithSinglePart
 public partial class SplashWindow : Window
+// ReSharper restore PartialTypeWithSinglePart
 {
     private readonly AppModes _appMode;
     private readonly Action? _mainAction;
@@ -34,7 +37,7 @@ public partial class SplashWindow : Window
     {
         SetModeNameText();
         // Begin the Application loading.
-        DuckieLoad();
+        LoadDuckieApplication();
     }
 
     private void SetModeNameText()
@@ -50,7 +53,7 @@ public partial class SplashWindow : Window
     /// <summary>
     ///     Call the Application loading sequence.
     /// </summary>
-    private async void DuckieLoad()
+    private async void LoadDuckieApplication()
     {
         var appLoading = new AppLoading();
 
@@ -82,6 +85,10 @@ public partial class SplashWindow : Window
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// This method call after the application is loaded successfully without
+    /// any exceptions.
+    /// </summary>
     private async Task LoadedSuccessfully()
     {
         // Successful loading.
@@ -90,7 +97,9 @@ public partial class SplashWindow : Window
             ResourceTypes.UserInterface);
 
         // ::debug::
-        await Task.Delay(1500);
+        const int delay = 1500;
+        await Task.Delay(delay);
+        // ::debug::
 
         // Show main window and close the splash screen.
         await Dispatcher.UIThread.InvokeAsync(() =>

@@ -26,7 +26,6 @@ public class Context(IStrategy strategy)
             new DuckieConfig().Configuration[
                 SettingsFileOptions.UiLanguage];
 
-        // TODO: LINUX
         var installedCulture = string.IsNullOrEmpty(userDefinedCulture)
             // Get currently using by operating system culture.
             ? CultureInfo.InstalledUICulture

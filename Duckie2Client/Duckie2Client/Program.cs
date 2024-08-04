@@ -4,10 +4,12 @@ using Avalonia.ReactiveUI;
 
 namespace Duckie2Client;
 
-internal sealed class Program
+internal static class Program
 {
     // Avalonia configuration, don't remove; also used by visual designer.
+    // ReSharper disable MemberCanBePrivate.Global
     public static AppBuilder BuildAvaloniaApp()
+        // ReSharper restore MemberCanBePrivate.Global
     {
         return AppBuilder
             .Configure<App>()
