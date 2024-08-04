@@ -2,8 +2,14 @@
 
 public class Database
 {
-    public bool IsDbServiseRun()
+    public Database()
     {
-        return true;
+        IsDbServiceRun();
+    }
+
+    private static void IsDbServiceRun()
+    {
+        // todo: check DBMS running.
+        // throw new DuckieException(ErrorCodes.DbServiceUnavailable);
     }
 }

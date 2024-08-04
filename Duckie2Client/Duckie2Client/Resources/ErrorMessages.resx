@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
                 xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
 
@@ -39,6 +40,12 @@
         <value>&lt;no translation&gt;</value>
     </data>
     <data name="106_UnknownAppMode" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="201_DbConnectionInvalid" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="202_DbServiceUnavailable" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
 </root>

@@ -12,20 +12,15 @@ public class DatabaseConnectionCheck : LoadingJob
 {
     public DatabaseConnectionCheck(Action<string>? action) : base(action)
     {
-        LoadingMessages = new LoadingMessages(
-            Localization.GetString(
-                () => UserInterface.DatabaseConnectionCheck,
-                ResourceTypes.UserInterface),
-            Localization.GetString(
-                () => UserInterface.DatabaseConnectionValid,
-                ResourceTypes.UserInterface),
-            // todo: error message
-            "Database connection error.");
+        var message = Localization.GetString(
+            () => UserInterface.DatabaseConnectionCheck,
+            ResourceTypes.UserInterface);
+        LoadingMessages = new LoadingMessages(message);
     }
 
-    protected override bool DoTask()
+    protected override void DoTask()
     {
         // TODO: Check database connection.
-        return true;
+        // throw new DuckieException(ErrorCodes.DbConnectionInvalid);
     }
 }

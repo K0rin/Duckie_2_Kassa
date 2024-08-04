@@ -15,18 +15,11 @@ public class ServiceRunningCheck : LoadingJob
         LoadingMessages = new LoadingMessages(
             Localization.GetString(
                 () => UserInterface.DBMSServiceRunCheck,
-                ResourceTypes.UserInterface),
-            Localization.GetString(
-                () => UserInterface.DBMSServiceRunCheckSuccess,
-                ResourceTypes.UserInterface),
-            // todo: error message
-            "Server is not running.");
+                ResourceTypes.UserInterface));
     }
 
-    protected override bool DoTask()
+    protected override void DoTask()
     {
-        var db = new Database();
-        var status = db.IsDbServiseRun();
-        return status;
+        _ = new Database();
     }
 }

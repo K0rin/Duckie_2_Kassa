@@ -12,7 +12,7 @@ using Duckie2Client.Services.AppLoading;
 namespace Duckie2Client.Views;
 
 /// <summary>
-///     Loading Screen.<br/> 
+///     Loading Screen.<br />
 ///     This screen shows an application loading sequence.
 ///     In case of errors during the loading sequence, it shows error messages.
 /// </summary>
@@ -48,37 +48,55 @@ public partial class SplashWindow : Window
     }
 
     /// <summary>
-    ///     Call an application loading sequence.
+    ///     Call the Application loading sequence.
     /// </summary>
     private async void DuckieLoad()
     {
         var appLoading = new AppLoading();
+
         // Subscribe on event.
         appLoading.ActionCompleted += actionMessage =>
-        {
             StatusMessage.Text = actionMessage;
-        };
-        // Run tasks.
-        var result = await appLoading.LoadAppActionAsync();
-        // Check loading status.
-        if (result)
+
+        try
         {
-            // Successful loading.
-            StatusMessage.Text = Localization.GetString(
-                () => UserInterface.LoadingProcessDone,
-                ResourceTypes.UserInterface);
-            await Task.Delay(1500);
-            // Show main window and close the splash screen.
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                _mainAction?.Invoke();
-                Close();
-            });
+            // Run tasks.
+            await appLoading.LoadAppActionAsync();
         }
-        else
+        catch (DuckieException e)
         {
-            // TODO: switch to error message mode
-            Console.WriteLine("error mode");
+            // TODO: Switch the Splash Screen to Error Message Mode.
+            // SwitchErrorMode();
+
+            Console.WriteLine(e.Message);
+
+            // Avoid closing the Splash Screen and opening the Main Screen.
+            return;
         }
+
+        await LoadedSuccessfully();
+    }
+
+    private void SwitchErrorMode()
+    {
+        throw new NotImplementedException();
+    }
+
+    private async Task LoadedSuccessfully()
+    {
+        // Successful loading.
+        StatusMessage.Text = Localization.GetString(
+            () => UserInterface.LoadingProcessDone,
+            ResourceTypes.UserInterface);
+
+        // ::debug::
+        await Task.Delay(1500);
+
+        // Show main window and close the splash screen.
+        await Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            _mainAction?.Invoke();
+            Close();
+        });
     }
 }

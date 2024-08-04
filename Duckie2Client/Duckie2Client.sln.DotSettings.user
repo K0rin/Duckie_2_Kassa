@@ -2,7 +2,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FErrorMessages/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FErrorMessages/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FConfigFileDeafultContext/@EntryIndexedValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FErrorMessages/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FErrorMessages/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1/@EntryIndexedValue">False</s:Boolean>
@@ -14,7 +14,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Een_005FUS/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Eru_005FRU/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Eru_005FRU/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FUserInterface/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FUserInterface/@EntryIndexedValue">False</s:Boolean>
 	
 	
 	<s:String x:Key="/Default/ResxEditorPersonal/DisabledLanguages/@EntryValue"></s:String>

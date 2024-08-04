@@ -10,32 +10,35 @@ public enum AppModes
     Kassa
 }
 
+// ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
 public class ArgsParser(string[] args, string option)
 {
     private const int ValidArgsNumber = 2;
     private readonly string[] _modeNames = ["console", "kassa"];
 
-    public ErrorCodes? CheckArgs()
+    public AppModes CurrentAppMode { get; private set; }
+
+    public void CheckArguments()
     {
         // Check valid number of args.
         if (args.Length != ValidArgsNumber)
-            return ErrorCodes.ArgumentInvalidNumber;
+            throw new DuckieException(ErrorCodes.ArgumentInvalidNumber);
 
         // Check if first argument is option.
-        if (!args[0].StartsWith("--")) return ErrorCodes.ArgumentsHaveNoOption;
+        if (!args[0].StartsWith("--"))
+            throw new DuckieException(ErrorCodes.ArgumentsHaveNoOption);
 
         // Check if option has valid name.
         if (!args[0].Equals($"--{option}"))
-            return ErrorCodes.OptionInvalidName;
+            throw new DuckieException(ErrorCodes.OptionInvalidName);
 
         // Check if a mode name is valid.
         var isNameValid = _modeNames.Contains(args[1]);
-        if (!isNameValid) return ErrorCodes.InvalidAppMode;
-        // _errMessages["ERR04"].Replace("{*}", _args[1]));
+        if (!isNameValid)
+            throw new DuckieException(ErrorCodes.InvalidAppMode);
+
         // Set current application mode.
         SetAppMode();
-
-        return null;
     }
 
     private void SetAppMode()
@@ -47,7 +50,4 @@ public class ArgsParser(string[] args, string option)
         };
         CurrentAppMode = modes[args[1]];
     }
-
-
-    public AppModes CurrentAppMode { get; private set; }
 }

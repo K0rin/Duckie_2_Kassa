@@ -112,5 +112,23 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("106_UnknownAppMode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _201_DbConnectionInvalid {
+            get {
+                return ResourceManager.GetString("201_DbConnectionInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _202_DbServiceUnavailable {
+            get {
+                return ResourceManager.GetString("202_DbServiceUnavailable", resourceCulture);
+            }
+        }
     }
 }

@@ -11,14 +11,15 @@ using Duckie2Client.Views;
 
 namespace Duckie2Client;
 
+// ReSharper disable once PartialTypeWithSinglePart
 public partial class App : Application
 {
+    private readonly MultiInstance _multiInstance = new();
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
-
-    private readonly MultiInstance _multiInstance = new();
 
     public override void OnFrameworkInitializationCompleted()
     {
@@ -67,9 +68,18 @@ public partial class App : Application
     private ArgsParser CheckCommandLineArguments(
         IClassicDesktopStyleApplicationLifetime desktop)
     {
-        var argsParser = new ArgsParser(desktop.Args, "mode");
-        var parseResult = argsParser.CheckArgs();
-        if (parseResult != null) desktop.Shutdown((int)parseResult.Value);
+        const string modeOptionName = "mode";
+        var argsParser = new ArgsParser(desktop.Args, modeOptionName);
+
+        try
+        {
+            argsParser.CheckArguments();
+        }
+        catch (DuckieException e)
+        {
+            desktop.Shutdown(e.ErrorNumber);
+        }
+
         return argsParser;
     }
 

@@ -9,28 +9,14 @@ public class ConfigFileCheck : LoadingJob
 {
     public ConfigFileCheck(Action<string>? action) : base(action)
     {
-        LoadingMessages = new LoadingMessages(
-            Localization.GetString(
-                () => UserInterface.ConfigFileChecking,
-                ResourceTypes.UserInterface),
-            Localization.GetString(
-                () => UserInterface.ConfigFileValid,
-                ResourceTypes.UserInterface),
-            // no message cuz will be created a new file in case of fail
-            "");
+        var message = Localization.GetString(
+            () => UserInterface.ConfigFileChecking,
+            ResourceTypes.UserInterface);
+        LoadingMessages = new LoadingMessages(message);
     }
 
-    protected override bool DoTask()
+    protected override void DoTask()
     {
-        try
-        {
-            _ = new DuckieConfig();
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-
-        return true;
+        _ = new DuckieConfig();
     }
 }

@@ -1,13 +1,13 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Duckie2Client.Resources;
 using Microsoft.Extensions.Configuration;
 
 namespace Duckie2Client.Services;
 
 public class DuckieConfig
 {
-    public IConfiguration Configuration { get; }
     private const string ConfigFile = "appsettings.json";
 
     public DuckieConfig()
@@ -20,24 +20,26 @@ public class DuckieConfig
             .Build();
     }
 
-    private void SearchConfigFile()
+    public IConfiguration Configuration { get; }
+
+    private static void SearchConfigFile()
     {
         if (File.Exists(ConfigFile)) return;
 
-        // todo: Create file with default settings with the 'InitialSetup'
-        // option set to 'Show'.
+        // Create file with default settings with the 'InitialSetup' option set
+        // to 'Show'.
         CreateDefaultSettingsFile();
     }
 
-    private void CreateDefaultSettingsFile()
+    private static void CreateDefaultSettingsFile()
     {
         // TODO: Handle error: cannot write file.
-        var fileContent = Resources.ConfigFileDeafultContext.Value;
+        var fileContent = ConfigFileDeafultContext.Value;
         using var sw = File.CreateText(ConfigFile);
         sw.WriteLine(fileContent);
     }
 
-    public void CheckConfigFileIntegrity()
+    private static void CheckConfigFileIntegrity()
     {
         try
         {
@@ -50,6 +52,5 @@ public class DuckieConfig
             // Json structure is invalid.
             CreateDefaultSettingsFile();
         }
-
     }
 }
