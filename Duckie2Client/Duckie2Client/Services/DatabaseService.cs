@@ -44,6 +44,8 @@ public static class DatabaseService
         const string serviceName = "MSSQL$SQLEXPRESS";
         var sc = new ServiceController(serviceName);
 
+        if (sc.Status == ServiceControllerStatus.Running) return;
+
         try
         {
             var throwError = sc.Status switch
