@@ -12,34 +12,33 @@ public class MultiInstance
     private string? _linuxLockFilePath;
 
     /// <summary>
-    /// Checks that application has only one instance running in current time.
+    ///     Checks that application has only one instance running in current
+    ///     time.
     /// </summary>
     /// <param name="mutexName">
-    /// Name for a mutex. Each application mode has its own name, which is used
-    /// for identifying application instances.
+    ///     Name for a mutex. Each application mode has its own name, which is
+    ///     used for identifying application instances.
     /// </param>
     /// <returns>
-    /// True - Application has no any running instances and can be run.<br/>
-    /// False - Application already has a running instance and cannot be run.
+    ///     True - Application has no any running instances and can be run.<br />
+    ///     False - Application already has a running instance and cannot be run.
     /// </returns>
     /// <exception cref="PlatformNotSupportedException">
-    /// Application is being run on an unsupported operating system.
+    ///     Application is being run on an unsupported operating system.
     /// </exception>
     public bool IsSingleInstance(string mutexName)
     {
-        bool result;
         var name = $"{NamePrefix}{mutexName}";
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            result = WindowsType(name);
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            result = LinuxType(name);
-        else
-            throw new PlatformNotSupportedException(
-                "Unsupported operating system.");
+        PlatformSpecific.RunMethod(
+            WindowsType,
+            LinuxType,
+            name,
+            out var result);
 
         return result;
     }
+
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
 #pragma warning disable CA1822

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
@@ -10,30 +9,8 @@ namespace Duckie2Client.Services;
 public static class DatabaseService
 {
     public static void IsDbServiceRun()
-
     {
-        // todo: check DBMS running.
-        // throw new DuckieException(ErrorCodes.DbServiceUnavailable);
-
-
-        /* todo: refact:
-         * создать функцию, на вход которой подаются два делегата: функции,
-         * выполняемые в Windows и Linux соответственно.
-         */
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            WindowsType();
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            // Reserved for linux.
-            // LinuxType();
-        }
-        else
-        {
-            throw new PlatformNotSupportedException(
-                "Unsupported operating system.");
-        }
+        PlatformSpecific.RunMethod(WindowsType, LinuxType);
     }
 
     [SuppressMessage(
@@ -71,5 +48,10 @@ public static class DatabaseService
         {
             throw new DuckieException(ErrorCodes.DbServiceUnavailable);
         }
+    }
+
+    private static void LinuxType()
+    {
+        throw new NotImplementedException();
     }
 }
