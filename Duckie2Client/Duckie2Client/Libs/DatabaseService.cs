@@ -12,6 +12,9 @@ public class DatabaseService
     private readonly SqlCredential? _sqlCredentials;
 
 
+    // ReSharper disable once UnusedMember.Global
+    // NOTE: Constructor is using in
+    // Duckie2Client.Libs.Enums.Extensions.GetDatabaseService
     public DatabaseService(string serverName, string initialCatalog)
     {
         // todo: check for null value of each arguments.
@@ -22,6 +25,9 @@ public class DatabaseService
         _currentCredentialType = CredentialTypes.Windows;
     }
 
+    // ReSharper disable once UnusedMember.Global
+    // NOTE: Constructor is using in
+    // Duckie2Client.Libs.Enums.Extensions.GetDatabaseService
     public DatabaseService(
         string serverName,
         string initialCatalog,
