@@ -6,7 +6,7 @@ using Duckie2Client.Libs.Enums;
 
 namespace Duckie2Client.Services;
 
-public static class DatabaseService
+public class DbmsService
 {
     public static void IsDbServiceRun()
     {

@@ -18,6 +18,7 @@ public sealed class AppLoading
              */
             new ConfigFileCheck(ActionCompleted),
             new ServiceRunningCheck(ActionCompleted),
+            // todo: Соединение должно проверяться на Экране Авторизации после ввода признаков пользователя.
             new DatabaseConnectionCheck(ActionCompleted)
         };
 

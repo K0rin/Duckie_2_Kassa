@@ -54,4 +54,7 @@
     <data name="204_DbServicePaused" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
+    <data name="205_TargetDbDoesNotExist" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
 </root>

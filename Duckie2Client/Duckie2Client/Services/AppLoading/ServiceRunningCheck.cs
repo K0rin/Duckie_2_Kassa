@@ -20,6 +20,6 @@ public class ServiceRunningCheck : LoadingJob
 
     protected override void DoTask()
     {
-        DatabaseService.IsDbServiceRun();
+        DbmsService.IsDbServiceRun();
     }
 }

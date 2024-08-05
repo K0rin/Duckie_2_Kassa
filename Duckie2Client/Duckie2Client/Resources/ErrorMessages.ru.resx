@@ -45,4 +45,7 @@
     <data name="204_DbServicePaused" xml:space="preserve">
         <value>Сервис баз данных приостановлен.</value>
     </data>
+    <data name="205_TargetDbDoesNotExist" xml:space="preserve">
+        <value>Целевая база данных не существует.</value>
+    </data>
 </root>

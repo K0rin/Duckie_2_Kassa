@@ -148,5 +148,14 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("204_DbServicePaused", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _205_TargetDbDoesNotExist {
+            get {
+                return ResourceManager.GetString("205_TargetDbDoesNotExist", resourceCulture);
+            }
+        }
     }
 }
