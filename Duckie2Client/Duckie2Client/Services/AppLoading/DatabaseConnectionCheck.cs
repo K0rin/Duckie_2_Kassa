@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
@@ -37,23 +38,17 @@ public class DatabaseConnectionCheck : LoadingJob
 
         SqlConnection? dbConnection = null;
 
+
         try
         {
-            var dbService = currentCredentials switch
-            {
-                CredentialTypes.Windows => new DatabaseService(
-                    serverName,
-                    initialCatalog),
-                CredentialTypes.SqlServer => new DatabaseService(
-                    serverName,
-                    initialCatalog,
-                    userId,
-                    userPassword),
-                _ => throw new Exception("Unknown credential type.")
-            };
-            dbConnection = dbService.GetSqlConnection();
+            var dbService =
+                currentCredentials.GetDatabaseService([
+                    serverName, initialCatalog
+                ]);
 
-            dbConnection.Open();
+            dbConnection = dbService?.GetSqlConnection();
+            // OpenAsync(CancellationToken)
+            dbConnection?.Open();
 
             CheckDatabaseExists(ref dbConnection);
         }
@@ -74,9 +69,11 @@ public class DatabaseConnectionCheck : LoadingJob
         }
     }
 
-    private void CheckDatabaseExists(ref SqlConnection sqlConnection)
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+    [SuppressMessage("Performance", "CA1822:Mark members as static")]
+    private void CheckDatabaseExists(ref SqlConnection? sqlConnection)
     {
-        var databases = sqlConnection.GetSchema("Databases");
+        var databases = sqlConnection?.GetSchema("Databases");
 
         var x = databases.Select("database_name = 'CarWash'").Length;
         if (x == 0) throw new DuckieException(ErrorCodes.TargetDbDoesNotExist);
