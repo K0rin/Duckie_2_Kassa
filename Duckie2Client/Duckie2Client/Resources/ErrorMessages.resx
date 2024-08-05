@@ -48,4 +48,10 @@
     <data name="202_DbServiceUnavailable" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
+    <data name="203_DbServiceStopped" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
+    <data name="204_DbServicePaused" xml:space="preserve">
+        <value>&lt;no translation&gt;</value>
+    </data>
 </root>

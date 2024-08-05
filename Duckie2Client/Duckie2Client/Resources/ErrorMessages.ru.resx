@@ -39,4 +39,10 @@
     <data name="202_DbServiceUnavailable" xml:space="preserve">
         <value>Сервис баз данных не доступен.</value>
     </data>
+    <data name="203_DbServiceStopped" xml:space="preserve">
+        <value>Сервис баз данных остановлен.</value>
+    </data>
+    <data name="204_DbServicePaused" xml:space="preserve">
+        <value>Сервис баз данных приостановлен.</value>
+    </data>
 </root>

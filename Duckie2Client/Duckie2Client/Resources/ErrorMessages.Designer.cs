@@ -130,5 +130,23 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("202_DbServiceUnavailable", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _203_DbServiceStopped {
+            get {
+                return ResourceManager.GetString("203_DbServiceStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _204_DbServicePaused {
+            get {
+                return ResourceManager.GetString("204_DbServicePaused", resourceCulture);
+            }
+        }
     }
 }

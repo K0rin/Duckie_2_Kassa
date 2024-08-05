@@ -12,7 +12,9 @@ public enum ErrorCodes
 
     // Database
     DbConnectionInvalid = 201,
-    DbServiceUnavailable = 202
+    DbServiceUnavailable = 202,
+    DbServiceStopped = 203,
+    DbServicePaused = 204
 }
 
 // public static class ErrorCodesExtensions
