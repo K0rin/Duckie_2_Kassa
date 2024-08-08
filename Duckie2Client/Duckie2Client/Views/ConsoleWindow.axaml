@@ -11,6 +11,7 @@
     x:CompileBindings="True"
     Width="1024" Height="768"
     Icon="/Assets/avalonia-logo.ico"
+    WindowStartupLocation="CenterScreen"
     Title="Duckie2: Console">
 
     <Design.DataContext>
