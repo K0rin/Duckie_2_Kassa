@@ -4,7 +4,7 @@
     x:Class="Duckie2Client.App"
     x:CompileBindings="True"
     xmlns:local="using:Duckie2Client"
-    RequestedThemeVariant="Default">
+    RequestedThemeVariant="Light">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" 
     are other available options. -->
 

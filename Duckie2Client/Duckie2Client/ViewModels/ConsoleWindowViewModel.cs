@@ -10,15 +10,23 @@ public class ConsoleWindowViewModel : ViewModelBase
     {
         // By default, the Authorization Screen is visible.
         IsAuthorizationScreenVisible = true;
+        // By default, the spinner is hidden.
+        IsSpinnerVisible = false;
+        IsAuthControlsVisible = true;
+
         OpenMainScreenCommand =
             ReactiveCommand.Create<UserControl>(OpenMainScreen);
     }
 
     private void OpenMainScreen(object screen)
     {
-        MainWindowContent = screen;
-        IsAuthorizationScreenVisible = false;
+        IsAuthControlsVisible = false;
+        IsSpinnerVisible = true;
+
+        // MainWindowContent = screen;
+        // IsAuthorizationScreenVisible = false;
     }
+
 #pragma warning disable CA1822 // Mark members as static
     public ReactiveCommand<UserControl, Unit> OpenMainScreenCommand { get; }
 
@@ -38,6 +46,22 @@ public class ConsoleWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(
             ref _isAuthorizationScreenVisible,
             value);
+    }
+
+    private bool _isSpinnerVisible;
+
+    public bool IsSpinnerVisible
+    {
+        get => _isSpinnerVisible;
+        set => this.RaiseAndSetIfChanged(ref _isSpinnerVisible, value);
+    }
+
+    private bool _isAuthControlsVisible;
+
+    public bool IsAuthControlsVisible
+    {
+        get => _isAuthControlsVisible;
+        set => this.RaiseAndSetIfChanged(ref _isAuthControlsVisible, value);
     }
 
 #pragma warning restore CA1822 // Mark members as static
