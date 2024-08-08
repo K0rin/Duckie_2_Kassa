@@ -1,0 +1,32 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:screens="using:Duckie2Client.Screens"
+    xmlns:vm="using:Duckie2Client.ViewModels"
+    mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+    x:Class="Duckie2Client.Views.ConsoleWindow"
+    x:DataType="vm:ConsoleWindowViewModel"
+    x:CompileBindings="True"
+    Width="1024" Height="768"
+    Icon="/Assets/avalonia-logo.ico"
+    Title="Duckie2: Console">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE, to set 
+        the actual DataContext for runtime, set the DataContext property in 
+        code (look at App.axaml.cs) -->
+        <vm:ConsoleWindowViewModel />
+    </Design.DataContext>
+
+    <Panel>
+        <screens:AuthorizationScreen
+            x:Name="MyUserControl"
+            IsVisible="{Binding IsAuthorizationScreenVisible}" />
+        <ContentControl
+            x:Name="MainWindowContentArea"
+            Content="{Binding MainWindowContent}" />
+    </Panel>
+
+</Window>

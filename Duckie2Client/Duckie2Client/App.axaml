@@ -1,10 +1,12 @@
-<Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Duckie2Client.App"
-             xmlns:local="using:Duckie2Client"
-             RequestedThemeVariant="Default">
-    <!-- "Default" ThemeVariant follows system theme variant. "Dark" 
-             or "Light" are other available options. -->
+<Application
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Duckie2Client.App"
+    x:CompileBindings="True"
+    xmlns:local="using:Duckie2Client"
+    RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" 
+    are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator />
@@ -24,8 +26,6 @@
         <FontFamily x:Key="FontRubikRegular">
             avares://Duckie2Client/Assets/Fonts/Rubik-Regular.ttf#Rubik
         </FontFamily>
-
-
     </Application.Resources>
 
 </Application>

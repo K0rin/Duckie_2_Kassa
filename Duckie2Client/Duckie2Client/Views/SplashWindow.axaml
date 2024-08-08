@@ -1,17 +1,19 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        d:DesignWidth="400"
-        d:DesignHeight="400"
-        x:Class="Duckie2Client.Views.SplashWindow"
-        Width="400"
-        Height="400"
-        WindowStartupLocation="CenterScreen"
-        SystemDecorations="None"
-        Title="SplashScreen"
-        Background="#219EBC">
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="400"
+    x:Class="Duckie2Client.Views.SplashWindow"
+    x:CompileBindings="True"
+    Width="400"
+    Height="400"
+    WindowStartupLocation="CenterScreen"
+    SystemDecorations="None"
+    Title="SplashScreen"
+    Background="#219EBC">
 
     <Window.Styles>
         <Style Selector="Canvas.RubberDuckCanvas">

@@ -148,9 +148,9 @@ public partial class App : Application
         // Select a view appropriate to a selected app mode.
         result = appMode switch
         {
-            AppModes.Console => new MainWindow
+            AppModes.Console => new ConsoleWindow
             {
-                DataContext = new MainWindowViewModel()
+                DataContext = new ConsoleWindowViewModel()
             },
             AppModes.Kassa => new KassaWindow
             {

@@ -12,7 +12,7 @@ using Duckie2Client.Services.AppLoading;
 namespace Duckie2Client.Views;
 
 /// <summary>
-/// <para>Loading Screen.</para>
+/// <para>Splash Screen.</para>
 /// <para>This screen shows an application loading sequence.</para>
 /// <para>In case of errors during the loading sequence, it shows error
 /// messages.</para>
@@ -23,6 +23,11 @@ public partial class SplashWindow : Window
 {
     private readonly AppModes _appMode;
     private readonly Action? _mainAction;
+
+    // ReSharper disable once UnusedMember.Global
+    public SplashWindow()
+    {
+    }
 
     public SplashWindow(Action mainAction, AppModes appMode)
     {
@@ -40,6 +45,7 @@ public partial class SplashWindow : Window
         LoadDuckieApplication();
     }
 
+    // todo: refact: Change to enum.
     private void SetModeNameText()
     {
         var modeNames = new Dictionary<AppModes, string>
@@ -50,9 +56,7 @@ public partial class SplashWindow : Window
         ApplicationModeName.Text = modeNames[_appMode];
     }
 
-    /// <summary>
-    ///     Call the Application loading sequence.
-    /// </summary>
+    /// <summary>Call the Application loading sequence.</summary>
     private async void LoadDuckieApplication()
     {
         var appLoading = new AppLoading();

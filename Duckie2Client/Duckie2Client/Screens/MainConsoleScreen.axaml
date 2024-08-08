@@ -1,0 +1,35 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:Class="Duckie2Client.Screens.MainConsoleScreen"
+    x:CompileBindings="True">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Database">
+                <MenuItem Header="_Vehicles..." />
+                <MenuItem Header="_Clients..." />
+                <MenuItem Header="_Personal..." />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Reports">
+                <MenuItem Header="_Washes by period..." />
+                <MenuItem Header="_Salary..." />
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Settings..." />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." />
+            </MenuItem>
+        </Menu>
+        <Panel>
+            <TabControl TabStripPlacement="Top">
+                <TabItem Header="Order" FontSize="12" />
+            </TabControl>
+        </Panel>
+    </DockPanel>
+</UserControl>
