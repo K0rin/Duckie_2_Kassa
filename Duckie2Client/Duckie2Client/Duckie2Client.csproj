@@ -12,6 +12,7 @@
         <Folder Include="Assets\Fonts\"/>
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Screens\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,6 +34,14 @@
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>UserInterface.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Views\AuthorizationScreenView.axaml.cs">
+            <DependentUpon>AuthorizationScreen.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\MainConsoleScreenView.axaml.cs">
+            <DependentUpon>MainConsoleScreen.axaml</DependentUpon>
+            <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
 

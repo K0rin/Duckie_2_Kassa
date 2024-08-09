@@ -16,7 +16,7 @@ public abstract class LoadingJob(Action<string>? action)
     public async Task CallJob()
     {
         // ::debug::
-        const int overallTimer = 1000;
+        const int overallTimer = 0;
 
         // Show a start message before performing a custom functionality.
         ShowStatusMessage(LoadingMessages.Start);

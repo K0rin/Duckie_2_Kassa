@@ -101,7 +101,7 @@ public partial class SplashWindow : Window
             ResourceTypes.UserInterface);
 
         // ::debug::
-        const int delay = 1500;
+        const int delay = 1000;
         await Task.Delay(delay);
         // ::debug::
 

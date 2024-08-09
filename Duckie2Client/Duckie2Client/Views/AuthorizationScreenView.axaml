@@ -4,11 +4,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Duckie2Client.ViewModels"
-    xmlns:screens="using:Duckie2Client.Screens"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-    x:Class="Duckie2Client.Screens.AuthorizationScreen"
+    x:Class="Duckie2Client.Views.AuthorizationScreenView"
     x:CompileBindings="True"
-    x:DataType="vm:ConsoleWindowViewModel">
+    x:DataType="vm:AuthorizationScreenViewModel">
 
     <UserControl.Styles>
         <Style Selector="Image.CircleWithGap">
@@ -82,11 +81,9 @@
                 VerticalAlignment="Top"
                 Margin="0,32,6,0"
                 Content="Enter"
-                Command="{Binding OpenMainScreenCommand}">
-                <Button.CommandParameter>
-                    <screens:MainConsoleScreen />
-                </Button.CommandParameter>
-            </Button>
+                Command="{Binding OpenMainScreenCommand}"
+                CommandParameter="{Binding $parent[Window].DataContext}" />
+
             <Button
                 Grid.Row="6"
                 Grid.Column="1"
