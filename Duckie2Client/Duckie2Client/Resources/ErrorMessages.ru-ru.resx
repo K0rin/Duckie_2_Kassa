@@ -48,4 +48,7 @@
     <data name="205_TargetDbDoesNotExist" xml:space="preserve">
         <value>Целевая база данных не существует.</value>
     </data>
+    <data name="301_UserHasNoAccessRights" xml:space="preserve">
+        <value>У пользователя отсутствуют права доступа.</value>
+    </data>
 </root>

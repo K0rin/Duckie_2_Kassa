@@ -18,8 +18,6 @@ public sealed class AppLoading
              */
             new ConfigFileCheck(ActionCompleted),
             new ServiceRunningCheck(ActionCompleted)
-            // todo: Соединение должно проверяться на Экране Авторизации после ввода признаков пользователя.
-            // new DatabaseConnectionCheck(ActionCompleted)
         };
 
         // Run all jobs from the list.
@@ -29,6 +27,8 @@ public sealed class AppLoading
     public async Task LoadAppActionAsync(List<LoadingJob> loadingJobs)
     {
         foreach (var job in loadingJobs) job.Action += ActionCompleted;
-        await LoadAppActionAsync();
+
+        // Run all jobs from the list.
+        foreach (var job in loadingJobs) await job.CallJob();
     }
 }

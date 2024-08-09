@@ -4,20 +4,30 @@ using System.Diagnostics.CodeAnalysis;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
+using Duckie2Client.Services.AppLoading;
 
-namespace Duckie2Client.Services.AppLoading;
+namespace Duckie2Client.Services.Checks;
 
 /// <summary>
 ///     Checks that the database is available.
 /// </summary>
 public class DatabaseConnectionCheck : LoadingJob
 {
-    public DatabaseConnectionCheck()
+    private DatabaseConnectionCheck()
     {
         var message = Localization.GetString(
             () => UserInterface.DatabaseConnectionCheck,
             ResourceTypes.UserInterface);
         LoadingMessages = new LoadingMessages(message);
+    }
+
+    private string _userId;
+    private string _userPassword;
+
+    public DatabaseConnectionCheck(params object[] jobParameters) : this()
+    {
+        _userId = (string)jobParameters[(int)UserCredentials.Login];
+        _userPassword = (string)jobParameters[(int)UserCredentials.Password];
     }
 
 
@@ -30,21 +40,18 @@ public class DatabaseConnectionCheck : LoadingJob
         // todo: settings: which type of credential is using for access to SQLServer (Windows, SQLServer).
         var currentCredentials = CredentialTypes.Windows;
 
-        // todo: Данные приходят с Экрана Авторизации.
-        var userId = "sa";
-        var userPassword = "pass123";
         // todo: Data goes from the config file.
         var serverName = "DESKTOP-H1O55SG\\SQLEXPRESS";
         var initialCatalog = "CarWash";
 
         SqlConnection? dbConnection = null;
 
-
         try
         {
             var dbService =
                 currentCredentials.GetDatabaseService([
-                    serverName, initialCatalog
+                    serverName,
+                    initialCatalog
                 ]);
 
             dbConnection = dbService?.GetSqlConnection();

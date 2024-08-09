@@ -4,9 +4,9 @@ using System.ServiceProcess;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 
-namespace Duckie2Client.Services;
+namespace Duckie2Client.Services.DatabaseManager;
 
-public class DbmsService
+public static class DbmsService
 {
     public static void IsDbServiceRun()
     {

@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.AppLoading;
+using Duckie2Client.Services.Checks;
 using ReactiveUI;
 
 namespace Duckie2Client.ViewModels;
@@ -36,6 +37,22 @@ public class AuthorizationScreenViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _message, value);
     }
 
+    private string _userLogin;
+
+    public string UserLogin
+    {
+        get => _userLogin;
+        set => this.RaiseAndSetIfChanged(ref _userLogin, value);
+    }
+
+    private string _userPassword;
+
+    public string UserPassword
+    {
+        get => _userPassword;
+        set => this.RaiseAndSetIfChanged(ref _userPassword, value);
+    }
+
     public AuthorizationScreenViewModel()
     {
         IsSpinnerVisible = false;
@@ -57,30 +74,29 @@ public class AuthorizationScreenViewModel : ViewModelBase
         var jobRunner = new AppLoading();
 
         jobRunner.ActionCompleted += actionMessage => Message = actionMessage;
-        
+
         var jobList = new List<LoadingJob>
         {
-            new DatabaseConnectionCheck()
+            new DatabaseConnectionCheck(_userLogin, _userPassword),
+            new AuthorizationCheck(_userLogin, _userPassword)
         };
-        
+
         try
         {
             //todo: refact: Испльзовать данный конструктор и для загрузги приложения. 
             await jobRunner.LoadAppActionAsync(jobList);
-            // ::debug::
-            await Task.Delay(3000);
         }
         catch (DuckieException e)
         {
+            // todo: show error dialog.
+            Console.WriteLine(e.ErrorNumber);
             Console.WriteLine(e.Message);
             return;
         }
 
-        Message = "ready";
 
         return;
         // Switch to the Main Console Screen.
         ((ConsoleWindowViewModel)value).SwitchPage(1);
     }
-
 }

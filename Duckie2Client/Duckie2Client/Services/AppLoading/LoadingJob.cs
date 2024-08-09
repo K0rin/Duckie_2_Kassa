@@ -4,17 +4,20 @@ using Duckie2Client.Libs;
 
 namespace Duckie2Client.Services.AppLoading;
 
-/// <summary>
-///     Template method for loading tasks.
-/// </summary>
-/// <param name="action"></param>
-public abstract class LoadingJob(Action<string>? action)
+public abstract class LoadingJob
 {
-    protected LoadingJob() : this(null)
+    protected LoadingJob()
     {
     }
+
+    protected LoadingJob(Action<string>? action)
+    {
+        _action = action;
+    }
+
     protected LoadingMessages LoadingMessages { get; init; }
-    public event Action<string>? Action = action;
+    private static event Action<string>? _action;
+    public event Action<string>? Action = _action;
 
     public async Task CallJob()
     {
@@ -34,6 +37,7 @@ public abstract class LoadingJob(Action<string>? action)
         }
         catch (DuckieException e)
         {
+            // todo: Надо ли показывать сообщение, если все равно будет отображен Диалог Ошибки?
             ShowStatusMessage(e.Message);
             throw;
         }
@@ -43,24 +47,22 @@ public abstract class LoadingJob(Action<string>? action)
     }
 
     /// <summary>
-    ///     Contains the functionality of the task invoked when the application is
-    ///     loading.
-    ///     A method that must be overridden in an inherited class.
+    /// <para>Contains the functionality of the task invoked when the
+    /// application is loading. A method that must be overridden in an
+    /// inherited class.</para>
     /// </summary>
     /// <returns>
-    ///     True - if there is no any error during performing a loading job.
-    ///     False - an error occured during a loading job.
+    /// <para>True - if there is no any error during performing a loading job.
+    /// <br/>False - an error occured during a loading job.</para>
     /// </returns>
     protected abstract void DoTask();
 
     /// <summary>
-    ///     Invokes event for showing a message on a splash screen.
+    /// <para>Invokes event for showing a message on a splash screen.</para>
     /// </summary>
     /// <param name="message">Message text.</param>
     private void ShowStatusMessage(string message)
     {
         Action?.Invoke(message);
     }
-
-  
 }

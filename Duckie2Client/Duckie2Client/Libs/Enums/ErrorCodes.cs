@@ -15,20 +15,8 @@ public enum ErrorCodes
     DbServiceUnavailable = 202,
     DbServiceStopped = 203,
     DbServicePaused = 204,
-    TargetDbDoesNotExist = 205
-}
+    TargetDbDoesNotExist = 205,
 
-// public static class ErrorCodesExtensions
-// {
-//     public static string GetErrorMessage(this ErrorCodes e)
-//     {
-//         var errorCode = (int)e;
-//         var errorName = Enum.GetName(e);
-//         var errorResourceName = $"{errorCode}_{errorName}";
-//         var errorMessage = Localization.GetString(
-//             errorResourceName,
-//             ResourceTypes.ErrorMessages);
-//
-//         return errorMessage;
-//     }
-// }
+    // The Application
+    UserHasNoAccessRights = 301
+}

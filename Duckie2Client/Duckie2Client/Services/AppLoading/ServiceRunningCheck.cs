@@ -2,6 +2,7 @@
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
+using Duckie2Client.Services.DatabaseManager;
 
 namespace Duckie2Client.Services.AppLoading;
 

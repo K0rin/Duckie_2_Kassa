@@ -157,5 +157,14 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("205_TargetDbDoesNotExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string _301_UserHasNoAccessRights {
+            get {
+                return ResourceManager.GetString("301_UserHasNoAccessRights", resourceCulture);
+            }
+        }
     }
 }
