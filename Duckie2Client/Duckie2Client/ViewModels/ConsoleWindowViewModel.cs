@@ -1,17 +1,14 @@
-﻿using System;
-using System.Reactive;
-using System.Windows.Input;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace Duckie2Client.ViewModels;
 
 public class ConsoleWindowViewModel : ViewModelBase
 {
-    private readonly ViewModelBase[] Pages =
-    {
+    private readonly ViewModelBase[] _pages =
+    [
         new AuthorizationScreenViewModel(),
         new MainConsoleScreenViewModel()
-    };
+    ];
 
     private ViewModelBase _currentPage;
 
@@ -26,13 +23,13 @@ public class ConsoleWindowViewModel : ViewModelBase
 
     public void SwitchPage(int pageNumber)
     {
-        CurrentPage = Pages[pageNumber];
+        CurrentPage = _pages[pageNumber];
     }
 
     public ConsoleWindowViewModel()
     {
         // Set current page to first on start up
-        _currentPage = Pages[0];
+        _currentPage = _pages[0];
 
 
         // By default, the Authorization Screen is visible.
@@ -48,7 +45,7 @@ public class ConsoleWindowViewModel : ViewModelBase
     // private void OpenMainScreen(object screen)
     private void OpenMainScreen()
     {
-        CurrentPage = Pages[1];
+        CurrentPage = _pages[1];
 
         // IsAuthControlsVisible = false;
         // IsSpinnerVisible = true;

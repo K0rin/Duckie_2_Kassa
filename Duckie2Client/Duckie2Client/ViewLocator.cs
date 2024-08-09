@@ -10,10 +10,23 @@ public class ViewLocator : IDataTemplate
     public Control? Build(object? data)
     {
         if (data is null) return null;
-        var name = data.GetType().FullName!.Replace(
-            "ViewModel",
-            "View",
-            StringComparison.Ordinal);
+
+        var name = data.GetType().FullName!;
+
+        if (name.EndsWith("ScreenViewModel"))
+            name = data.GetType().FullName!
+                .Replace(
+                    "ScreenViewModel",
+                    "ScreenView",
+                    StringComparison.Ordinal)
+                .Replace(
+                    "ViewModel",
+                    "Views.Screen",
+                    StringComparison.Ordinal);
+        else
+            name = data.GetType().FullName!
+                .Replace("ViewModel", "View", StringComparison.Ordinal);
+
         var type = Type.GetType(name);
         if (type == null) return new TextBlock { Text = "Not Found: " + name };
         var control = (Control)Activator.CreateInstance(type)!;

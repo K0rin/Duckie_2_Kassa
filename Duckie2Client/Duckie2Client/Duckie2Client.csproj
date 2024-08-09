@@ -35,12 +35,12 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>UserInterface.resx</DependentUpon>
         </Compile>
-        <Compile Update="Views\AuthorizationScreenView.axaml.cs">
-            <DependentUpon>AuthorizationScreen.axaml</DependentUpon>
+        <Compile Update="Views\Screens\AuthorizationScreenView.axaml.cs">
+            <DependentUpon>AuthorizationScreenView.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Views\MainConsoleScreenView.axaml.cs">
-            <DependentUpon>MainConsoleScreen.axaml</DependentUpon>
+        <Compile Update="Views\Screens\MainConsoleScreenView.axaml.cs">
+            <DependentUpon>MainConsoleScreenView.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
     </ItemGroup>

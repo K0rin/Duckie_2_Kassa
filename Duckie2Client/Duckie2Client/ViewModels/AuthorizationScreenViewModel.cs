@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reactive;
-using Avalonia.Controls;
+﻿using System.Reactive;
 using ReactiveUI;
 
 namespace Duckie2Client.ViewModels;
@@ -37,6 +34,6 @@ public class AuthorizationScreenViewModel : ViewModelBase
 
     private void OpenMainScreen(object value)
     {
-            ((ConsoleWindowViewModel)value).SwitchPage(1);
+        ((ConsoleWindowViewModel)value).SwitchPage(1);
     }
 }
