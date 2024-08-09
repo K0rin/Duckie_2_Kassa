@@ -10,8 +10,11 @@ namespace Duckie2Client.Services.AppLoading;
 /// <param name="action"></param>
 public abstract class LoadingJob(Action<string>? action)
 {
+    protected LoadingJob() : this(null)
+    {
+    }
     protected LoadingMessages LoadingMessages { get; init; }
-    private event Action<string>? Action = action;
+    public event Action<string>? Action = action;
 
     public async Task CallJob()
     {
@@ -58,4 +61,6 @@ public abstract class LoadingJob(Action<string>? action)
     {
         Action?.Invoke(message);
     }
+
+  
 }

@@ -12,13 +12,14 @@ namespace Duckie2Client.Services.AppLoading;
 /// </summary>
 public class DatabaseConnectionCheck : LoadingJob
 {
-    public DatabaseConnectionCheck(Action<string>? action) : base(action)
+    public DatabaseConnectionCheck()
     {
         var message = Localization.GetString(
             () => UserInterface.DatabaseConnectionCheck,
             ResourceTypes.UserInterface);
         LoadingMessages = new LoadingMessages(message);
     }
+
 
     protected override void DoTask()
     {
