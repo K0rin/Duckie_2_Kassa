@@ -159,7 +159,7 @@ namespace Duckie2Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
         /// </summary>
         public static string _301_UserHasNoAccessRights {
             get {

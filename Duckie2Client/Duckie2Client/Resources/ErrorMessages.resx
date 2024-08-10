@@ -60,7 +60,5 @@
     <data name="301_UserHasNoAccessRights" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
-    <data name="301_UserHasNoAccessRights" xml:space="preserve">
-        <value/>
-    </data>
+
 </root>
