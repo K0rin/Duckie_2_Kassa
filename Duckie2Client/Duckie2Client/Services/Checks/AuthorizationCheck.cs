@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
 using Duckie2Client.Services.AppLoading;
+using StoredProcedures = Duckie2Client.Libs.Enums.StoredProcedures;
 
 namespace Duckie2Client.Services.Checks;
 
@@ -51,71 +53,26 @@ public class AuthorizationCheck : LoadingJob
             // OpenAsync(CancellationToken)
             dbConnection?.Open();
 
-            var sqlCmnd = new SqlCommand(
-            StoredProcedures.AuthorizeUser.GetName(),
-            dbConnection);
+            var sqlAuthorizeCommand =
+                DatabaseManager.StoredProcedure.ReturnValueProcedure(
+                    StoredProcedures.AuthorizeUser.GetName(),
+                    StoredProcedures.AuthorizeUser.Parameters(
+                        new Dictionary<string, object>
+                        {
+                            {
+                                StoredProcedureParameters.Name.Name(),
+                                _userId
+                            },
+                            {
+                                StoredProcedureParameters.Password.Name(),
+                                _userPassword
+                            }
+                        }),
+                    dbConnection);
 
+            sqlAuthorizeCommand.ExecuteNonQuery();
 
-            // var sqlCmnd = DatabaseManager.StoredProcedure.SqlReturnCommand(
-            //     StoredProcedures.AuthorizeUser.GetName(),
-            //     [
-            //         new SqlParameter
-            //         {
-            //             ParameterName = "@pName",
-            //             Direction = ParameterDirection.Input,
-            //             SqlDbType = SqlDbType.NVarChar
-            //         },
-            //         new SqlParameter
-            //         {
-            //             ParameterName = "@pPassword",
-            //             Direction = ParameterDirection.Input,
-            //             SqlDbType = SqlDbType.NVarChar
-            //         }, 
-            //         new SqlParameter
-            //         {
-            //             ParameterName = "@ReturnValue",
-            //             Direction = ParameterDirection.ReturnValue
-            //         },  
-            //         
-            //     ],
-            //     dbConnection
-            // );
-
-            // sqlCmnd.Parameters["@pName"].Value = _userId;
-            // sqlCmnd.Parameters["@pPassword"].Value = _userPassword;
-            
-            // var commandParameters = new Dictionary<string, object>
-            // {
-            //     ["@pName"] = _userId,
-            //     ["@pPassword"] = _userPassword
-            // };
-            // var sqlCmnd =
-            //     StoredProcedures.AuthorizeUser.GetCommand(
-            //         ref dbConnection,
-            //         ref commandParameters);
-
-
-            
-            sqlCmnd.CommandType = CommandType.StoredProcedure;
-            
-            sqlCmnd.Parameters.AddWithValue("@pName", SqlDbType.NVarChar)
-                .Value = _userId;
-            sqlCmnd.Parameters.AddWithValue("@pPassword", SqlDbType.NVarChar)
-                .Value = _userPassword;
-            
-            var returnValue = new SqlParameter
-            {
-                ParameterName = "@ReturnValue",
-                Direction = ParameterDirection.ReturnValue
-            };
-            sqlCmnd.Parameters.Add(returnValue);
-
-            sqlCmnd?.ExecuteNonQuery();
-
-            var storedProcedureReturnValue =
-                (int)sqlCmnd.Parameters["@ReturnValue"].Value;
-
-            if (storedProcedureReturnValue.Equals(0))
+            if (sqlAuthorizeCommand.ReturnValue!.Equals(0))
                 throw new DuckieException(ErrorCodes.UserHasNoAccessRights);
         }
         catch (ArgumentException e)
