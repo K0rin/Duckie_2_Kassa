@@ -1,104 +1,130 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive;
+using System.Threading;
+using System.Threading.Tasks;
+using DialogHostAvalonia;
 using Duckie2Client.Libs;
-using Duckie2Client.Services.AppLoading;
-using Duckie2Client.Services.Checks;
+using Duckie2Client.Services.Commands;
+using Duckie2Client.Views.Dialogs;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Duckie2Client.ViewModels;
 
 public class AuthorizationScreenViewModel : ViewModelBase
 {
-    private bool _isSpinnerVisible;
-
-    public bool IsSpinnerVisible
-    {
-        get => _isSpinnerVisible;
-        set => this.RaiseAndSetIfChanged(ref _isSpinnerVisible, value);
-    }
-
-    private bool _isAuthControlsVisible;
-
-    public bool IsAuthControlsVisible
-    {
-        get => _isAuthControlsVisible;
-        set => this.RaiseAndSetIfChanged(ref _isAuthControlsVisible, value);
-    }
-
-    public ReactiveCommand<object, Unit> BeginAuthorizationCommand { get; set; }
-
-    private string _message;
-
-    public string Message
-    {
-        get => _message;
-        set => this.RaiseAndSetIfChanged(ref _message, value);
-    }
-
-    private string _userLogin;
-
-    public string UserLogin
-    {
-        get => _userLogin;
-        set => this.RaiseAndSetIfChanged(ref _userLogin, value);
-    }
-
-    private string _userPassword;
-
-    public string UserPassword
-    {
-        get => _userPassword;
-        set => this.RaiseAndSetIfChanged(ref _userPassword, value);
-    }
+    public ReactiveCommand<Unit, Unit> BeginAuthorizationCommand { get; set; }
+    [Reactive] public string Message { get; set; }
+    [Reactive] public string UserLogin { get; set; }
+    [Reactive] public string UserPassword { get; set; }
 
     public AuthorizationScreenViewModel()
     {
-        IsSpinnerVisible = false;
-        IsAuthControlsVisible = true;
-        BeginAuthorizationCommand =
-            ReactiveCommand.Create<object>(BeginAuthorizationCommandExecute);
+        BeginAuthorizationCommand = ReactiveCommand.Create(BeginAuthorizationCommandExecute);
+#if DEBUG
+        UserLogin = "jevgeni";
+        UserPassword = "urugula";
+#endif
     }
 
+    private bool _isDialogLoaded;
+    private readonly Mutex _mutexObj = new();
+
+    private void DoAuthorization()
+    {
+        // Wait until the dialog is displayed on the screen.
+        // while (true)
+        // {
+        //     _mutexObj.WaitOne();
+        //     if (!_isDialogLoaded) continue;
+        //     _mutexObj.ReleaseMutex();
+        //     break;
+        // }
+
+        var checkDatabaseConnectionCommand = new CheckDatabaseConnectionCommand();
+        var checkAuthorizationCommand = new CheckAuthorizationCommand(UserLogin, UserPassword);
+        checkDatabaseConnectionCommand.NotifyStatus += status => Message = status;
+        checkAuthorizationCommand.NotifyStatus += status => Message = status;
+
+        var invoker = new DuckieCommandInvoker();
+
+        try
+        {
+            invoker.SetCommand(checkDatabaseConnectionCommand);
+            invoker.ExecuteCommand();
+
+            Thread.Sleep(2000);
+
+            invoker.SetCommand(checkAuthorizationCommand);
+            invoker.ExecuteCommand();
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
+    }
+
+    private void DialogAttachedToVisualTreeHandler(bool status)
+    {
+        _isDialogLoaded = true;
+    }
+
+    private void ExceptionHandler(Task task)
+    {
+        var exception = task.Exception;
+        Console.WriteLine("custom user handler");
+        Console.WriteLine(exception);
+    }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="value">Reference to the parent's view data context.</param>
-    // ReSharper disable once MemberCanBeMadeStatic.Local
-    private async void BeginAuthorizationCommandExecute(object value)
+    private async void BeginAuthorizationCommandExecute()
     {
-        return;
+        var d = new SpinnerDialog();
+        d.Notify += DialogAttachedToVisualTreeHandler;
+        var t1 = new Task(DoAuthorization);
+        t1.ContinueWith(ExceptionHandler, TaskContinuationOptions.OnlyOnFaulted);
+        t1.Start();
 
-        IsSpinnerVisible = true;
-        IsAuthControlsVisible = false;
-
-        var jobRunner = new AppLoading();
-
-        jobRunner.ActionCompleted += actionMessage => Message = actionMessage;
-
-        var jobList = new List<LoadingJob>
-        {
-            new DatabaseConnectionCheck(_userLogin, _userPassword),
-            new AuthorizationCheck(_userLogin, _userPassword)
-        };
-
-        try
-        {
-            //todo: refact: Испльзовать данный конструктор и для загрузги приложения. 
-            await jobRunner.LoadAppActionAsync(jobList);
-        }
-        catch (DuckieException e)
-        {
-            // todo: show error dialog.
-            Console.WriteLine(e.ErrorNumber);
-            Console.WriteLine(e.Message);
-            return;
-        }
-
+        var dialogResult = (bool)(await DialogHost.Show(d, "AuthorizationDialog"))!;
 
         return;
-        // Switch to the Main Console Screen.
-        ((ConsoleWindowViewModel)value).SwitchPage(1);
+
+        // var myThread2 = new Thread(DoAuthorization)
+        // {
+        //     Name = "AuthorizationSpinnerDialog"
+        // };
+        //
+        // var d = new SpinnerDialog();
+        // d.Notify += DialogAttachedToVisualTreeHandler;
+        //
+        // try
+        // {
+        //     myThread2.Start(d);
+        //     var dialogResult = (bool)(await DialogHost.Show(d, "AuthorizationDialog"))!;
+        //     // ReSharper disable once InvertIf
+        //     if (!dialogResult)
+        //     {
+        //         myThread2.Interrupt();
+        //         myThread2.Join();
+        //     }
+        // }
+        // // TODO: catch checking commands errors.
+        // catch (DuckieException e)
+        // {
+        //     Console.WriteLine(e.Message);
+        // }
+        // catch (ThreadInterruptedException e)
+        // {
+        //     // todo: create aborting sequence.
+        //     // todo: проверить, будет ли закрываться соединение с базой, если прервать поток.
+        //
+        //     Console.WriteLine("authorization aborted");
+        // }
+
+
+        // // Switch to the Main Console Screen.
+        // ((ConsoleWindowViewModel)value).SwitchPage(1);
     }
 }

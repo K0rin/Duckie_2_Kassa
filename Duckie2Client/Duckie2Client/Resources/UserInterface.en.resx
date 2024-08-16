@@ -27,9 +27,6 @@
     <data name="DatabaseConnectionCheck" xml:space="preserve">
         <value>Database connection...</value>
     </data>
-    <data name="DatabaseConnectionValid" xml:space="preserve">
-        <value>Database connection successful.</value>
-    </data>
     <data name="DBMSServiceRunCheck" xml:space="preserve">
         <value>Check Server running...</value>
     </data>

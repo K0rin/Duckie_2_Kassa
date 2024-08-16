@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -175,6 +176,9 @@ public partial class App : Application
     private void OnExit(object? sender,
         ControlledApplicationLifetimeExitEventArgs e)
     {
+        var currentThread = Thread.CurrentThread;
+
+
         _multiInstance.UnlockFile();
     }
 }

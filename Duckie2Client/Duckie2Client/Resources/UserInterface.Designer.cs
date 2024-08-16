@@ -89,15 +89,6 @@ namespace Duckie2Client.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt;no translation&gt;.
         /// </summary>
-        public static string DatabaseConnectionValid {
-            get {
-                return ResourceManager.GetString("DatabaseConnectionValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DBMSServiceRunCheck {
             get {
                 return ResourceManager.GetString("DBMSServiceRunCheck", resourceCulture);
@@ -105,7 +96,7 @@ namespace Duckie2Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
         /// </summary>
         public static string DBMSServiceRunCheckSuccess {
             get {

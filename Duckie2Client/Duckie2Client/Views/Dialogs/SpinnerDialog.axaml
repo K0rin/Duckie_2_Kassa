@@ -1,0 +1,55 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Duckie2Client.ViewModels"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="Duckie2Client.Views.Dialogs.SpinnerDialog"
+             x:DataType="viewModels:AuthorizationScreenViewModel">
+    <UserControl.Styles>
+        <!-- Spinner Animation -->
+        <Style Selector="Image.CircleWithGap">
+            <Style.Animations>
+                <Animation
+                    Duration="0:0:1"
+                    IterationCount="Infinite">
+
+                    <KeyFrame Cue="0%">
+                        <Setter
+                            Property="RotateTransform.Angle"
+                            Value="0" />
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter
+                            Property="RotateTransform.Angle"
+                            Value="360" />
+                    </KeyFrame>
+
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=Bounds.Width}">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <!-- Spinner -->
+            <Image Classes="CircleWithGap"
+                   Source="/Assets/loading.png"
+                   Height="64"
+                   Width="64" />
+            <!-- message -->
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding Message}"
+                       Name="MessageTextBlock" />
+            <!-- button -->
+            <Button Content="Cancel"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}"
+                    CommandParameter="{DynamicResource False}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

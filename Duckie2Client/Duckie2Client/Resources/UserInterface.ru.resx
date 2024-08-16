@@ -24,9 +24,6 @@
     <data name="ConfigFileValid" xml:space="preserve">
         <value>Файл конфигурации впрядке.</value>
     </data>
-    <data name="DatabaseConnectionValid" xml:space="preserve">
-        <value>Соединение с базой данных успешно.</value>
-    </data>
     <data name="DatabaseConnectionCheck" xml:space="preserve">
         <value>Соединение с базой данных...</value>
     </data>

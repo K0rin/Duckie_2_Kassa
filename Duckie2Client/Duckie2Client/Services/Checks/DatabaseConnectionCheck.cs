@@ -11,14 +11,14 @@ namespace Duckie2Client.Services.Checks;
 /// <summary>
 ///     Checks that the database is available.
 /// </summary>
-public class DatabaseConnectionCheck : LoadingJob
+public class DatabaseConnectionCheck
 {
     private DatabaseConnectionCheck()
     {
         var message = Localization.GetString(
             () => UserInterface.DatabaseConnectionCheck,
             ResourceTypes.UserInterface);
-        LoadingMessages = new LoadingMessages(message);
+        // LoadingMessages = new LoadingMessages(message);
     }
 
     private string _userId;
@@ -31,11 +31,10 @@ public class DatabaseConnectionCheck : LoadingJob
     }
 
 
-    protected override void DoTask()
+    public void DoTask()
     {
         // TODO: Check database connection.
         // throw new DuckieException(ErrorCodes.DbConnectionInvalid);
-
 
         // todo: settings: which type of credential is using for access to SQLServer (Windows, SQLServer).
         var currentCredentials = CredentialTypes.Windows;

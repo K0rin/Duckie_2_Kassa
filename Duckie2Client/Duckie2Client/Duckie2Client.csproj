@@ -12,6 +12,7 @@
         <Folder Include="Assets\Fonts\"/>
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Packages\"/>
         <Folder Include="Screens\"/>
     </ItemGroup>
 
@@ -43,16 +44,21 @@
             <DependentUpon>MainConsoleScreenView.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\Dialogs\SpinnerDialog.axaml.cs">
+            <DependentUpon>SpinnerDialog.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.2"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.1.2"/>
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.1.2"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.2"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.2"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.2"/>
+        <PackageReference Include="Avalonia" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
+        <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
         <PackageReference Include="System.Data.SqlClient" Version="4.8.6"/>
         <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0"/>
     </ItemGroup>
@@ -106,6 +112,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DialogHost.Avalonia\DialogHost.Avalonia.csproj" />
+        <ProjectReference Include="..\DialogHost.Avalonia\DialogHost.Avalonia.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="DialogHost.Avalonia">
+            <HintPath>Packages\DialogHost.Avalonia.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>

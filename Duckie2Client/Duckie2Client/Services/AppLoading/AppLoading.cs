@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Duckie2Client.Services.AppLoading;
@@ -21,7 +22,7 @@ public sealed class AppLoading
         };
 
         // Run all jobs from the list.
-        foreach (var job in loadingJobs) await job.CallJob();
+        foreach (var job in loadingJobs) await job.CallJobTask();
     }
 
     public async Task LoadAppActionAsync(List<LoadingJob> loadingJobs)
@@ -29,6 +30,16 @@ public sealed class AppLoading
         foreach (var job in loadingJobs) job.Action += ActionCompleted;
 
         // Run all jobs from the list.
-        foreach (var job in loadingJobs) await job.CallJob();
+        foreach (var job in loadingJobs) await job.CallJobTask();
+    }
+
+    public void LoadAppAction(List<LoadingJob> loadingJobs)
+    {
+        foreach (var job in loadingJobs) job.Action += ActionCompleted;
+
+        // Run all jobs from the list.
+        foreach (var job in loadingJobs) job.CallJob();
     }
 }
+//     //todo: refact: Использовать данный конструктор и для загрузги приложения. 
+//     jobRunner.LoadAppAction(jobList);

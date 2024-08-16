@@ -36,9 +36,6 @@
     <data name="DatabaseConnectionCheck" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
-    <data name="DatabaseConnectionValid" xml:space="preserve">
-        <value>&lt;no translation&gt;</value>
-    </data>
     <data name="DBMSServiceRunCheck" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>

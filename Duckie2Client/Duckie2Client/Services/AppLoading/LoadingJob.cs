@@ -19,7 +19,7 @@ public abstract class LoadingJob
     private static event Action<string>? _action;
     public event Action<string>? Action = _action;
 
-    public async Task CallJob()
+    public async Task CallJobTask()
     {
         // ::debug::
         const int overallTimer = 0;
@@ -44,6 +44,24 @@ public abstract class LoadingJob
 
         // ::debug::
         await Task.Delay(overallTimer);
+    }
+
+    public void CallJob()
+    {
+        // Show a start message before performing a custom functionality.
+        ShowStatusMessage(LoadingMessages.Start);
+
+        // Run custom functionality.
+        try
+        {
+            DoTask();
+        }
+        catch (DuckieException e)
+        {
+            // todo: Надо ли показывать сообщение, если все равно будет отображен Диалог Ошибки?
+            ShowStatusMessage(e.Message);
+            throw;
+        }
     }
 
     /// <summary>
