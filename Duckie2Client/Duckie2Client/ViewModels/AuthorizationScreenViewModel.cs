@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive;
-using System.Threading.Tasks;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.AppLoading;
 using Duckie2Client.Services.Checks;
@@ -61,6 +60,7 @@ public class AuthorizationScreenViewModel : ViewModelBase
             ReactiveCommand.Create<object>(BeginAuthorizationCommandExecute);
     }
 
+
     /// <summary>
     /// 
     /// </summary>
@@ -68,6 +68,8 @@ public class AuthorizationScreenViewModel : ViewModelBase
     // ReSharper disable once MemberCanBeMadeStatic.Local
     private async void BeginAuthorizationCommandExecute(object value)
     {
+        return;
+
         IsSpinnerVisible = true;
         IsAuthControlsVisible = false;
 

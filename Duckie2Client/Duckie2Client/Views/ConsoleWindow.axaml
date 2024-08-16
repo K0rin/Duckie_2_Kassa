@@ -27,5 +27,4 @@
             </TransitioningContentControl.PageTransition>
         </TransitioningContentControl>
     </Panel>
-
 </Window>

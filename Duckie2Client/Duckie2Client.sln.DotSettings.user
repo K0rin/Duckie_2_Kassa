@@ -2,7 +2,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FErrorMessages/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FErrorMessages/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FConfigFileDeafultContext/@EntryIndexedValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FErrorMessages/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FErrorMessages/@EntryIndexedValue">True</s:Boolean>
 	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1/@EntryIndexedValue">False</s:Boolean>
@@ -15,6 +15,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Eru_005FRU/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Eru_005FRU/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FStoredProcedures/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FStoredProcedures/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FUserInterface/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ResourcesWriter_002Fbin_002FDebug_002Fnet8_002E0_002FCarResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ResourcesWriter_002Fbin_002FDebug_002Fnet8_002E0_002FCarResources/@EntryIndexRemoved">True</s:Boolean>
@@ -27,5 +28,6 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/OrderByFullPath/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowComments/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">False</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=duckie/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=kassa/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
