@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 
 namespace Duckie2Client.Services.Commands;
 
@@ -13,6 +14,10 @@ public interface IDuckieCommand
     /// A command payload execution.
     /// </summary>
     void Execute();
+
+    void Execute(out bool result);
+
+    void ExecuteWithResult(out object? result);
 
     /// <summary>
     /// Sends a text message to the NotifyStatus event subscribers.

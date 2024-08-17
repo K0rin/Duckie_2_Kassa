@@ -13,4 +13,10 @@ public class DuckieCommandInvoker
     {
         _duckieCommand?.Execute();
     }
+
+    public void ExecuteCommand(out bool result)
+    {
+        result = false;
+        _duckieCommand?.Execute(out result);
+    }
 }

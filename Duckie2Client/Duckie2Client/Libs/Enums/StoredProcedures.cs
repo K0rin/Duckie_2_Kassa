@@ -37,8 +37,7 @@ public static class StoredProceduresExtensions
         return sp.ToString();
     }
 
-    public static List<SqlParameter>? Parameters(this StoredProcedures sp,
-        Dictionary<string, object> parameterValues)
+    public static List<SqlParameter>? Parameters(this StoredProcedures sp, Dictionary<string, object> parameterValues)
     {
         List<SqlParameter>? result = null;
 
@@ -61,8 +60,7 @@ public static class StoredProceduresExtensions
             result[0].Direction = ParameterDirection.Input;
             result[1].Direction = ParameterDirection.Input;
 
-            foreach (var param in result)
-                param.Value = parameterValues[param.ParameterName];
+            foreach (var param in result) param.Value = parameterValues[param.ParameterName];
 
             // Add return value parameter.
             result.Add(new SqlParameter(

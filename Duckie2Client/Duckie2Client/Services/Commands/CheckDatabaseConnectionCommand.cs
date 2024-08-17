@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Threading;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
@@ -18,50 +17,24 @@ public class CheckDatabaseConnectionCommand : AbstractDuckieCommand
             () => UserInterface.DatabaseConnectionCheck, ResourceTypes.UserInterface);
         Notify(notifyMessage);
 
-        // TODO: Check database connection.
-        // throw new DuckieException(ErrorCodes.DbConnectionInvalid);
-
-        // TODO: SETTINGS: which type of credential is using for access to SQLServer (Windows, SQLServer).
-        var currentCredentials = CredentialTypes.Windows;
-        // TODO: Data goes from the config file.
-        var serverName = "DESKTOP-H1O55SG\\SQLEXPRESS";
-        var initialCatalog = "CarWash";
-
         SqlConnection? dbConnection = null;
+        // todo: Может передать names в метод GetDatabaseConnection, а не распаковывать?
+        var names = DatabaseManager.DbmsService.GetServerDatabaseNames();
+        var (serverName, initialCatalog) = names;
 
-        try
+        using (dbConnection)
         {
-            var dbService = currentCredentials.GetDatabaseService([serverName, initialCatalog]);
-
-            dbConnection = dbService?.GetSqlConnection();
-            // TODO: open errors
-            dbConnection?.Open();
-            CheckDatabaseExists(ref dbConnection);
-        }
-        catch (SqlException e)
-        {
-            // TODO: throw DuckieException with params: sql error message
-            throw;
-        }
-        finally
-        {
-            dbConnection?.Close();
-
-
-            // for (var i = 0; i < 100; i++)
-            // {
-            // NotifyByTextMessage($"status {i}");
-            // Thread.Sleep(500);
-            // }
+            _ = DatabaseManager.DbmsService.GetDatabaseConnection(serverName, initialCatalog);
         }
     }
 
-    // TODO: REFACT: Move to DbmsService.cs
-    private static void CheckDatabaseExists(ref SqlConnection? sqlConnection)
+    public override void Execute(out bool result)
     {
-        // todo: erorr: no schema "databases'.
-        var databases = sqlConnection?.GetSchema("Databases"); // todo: refact: string const.
-        var x = databases.Select("database_name = 'CarWash'").Length; // todo: refact: string const.
-        if (x == 0) throw new DuckieException(ErrorCodes.TargetDbDoesNotExist);
+        throw new NotImplementedException();
+    }
+
+    public override void ExecuteWithResult(out object? result)
+    {
+        throw new NotImplementedException();
     }
 }
