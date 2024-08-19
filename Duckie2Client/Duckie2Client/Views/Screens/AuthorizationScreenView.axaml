@@ -9,6 +9,8 @@
              d:DesignHeight="450"
              x:Class="Duckie2Client.Views.Screens.AuthorizationScreenView"
              x:CompileBindings="True"
+             xmlns:duckie2Client="clr-namespace:Duckie2Client"
+             d:DataContext="{x:Static duckie2Client:App.VM_AuthorizationScreen}"
              x:DataType="vm:AuthorizationScreenViewModel">
     <dialogHostAvalonia:DialogHost Identifier="AuthorizationDialog"
                                    DialogMargin="0"

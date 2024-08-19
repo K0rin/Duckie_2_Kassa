@@ -2,13 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:Duckie2Client.ViewModels"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Dialogs"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="Duckie2Client.Views.Dialogs.SpinnerDialog"
-             x:DataType="viewModels:AuthorizationScreenViewModel">
+             x:DataType="vm:SpinnerDialogViewModel">
     <UserControl.Styles>
         <!-- Spinner Animation -->
         <Style Selector="Image.CircleWithGap">
@@ -44,7 +44,6 @@
                    Width="64" />
             <!-- message -->
             <TextBlock HorizontalAlignment="Center"
-                       Text="{Binding Message}"
                        Name="MessageTextBlock" />
             <!-- button -->
             <Button Content="Cancel"

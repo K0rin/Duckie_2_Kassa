@@ -9,7 +9,9 @@ using Duckie2Client.Libs.Enums;
 using Duckie2Client.Services;
 using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.Views;
+using Splat;
 
 namespace Duckie2Client;
 
@@ -18,9 +20,29 @@ public partial class App : Application
 {
     private readonly MultiInstance _multiInstance = new();
 
+
+    public static MainConsoleScreenViewModel VM_MainConsoleScreen =>
+        Locator.Current.GetService<MainConsoleScreenViewModel>()!;
+
+    public static AuthorizationScreenViewModel VM_AuthorizationScreen =>
+        Locator.Current.GetService<AuthorizationScreenViewModel>()!;
+
+    public static ConsoleWindowViewModel VM_ConsoleWindow => Locator.Current.GetService<ConsoleWindowViewModel>()!;
+    public static KassaWindowViewModel VM_KassaWindow => Locator.Current.GetService<KassaWindowViewModel>()!;
+    public static SpinnerDialogViewModel VM_SpinnerDialog => Locator.Current.GetService<SpinnerDialogViewModel>()!;
+
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+
+        // Register DI for view models.
+        SplatRegistrations.Register<MainConsoleScreenViewModel>();
+        SplatRegistrations.Register<AuthorizationScreenViewModel>();
+        SplatRegistrations.Register<ConsoleWindowViewModel>();
+        SplatRegistrations.Register<KassaWindowViewModel>();
+        SplatRegistrations.Register<SpinnerDialogViewModel>();
+        SplatRegistrations.SetupIOC();
     }
 
     public override void OnFrameworkInitializationCompleted()

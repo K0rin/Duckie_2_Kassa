@@ -5,7 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
-    x:CompileBindings="True">
+    x:CompileBindings="True"
+    xmlns:duckie2Client="clr-namespace:Duckie2Client"
+    d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Database">
