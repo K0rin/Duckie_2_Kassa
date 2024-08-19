@@ -116,9 +116,7 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\DialogHost.Avalonia\DialogHost.Avalonia.csproj"/>
-    </ItemGroup>
+
 
     <ItemGroup>
         <Reference Include="DialogHost.Avalonia">
