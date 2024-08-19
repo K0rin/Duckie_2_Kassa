@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using ReactiveUI.Fody.Helpers;
 
-
-namespace Duckie2Client.ViewModels;
+namespace Duckie2Client.ViewModels.Base;
 
 public abstract class PagerViewModelBase : ViewModelBase
 {
@@ -22,8 +21,8 @@ public abstract class PagerViewModelBase : ViewModelBase
     protected PagerViewModelBase(List<ViewModelPageBase> pages, int defaultPageNumber)
     {
         Pages = pages;
-        // Set references to the pager object.
 
+        // Set references to the pager object.
         foreach (var page in Pages) page.PagerViewModel = this;
 
         CurrentPage = Pages[defaultPageNumber];

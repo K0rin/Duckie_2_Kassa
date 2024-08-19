@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -9,8 +8,8 @@ using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Services;
 using Duckie2Client.ViewModels;
+using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views;
-using DynamicData;
 
 namespace Duckie2Client;
 
@@ -73,7 +72,7 @@ public partial class App : Application
     private void CheckAppInstancesNumber(
         IClassicDesktopStyleApplicationLifetime desktop)
     {
-        if (_multiInstance.IsSingleInstance(desktop.Args[1])) return;
+        if (_multiInstance.IsSingleInstance(desktop.Args?[1]!)) return;
         _multiInstance.SetInstanceForeground();
         desktop.Shutdown((int)ErrorCodes.ApplicationInstanceAlreadyExists);
     }
@@ -81,8 +80,8 @@ public partial class App : Application
     private ArgsParser CheckCommandLineArguments(
         IClassicDesktopStyleApplicationLifetime desktop)
     {
-        const string modeOptionName = "mode";
-        var argsParser = new ArgsParser(desktop.Args, modeOptionName);
+        const string MODE_OPTION_NAME = "mode";
+        var argsParser = new ArgsParser(desktop.Args!, MODE_OPTION_NAME);
 
         try
         {
@@ -194,11 +193,9 @@ public partial class App : Application
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnExit(object? sender,
-        ControlledApplicationLifetimeExitEventArgs e)
+    private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
-        var currentThread = Thread.CurrentThread;
-
+        // var currentThread = Thread.CurrentThread;
 
         _multiInstance.UnlockFile();
     }

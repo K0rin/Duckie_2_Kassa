@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Duckie2Client.ViewModels;
+using Duckie2Client.ViewModels.Base;
 
 namespace Duckie2Client;
 

@@ -4,6 +4,7 @@ using System.Threading;
 using Avalonia.Threading;
 using DialogHostAvalonia;
 using Duckie2Client.Services.Commands;
+using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -99,29 +100,25 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         var dialogResult = (await DialogHost.Show(d, DIALOG_IDENTIFIER))!;
 
         var result = (dialogResult, authResult);
-        switch (result)
-        {
-            case (false, false):
-            {
-                // Authorization canceled
-                // todo: create aborting sequence if it is necessary.
-                authorizationJobThread.Interrupt();
-                authorizationJobThread.Join();
-                break;
-            }
-            case (null, false):
-            {
-                // Authorization failed
-                // todo: show error dialog.
-                break;
-            }
-            case (null, true):
-            {
-                // Authorization granted
-                // todo: Switch to the Main Console Screen.
-                PagerViewModel.SwitchPage(1);
-                break;
-            }
-        }
+        if (result.Equals((false, false))) AuthorizationCanceled(authorizationJobThread);
+        if (result.Equals((null, false)!)) AuthorizationFailed();
+        if (result.Equals((null, true)!)) AuthorizationGranted();
+    }
+
+    private static void AuthorizationCanceled(Thread thread)
+    {
+        // todo: create aborting sequence if it is necessary.
+        thread.Interrupt();
+        thread.Join();
+    }
+
+    private void AuthorizationFailed()
+    {
+        // todo: show error dialog.
+    }
+
+    private void AuthorizationGranted()
+    {
+        PagerViewModel.SwitchPage(1);
     }
 }
