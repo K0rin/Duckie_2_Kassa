@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive;
 using System.Threading;
-using System.Threading.Tasks;
 using Avalonia.Threading;
 using DialogHostAvalonia;
 using Duckie2Client.Services.Commands;
@@ -11,7 +10,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Duckie2Client.ViewModels;
 
-public class AuthorizationScreenViewModel : ViewModelBase
+public class AuthorizationScreenViewModel : ViewModelPageBase
 {
     public ReactiveCommand<Unit, Unit> BeginAuthorizationCommand { get; set; }
     [Reactive] public string Message { get; set; }
@@ -24,8 +23,8 @@ public class AuthorizationScreenViewModel : ViewModelBase
     public AuthorizationScreenViewModel()
     {
         BeginAuthorizationCommand = ReactiveCommand.Create(BeginAuthorizationCommandExecute);
-        Message = "::NONE::";
 #if DEBUG
+        Message = "::NONE::";
         UserLogin = "jevgeni";
         UserPassword = "urugula";
 #endif
@@ -120,7 +119,7 @@ public class AuthorizationScreenViewModel : ViewModelBase
             {
                 // Authorization granted
                 // todo: Switch to the Main Console Screen.
-                // ((ConsoleWindowViewModel)value).SwitchPage(1);
+                PagerViewModel.SwitchPage(1);
                 break;
             }
         }

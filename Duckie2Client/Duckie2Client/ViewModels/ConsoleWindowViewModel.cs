@@ -1,34 +1,21 @@
-﻿using ReactiveUI;
+﻿using System.Collections.Generic;
 
 namespace Duckie2Client.ViewModels;
 
-public class ConsoleWindowViewModel : ViewModelBase
+public class ConsoleWindowViewModel : PagerViewModelBase
 {
-    private readonly ViewModelBase[] _pages =
-    [
-        new AuthorizationScreenViewModel(),
-        new MainConsoleScreenViewModel()
-    ];
-
-    private ViewModelBase _currentPage;
-
-    /// <summary>
-    /// Gets the current page. The property is read-only
-    /// </summary>
-    public ViewModelBase CurrentPage
+    // public ConsoleWindowViewModel()
+    // {
+    //     _pages =
+    //     [
+    //         new AuthorizationScreenViewModel(this),
+    //         new MainConsoleScreenViewModel(this)
+    //     ];
+    //
+    //     // By default, the Authorization Screen is visible.
+    //     _currentPage = _pages[0];
+    // }
+    public ConsoleWindowViewModel(List<ViewModelPageBase> pages, int defaultPageNumber) : base(pages, defaultPageNumber)
     {
-        get => _currentPage;
-        private set => this.RaiseAndSetIfChanged(ref _currentPage, value);
-    }
-
-    public void SwitchPage(int pageNumber)
-    {
-        CurrentPage = _pages[pageNumber];
-    }
-
-    public ConsoleWindowViewModel()
-    {
-        // By default, the Authorization Screen is visible.
-        _currentPage = _pages[0];
     }
 }

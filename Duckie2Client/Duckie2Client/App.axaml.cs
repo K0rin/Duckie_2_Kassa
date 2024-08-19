@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
@@ -9,6 +10,7 @@ using Duckie2Client.Libs.Enums;
 using Duckie2Client.Services;
 using Duckie2Client.ViewModels;
 using Duckie2Client.Views;
+using DynamicData;
 
 namespace Duckie2Client;
 
@@ -146,26 +148,45 @@ public partial class App : Application
         var result = ShowInitialSetupWizard();
         if (result != null) return result;
 
+
         // Select a view appropriate to a selected app mode.
         result = appMode switch
         {
-            AppModes.Console => new ConsoleWindow
-            {
-                DataContext = new ConsoleWindowViewModel()
-            },
-            AppModes.Kassa => new KassaWindow
-            {
-                DataContext = new KassaWindowViewModel()
-            },
+            AppModes.Console => CreateConsoleWindow(),
+            AppModes.Kassa => CreateKassaWindow(),
             _ => null
         };
 
         if (result == null)
             // todo: add error message to resource file.
-            throw new InvalidOperationException(
-                "Cannot create main window. Unknown application mode.");
+            throw new InvalidOperationException("Cannot create main window. Unknown application mode.");
 
         return result;
+    }
+
+    private static ConsoleWindow CreateConsoleWindow()
+    {
+        // Pages
+        List<ViewModelPageBase> pages =
+        [
+            new AuthorizationScreenViewModel(),
+            new MainConsoleScreenViewModel()
+        ];
+
+        var output = new ConsoleWindow
+        {
+            DataContext = new ConsoleWindowViewModel(pages, 0)
+        };
+        return output;
+    }
+
+    private static KassaWindow CreateKassaWindow()
+    {
+        var output = new KassaWindow
+        {
+            DataContext = new KassaWindowViewModel()
+        };
+        return output;
     }
 
     /// <summary>
