@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace Duckie2Client.Services.Commands;
 
@@ -16,6 +17,7 @@ public interface IDuckieCommand
     void Execute();
 
     void Execute(out bool result);
+    void Execute(CancellationToken token);
 
     void ExecuteWithResult(out object? result);
 

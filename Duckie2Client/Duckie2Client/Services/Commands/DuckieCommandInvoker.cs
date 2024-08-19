@@ -1,4 +1,6 @@
-﻿namespace Duckie2Client.Services.Commands;
+﻿using System.Threading;
+
+namespace Duckie2Client.Services.Commands;
 
 public class DuckieCommandInvoker
 {
@@ -18,5 +20,10 @@ public class DuckieCommandInvoker
     {
         result = false;
         _duckieCommand?.Execute(out result);
+    }
+
+    public void ExecuteCommand(CancellationToken token)
+    {
+        _duckieCommand?.Execute(token);
     }
 }
