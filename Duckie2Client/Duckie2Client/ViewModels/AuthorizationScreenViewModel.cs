@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Reactive;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Threading;
 using DialogHostAvalonia;
 using Duckie2Client.Libs;
