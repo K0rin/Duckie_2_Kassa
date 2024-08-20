@@ -20,16 +20,26 @@ public partial class App : Application
 {
     private readonly MultiInstance _multiInstance = new();
 
-
+    // ReSharper disable once InconsistentNaming
     public static MainConsoleScreenViewModel VM_MainConsoleScreen =>
         Locator.Current.GetService<MainConsoleScreenViewModel>()!;
 
+    // ReSharper disable once InconsistentNaming
     public static AuthorizationScreenViewModel VM_AuthorizationScreen =>
         Locator.Current.GetService<AuthorizationScreenViewModel>()!;
 
+    // ReSharper disable once InconsistentNaming
     public static ConsoleWindowViewModel VM_ConsoleWindow => Locator.Current.GetService<ConsoleWindowViewModel>()!;
+
+    // ReSharper disable once InconsistentNaming
     public static KassaWindowViewModel VM_KassaWindow => Locator.Current.GetService<KassaWindowViewModel>()!;
+
+    // ReSharper disable once InconsistentNaming
     public static SpinnerDialogViewModel VM_SpinnerDialog => Locator.Current.GetService<SpinnerDialogViewModel>()!;
+
+    // ReSharper disable once InconsistentNaming
+    public static InitialSetupWizardViewModel VM_InitialSetupWizard =>
+        Locator.Current.GetService<InitialSetupWizardViewModel>()!;
 
 
     public override void Initialize()
@@ -42,6 +52,7 @@ public partial class App : Application
         SplatRegistrations.Register<ConsoleWindowViewModel>();
         SplatRegistrations.Register<KassaWindowViewModel>();
         SplatRegistrations.Register<SpinnerDialogViewModel>();
+        SplatRegistrations.Register<InitialSetupWizardViewModel>();
         SplatRegistrations.SetupIOC();
     }
 
@@ -217,8 +228,6 @@ public partial class App : Application
     /// <param name="e"></param>
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
-        // var currentThread = Thread.CurrentThread;
-
         _multiInstance.UnlockFile();
     }
 }

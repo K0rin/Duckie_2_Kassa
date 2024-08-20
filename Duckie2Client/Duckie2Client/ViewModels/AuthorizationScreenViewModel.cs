@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Reactive;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Threading;
 using DialogHostAvalonia;
+using Duckie2Client.Libs;
+using Duckie2Client.Libs.Enums;
+using Duckie2Client.Resources;
 using Duckie2Client.Services.Commands;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
@@ -21,7 +25,9 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
     [Reactive] public string Message { get; set; }
     private bool _isDialogLoaded;
     private readonly Mutex _mutexObj = new();
-    private SpinnerDialog processDialog; // = CreateDialog();
+    private SpinnerDialog _processDialog;
+    private ErrorDialog _errorDialog;
+    private const string AUTHORIZATION_DIALOGS = "AuthorizationDialogs";
 
     public AuthorizationScreenViewModel()
     {
@@ -30,7 +36,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         UserLogin = "jevgeni";
         UserPassword = "urugula";
 #endif
-        processDialog = CreateDialog();
+        _processDialog = CreateDialog();
     }
 
 
@@ -76,7 +82,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         finally
         {
             // After all tasks are finished, the dialog will be closed.
-            Dispatcher.UIThread.InvokeAsync(() => DialogHost.Close(processDialog.Identifier));
+            Dispatcher.UIThread.InvokeAsync(() => DialogHost.Close(AUTHORIZATION_DIALOGS));
             _mutexObj.ReleaseMutex();
         }
 
@@ -92,13 +98,13 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
     private async void BeginAuthorizationCommandExecute()
     {
-        processDialog = CreateDialog();
+        _processDialog = CreateDialog();
         var authResult = false;
         var authorizationJobThread = new Thread(() => DoAuthorization(result => authResult = result));
 
         // Start the thread and then show the dialog. The thread will wait for showing the dialog on the screen.
         authorizationJobThread.Start();
-        var dialogResult = (await DialogHost.Show(processDialog, processDialog.Identifier))!;
+        var dialogResult = (await DialogHost.Show(_processDialog, AUTHORIZATION_DIALOGS))!;
 
         var result = (dialogResult, authResult);
         if (result.Equals((false, false))) AuthorizationCanceled(authorizationJobThread);
@@ -108,7 +114,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
     private SpinnerDialog CreateDialog()
     {
-        var output = SpinnerDialog.GetNewDialog("AuthorizationDialog", this);
+        var output = SpinnerDialog.GetNewDialog(this);
         output.Notify += DialogAttachedToVisualTreeHandler;
         return output;
     }
@@ -120,9 +126,11 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         thread.Join();
     }
 
-    private static void AuthorizationFailed()
+    private async void AuthorizationFailed()
     {
-        // todo: show error dialog.
+        var msg = Localization.GetString(() => ErrorMessages._301_UserHasNoAccessRights, ResourceTypes.ErrorMessages);
+        _errorDialog = new ErrorDialog(msg);
+        await DialogHost.Show(_errorDialog, AUTHORIZATION_DIALOGS);
     }
 
     private void AuthorizationGranted()

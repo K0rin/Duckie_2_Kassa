@@ -14,17 +14,14 @@ public interface IStrategy
 
 public class Context(IStrategy strategy)
 {
-    private const string NoTranslationLabel = "<NO_TRANSLATION>";
+    private const string NO_TRANSLATION_LABEL = "<NO_TRANSLATION>";
 
     public string GetString(string stringName)
     {
-        // If there are special option for language in the settings file, load
-        // appropriate culture.
+        // If there are special option for language in the settings file, load appropriate culture.
         // Otherwise, load system culture.
 
-        var userDefinedCulture =
-            new DuckieConfig().Configuration[
-                SettingsFileOptions.UiLanguage];
+        var userDefinedCulture = new DuckieConfig().Configuration[SettingsFileOptions.UiLanguage];
 
         var installedCulture = string.IsNullOrEmpty(userDefinedCulture)
             // Get currently using by operating system culture.
@@ -36,7 +33,7 @@ public class Context(IStrategy strategy)
 
         // If a resource file has no translation for a denoted string, return
         // placeholder text "<NO_TRANSLATION>".
-        return result ?? NoTranslationLabel;
+        return result ?? NO_TRANSLATION_LABEL;
     }
 }
 
@@ -44,7 +41,7 @@ public class ErrorMessagesGettingString : IStrategy
 {
     public string? DoAlgorithm(string someText, CultureInfo cultureInfo)
     {
-        return ErrorMessages.ResourceManager.GetString(someText, cultureInfo);
+        return ErrorMessages.ResourceManager.GetString(someText.TrimStart('_'), cultureInfo);
     }
 }
 
@@ -58,40 +55,32 @@ public class UserInterfaceGettingString : IStrategy
 
 public static class Localization
 {
-    public static string GetString(Expression<Func<string>> nameGetter,
-        ResourceTypes resourceType)
+    public static string GetString(Expression<Func<string>> nameGetter, ResourceTypes resourceType)
     {
         string getterName;
 
         if (nameGetter.Body is MemberExpression memberExpression)
             getterName = memberExpression.Member.Name;
         else
-            throw new Exception(
-                "Error occured during getting class getter name.");
+            throw new Exception("Error occured during getting class getter name.");
 
         var result = GetString(getterName, resourceType);
 
         return result;
     }
 
-    public static string GetString(
-        string stringName,
-        ResourceTypes resourceType)
+    public static string GetString(string stringName, ResourceTypes resourceType)
     {
         var context = resourceType switch
         {
-            ResourceTypes.ErrorMessages => new Context(
-                new ErrorMessagesGettingString()),
-            ResourceTypes.UserInterface => new Context(
-                new UserInterfaceGettingString()),
+            ResourceTypes.ErrorMessages => new Context(new ErrorMessagesGettingString()),
+            ResourceTypes.UserInterface => new Context(new UserInterfaceGettingString()),
             /* NOTE:
              Add here other resource courses.
-             Create new class for a strategy named
-             "{resource name}GettingString."
+             Create new class for a strategy named "{resource name}GettingString."
              See the class ErrorMessagesGettingString for sample.
             */
-            _ => throw new ArgumentOutOfRangeException(nameof(resourceType),
-                resourceType, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
         };
 
         var result = context.GetString(stringName);

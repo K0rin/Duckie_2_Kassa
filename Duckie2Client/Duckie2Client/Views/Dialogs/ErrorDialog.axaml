@@ -1,0 +1,15 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Dialogs"
+             x:Class="Duckie2Client.Views.Dialogs.ErrorDialog"
+             x:DataType="vm:ErrorDialogViewModel">
+    <StackPanel Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=Bounds.Width}">
+        <!-- message -->
+        <TextBlock HorizontalAlignment="Center"
+                   Name="MessageTextBlock" />
+        <!-- button -->
+        <Button Content="OK"
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}" />
+    </StackPanel>
+</UserControl>

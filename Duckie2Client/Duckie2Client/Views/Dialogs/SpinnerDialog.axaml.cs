@@ -9,7 +9,6 @@ public partial class SpinnerDialog : UserControl
     public delegate void AttachedToVisualTreeHandler(bool status);
 
     public event AttachedToVisualTreeHandler? Notify;
-    public string Identifier { get; set; }
 
     public SpinnerDialog()
     {
@@ -45,12 +44,9 @@ public partial class SpinnerDialog : UserControl
         Notify?.Invoke(true);
     }
 
-    public static SpinnerDialog GetNewDialog(string identifier, object dataContext)
+    public static SpinnerDialog GetNewDialog(object dataContext)
     {
-        var output = new SpinnerDialog
-        {
-            Identifier = "AuthorizationDialog"
-        };
+        var output = new SpinnerDialog();
         output
             .SetDataContext(dataContext)
             .SetMessageBinding("Message", BindingMode.OneWay);

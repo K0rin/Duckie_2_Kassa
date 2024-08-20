@@ -19,6 +19,7 @@ public class ViewLocator : StrongViewLocator
         Register<AuthorizationScreenViewModel, AuthorizationScreenView>();
         Register<ConsoleWindowViewModel, ConsoleWindow>();
         Register<KassaWindowViewModel, KassaWindow>();
+        Register<InitialSetupWizardViewModel, InitialSetupWizardWindow>();
 
         // Dialogs
         Register<SpinnerDialogViewModel, SpinnerDialog>();

@@ -12,7 +12,7 @@
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
              d:DataContext="{x:Static duckie2Client:App.VM_AuthorizationScreen}"
              x:DataType="vm:AuthorizationScreenViewModel">
-    <dialogHostAvalonia:DialogHost Identifier="AuthorizationDialog"
+    <dialogHostAvalonia:DialogHost Identifier="AuthorizationDialogs"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"

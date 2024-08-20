@@ -4,6 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Duckie2Client.Views.InitialSetupWizardWindow"
+        xmlns:a="clr-namespace:Duckie2Client"
+        d:DataContext="{x:Static a:App.VM_InitialSetupWizard}"
         Title="InitialSetupWizardWindow">
     InitialSetupWizardWindow
 </Window>
