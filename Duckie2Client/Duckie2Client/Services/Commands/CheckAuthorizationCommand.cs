@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading;
-using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 
 namespace Duckie2Client.Services.Commands;
@@ -58,15 +57,6 @@ public class CheckAuthorizationCommand : AbstractDuckieCommand
         result = sqlAuthorizeCommand.ReturnValue!.Equals(1);
     }
 
-    public override void Execute(CancellationToken token)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void Execute(CancellationToken token, out bool result)
-    {
-        throw new NotImplementedException();
-    }
 
     public override void ExecuteWithResult(out object? result)
     {
