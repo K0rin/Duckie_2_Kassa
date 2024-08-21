@@ -1,89 +1,143 @@
-<Window
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignWidth="400"
-    d:DesignHeight="400"
-    x:Class="Duckie2Client.Views.SplashWindow"
-    x:CompileBindings="True"
-    Width="400"
-    Height="400"
-    WindowStartupLocation="CenterScreen"
-    SystemDecorations="None"
-    Title="SplashScreen"
-    Background="#219EBC">
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Duckie2Client.Views.SplashWindow"
+        x:CompileBindings="True"
+        Width="400"
+        Height="400"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        Title="SplashScreen"
+        Background="#219EBC">
 
     <Window.Styles>
         <Style Selector="Canvas.RubberDuckCanvas">
             <Style.Animations>
-                <Animation
-                    Duration="0:0:3"
-                    IterationCount="Infinite">
-
+                <Animation Duration="0:0:3"
+                           IterationCount="Infinite">
                     <KeyFrame Cue="0%">
-                        <Setter
-                            Property="Left"
-                            Value="-44" />
+                        <Setter Property="Left"
+                                Value="-44" />
                     </KeyFrame>
-
                     <KeyFrame Cue="100%">
-                        <Setter
-                            Property="Left"
-                            Value="400" />
+                        <Setter Property="Left"
+                                Value="400" />
                     </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
 
+        <Style Selector="Image.ErrorIcon">
+            <Style.Animations>
+                <Animation Duration="0:0:1" IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="50%">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1.0" />
+                    </KeyFrame>
                 </Animation>
             </Style.Animations>
         </Style>
     </Window.Styles>
 
-    <DockPanel VerticalAlignment="Center">
+    <StackPanel Orientation="Vertical">
 
-        <!-- Title  -->
-        <StackPanel HorizontalAlignment="Center"
-                    DockPanel.Dock="Top"
-                    Orientation="Horizontal">
-            <!-- Application name -->
-            <TextBlock Text="Duckie 2.0"
-                       Foreground="#023047"
-                       FontFamily="{StaticResource FontRubikBold}"
-                       FontSize="20"
-                       HorizontalAlignment="Center" />
-            <!-- Application mode name -->
-            <TextBlock Name="ApplicationModeName"
-                       Text="Admin"
-                       Foreground="#FFB703"
-                       FontFamily="{StaticResource FontRubikRegular}"
-                       FontSize="16"
-                       VerticalAlignment="Center"
-                       Margin="2,0,0,0" />
-        </StackPanel>
+        <!-- Normal mode -->
 
-        <Canvas
-            DockPanel.Dock="Top"
-            Height="44">
-            <Canvas
-                Left="0"
-                Classes="RubberDuckCanvas">
-                <Image
-                    Source="/Assets/rubber-duck.png"
-                    Height="44"
-                    Width="44" />
+        <DockPanel VerticalAlignment="Center"
+                   Name="NormalModePanel"
+                   IsVisible="False">
+
+            <!-- Title  -->
+            <StackPanel HorizontalAlignment="Center"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                <!-- Application name -->
+                <TextBlock Text="Duckie 2.0"
+                           Foreground="#023047"
+                           FontFamily="{StaticResource FontRubikBold}"
+                           FontSize="20"
+                           HorizontalAlignment="Center" />
+                <!-- Application mode name -->
+                <TextBlock Name="ApplicationModeName"
+                           Text="Admin"
+                           Foreground="#FFB703"
+                           FontFamily="{StaticResource FontRubikRegular}"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           Margin="2,0,0,0" />
+            </StackPanel>
+
+            <Canvas DockPanel.Dock="Top"
+                    Height="44">
+                <Canvas Left="0"
+                        Classes="RubberDuckCanvas">
+                    <Image Source="/Assets/rubber-duck.png"
+                           Height="44"
+                           Width="44" />
+                </Canvas>
             </Canvas>
-        </Canvas>
 
-        <Panel HorizontalAlignment="Center">
-            <TextBlock
-                Name="StatusMessage"
-                Text="Welcome to Duckie 2"
-                Foreground="#023047"
-                FontFamily="{StaticResource FontRubikRegular}"
-                FontSize="14"
-                Height="16" />
-        </Panel>
+            <!-- Message text -->
+            <Panel HorizontalAlignment="Center">
+                <TextBlock Name="StatusMessage"
+                           Text="Welcome to Duckie 2"
+                           Foreground="#023047"
+                           FontFamily="{StaticResource FontRubikRegular}"
+                           FontSize="14"
+                           Height="16" />
+            </Panel>
 
-    </DockPanel>
+        </DockPanel>
 
+        <!-- Error mode -->
+
+        <Grid Name="ErrorModePanel"
+              RowDefinitions="*,Auto,*"
+              ColumnDefinitions="*">
+            <!-- Error icon -->
+            <Panel Margin="0 66 0 0"
+                   Grid.Column="0"
+                   Grid.Row="0">
+                <Image Source="/Assets/error.png"
+                       Height="128"
+                       Width="128"
+                       Classes="ErrorIcon" />
+            </Panel>
+
+            <!-- Error message -->
+            <Panel HorizontalAlignment="Center"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Margin="16">
+                <ScrollViewer MaxHeight="117">
+                    <StackPanel>
+                        <TextBlock Name="ErrorNumber"
+                                   FontWeight="Bold"
+                                   IsVisible="True"
+                                   Text="::error number::" />
+                        <TextBlock Name="ErrorMessage"
+                                   TextWrapping="Wrap"
+                                   Padding="16 0 16 0"
+                                   Text="::error text::" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Panel>
+
+            <!--Exit button -->
+            <Panel HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   Margin="0 0 0 0">
+                <Button Content="::Exit::"
+                        Name="ExitButton"
+                        Click="Button_OnClick" />
+            </Panel>
+        </Grid>
+
+    </StackPanel>
 </Window>

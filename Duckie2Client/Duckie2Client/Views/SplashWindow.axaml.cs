@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Duckie2Client.Libs;
@@ -33,15 +35,18 @@ public partial class SplashWindow : Window
     {
         InitializeComponent();
         Ui.CenterWindowOnScreen(this);
+
         _mainAction = mainAction;
         _appMode = appMode;
+
+        // todo: load localization for exit button
+        ExitButton.Content = "Exit";
     }
 
 
     protected override void OnLoaded(RoutedEventArgs routedEventArgs)
     {
         SetModeNameText();
-        // Begin the Application loading.
         LoadDuckieApplication();
     }
 
@@ -62,20 +67,17 @@ public partial class SplashWindow : Window
         var appLoading = new AppLoading();
 
         // Subscribe on event.
-        appLoading.ActionCompleted += actionMessage =>
-            StatusMessage.Text = actionMessage;
+        appLoading.ActionCompleted += actionMessage => StatusMessage.Text = actionMessage;
 
         try
         {
             // Run tasks.
             await appLoading.LoadAppActionAsync();
         }
-        catch (DuckieException e)
+        catch (Exception e)
         {
             // TODO: Switch the Splash Screen to Error Message Mode.
-            // SwitchErrorMode();
-
-            Console.WriteLine(e.Message);
+            SwitchErrorMode(e);
 
             // Avoid closing the Splash Screen and opening the Main Screen.
             return;
@@ -84,32 +86,54 @@ public partial class SplashWindow : Window
         await LoadedSuccessfully();
     }
 
-    private void SwitchErrorMode()
+    private void SwitchErrorMode(Exception error)
     {
-        throw new NotImplementedException();
+        var errorModePanel = GetElementByName<Grid>("ErrorModePanel");
+        var normalModePanel = GetElementByName<DockPanel>("NormalModePanel");
+
+        ErrorMessage.Text = error.Message;
+
+        ErrorNumber.IsVisible = error is DuckieException;
+        if (error is DuckieException exception) ErrorNumber.Text = exception.ErrorNumber.ToString();
+
+        errorModePanel.IsVisible = true;
+        normalModePanel.IsVisible = false;
+    }
+
+    private T GetElementByName<T>(string elementName) where T : Control
+    {
+        var nameScope =
+            this.FindNameScope() ?? throw new InvalidOperationException(RuntimeErrors.NameScopeNotFound.GetMessage());
+        var output = nameScope.Find<T>(elementName)
+                     ?? throw new ArgumentNullException(
+                         RuntimeErrors.CannotFindAnElementWithName.GetMessage([elementName]));
+        return output;
     }
 
     /// <summary>
-    /// This method call after the application is loaded successfully without
-    /// any exceptions.
+    /// This method call after the application is loaded successfully without any exceptions.
     /// </summary>
     private async Task LoadedSuccessfully()
     {
         // Successful loading.
         StatusMessage.Text = Localization.GetString(
-            () => UserInterface.LoadingProcessDone,
-            ResourceTypes.UserInterface);
+            () => UserInterface.LoadingProcessDone, ResourceTypes.UserInterface);
 
         // ::debug::
         const int delay = 1000;
         await Task.Delay(delay);
         // ::debug::
 
-        // Show main window and close the splash screen.
+        // Show the main window and close the splash screen.
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
             _mainAction?.Invoke();
             Close();
         });
+    }
+
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Services.Common.ExitApplication();
     }
 }
