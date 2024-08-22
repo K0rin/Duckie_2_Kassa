@@ -37,7 +37,6 @@ public partial class SplashWindow : Window
         _mainAction = mainAction;
         _appMode = appMode;
 
-        // todo: load localization for exit button
         ExitButton.Content = "Exit";
     }
 
@@ -48,7 +47,6 @@ public partial class SplashWindow : Window
         LoadDuckieApplication();
     }
 
-    // todo: refact: Change to enum.
     private void SetModeNameText()
     {
         var modeNames = new Dictionary<AppModes, string>
@@ -63,8 +61,6 @@ public partial class SplashWindow : Window
     private async void LoadDuckieApplication()
     {
         var appLoading = new AppLoading();
-
-        // Subscribe on event.
         appLoading.ActionCompleted += actionMessage => StatusMessage.Text = actionMessage;
 
         try
@@ -74,9 +70,7 @@ public partial class SplashWindow : Window
         }
         catch (Exception e)
         {
-            // TODO: Switch the Splash Screen to Error Message Mode.
             SwitchErrorMode(e);
-
             // Avoid closing the Splash Screen and opening the Main Screen.
             return;
         }
@@ -118,8 +112,8 @@ public partial class SplashWindow : Window
             () => UserInterface.LoadingProcessDone, ResourceTypes.UserInterface);
 
         // ::debug::
-        const int delay = 1000;
-        await Task.Delay(delay);
+        // const int delay = 1000;
+        // await Task.Delay(delay);
         // ::debug::
 
         // Show the main window and close the splash screen.
@@ -130,6 +124,7 @@ public partial class SplashWindow : Window
         });
     }
 
+    // ReSharper disable once UnusedParameter.Local
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
         Services.Common.ExitApplication();

@@ -18,7 +18,7 @@ public class Context(IStrategy strategy)
 
     public string GetString(string stringName)
     {
-        // If there are special option for language in the settings file, load appropriate culture.
+        // If there is a special option for language in the settings file, load appropriate culture.
         // Otherwise, load system culture.
 
         var userDefinedCulture = new DuckieConfig().Configuration[SettingsFileOptions.UiLanguage];
@@ -31,8 +31,7 @@ public class Context(IStrategy strategy)
             installedCulture.TwoLetterISOLanguageName);
         var result = strategy.DoAlgorithm(stringName, cultureInfo);
 
-        // If a resource file has no translation for a denoted string, return
-        // placeholder text "<NO_TRANSLATION>".
+        // If a resource file has no translation for a denoted string, return placeholder text "<NO_TRANSLATION>".
         return result ?? NO_TRANSLATION_LABEL;
     }
 }
@@ -77,7 +76,7 @@ public static class Localization
             ResourceTypes.UserInterface => new Context(new UserInterfaceGettingString()),
             /* NOTE:
              Add here other resource courses.
-             Create new class for a strategy named "{resource name}GettingString."
+             Create a new class for a strategy named "{resource name}GettingString."
              See the class ErrorMessagesGettingString for sample.
             */
             _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
@@ -91,33 +90,4 @@ public static class Localization
         // Возможно, проверять наличие файлов локализации только в режиме отладки.
         // CheckCultureHasTranslations(installedCulture);
     }
-
-    // private static void CheckCultureHasTranslations(CultureInfo cultureName)
-    // {
-    //     var cultureList = GetAvailableCultures();
-    //
-    //     if (!cultureList.Contains(cultureName))
-    //         throw new Exception(
-    //             "There is no translation for a denoted culture.");
-    // }
-    //
-    // private static IEnumerable<CultureInfo> GetAvailableCultures()
-    // {
-    //     var result = new List<CultureInfo>();
-    //     var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-    //
-    //     foreach (var culture in cultures)
-    //     {
-    //         if (culture.Equals(CultureInfo.InvariantCulture)) continue;
-    //
-    //         var rs = Resources1.ResourceManager.GetResourceSet(
-    //             culture,
-    //             true,
-    //             false);
-    //
-    //         if (rs != null) result.Add(culture);
-    //     }
-    //
-    //     return result;
-    // }
 }

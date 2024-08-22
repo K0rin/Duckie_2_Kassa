@@ -21,8 +21,7 @@ public class CustomSqlCommand
 
     public SqlParameterCollection Parameters => _sqlCommand.Parameters;
 
-    public object? ReturnValue =>
-        _sqlCommand.Parameters[Common.DefaultReturnValueParameterName].Value;
+    public object? ReturnValue => _sqlCommand.Parameters[Common.DefaultReturnValueParameterName].Value;
 
     public int ExecuteNonQuery()
     {

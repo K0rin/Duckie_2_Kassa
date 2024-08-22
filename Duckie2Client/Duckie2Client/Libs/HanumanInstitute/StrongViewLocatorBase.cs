@@ -21,8 +21,7 @@ public abstract class StrongViewLocatorBase : IViewLocator
     /// </summary>
     /// <param name="viewDef">The view definition including its type and how to create one.</param>
     /// <typeparam name="TViewModel">The type of view model to register.</typeparam>
-    protected void Register<TViewModel>(ViewDefinition viewDef)
-        where TViewModel : INotifyPropertyChanged
+    protected void Register<TViewModel>(ViewDefinition viewDef) where TViewModel : INotifyPropertyChanged
     {
         Registrations.Add(typeof(TViewModel), viewDef);
     }
@@ -30,18 +29,13 @@ public abstract class StrongViewLocatorBase : IViewLocator
     /// <inheritdoc />
     public virtual ViewDefinition Locate(object viewModel)
     {
-        if (Registrations.TryGetValue(viewModel.GetType(), out var view))
-        {
-            return view;
-        }
-        else
-        {
-            var message = $"No view was registered for view model {viewModel.GetType().FullName}.";
-            const string ErrorInfo =
-                "This project uses a StrongViewLocator, " +
-                "which requires manually registering all ViewModel-View combinations.";
-            throw new TypeLoadException(message + Environment.NewLine + ErrorInfo);
-        }
+        if (Registrations.TryGetValue(viewModel.GetType(), out var view)) return view;
+
+        var message = $"No view was registered for view model {viewModel.GetType().FullName}.";
+        const string ERROR_INFO =
+            "This project uses a StrongViewLocator, " +
+            "which requires manually registering all ViewModel-View combinations.";
+        throw new TypeLoadException(message + Environment.NewLine + ERROR_INFO);
     }
 
     /// <inheritdoc />

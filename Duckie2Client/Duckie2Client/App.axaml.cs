@@ -63,20 +63,10 @@ public partial class App : Application
         {
             desktop.Exit += OnExit;
 
-
             // Check command line parameters.
-            /* todo: refactor:
-            Убрать из метода создание объекта ArgsParser.
-            Метод не должен ничего возвращать, только выбрасывать исключение,
-            чтобы метод desktop.Shutdown вызывать только в одно месте.
-            */
             var argsParser = CheckCommandLineArguments(desktop);
 
-            // Check number of the app instances.
-            /* todo: refactor:
-            Пусть метод _multiInstanceIsSingleInstance выбрасывает исключение,
-            чтобы здесь его ловить и вызывать Shutdown в одном месте (здесь).
-            */
+            // Check the number of the app instances.
             CheckAppInstancesNumber(desktop);
 
             desktop.MainWindow = new SplashWindow(() =>
@@ -102,16 +92,14 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void CheckAppInstancesNumber(
-        IClassicDesktopStyleApplicationLifetime desktop)
+    private void CheckAppInstancesNumber(IClassicDesktopStyleApplicationLifetime desktop)
     {
         if (_multiInstance.IsSingleInstance(desktop.Args?[1]!)) return;
         _multiInstance.SetInstanceForeground();
         desktop.Shutdown((int)ErrorCodes.ApplicationInstanceAlreadyExists);
     }
 
-    private ArgsParser CheckCommandLineArguments(
-        IClassicDesktopStyleApplicationLifetime desktop)
+    private static ArgsParser CheckCommandLineArguments(IClassicDesktopStyleApplicationLifetime desktop)
     {
         const string MODE_OPTION_NAME = "mode";
         var argsParser = new ArgsParser(desktop.Args!, MODE_OPTION_NAME);
@@ -138,13 +126,12 @@ public partial class App : Application
     /// <para>Otherwise, if the option is set to <c>0</c> - null.</para>
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private Window? ShowInitialSetupWizard()
+    private static Window? ShowInitialSetupWizard()
     {
         // Read option 'InitialSetup' from the settings file
         // and according to its value run or not Initial Setup Wizard.
         var conf = new DuckieConfig();
-        var initialSetupOption = Convert.ToInt32(
-            conf.Configuration[SettingsFileOptions.InitialSetup]);
+        var initialSetupOption = Convert.ToInt32(conf.Configuration[SettingsFileOptions.InitialSetup]);
 
         return initialSetupOption switch
         {
@@ -173,7 +160,7 @@ public partial class App : Application
     /// </list>
     /// </param>
     /// <exception cref="InvalidOperationException"></exception>
-    private Window GetMainWindow(AppModes appMode)
+    private static Window GetMainWindow(AppModes appMode)
     {
         // Return Initial Setup Wizard window if the settings file has option
         // 'InitialSetup' set to 'Show'.
@@ -190,7 +177,6 @@ public partial class App : Application
         };
 
         if (result == null)
-            // todo: add error message to resource file.
             throw new InvalidOperationException("Cannot create main window. Unknown application mode.");
 
         return result;

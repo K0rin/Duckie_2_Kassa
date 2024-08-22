@@ -69,20 +69,14 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
             invoker.SetCommand(checkDatabaseConnectionCommand);
             invoker.ExecuteCommand();
 
-            // Thread.Sleep(3000);
-
             invoker.SetCommand(checkAuthorizationCommand);
             invoker.ExecuteCommand(out authorizationResult);
-
-            // Thread.Sleep(10000);
         }
-        catch (ThreadAbortException e)
+        catch (ThreadAbortException e) // thread aborted
         {
-            // Console.WriteLine(@"thread aborted");
         }
-        catch (ThreadInterruptedException)
+        catch (ThreadInterruptedException) // thread interrupted
         {
-            // Console.WriteLine(@"thread interrupted");
         }
         finally
         {
@@ -126,7 +120,6 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
     private static void AuthorizationCanceled(Thread thread)
     {
-        // todo: create aborting sequence if it is necessary.
         thread.Interrupt();
         thread.Join();
     }

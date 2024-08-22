@@ -32,25 +32,20 @@ public static class Extensions
 
         if (!constructorArgumentNumbers.Contains(args.Length))
         {
-            var errorText =
-                $"Object has no constructor with {args.Length} parameters.";
+            var errorText = $"Object has no constructor with {args.Length} parameters.";
             throw new Exception(errorText);
         }
 
         var constr = ct switch
         {
-            CredentialTypes.Windows => myClassType.GetConstructor([
-                typeof(string), typeof(string)
-            ]),
+            CredentialTypes.Windows => myClassType.GetConstructor([typeof(string), typeof(string)]),
             CredentialTypes.SqlServer => myClassType.GetConstructor([
                 typeof(string), typeof(string), typeof(string), typeof(string)
             ]),
-            _ => throw new ArgumentOutOfRangeException(
-                "Unknown credential type.")
+            _ => throw new ArgumentOutOfRangeException("Unknown credential type.")
         };
 
-        var myObject =
-            (DatabaseService)constr?.Invoke(args.Cast<object>().ToArray());
+        var myObject = (DatabaseService)constr?.Invoke(args.Cast<object>().ToArray())!;
 
         return myObject;
 

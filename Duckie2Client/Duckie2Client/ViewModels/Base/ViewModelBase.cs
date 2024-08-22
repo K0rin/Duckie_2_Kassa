@@ -2,6 +2,4 @@
 
 namespace Duckie2Client.ViewModels.Base;
 
-public class ViewModelBase : ReactiveObject
-{
-}
+public class ViewModelBase : ReactiveObject;

@@ -8,7 +8,7 @@ namespace Duckie2Client.Services;
 
 public class DuckieConfig
 {
-    private const string ConfigFile = "appsettings.json";
+    private const string CONFIG_FILE = "appsettings.json";
 
     public DuckieConfig()
     {
@@ -16,7 +16,7 @@ public class DuckieConfig
         CheckConfigFileIntegrity();
 
         Configuration = new ConfigurationBuilder()
-            .AddJsonFile(ConfigFile)
+            .AddJsonFile(CONFIG_FILE)
             .Build();
     }
 
@@ -24,18 +24,16 @@ public class DuckieConfig
 
     private static void SearchConfigFile()
     {
-        if (File.Exists(ConfigFile)) return;
+        if (File.Exists(CONFIG_FILE)) return;
 
-        // Create file with default settings with the 'InitialSetup' option set
-        // to 'Show'.
+        // Create the file with default settings with the 'InitialSetup' option set to 'Show'.
         CreateDefaultSettingsFile();
     }
 
     private static void CreateDefaultSettingsFile()
     {
-        // TODO: Handle error: cannot write file.
         var fileContent = ConfigFileDeafultContext.Value;
-        using var sw = File.CreateText(ConfigFile);
+        using var sw = File.CreateText(CONFIG_FILE);
         sw.WriteLine(fileContent);
     }
 
@@ -43,13 +41,13 @@ public class DuckieConfig
     {
         try
         {
-            using var sr = new StreamReader(ConfigFile);
+            using var sr = new StreamReader(CONFIG_FILE);
             var json = sr.ReadToEnd();
             JsonNode.Parse(json);
         }
         catch (JsonException)
         {
-            // Json structure is invalid.
+            // JSON structure is invalid.
             CreateDefaultSettingsFile();
         }
     }

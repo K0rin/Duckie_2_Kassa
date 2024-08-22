@@ -1,13 +1,13 @@
-﻿<UserControl
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-    x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
-    x:CompileBindings="True"
-    xmlns:duckie2Client="clr-namespace:Duckie2Client"
-    d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}">
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
+             x:CompileBindings="True"
+             xmlns:duckie2Client="clr-namespace:Duckie2Client"
+             d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}">
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Database">
@@ -30,7 +30,8 @@
         </Menu>
         <Panel>
             <TabControl TabStripPlacement="Top">
-                <TabItem Header="Order" FontSize="12" />
+                <TabItem Header="Order"
+                         FontSize="12" />
             </TabControl>
         </Panel>
     </DockPanel>

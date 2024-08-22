@@ -24,21 +24,14 @@ public class CheckAuthorizationCommand : AbstractDuckieCommand
 
     public override void Execute(out bool result)
     {
-        // TODO: create localization string.
         // var notifyMessage = Localization.GetString(
         // () => UserInterface.DatabaseConnectionCheck, ResourceTypes.UserInterface);
-        var notifyMessage = "User authorizing...";
-        Notify(notifyMessage);
+        const string NOTIFY_MESSAGE = "User authorizing...";
+        Notify(NOTIFY_MESSAGE);
 
-        SqlConnection? dbConnection = null;
-
-        // try
-        // {
         var names = DatabaseManager.DbmsService.GetServerDatabaseNames();
         var (serverName, initialCatalog) = names;
-
-        dbConnection = DatabaseManager.DbmsService.GetDatabaseConnection(serverName, initialCatalog);
-        // todo: надо открывать соединение или нет?
+        var dbConnection = DatabaseManager.DbmsService.GetDatabaseConnection(serverName, initialCatalog);
 
         var parameters = new Dictionary<string, object>
         {

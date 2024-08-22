@@ -7,7 +7,7 @@ namespace Duckie2Client.Libs;
 
 public class MultiInstance
 {
-    private const string NamePrefix = "duckie-";
+    private const string NAME_PREFIX = "duckie-";
     private FileStream? _linuxLockFile;
     private string? _linuxLockFilePath;
 
@@ -24,21 +24,15 @@ public class MultiInstance
     ///     False - Application already has a running instance and cannot be run.
     /// </returns>
     /// <exception cref="PlatformNotSupportedException">
-    ///     Application is being run on an unsupported operating system.
+    ///     The Application is being run on an unsupported operating system.
     /// </exception>
     public bool IsSingleInstance(string mutexName)
     {
-        var name = $"{NamePrefix}{mutexName}";
-
-        PlatformSpecific.RunMethod(
-            WindowsType,
-            LinuxType,
-            name,
-            out var result);
+        var name = $"{NAME_PREFIX}{mutexName}";
+        PlatformSpecific.RunMethod(WindowsType, LinuxType, name, out var result);
 
         return result;
     }
-
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
 #pragma warning disable CA1822
@@ -86,7 +80,7 @@ public class MultiInstance
     public void UnlockFile()
     {
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
-        // TODO: is file exists?
+
         _linuxLockFile?.Unlock(0, 0);
         _linuxLockFile?.Close();
         if (_linuxLockFilePath != null) File.Delete(_linuxLockFilePath);
@@ -104,6 +98,6 @@ public class MultiInstance
               break;
           }
          */
-        // TODO: IMPLEMENT
+        throw new NotImplementedException();
     }
 }

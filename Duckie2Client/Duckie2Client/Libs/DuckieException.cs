@@ -17,14 +17,11 @@ public class DuckieException : Exception
     public int ErrorNumber { get; }
     public override string Message => CreateMessage();
 
-
     private string CreateMessage()
     {
         var errorName = Enum.GetName(_errorCode);
         var errorResourceName = $"{ErrorNumber}_{errorName}";
-        var errorMessage = Localization.GetString(
-            errorResourceName,
-            ResourceTypes.ErrorMessages);
+        var errorMessage = Localization.GetString(errorResourceName, ResourceTypes.ErrorMessages);
 
         return errorMessage;
     }

@@ -18,8 +18,8 @@ public static class DbmsService
     private static void WindowsType()
     {
         // ReSharper disable once StringLiteralTypo
-        const string serviceName = "MSSQL$SQLEXPRESS";
-        var sc = new ServiceController(serviceName);
+        const string SERVICE_NAME = "MSSQL$SQLEXPRESS";
+        var sc = new ServiceController(SERVICE_NAME);
 
         if (sc.Status == ServiceControllerStatus.Running) return;
 
@@ -27,20 +27,14 @@ public static class DbmsService
         {
             var throwError = sc.Status switch
             {
-                ServiceControllerStatus.Stopped
-                    or ServiceControllerStatus.StopPending =>
-                    ErrorCodes.DbServiceStopped,
-                ServiceControllerStatus.Paused
-                    or ServiceControllerStatus.PausePending =>
-                    ErrorCodes.DbServicePaused,
+                ServiceControllerStatus.Stopped or ServiceControllerStatus.StopPending => ErrorCodes.DbServiceStopped,
+                ServiceControllerStatus.Paused or ServiceControllerStatus.PausePending => ErrorCodes.DbServicePaused,
                 /*
                  * todo: Timeout?
                  * Maybe need to wait some time and service will be available.
                  */
-                ServiceControllerStatus.ContinuePending =>
-                    ErrorCodes.DbServiceUnavailable,
-                _ => throw new ArgumentOutOfRangeException(
-                    $"Unknown service status: {sc.Status.ToString()}")
+                ServiceControllerStatus.ContinuePending => ErrorCodes.DbServiceUnavailable,
+                _ => throw new ArgumentOutOfRangeException($"Unknown service status: {sc.Status.ToString()}")
             };
             throw new DuckieException(throwError);
         }
@@ -66,14 +60,12 @@ public static class DbmsService
     /// <item>False - the database does not exist.</item>
     /// </list>
     /// </returns>
-    public static bool CheckDatabaseExists(ref SqlConnection? sqlConnection, string databaseName)
+    private static bool CheckDatabaseExists(ref SqlConnection? sqlConnection, string databaseName)
     {
-        // todo: error: no schema "databases'.
-        // todo: error: databaseName is empty or null
-        const string schemaDirectoryName = "Databases";
-        var databases = sqlConnection?.GetSchema(schemaDirectoryName);
+        const string SCHEMA_DIRECTORY_NAME = "Databases";
+        var databases = sqlConnection?.GetSchema(SCHEMA_DIRECTORY_NAME);
         var sqlQuery = $"database_name = '{databaseName}'";
-        var recordNumber = databases.Select(sqlQuery).Length;
+        var recordNumber = databases!.Select(sqlQuery).Length;
 
         return recordNumber != 0;
     }
@@ -87,23 +79,20 @@ public static class DbmsService
     /// <exception cref="Exception"></exception>
     public static SqlConnection GetDatabaseConnection(string serverName, string databaseName)
     {
-        // TODO: SETTINGS: which type of credential is using for access to SQLServer (Windows, SQLServer).
-        const CredentialTypes currentCredentials = CredentialTypes.Windows;
+        const CredentialTypes CURRENT_CREDENTIALS = CredentialTypes.Windows;
 
         SqlConnection? dbConnection = null;
         var isDatabaseExists = false;
 
         try
         {
-            var dbService = currentCredentials.GetDatabaseService([serverName, databaseName]);
+            var dbService = CURRENT_CREDENTIALS.GetDatabaseService([serverName, databaseName]);
             dbConnection = dbService?.GetSqlConnection();
-            // TODO: open errors
             dbConnection?.Open();
 
             isDatabaseExists = CheckDatabaseExists(ref dbConnection, databaseName);
 
             if (!isDatabaseExists)
-                // todo: create DuckieException - DatabaseNotExist
                 throw new Exception("The database does not exist.");
 
             return dbConnection;
@@ -118,7 +107,6 @@ public static class DbmsService
     {
         var output = new Common.ServerDatabaseNames
         {
-            // todo: strings go from settings.
             ServerName = "DESKTOP-H1O55SG\\SQLEXPRESS",
             DatabaseName = "CarWash"
         };

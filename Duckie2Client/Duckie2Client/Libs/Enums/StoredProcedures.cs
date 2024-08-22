@@ -47,12 +47,10 @@ public static class StoredProceduresExtensions
         {
             result = new List<SqlParameter>
             {
-                new(
-                    StoredProcedureParameters.Name.Name(),
+                new(StoredProcedureParameters.Name.Name(),
                     SqlDbType.NVarChar,
                     50),
-                new(
-                    StoredProcedureParameters.Password.Name(),
+                new(StoredProcedureParameters.Password.Name(),
                     SqlDbType.NVarChar,
                     50)
             };

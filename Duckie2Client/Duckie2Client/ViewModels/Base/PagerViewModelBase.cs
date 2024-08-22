@@ -21,10 +21,8 @@ public abstract class PagerViewModelBase : ViewModelBase
     protected PagerViewModelBase(List<ViewModelPageBase> pages, int defaultPageNumber)
     {
         Pages = pages;
-
         // Set references to the pager object.
         foreach (var page in Pages) page.PagerViewModel = this;
-
         CurrentPage = Pages[defaultPageNumber];
     }
 }

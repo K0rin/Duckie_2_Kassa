@@ -9,10 +9,10 @@ public static class Common
         public string ServerName;
         public string DatabaseName;
 
-        public void Deconstruct(out string servername, out string initialcatalog)
+        public void Deconstruct(out string servername, out string initialCatalog)
         {
             servername = ServerName;
-            initialcatalog = DatabaseName;
+            initialCatalog = DatabaseName;
         }
     }
 }

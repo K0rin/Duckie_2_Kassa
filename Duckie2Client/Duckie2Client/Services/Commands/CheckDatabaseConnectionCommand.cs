@@ -18,7 +18,7 @@ public class CheckDatabaseConnectionCommand : AbstractDuckieCommand
         Notify(notifyMessage);
 
         SqlConnection? dbConnection = null;
-        // todo: Может передать names в метод GetDatabaseConnection, а не распаковывать?
+
         var names = DatabaseManager.DbmsService.GetServerDatabaseNames();
         var (serverName, initialCatalog) = names;
 

@@ -62,9 +62,7 @@ public class DatabaseService
         var result = _currentCredentialType switch
         {
             CredentialTypes.Windows => new SqlConnection(_connectionString),
-            CredentialTypes.SqlServer => new SqlConnection(
-                _connectionString,
-                _sqlCredentials),
+            CredentialTypes.SqlServer => new SqlConnection(_connectionString, _sqlCredentials),
             _ => throw new Exception("Unknown credential type.")
         };
         return result;

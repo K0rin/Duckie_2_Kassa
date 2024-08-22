@@ -1,0 +1,58 @@
+﻿1. Экран загрузки.
+  1.1. Добавить локализацию для кнопки "Выход".
+  1.2. SplashWindow.SetModeNameText. Словарь modeNames превратить в перечисление.
+
+2. Duckie2Client.App.OnFrameworkInitializationCompleted
+  2.1. Убрать из метода CheckCommandLineArguments создание объекта ArgsParser. Метод не должен ничего возвращать, 
+       только выбрасывать исключение, чтобы метод desktop.Shutdown вызывать только в одно месте.
+  2.2. Пусть метод CheckAppInstancesNumber выбрасывает исключение, чтобы его ловить в вызывающем методе и вызывать 
+       Shutdown в одном месте.
+  2.3. 180: "Cannot create main window. Unknown application mode.". Добавить в перечисление 
+       Duckie2Client.Libs.Enums.RuntimeErrors.
+       
+3. Duckie2Client.Views.Screens.AuthorizationScreenView. Загрузка локализации для элементов управления.
+
+4. Duckie2Client/Views/Dialogs/SpinnerDialog.axaml.cs
+   4.1. 21: "Data context cannot be null". Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors.
+   4.2. 39: "No data context provided". Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors.
+   
+5. Duckie2Client.Views.Dialogs.ErrorDialog
+   5.1. "The Error Dialog message is empty". Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors.
+
+6. Duckie2Client.Services.DuckieConfig.CreateDefaultSettingsFile. 
+   6.1. Handle error: cannot write file.
+   6.2. Обработать ошибку: директория не найдена.
+   6.3. Обработать ошибку: нет места для записи.
+   
+7. Duckie2Client.Services.DatabaseManager.DbmsService.WindowsType
+   7.1. 37: $"Unknown service status: {sc.Status.ToString()}". Добавить в перечисление 
+        Duckie2Client.Libs.Enums.RuntimeErrors.
+
+8. Таймауты работы с базой данных.  
+
+9. Duckie2Client.Services.DatabaseManager.DbmsService.CheckDatabaseExists 
+   9.1. error: no schema "databases'.
+   9.2. error: databaseName is empty or null
+
+10. Duckie2Client.Services.DatabaseManager.DbmsService.GetDatabaseConnection. 
+    10.1. 82: Добавить опцию в настройки Приложения: тип доступа к СУБД: авторизация Windows или SQL Server.
+    10.2. 91: Обработать исключения при открытии соединения с базой данных.
+    10.3. 96: create DuckieException - DatabaseNotExist
+
+11. Duckie2Client.Services.DatabaseManager.DbmsService.GetServerDatabaseNames. Имя сервера и базы данных брать 
+    из файла настроек.
+    
+12. Duckie2Client\Services\Commands\CheckDatabaseConnectionCommand.cs:22. Может передать names в метод 
+    GetDatabaseConnection, а не распаковывать?
+    
+13. Duckie2Client\Services\Commands\CheckAuthorizationCommand.cs:30. create localization string.
+
+14. Duckie2Client\Libs\MultiInstance.cs:84. Обработать ошибки: существование файла, права записи.
+
+15. Duckie2Client.Libs.MultiInstance.SetInstanceForeground. Имплеменитировать метод переноса окна на передний план в 
+    случае, если Приложение уже запущено.
+
+16. Duckie2Client\Libs\DatabaseService.cs:68. Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors. 
+17. Duckie2Client\Libs\HanumanInstitute\StrongViewLocatorBase.cs:38. Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors. 
+18. Duckie2Client\Libs\HanumanInstitute\StrongViewLocator.cs:54
+Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors. 

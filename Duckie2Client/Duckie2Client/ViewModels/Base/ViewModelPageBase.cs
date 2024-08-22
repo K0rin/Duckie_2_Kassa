@@ -2,5 +2,5 @@
 
 public abstract class ViewModelPageBase : ViewModelBase
 {
-    public PagerViewModelBase PagerViewModel { get; set; }
+    public PagerViewModelBase? PagerViewModel { get; set; }
 }

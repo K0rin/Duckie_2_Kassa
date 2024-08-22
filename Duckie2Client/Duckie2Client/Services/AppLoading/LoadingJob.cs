@@ -21,14 +21,15 @@ public abstract class LoadingJob
 
     public async Task CallJobTask()
     {
-        // ::debug::
-        const int overallTimer = 0;
-
+#if DEBUG
+        const int OVERALL_TIMER = 0;
+#endif
         // Show a start message before performing a custom functionality.
         ShowStatusMessage(LoadingMessages.Start);
 
-        // ::debug::
-        await Task.Delay(overallTimer);
+#if DEBUG
+        await Task.Delay(OVERALL_TIMER);
+#endif
 
         // Run custom functionality.
         try
@@ -42,26 +43,17 @@ public abstract class LoadingJob
             throw;
         }
 
-        // ::debug::
-        await Task.Delay(overallTimer);
+#if DEBUG
+        await Task.Delay(OVERALL_TIMER);
+#endif
     }
 
     public void CallJob()
     {
         // Show a start message before performing a custom functionality.
         ShowStatusMessage(LoadingMessages.Start);
-
         // Run custom functionality.
-        try
-        {
-            DoTask();
-        }
-        catch (DuckieException e)
-        {
-            // todo: Надо ли показывать сообщение, если все равно будет отображен Диалог Ошибки?
-            ShowStatusMessage(e.Message);
-            throw;
-        }
+        DoTask();
     }
 
     /// <summary>
