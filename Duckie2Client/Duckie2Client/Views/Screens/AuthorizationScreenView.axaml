@@ -58,7 +58,8 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="6,32,0,0"
-                        Content="Exit" />
+                        Content="Exit"
+                        Command="{Binding ExitApplicationCommand}" />
             </Grid>
         </StackPanel>
     </dialogHostAvalonia:DialogHost>

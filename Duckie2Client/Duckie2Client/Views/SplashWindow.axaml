@@ -49,7 +49,7 @@
 
         <DockPanel VerticalAlignment="Center"
                    Name="NormalModePanel"
-                   IsVisible="False">
+                   IsVisible="True">
 
             <!-- Title  -->
             <StackPanel HorizontalAlignment="Center"
@@ -97,7 +97,8 @@
 
         <Grid Name="ErrorModePanel"
               RowDefinitions="*,Auto,*"
-              ColumnDefinitions="*">
+              ColumnDefinitions="*"
+              IsVisible="False">
             <!-- Error icon -->
             <Panel Margin="0 66 0 0"
                    Grid.Column="0"

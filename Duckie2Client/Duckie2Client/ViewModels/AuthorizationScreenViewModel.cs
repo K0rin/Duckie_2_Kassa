@@ -17,6 +17,7 @@ namespace Duckie2Client.ViewModels;
 public class AuthorizationScreenViewModel : ViewModelPageBase
 {
     public ReactiveCommand<Unit, Unit> BeginAuthorizationCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> ExitApplicationCommand { get; set; }
     [Reactive] public string UserLogin { get; set; }
     [Reactive] public string UserPassword { get; set; }
     [Reactive] public string Message { get; set; }
@@ -29,11 +30,18 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
     public AuthorizationScreenViewModel()
     {
         BeginAuthorizationCommand = ReactiveCommand.Create(BeginAuthorizationCommandExecute);
+        ExitApplicationCommand = ReactiveCommand.Create(ExitApplicationCommandExecute);
 #if DEBUG
         UserLogin = "jevgeni";
         UserPassword = "urugula";
 #endif
         _processDialog = CreateDialog();
+        // todo: Localization for "Enter" and "Exit" button.
+    }
+
+    private static void ExitApplicationCommandExecute()
+    {
+        Services.Common.ExitApplication();
     }
 
 
