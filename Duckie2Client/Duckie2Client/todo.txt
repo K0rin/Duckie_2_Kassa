@@ -56,3 +56,5 @@
 17. Duckie2Client\Libs\HanumanInstitute\StrongViewLocatorBase.cs:38. Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors. 
 18. Duckie2Client\Libs\HanumanInstitute\StrongViewLocator.cs:54
 Добавить в перечисление Duckie2Client.Libs.Enums.RuntimeErrors. 
+
+19. Локализация главного меню окна режима "Консоль Управляющего".

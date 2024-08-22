@@ -6,7 +6,9 @@
              x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
              x:CompileBindings="True"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
-             d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}">
+             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+             d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}"
+             x:DataType="screens:MainConsoleScreenViewModel">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -15,7 +17,8 @@
                 <MenuItem Header="_Clients..." />
                 <MenuItem Header="_Personal..." />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit"
+                          Command="{Binding ExitMenuCommand}" />
             </MenuItem>
             <MenuItem Header="_Reports">
                 <MenuItem Header="_Washes by period..." />
