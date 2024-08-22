@@ -6,6 +6,7 @@
     xmlns:local="using:Duckie2Client"
     xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:tabalonia="clr-namespace:Tabalonia.Themes.Custom;assembly=Tabalonia"
     RequestedThemeVariant="Light">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -16,6 +17,7 @@
     <Application.Styles>
         <FluentTheme />
         <dialogHostAvalonia:DialogHostStyles />
+        <tabalonia:CustomTheme />
     </Application.Styles>
 
     <Application.Resources>

@@ -11,6 +11,7 @@ using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
+using Duckie2Client.ViewModels.Screens.Console;
 using Duckie2Client.Views;
 using Splat;
 
@@ -20,6 +21,8 @@ namespace Duckie2Client;
 public partial class App : Application
 {
     private readonly MultiInstance _multiInstance = new();
+
+    #region View Models
 
     // ReSharper disable once InconsistentNaming
     public static MainConsoleScreenViewModel VM_MainConsoleScreen =>
@@ -42,6 +45,11 @@ public partial class App : Application
     public static InitialSetupWizardViewModel VM_InitialSetupWizard =>
         Locator.Current.GetService<InitialSetupWizardViewModel>()!;
 
+    // ReSharper disable once InconsistentNaming
+    public static BatchServiceAddingScreenViewModel VM_BatchServiceAdding =>
+        Locator.Current.GetService<BatchServiceAddingScreenViewModel>()!;
+
+    #endregion
 
     public override void Initialize()
     {
@@ -54,6 +62,7 @@ public partial class App : Application
         SplatRegistrations.Register<KassaWindowViewModel>();
         SplatRegistrations.Register<SpinnerDialogViewModel>();
         SplatRegistrations.Register<InitialSetupWizardViewModel>();
+        SplatRegistrations.Register<BatchServiceAddingScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

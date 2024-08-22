@@ -57,6 +57,7 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3"/>
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
         <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
         <PackageReference Include="Splat" Version="15.1.1"/>
@@ -66,6 +67,7 @@
         </PackageReference>
         <PackageReference Include="System.Data.SqlClient" Version="4.8.6"/>
         <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0"/>
+        <PackageReference Include="Tabalonia" Version="0.10.4"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -115,7 +117,6 @@
             <DependentUpon>UserInterface.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
-
 
 
     <ItemGroup>

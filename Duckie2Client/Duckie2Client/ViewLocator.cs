@@ -2,9 +2,11 @@ using Duckie2Client.Libs.HanumanInstitute;
 using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
+using Duckie2Client.ViewModels.Screens.Console;
 using Duckie2Client.Views;
 using Duckie2Client.Views.Dialogs;
 using Duckie2Client.Views.Screens;
+using Duckie2Client.Views.Screens.Console;
 
 namespace Duckie2Client;
 
@@ -19,5 +21,7 @@ public class ViewLocator : StrongViewLocator
         Register<InitialSetupWizardViewModel, InitialSetupWizardWindow>();
         // Dialogs
         Register<SpinnerDialogViewModel, SpinnerDialog>();
+        // Screens
+        Register<BatchServiceAddingScreenViewModel, BatchServiceAddingScreenView>();
     }
 }
