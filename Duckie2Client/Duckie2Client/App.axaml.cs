@@ -21,7 +21,6 @@ namespace Duckie2Client;
 // ReSharper disable once PartialTypeWithSinglePart
 public partial class App : Application
 {
-    private readonly MultiInstance _multiInstance = new();
     private AppModes CurrentAppMode { get; set; }
 
     #region View Models
@@ -70,26 +69,14 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        if (ApplicationLifetime
-            is IClassicDesktopStyleApplicationLifetime desktop)
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.Exit += OnExit;
-
-            try
-            {
-                CheckCommandLineArguments(desktop);
-            }
-            catch (DuckieException e)
-            {
-                ShutdownApplication(e.ErrorNumber);
-            }
 
             // Set the application mode.
             var modeName = Strings.GetFirstTitleCase(desktop.Args![1]);
             CurrentAppMode = (AppModes)Enum.Parse(typeof(AppModes), modeName);
 
-            // Check the number of the app instances.
-            CheckAppInstancesNumber(desktop);
 
             desktop.MainWindow = new SplashWindow(() =>
             {
@@ -112,21 +99,6 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private void CheckAppInstancesNumber(IClassicDesktopStyleApplicationLifetime desktop)
-    {
-        if (_multiInstance.IsSingleInstance(desktop.Args?[1]!)) return;
-        _multiInstance.SetInstanceForeground();
-        ShutdownApplication((int)ErrorCodes.ApplicationInstanceAlreadyExists);
-    }
-
-    /// <summary>Checks the correctness of the arguments passed to the Application executable.</summary>
-    private static void CheckCommandLineArguments(IClassicDesktopStyleApplicationLifetime desktop)
-    {
-        var argumentCollection = new List<StartupOption> { new("mode", ["console", "kassa"], false) };
-        var argumentManager = new ArgsParser(desktop.Args!, ref argumentCollection);
-        argumentManager.CheckArgumentValidity();
     }
 
     /// <summary>
@@ -213,11 +185,9 @@ public partial class App : Application
     }
 
     /// <summary>This method is called before exiting the application.</summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
-        _multiInstance.UnlockFile();
+       
     }
 
     public static void ShutdownApplication(int errorCode = 0)

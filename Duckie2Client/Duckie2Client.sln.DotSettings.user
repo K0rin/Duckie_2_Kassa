@@ -1,11 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005Cdevs_005Cduckie2_005CDuckie2Client_005CDuckie2Client_005CPackages_005CDialogHost_002EAvalonia_002Edll/@EntryIndexedValue">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=A8F5950C_002D0A05_002D4D1C_002D94B9_002DAF84C90CF41A/@EntryIndexedValue">939DFFC4-0AA4-4F64-AA26-B2048F3FCA03</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=A8F5950C_002D0A05_002D4D1C_002D94B9_002DAF84C90CF41A/@EntryIndexedValue">Duckie2Client.Tests</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=xUnit/@EntryIndexedValue">33ff99d8-b1ad-4ed5-a4fd-376b97c2c841</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dbfe8979_002D48d3_002D43ed_002D810e_002Deeb0dc0d776d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::939DFFC4-0AA4-4F64-AA26-B2048F3FCA03::net8.0::Duckie2Client.Tests.Libs.ArgsParserTest.CheckArgumentValidity&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::939DFFC4-0AA4-4F64-AA26-B2048F3FCA03::net8.0::Duckie2Client.Tests.Libs.StringsTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::5A52D24A-C0E5-486B-BDA8-55458714FE85::net8.0::Duckie2Client.Tests.Libs.ArgsParserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::5A52D24A-C0E5-486B-BDA8-55458714FE85::net8.0::Duckie2Client.Tests.Libs.StringsTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FErrorMessages/@EntryIndexedValue">False</s:Boolean>
