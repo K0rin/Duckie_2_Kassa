@@ -24,8 +24,8 @@
     <data name="103_OptionInvalidName" xml:space="preserve">
         <value>The option has invalid name.</value>
     </data>
-    <data name="104_InvalidAppMode" xml:space="preserve">
-        <value>There is no such application working mode: {*}.</value>
+    <data name="104_InvalidOptionValue" xml:space="preserve">
+        <value>Invalid an option value {*}.</value>
     </data>
     <data name="105_ApplicationInstanceAlreadyExists" xml:space="preserve">
         <value>Application instance is already ran.</value>

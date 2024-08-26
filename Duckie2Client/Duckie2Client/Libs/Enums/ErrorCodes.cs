@@ -6,7 +6,7 @@ public enum ErrorCodes
     ArgumentInvalidNumber = 101,
     ArgumentsHaveNoOption = 102,
     OptionInvalidName = 103,
-    InvalidAppMode = 104,
+    InvalidOptionValue = 104,
     ApplicationInstanceAlreadyExists = 105,
     UnknownAppMode = 106,
 

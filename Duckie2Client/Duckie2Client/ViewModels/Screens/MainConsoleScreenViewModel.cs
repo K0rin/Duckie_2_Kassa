@@ -45,6 +45,6 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 
     private static void ExitMenuCommandExecute()
     {
-        Services.Common.ExitApplication();
+        App.ShutdownApplication();
     }
 }

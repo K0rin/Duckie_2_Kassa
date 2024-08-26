@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Services;
@@ -21,6 +22,7 @@ namespace Duckie2Client;
 public partial class App : Application
 {
     private readonly MultiInstance _multiInstance = new();
+    private AppModes CurrentAppMode { get; set; }
 
     #region View Models
 
@@ -73,8 +75,18 @@ public partial class App : Application
         {
             desktop.Exit += OnExit;
 
-            // Check command line parameters.
-            var argsParser = CheckCommandLineArguments(desktop);
+            try
+            {
+                CheckCommandLineArguments(desktop);
+            }
+            catch (DuckieException e)
+            {
+                ShutdownApplication(e.ErrorNumber);
+            }
+
+            // Set the application mode.
+            var modeName = Strings.GetFirstTitleCase(desktop.Args![1]);
+            CurrentAppMode = (AppModes)Enum.Parse(typeof(AppModes), modeName);
 
             // Check the number of the app instances.
             CheckAppInstancesNumber(desktop);
@@ -85,7 +97,7 @@ public partial class App : Application
 
                 try
                 {
-                    mainWindow = GetMainWindow(argsParser.CurrentAppMode);
+                    mainWindow = GetMainWindow(CurrentAppMode);
                 }
                 catch (InvalidOperationException)
                 {
@@ -96,7 +108,7 @@ public partial class App : Application
                 mainWindow?.Focus();
 
                 desktop.MainWindow = mainWindow;
-            }, argsParser.CurrentAppMode);
+            }, CurrentAppMode);
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -106,40 +118,28 @@ public partial class App : Application
     {
         if (_multiInstance.IsSingleInstance(desktop.Args?[1]!)) return;
         _multiInstance.SetInstanceForeground();
-        desktop.Shutdown((int)ErrorCodes.ApplicationInstanceAlreadyExists);
+        ShutdownApplication((int)ErrorCodes.ApplicationInstanceAlreadyExists);
     }
 
-    private static ArgsParser CheckCommandLineArguments(IClassicDesktopStyleApplicationLifetime desktop)
+    /// <summary>Checks the correctness of the arguments passed to the Application executable.</summary>
+    private static void CheckCommandLineArguments(IClassicDesktopStyleApplicationLifetime desktop)
     {
-        const string MODE_OPTION_NAME = "mode";
-        var argsParser = new ArgsParser(desktop.Args!, MODE_OPTION_NAME);
-
-        try
-        {
-            argsParser.CheckArguments();
-        }
-        catch (DuckieException e)
-        {
-            desktop.Shutdown(e.ErrorNumber);
-        }
-
-        return argsParser;
+        var argumentCollection = new List<StartupOption> { new("mode", ["console", "kassa"], false) };
+        var argumentManager = new ArgsParser(desktop.Args!, ref argumentCollection);
+        argumentManager.CheckArgumentValidity();
     }
 
     /// <summary>
-    /// <para>Checks the <c>InitialSetup</c> option in the program settings
-    /// file <c>appsettings.json</c>.</para>
+    /// <para>Checks the <c>InitialSetup</c> option in the program settings file <c>appsettings.json</c>.</para>
     /// </summary>
     /// <returns>
-    /// <para>If the option is set to <c>1</c> - returns the Window object of
-    /// the Initial Setup Wizard.</para>
+    /// <para>If the option is set to <c>1</c> - returns the Window object of the Initial Setup Wizard.</para>
     /// <para>Otherwise, if the option is set to <c>0</c> - null.</para>
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     private static Window? ShowInitialSetupWizard()
     {
-        // Read option 'InitialSetup' from the settings file
-        // and according to its value run or not Initial Setup Wizard.
+        // Read option 'InitialSetup' from the settings file and according to its value run or not Initial Setup Wizard.
         var conf = new DuckieConfig();
         var initialSetupOption = Convert.ToInt32(conf.Configuration[SettingsFileOptions.InitialSetup]);
 
@@ -154,10 +154,7 @@ public partial class App : Application
         };
     }
 
-    /// <summary>
-    /// Returns a specific Window object depending on the working mode of
-    /// the application.
-    /// </summary>
+    /// <summary>Returns a specific Window object depending on the working mode of the application.</summary>
     /// <param name="appMode">
     /// Application working modes:
     /// <list type="bullet">
@@ -172,11 +169,9 @@ public partial class App : Application
     /// <exception cref="InvalidOperationException"></exception>
     private static Window GetMainWindow(AppModes appMode)
     {
-        // Return Initial Setup Wizard window if the settings file has option
-        // 'InitialSetup' set to 'Show'.
+        // Return Initial Setup Wizard window if the settings file has the option 'InitialSetup' set to 'Show'.
         var result = ShowInitialSetupWizard();
         if (result != null) return result;
-
 
         // Select a view appropriate to a selected app mode.
         result = appMode switch
@@ -217,13 +212,17 @@ public partial class App : Application
         return output;
     }
 
-    /// <summary>
-    /// This method is called before exiting the application.
-    /// </summary>
+    /// <summary>This method is called before exiting the application.</summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
         _multiInstance.UnlockFile();
+    }
+
+    public static void ShutdownApplication(int errorCode = 0)
+    {
+        if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+            lifetime.Shutdown(errorCode);
     }
 }

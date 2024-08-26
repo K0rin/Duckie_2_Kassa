@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
@@ -127,6 +128,6 @@ public partial class SplashWindow : Window
     // ReSharper disable once UnusedParameter.Local
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        Services.Common.ExitApplication();
+        App.ShutdownApplication();
     }
 }

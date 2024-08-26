@@ -24,8 +24,8 @@
     <data name="102_ArgumentsHaveNoOption" xml:space="preserve">
         <value>Режим работы приложения не указан.</value>
     </data>
-    <data name="104_InvalidAppMode" xml:space="preserve">
-        <value>Указан некорректный режим работы приложения.</value>
+    <data name="104_InvalidOptionValue" xml:space="preserve">
+        <value>Не корректное значение опции: {*}.</value>
     </data>
     <data name="103_OptionInvalidName" xml:space="preserve">
         <value>Неизвестная опция.</value>

@@ -33,7 +33,7 @@
     <data name="103_OptionInvalidName" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
-    <data name="104_InvalidAppMode" xml:space="preserve">
+    <data name="104_InvalidOptionValue" xml:space="preserve">
         <value>&lt;no translation&gt;</value>
     </data>
     <data name="105_ApplicationInstanceAlreadyExists" xml:space="preserve">

@@ -89,9 +89,9 @@ namespace Duckie2Client.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt;no translation&gt;.
         /// </summary>
-        public static string _104_InvalidAppMode {
+        public static string _104_InvalidOptionValue {
             get {
-                return ResourceManager.GetString("104_InvalidAppMode", resourceCulture);
+                return ResourceManager.GetString("104_InvalidOptionValue", resourceCulture);
             }
         }
         

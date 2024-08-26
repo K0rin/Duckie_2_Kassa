@@ -41,7 +41,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
     private static void ExitApplicationCommandExecute()
     {
-        Services.Common.ExitApplication();
+        App.ShutdownApplication();
     }
 
 
