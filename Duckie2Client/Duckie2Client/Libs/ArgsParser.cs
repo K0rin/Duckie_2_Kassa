@@ -10,7 +10,7 @@ public struct StartupOption(string name, List<string> values, bool isValueList)
     /// <summary>Option name.</summary>
     public readonly string Name = name;
 
-    /// <summary>A list of values of an option.</summary>
+    /// <summary>The option list of values.</summary>
     public readonly List<string> Values = values;
 
     /// <summary>Flag: whether the option value is a list (true) or a single value (false).</summary>
