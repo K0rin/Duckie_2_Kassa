@@ -12,7 +12,7 @@ public enum CredentialTypes
 
 public static class Extensions
 {
-    public static DatabaseService? GetDatabaseService(this CredentialTypes ct,
+    public static DatabaseService GetDatabaseService(this CredentialTypes ct,
         params string[] args)
     {
         var myClassType = typeof(DatabaseService);

@@ -1,0 +1,6 @@
+﻿// dotnet test --collect:"XPlat Code Coverage" --results-directory CoverageReports
+
+// Install and use:
+// dotnet new tool-manifest
+// dotnet tool install -g dotnet-reportgenerator-globaltool
+// dotnet reportgenerator "-reports:CoverageReports\coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html

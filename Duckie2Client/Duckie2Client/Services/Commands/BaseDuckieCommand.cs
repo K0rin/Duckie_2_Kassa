@@ -2,7 +2,7 @@
 
 namespace Duckie2Client.Services.Commands;
 
-public abstract class AbstractDuckieCommand : IDuckieCommand
+public abstract class BaseDuckieCommand : IDuckieCommand
 {
     public event Action<string>? NotifyStatus;
     public abstract void Execute();

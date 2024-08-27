@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace Duckie2Client.Services.DatabaseManager;
+namespace Duckie2Client.Libs.DatabaseManager;
 
 public class CustomSqlCommand
 {

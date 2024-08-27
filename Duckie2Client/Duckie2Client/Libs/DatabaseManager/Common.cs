@@ -1,4 +1,4 @@
-﻿namespace Duckie2Client.Services.DatabaseManager;
+﻿namespace Duckie2Client.Libs.DatabaseManager;
 
 public static class Common
 {

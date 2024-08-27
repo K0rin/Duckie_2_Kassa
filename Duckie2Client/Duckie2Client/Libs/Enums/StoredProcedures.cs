@@ -62,7 +62,7 @@ public static class StoredProceduresExtensions
 
             // Add return value parameter.
             result.Add(new SqlParameter(
-                Services.DatabaseManager.Common.DefaultReturnValueParameterName,
+                DatabaseManager.Common.DefaultReturnValueParameterName,
                 SqlDbType.Int, 1));
             result.Last().Direction = ParameterDirection.ReturnValue;
         }

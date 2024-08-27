@@ -1,25 +1,37 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.ServiceProcess;
-using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 
-namespace Duckie2Client.Services.DatabaseManager;
+namespace Duckie2Client.Libs.DatabaseManager;
 
-public static class DbmsService
+// NOTE: For this moment, there is only SQL Server support.
+
+public abstract class BaseDbmsService
 {
-    public static void IsDbServiceRun()
+    /// <summary>The DBMS service name. Must be overriden in an inheriting class.</summary>
+    protected abstract string? ServiceName { get; }
+
+    /// <summary>The DBMS server name. Must be overriden in an inheriting class.</summary>
+    protected abstract string? ServerName { get; }
+
+    /// <summary>The database name (initial catalog). Must be overriden in an inheriting class.</summary>
+    protected abstract string? DatabaseName { get; }
+
+    public void IsDbServiceRun()
     {
         PlatformSpecific.RunMethod(WindowsType, LinuxType);
     }
 
+    /// <summary>Checks whether the database server is running on the Windows platform.</summary>
+    /// <exception cref="ArgumentOutOfRangeException">The status of the database server is unknown.</exception>
+    /// <exception cref="DuckieException">The database server is not available.</exception>
     [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
-    private static void WindowsType()
+    private void WindowsType()
     {
-        // ReSharper disable once StringLiteralTypo
-        const string SERVICE_NAME = "MSSQL$SQLEXPRESS";
-        var sc = new ServiceController(SERVICE_NAME);
+        var sc = new ServiceController(ServiceName!);
 
         if (sc.Status == ServiceControllerStatus.Running) return;
 
@@ -44,14 +56,14 @@ public static class DbmsService
         }
     }
 
+    /// <summary>Checks whether the database server is running on the Windows platform.</summary>
+    /// <exception cref="NotImplementedException"></exception>
     private static void LinuxType()
     {
         throw new NotImplementedException();
     }
 
-    /// <summary>
-    /// Checks if a database with the specified name exists on the database server.
-    /// </summary>
+    /// <summary>Checks if a database with the specified name exists on the database server.</summary>
     /// <param name="sqlConnection">A database connection object.</param>
     /// <param name="databaseName">A database name.</param>
     /// <returns>
@@ -70,15 +82,12 @@ public static class DbmsService
         return recordNumber != 0;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="serverName"></param>
-    /// <param name="databaseName"></param>
-    /// <returns>Opened database connection.</returns>
+    /// <summary>Returns an open database connection object.</summary>
     /// <exception cref="Exception"></exception>
-    public static SqlConnection GetDatabaseConnection(string serverName, string databaseName)
+    public SqlConnection GetDatabaseConnection()
     {
+        // todo: check empty values for ServerName, DatabaseName 
+
         const CredentialTypes CURRENT_CREDENTIALS = CredentialTypes.Windows;
 
         SqlConnection? dbConnection = null;
@@ -86,11 +95,11 @@ public static class DbmsService
 
         try
         {
-            var dbService = CURRENT_CREDENTIALS.GetDatabaseService([serverName, databaseName]);
-            dbConnection = dbService?.GetSqlConnection();
-            dbConnection?.Open();
+            var dbService = CURRENT_CREDENTIALS.GetDatabaseService([ServerName!, DatabaseName!]);
+            dbConnection = dbService.GetSqlConnection();
+            dbConnection.Open();
 
-            isDatabaseExists = CheckDatabaseExists(ref dbConnection, databaseName);
+            isDatabaseExists = CheckDatabaseExists(ref dbConnection, DatabaseName!);
 
             if (!isDatabaseExists)
                 throw new Exception("The database does not exist.");
@@ -101,15 +110,5 @@ public static class DbmsService
         {
             if (!isDatabaseExists) dbConnection?.Close();
         }
-    }
-
-    public static Common.ServerDatabaseNames GetServerDatabaseNames()
-    {
-        var output = new Common.ServerDatabaseNames
-        {
-            ServerName = "DESKTOP-H1O55SG\\SQLEXPRESS",
-            DatabaseName = "CarWash"
-        };
-        return output;
     }
 }

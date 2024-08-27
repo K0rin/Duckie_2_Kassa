@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Threading;
+using Duckie2Client.Libs.DatabaseManager;
 using Duckie2Client.Libs.Enums;
 
 namespace Duckie2Client.Services.Commands;
 
-public class CheckAuthorizationCommand : AbstractDuckieCommand
+public class CheckAuthorizationCommand : BaseDuckieCommand
 {
-    private string UserId { get; set; }
-    private string UserPassword { get; set; }
+    private string UserId { get; }
+    private string UserPassword { get; }
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     public CheckAuthorizationCommand(string userId, string userPassword)
     {
         UserPassword = userPassword;
@@ -29,16 +29,14 @@ public class CheckAuthorizationCommand : AbstractDuckieCommand
         const string NOTIFY_MESSAGE = "User authorizing...";
         Notify(NOTIFY_MESSAGE);
 
-        var names = DatabaseManager.DbmsService.GetServerDatabaseNames();
-        var (serverName, initialCatalog) = names;
-        var dbConnection = DatabaseManager.DbmsService.GetDatabaseConnection(serverName, initialCatalog);
+        var dbConnection = new DbmsService().GetDatabaseConnection();
 
         var parameters = new Dictionary<string, object>
         {
             { StoredProcedureParameters.Name.Name(), UserId },
             { StoredProcedureParameters.Password.Name(), UserPassword }
         };
-        var sqlAuthorizeCommand = DatabaseManager.StoredProcedure.ReturnValueProcedure(
+        var sqlAuthorizeCommand = StoredProcedure.ReturnValueProcedure(
             StoredProcedures.AuthorizeUser.GetName(),
             StoredProcedures.AuthorizeUser.Parameters(parameters), dbConnection);
 

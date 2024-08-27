@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Data.SqlClient;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Resources;
 
 namespace Duckie2Client.Services.Commands;
 
-/// <summary>
-/// Class to wrap the database connection check functionality.
-/// </summary>
-public class CheckDatabaseConnectionCommand : AbstractDuckieCommand
+/// <summary>Class to wrap the database connection check functionality.</summary>
+public class CheckDatabaseConnectionCommand : BaseDuckieCommand
 {
     public override void Execute()
     {
@@ -17,15 +14,8 @@ public class CheckDatabaseConnectionCommand : AbstractDuckieCommand
             () => UserInterface.DatabaseConnectionCheck, ResourceTypes.UserInterface);
         Notify(notifyMessage);
 
-        SqlConnection? dbConnection = null;
-
-        var names = DatabaseManager.DbmsService.GetServerDatabaseNames();
-        var (serverName, initialCatalog) = names;
-
-        using (dbConnection)
-        {
-            _ = DatabaseManager.DbmsService.GetDatabaseConnection(serverName, initialCatalog);
-        }
+        var dbConnection = new DbmsService().GetDatabaseConnection();
+        dbConnection.Close();
     }
 
     public override void Execute(out bool result)
