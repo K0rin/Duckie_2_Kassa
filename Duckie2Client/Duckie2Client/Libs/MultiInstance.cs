@@ -11,21 +11,15 @@ public class MultiInstance
     private FileStream? _linuxLockFile;
     private string? _linuxLockFilePath;
 
-    /// <summary>
-    ///     Checks that application has only one instance running in current
-    ///     time.
-    /// </summary>
-    /// <param name="mutexName">
-    ///     Name for a mutex. Each application mode has its own name, which is
-    ///     used for identifying application instances.
-    /// </param>
+    /// <summary>Checks that application has only one instance running in current time.</summary>
+    /// <param name="mutexName">Name for a mutex. Each application mode has its own name, which is used for identifying
+    /// application instances.</param>
     /// <returns>
     ///     True - Application has no any running instances and can be run.<br />
     ///     False - Application already has a running instance and cannot be run.
     /// </returns>
-    /// <exception cref="PlatformNotSupportedException">
-    ///     The Application is being run on an unsupported operating system.
-    /// </exception>
+    /// <exception cref="PlatformNotSupportedException">The Application is being run on an unsupported operating
+    /// system.</exception>
     public bool IsSingleInstance(string mutexName)
     {
         var name = $"{NAME_PREFIX}{mutexName}";
@@ -47,7 +41,7 @@ public class MultiInstance
         catch
         {
             // If exception occurred, there is no such mutex.
-            var m = new Mutex(true, mutexName);
+            _ = new Mutex(true, mutexName);
             // Only one instance.
             return true;
         }

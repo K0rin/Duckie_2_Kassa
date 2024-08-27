@@ -58,10 +58,8 @@ public static class Localization
     {
         string getterName;
 
-        if (nameGetter.Body is MemberExpression memberExpression)
-            getterName = memberExpression.Member.Name;
-        else
-            throw new Exception("Error occured during getting class getter name.");
+        if (nameGetter.Body is MemberExpression memberExpression) getterName = memberExpression.Member.Name;
+        else throw new Exception("Error occured during getting class getter name.");
 
         var result = GetString(getterName, resourceType);
 

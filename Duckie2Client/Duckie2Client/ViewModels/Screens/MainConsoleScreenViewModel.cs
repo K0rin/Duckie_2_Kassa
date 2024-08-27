@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Duckie2Client.Libs;
+using Duckie2Client.Libs.Tabalonia;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Screens.Console;
 using ReactiveUI;

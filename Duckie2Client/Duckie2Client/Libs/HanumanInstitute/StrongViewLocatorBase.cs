@@ -4,21 +4,15 @@ using System.ComponentModel;
 
 namespace Duckie2Client.Libs.HanumanInstitute;
 
-/// <summary>
-/// Strongly-typed View Locator that does not rely on reflection.
-/// </summary>
+/// <summary>Strongly-typed View Locator that does not rely on reflection.</summary>
 public abstract class StrongViewLocatorBase : IViewLocator
 {
-    /// <summary>
-    /// The list of registered ViewModel-View combinations.
-    /// </summary>
+    /// <summary>The list of registered ViewModel-View combinations.</summary>
     protected readonly Dictionary<Type, ViewDefinition> Registrations = new();
 
-    /// <summary>
-    /// Registers specified views as being associated with a specified view model type.
-    /// If multiple views are registered, they can be selected based on factors such as a platform, such as Desktop vs
-    /// Mobile vs Web. 
-    /// </summary>
+    /// <summary>Registers specified views as being associated with a specified view model type. If multiple views are
+    /// registered, they can be selected based on factors such as a platform, such as Desktop vs Mobile vs
+    /// Web.</summary>
     /// <param name="viewDef">The view definition including its type and how to create one.</param>
     /// <typeparam name="TViewModel">The type of view model to register.</typeparam>
     protected void Register<TViewModel>(ViewDefinition viewDef) where TViewModel : INotifyPropertyChanged

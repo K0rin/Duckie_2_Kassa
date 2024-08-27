@@ -19,25 +19,17 @@ public static class PlatformSpecific
     {
         PlatformDelegate platform;
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            platform = windowsPlatformFunction;
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            platform = linuxPlatformFunction;
-        else
-            throw new PlatformNotSupportedException("Unsupported platform");
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) platform = windowsPlatformFunction;
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) platform = linuxPlatformFunction;
+        else throw new PlatformNotSupportedException("Unsupported platform");
 
         result = platform(name);
     }
 
-    public static void RunMethod(
-        WindowsDelegate windowsDelegate,
-        LinuxDelegate linuxDelegate)
+    public static void RunMethod(WindowsDelegate windowsDelegate, LinuxDelegate linuxDelegate)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            windowsDelegate();
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            linuxDelegate();
-        else
-            throw new PlatformNotSupportedException("Unsupported platform");
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) windowsDelegate();
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) linuxDelegate();
+        else throw new PlatformNotSupportedException("Unsupported platform");
     }
 }
