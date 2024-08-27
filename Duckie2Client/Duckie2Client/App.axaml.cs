@@ -12,7 +12,7 @@ using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
-using Duckie2Client.ViewModels.Screens.Console;
+using Duckie2Client.ViewModels.Screens.ManagerConsole;
 using Duckie2Client.Views;
 using Splat;
 
@@ -126,7 +126,9 @@ public partial class App : Application
         };
     }
 
-    /// <summary>Returns a specific Window object depending on the working mode of the application.</summary>
+    /// <summary>
+    /// Returns a specific Window object depending on the working mode of the application.
+    /// </summary>
     /// <param name="appMode">
     /// Application working modes:
     /// <list type="bullet">
@@ -187,7 +189,6 @@ public partial class App : Application
     /// <summary>This method is called before exiting the application.</summary>
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
-       
     }
 
     public static void ShutdownApplication(int errorCode = 0)

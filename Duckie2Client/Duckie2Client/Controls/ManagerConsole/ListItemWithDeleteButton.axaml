@@ -1,0 +1,19 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             x:Class="Duckie2Client.Controls.ManagerConsole.RemovableListItemControl"
+             x:DataType="managerConsole:RemovableListItemControl">
+    <Grid ColumnDefinitions="*, Auto"
+          RowDefinitions="Auto"
+          Background="Coral">
+        <TextBlock Name="TitleTextBlock"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Text="{Binding Text}"
+                   VerticalAlignment="Center" />
+        <Button Name="RemoveButton"
+                Grid.Column="1"
+                Grid.Row="0"
+                Content="Remove" />
+    </Grid>
+</UserControl>

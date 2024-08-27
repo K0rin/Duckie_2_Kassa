@@ -2,11 +2,11 @@ using Duckie2Client.Libs.HanumanInstitute;
 using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
-using Duckie2Client.ViewModels.Screens.Console;
+using Duckie2Client.ViewModels.Screens.ManagerConsole;
 using Duckie2Client.Views;
 using Duckie2Client.Views.Dialogs;
 using Duckie2Client.Views.Screens;
-using Duckie2Client.Views.Screens.Console;
+using Duckie2Client.Views.Screens.ManagerConsole;
 
 namespace Duckie2Client;
 

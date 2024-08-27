@@ -1,0 +1,79 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:duckie2Client="clr-namespace:Duckie2Client"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             xmlns:managerConsole1="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             x:Class="Duckie2Client.Views.Screens.ManagerConsole.BatchServiceAddingScreenView"
+             d:DataContext="{x:Static duckie2Client:App.VM_BatchServiceAdding}"
+             x:DataType="managerConsole1:BatchServiceAddingScreenViewModel">
+    <Grid ColumnDefinitions="*,Auto"
+          RowDefinitions="Auto,Auto,*,Auto,Auto"
+          MinWidth="341"
+          Width="341"
+          Margin="0 44 0 44">
+        <TextBlock Text="Vehicle Licence:"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2" />
+        <TextBox Name="VehicleLicenceTextBox"
+                 Grid.Column="0"
+                 Grid.Row="1"
+                 Text="{Binding VehicleLicenceTextBoxValue}" />
+        <Button Name="AddButton"
+                Grid.Column="1"
+                Grid.Row="1"
+                Content="Add List"
+                Command="{Binding AddVehicleLicenceCommand}" CommandParameter="{Binding #VehicleLicenceTextBox}" />
+        <!-- List of vehicle licenses being added to the database -->
+        <Panel Grid.Column="0"
+               Grid.Row="2"
+               Grid.ColumnSpan="2">
+            <ScrollViewer Background="Bisque"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Hidden"
+                          MinHeight="341">
+                <ItemsRepeater ItemsSource="{Binding VehicleLicensesItems}">
+
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="0"
+                                     Orientation="Vertical" />
+                    </ItemsRepeater.Layout>
+
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <Panel>
+                                <!--
+                                Костыль.
+                                Использование TextBlock.
+                                Не срабатывает присвоение текста атрибуту Text объекта ListItemWithDeleteButton.
+                                -->
+                                <TextBlock Text="{Binding TitleText, Mode=OneWay}"
+                                           Name="ItemTitleTextHelper"
+                                           IsVisible="False" />
+                                <managerConsole:RemovableListItemControl
+                                    Text="{Binding #ItemTitleTextHelper.Text, Mode=OneWay}" />
+                            </Panel>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+
+                </ItemsRepeater>
+            </ScrollViewer>
+
+        </Panel>
+        <!-- Statistics -->
+        <TextBlock Text="Total records: 999"
+                   TextAlignment="Right"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   Grid.ColumnSpan="2" />
+        <!-- Add to the database button -->
+        <Button Name="AddDatabaseButton"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                Content="Add Database" />
+    </Grid>
+    <!-- </StackPanel> -->
+</UserControl>

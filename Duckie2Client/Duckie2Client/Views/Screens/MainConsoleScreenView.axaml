@@ -1,12 +1,11 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
              xmlns:controls="clr-namespace:Tabalonia.Controls;assembly=Tabalonia"
              xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
              xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
              x:CompileBindings="True"
              d:DataContext="{x:Static duckie2Client:App.VM_MainConsoleScreen}"
@@ -26,6 +25,9 @@
     </UserControl.Resources>
 
     <DockPanel>
+        <!-- 
+        Main Menu 
+        -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Database">
                 <MenuItem Header="_Vehicles..." />
@@ -63,33 +65,37 @@
             </MenuItem>
         </Menu>
         <!-- 
+        Startup Control
+        -->
+        <managerConsole:StartupControl IsVisible="{Binding IsStartupVisible}" />
+        <!-- 
         Tabs 
         -->
-        <Panel>
-
+        <Panel IsVisible="{Binding !IsStartupVisible}">
             <controls:TabsControl ItemsSource="{Binding TabItems}"
                                   FixedHeaderCount="0"
                                   ShowDefaultAddButton="False"
                                   CloseItemCommand="{Binding TabCloseCommand}">
-
-                <!-- Tab header -->
+                <!-- 
+                Tab header
+                -->
                 <TabControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
                         <TextBlock Text="{Binding Header}" />
                     </DataTemplate>
                 </TabControl.ItemTemplate>
-
-                <!-- Tab contents -->
+                <!-- 
+                Tab contents
+                -->
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
                         <Grid Background="{DynamicResource SelectedTabItemBackgroundBrush}">
                             <ContentControl Content="{Binding Content}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" />
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch" />
                         </Grid>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
-
             </controls:TabsControl>
         </Panel>
     </DockPanel>
