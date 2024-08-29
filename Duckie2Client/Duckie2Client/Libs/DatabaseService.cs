@@ -11,7 +11,6 @@ public class DatabaseService
     private readonly CredentialTypes _currentCredentialType;
     private readonly SqlCredential? _sqlCredentials;
 
-
     // ReSharper disable once UnusedMember.Global
     // NOTE: Constructor is using in
     // Duckie2Client.Libs.Enums.Extensions.GetDatabaseService

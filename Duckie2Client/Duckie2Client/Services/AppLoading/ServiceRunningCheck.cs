@@ -17,6 +17,6 @@ public class ServiceRunningCheck : LoadingJob
 
     protected override void DoTask()
     {
-        new DbmsService().IsDbServiceRun();
+        new DbmsService.DbmsService().IsDbServiceRun();
     }
 }

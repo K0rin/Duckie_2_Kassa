@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.ServiceProcess;
 using Duckie2Client.Libs.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Libs.DatabaseManager;
 
 // NOTE: For this moment, there is only SQL Server support.
 
-public abstract class BaseDbmsService
+public abstract class BaseDbmsService : DbContext
 {
     /// <summary>The DBMS service name. Must be overriden in an inheriting class.</summary>
     protected abstract string? ServiceName { get; }
@@ -111,4 +112,25 @@ public abstract class BaseDbmsService
             if (!isDatabaseExists) dbConnection?.Close();
         }
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var connectionString =
+            @$"Server={ServerName};Database={DatabaseName};Trusted_Connection=True;TrustServerCertificate=True";
+        optionsBuilder.UseSqlServer(connectionString);
+    }
+
+    // public void CanConnectDatabase()
+    // {
+    //     var isAvalaible = Database.CanConnect();
+    //     // bool isAvalaible2 = await db.Database.CanConnectAsync();
+    //     if (isAvalaible) Console.WriteLine("База данных доступна");
+    //     else Console.WriteLine("База данных не доступна");
+    //
+    //
+    //     var isCreated = Database.EnsureCreated();
+    //     // bool isCreated2 = await db.Database.EnsureCreatedAsync();
+    //     if (isCreated) Console.WriteLine("База данных была создана");
+    //     else Console.WriteLine("База данных уже существует");
+    // }
 }

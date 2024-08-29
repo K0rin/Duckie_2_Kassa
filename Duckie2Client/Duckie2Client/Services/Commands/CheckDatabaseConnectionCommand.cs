@@ -14,8 +14,11 @@ public class CheckDatabaseConnectionCommand : BaseDuckieCommand
             () => UserInterface.DatabaseConnectionCheck, ResourceTypes.UserInterface);
         Notify(notifyMessage);
 
-        var dbConnection = new DbmsService().GetDatabaseConnection();
+        var dbConnection = new DbmsService.DbmsService().GetDatabaseConnection();
         dbConnection.Close();
+
+        // new DbmsService().CanConnectDatabase();
+        // new DbmsService().UserIdentification();
     }
 
     public override void Execute(out bool result)

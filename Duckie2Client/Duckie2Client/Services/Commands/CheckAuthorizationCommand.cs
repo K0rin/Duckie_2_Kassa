@@ -24,12 +24,15 @@ public class CheckAuthorizationCommand : BaseDuckieCommand
 
     public override void Execute(out bool result)
     {
+        DbmsService.Clients.Add();
+
+
         // var notifyMessage = Localization.GetString(
         // () => UserInterface.DatabaseConnectionCheck, ResourceTypes.UserInterface);
         const string NOTIFY_MESSAGE = "User authorizing...";
         Notify(NOTIFY_MESSAGE);
 
-        var dbConnection = new DbmsService().GetDatabaseConnection();
+        var dbConnection = new DbmsService.DbmsService().GetDatabaseConnection();
 
         var parameters = new Dictionary<string, object>
         {
