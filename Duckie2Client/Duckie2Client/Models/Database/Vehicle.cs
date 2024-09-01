@@ -21,7 +21,7 @@ public class Vehicle
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Licence plate number.
+    /// License plate number.
     /// </summary>
     [Required]
     [Column(TypeName = "VARCHAR")]
