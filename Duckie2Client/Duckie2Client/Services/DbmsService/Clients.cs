@@ -13,69 +13,86 @@ public class Clients
     {
         var db = new DbmsService();
 
-        //  var client1Id = Guid.NewGuid();
-        //  var client2Id = Guid.NewGuid();
-        //
-        //  var client1 = new Client
-        //  {
-        //      Id = client1Id,
-        //      FirstName = "First1",
-        //      LastName = "Last1",
-        //      Notes = "Notes1",
-        //      Bonus = new ClientBonus
-        //      {
-        //          ClientId = client1Id,
-        //          EndDateTime = DateTime.UtcNow,
-        //          Summa = 1
-        //      }
-        //  };
-        //  var client2 = new Client
-        //  {
-        //      Id = client2Id,
-        //      FirstName = "First2",
-        //      LastName = "Last2",
-        //      Notes = "Notes2",
-        //      Bonus = new ClientBonus
-        //      {
-        //          ClientId = client2Id,
-        //          EndDateTime = DateTime.UtcNow,
-        //          Summa = 2
-        //      }
-        //  };
-        //
-        //  db.Clients.AddRange(client1, client2);
-        //  db.SaveChanges(); 
-        //  
-        //  
-        //  var client1contacts1 = new CommunicationMean
-        //  {
-        //      Email = "email1",
-        //      Phone = "phone1",
-        //      Client = client1
-        //  };
-        //  var client1contacts2 = new CommunicationMean
-        //  {
-        //      Phone = "phone11",
-        //      Client = client1
-        //  };
-        //  
-        // db.CommunicationMeans.AddRange(client1contacts1, client1contacts2); 
-        //  
-        //  db.SaveChanges();
+        var client1Id = Guid.NewGuid();
+        var client2Id = Guid.NewGuid();
 
-        var companies = db.Clients
-            .Include(c => c.CommunicationMeans)
-            .Include(b => b.Bonus).ToList();
+        // clients
+        var client1 = new Client
+        {
+            Id = client1Id,
+            FirstName = "First1",
+            LastName = "Last1",
+            Notes = "Notes1",
+            Bonus = new ClientBonus
+            {
+                ClientId = client1Id,
+                EndDateTime = DateTime.UtcNow,
+                Summa = 1
+            }
+        };
+        var client2 = new Client
+        {
+            Id = client2Id,
+            FirstName = "First2",
+            LastName = "Last2",
+            Notes = "Notes2",
+            Bonus = new ClientBonus
+            {
+                ClientId = client2Id,
+                EndDateTime = DateTime.UtcNow,
+                Summa = 2
+            }
+        };
 
+        // contact information
+        var client1Contacts1 = new CommunicationMean
+        {
+            Email = "email1",
+            Phone = "phone1",
+            Client = client1
+        };
+        var client1Contacts2 = new CommunicationMean
+        {
+            Phone = "phone11",
+            Client = client1
+        };
+        var client2Contacts1 = new CommunicationMean
+        {
+            Phone = "phone2",
+            Client = client2
+        };
 
-        // db.PriceTypes.Add(new PriceType { Name = "catA" });
-        // db.SaveChanges();
+        // price types
+        var priceTypeA = db.PriceTypes.Find(new Guid("4F94CF26-FC9A-4026-878D-929381B58FE8")); // cat a
 
-        // client.Vehicles.PriceType = db.PriceTypes.First(e => e.Name.Equals("catA"));
+        // vehicles
+        var client1Vehicle = new Vehicle
+        {
+            Id = Guid.NewGuid(),
+            Licence = "CLIENT1",
+            PriceType = priceTypeA
+        };
+        var client2Vehicle = new Vehicle
+        {
+            Id = Guid.NewGuid(),
+            Licence = "CLIENT2",
+            PriceType = priceTypeA
+        };
 
-        // db.Clients.Add(client);
-        // db.SaveChanges();
+        client1.Vehicles?.Add(client1Vehicle);
+        client2.Vehicles?.Add(client2Vehicle);
 
+        client1.CommunicationMeans?.AddRange(new List<CommunicationMean> { client1Contacts1, client1Contacts2 });
+        client2.CommunicationMeans?.AddRange(new List<CommunicationMean> { client2Contacts1 });
+
+        db.Clients.AddRange(client1, client2);
+
+        db.SaveChanges();
+
+        // Получение данных со связями.
+        // var companies = db.Clients
+        //     .Include(c => c.CommunicationMeans)
+        //     .Include(b => b.Bonus).ToList();
 
         {
         }

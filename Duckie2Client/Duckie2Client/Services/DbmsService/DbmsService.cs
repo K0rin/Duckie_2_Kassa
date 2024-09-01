@@ -15,11 +15,30 @@ public class DbmsService : BaseDbmsService
     // todo: the data goes from the settings.
     protected override string DatabaseName => "CarWash";
 
-    // -- tables
-    public DbSet<Client> Clients { get; set; } = null!;
-    public DbSet<CommunicationMean> CommunicationMeans { get; set; } = null!;
+    #region Tables
 
+    // Database entities.
+
+    /// <summary>
+    /// List of clients.
+    /// </summary>
+    public DbSet<Client> Clients { get; set; } = null!;
+    /// <summary>
+    /// List of communtication methods with clients.
+    /// </summary>
+    public DbSet<CommunicationMean> CommunicationMeans { get; set; } = null!;
+    /// <summary>
+    /// List of client bonus summa.
+    /// </summary>
     public DbSet<ClientBonus> ClientBonuses { get; set; } = null!;
-    // public DbSet<PriceType> PriceTypes { get; set; } = null!;
-    // public DbSet<Vehicle> Vehicles { get; set; } = null!;
+    /// <summary>
+    /// List of vehicle price types.
+    /// </summary>
+    public DbSet<PriceType> PriceTypes { get; set; } = null!;
+    /// <summary>
+    /// List of vehicles.
+    /// </summary>
+    public DbSet<Vehicle> Vehicles { get; set; } = null!;
+
+    #endregion
 }
