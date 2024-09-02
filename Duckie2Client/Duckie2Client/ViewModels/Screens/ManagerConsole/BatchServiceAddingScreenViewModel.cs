@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Threading;
 using Avalonia.Controls;
 using Duckie2Client.Models;
+using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -22,6 +23,7 @@ public class BatchServiceAddingScreenViewModel : ViewModelBase
     [Reactive] public bool IsDataContainerVisible { get; set; }
     public ReactiveCommand<TextBox, Unit> AddVehicleLicenceCommand { get; }
     public ReactiveCommand<Unit, Unit> UpdateDateCommand { get; }
+    private readonly TabContext _tabContext = new(new ReadyLoadDataState());
 
     public BatchServiceAddingScreenViewModel()
     {
@@ -29,22 +31,22 @@ public class BatchServiceAddingScreenViewModel : ViewModelBase
         UpdateDateCommand = ReactiveCommand.Create(UpdateDateExecute);
         VehicleLicensesItems = [];
         IsUpdateDataContainerVisible = true;
-        IsDataContainerVisible = false;
         IsDataLoadingContainerVisible = false;
+        IsDataContainerVisible = false;
     }
 
     private void UpdateDateExecute()
     {
-        Console.WriteLine("data will be updated.");
+        _tabContext.SetState(new DataLoadingState());
+        _tabContext.LoadData();
 
-        // todo: state mashine ?
-        IsUpdateDataContainerVisible = false;
-        IsDataLoadingContainerVisible = true;
+        // IsUpdateDataContainerVisible = false;
+        // IsDataLoadingContainerVisible = true;
 
-        Thread.Sleep(1000);
-
-        IsDataLoadingContainerVisible = false;
-        IsDataContainerVisible = true;
+        // Thread.Sleep(5000);
+        //
+        // IsDataLoadingContainerVisible = false;
+        // IsDataContainerVisible = true;
     }
 
     private void AddVehicleLicenceExecute(TextBox textBox)
