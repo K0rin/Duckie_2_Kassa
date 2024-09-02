@@ -24,7 +24,7 @@ public class CheckAuthorizationCommand : BaseDuckieCommand
 
     public override void Execute(out bool result)
     {
-        DbmsService.Clients.Add();
+        // DbmsService.Clients.Add();
 
 
         // var notifyMessage = Localization.GetString(
