@@ -37,6 +37,7 @@
             <TextBox Name="ClientFirstNameTextBox"
                      MinWidth="200"
                      MaxWidth="200"
+                     TabIndex="0"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Фамилия:"
@@ -46,6 +47,7 @@
             <TextBox Name="ClientLastNameTextBox"
                      MinWidth="200"
                      MaxWidth="200"
+                     TabIndex="1"
                      Grid.Column="1"
                      Grid.Row="1" />
             <TextBlock Text="Телефон:"
@@ -55,6 +57,7 @@
             <TextBox Name="ClientPhoneTextBox"
                      MinWidth="200"
                      MaxWidth="200"
+                     TabIndex="2"
                      Grid.Column="1"
                      Grid.Row="2" />
         </Grid>
@@ -83,6 +86,7 @@
                       MaxDropDownHeight="300"
                       MinWidth="300"
                       MaxWidth="300"
+                      TabIndex="3"
                       Grid.Column="0"
                       Grid.Row="1">
                 <ComboBoxItem>Firm</ComboBoxItem>
@@ -120,6 +124,7 @@
                      Watermark="Наименование новой фирмы"
                      MinWidth="300"
                      MaxWidth="300"
+                     TabIndex="4"
                      Grid.Column="0"
                      Grid.Row="3" />
         </Grid>
@@ -148,6 +153,7 @@
             <TextBox Name="VehicleLicenceTextBox"
                      MinWidth="200"
                      MaxWidth="200"
+                     TabIndex="5"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Категория:"
@@ -158,6 +164,7 @@
                       MaxDropDownHeight="100"
                       MinWidth="80"
                       MaxWidth="80"
+                      TabIndex="6"
                       Grid.Column="1"
                       Grid.Row="1">
                 <ComboBoxItem>A</ComboBoxItem>
@@ -174,6 +181,7 @@
                 <TextBox Name="VehicleDiscount"
                          MinWidth="80"
                          MaxWidth="80"
+                         TabIndex="7"
                          TextAlignment="End" />
                 <TextBlock Text="%"
                            VerticalAlignment="Center" />
@@ -203,6 +211,7 @@
                 HorizontalAlignment="Center"
                 Margin="0 24 0 12"
                 Content="Add List"
+                TabIndex="8"
                 Command="{Binding AddVehicleLicenceCommand}" CommandParameter="{Binding #VehicleLicenceTextBox}" />
         <!-- 
         todo: change to a list of clients
@@ -256,6 +265,7 @@
                 Grid.Column="0"
                 Grid.Row="5"
                 Grid.ColumnSpan="7"
+                TabIndex="9"
                 Content="Add Database" />
     </Grid>
 </UserControl>
