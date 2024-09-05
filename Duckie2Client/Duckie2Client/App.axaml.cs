@@ -46,10 +46,6 @@ public partial class App : Application
     public static InitialSetupWizardViewModel VM_InitialSetupWizard =>
         Locator.Current.GetService<InitialSetupWizardViewModel>()!;
 
-    // ReSharper disable once InconsistentNaming
-    public static BatchServiceAddingScreenViewModel VM_BatchServiceAdding =>
-        Locator.Current.GetService<BatchServiceAddingScreenViewModel>()!;
-
     public static ClientCardBatchAddScreenViewModel VM_ClientCardBatchAdd =>
         Locator.Current.GetService<ClientCardBatchAddScreenViewModel>()!;
 
@@ -66,7 +62,6 @@ public partial class App : Application
         SplatRegistrations.Register<KassaWindowViewModel>();
         SplatRegistrations.Register<SpinnerDialogViewModel>();
         SplatRegistrations.Register<InitialSetupWizardViewModel>();
-        SplatRegistrations.Register<BatchServiceAddingScreenViewModel>();
         SplatRegistrations.Register<ClientCardBatchAddScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }

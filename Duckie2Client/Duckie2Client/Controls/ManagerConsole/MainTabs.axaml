@@ -37,6 +37,7 @@
                         <dc:ReadyStateControl
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=ReadyLoadDataState}" />
 
+
                         <!-- Loading State -->
                         <dc:DataLoadingState
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=DataLoadingState }" />

@@ -1,11 +1,10 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
              x:Class="Duckie2Client.Controls.ManagerConsole.TabsControl.DataLoadingState"
-             x:DataType="screens:BatchServiceAddingScreenViewModel">
+             x:DataType="vm:TabItemViewModel">
     <Grid ColumnDefinitions="Auto"
           RowDefinitions="Auto,Auto,Auto"
-          IsVisible="{Binding IsDataLoadingContainerVisible}"
           Name="DataLoadingContainer"
           HorizontalAlignment="Center">
         <TextBlock Text="::SPINNER::"
@@ -19,6 +18,7 @@
         <Button Content="Отмена"
                 Grid.Column="0"
                 Grid.Row="2"
-                HorizontalAlignment="Center" />
+                HorizontalAlignment="Center"
+                Command="{Binding DataLoadingCancelCommand}" />
     </Grid>
 </UserControl>

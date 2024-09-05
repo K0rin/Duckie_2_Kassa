@@ -19,7 +19,7 @@ public abstract class TabState
     /// </summary>
     public void EndState()
     {
-        Console.WriteLine(@$"hide controls : {GetType().Name}");
+        // Console.WriteLine(@$"hide controls : {GetType().Name}");
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public abstract class TabState
     /// </summary>
     public void StartState()
     {
-        Console.WriteLine(@$"show controls : {GetType().Name}");
+        // Console.WriteLine(@$"show controls : {GetType().Name}");
         Handle();
     }
 
