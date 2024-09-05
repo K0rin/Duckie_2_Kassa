@@ -8,11 +8,13 @@ public class TabContext
 {
     // Ссылка на текущее состояние Контекста.
     private TabState? _state;
+    public TabState? CurrentState { get; set; }
 
     public TabContext(TabState? state)
     {
         // Set the initial state.
         SetState(state);
+        CurrentState = state;
     }
 
     // Контекст позволяет изменять объект Состояния во время выполнения.
@@ -26,13 +28,8 @@ public class TabContext
     }
 
     // Контекст делегирует часть своего поведения текущему объекту Состояния.
-    public void LoadData()
+    public void Request()
     {
-        _state?.LoadData();
-    }
-
-    public void CancelDataLoading()
-    {
-        _state?.CancelDataLoading();
+        _state?.Handle();
     }
 }

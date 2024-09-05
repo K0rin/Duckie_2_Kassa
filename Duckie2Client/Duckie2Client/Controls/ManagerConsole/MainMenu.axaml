@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Screens"
+             x:Class="Duckie2Client.Controls.ManagerConsole.MainMenu"
+             x:DataType="vm:MainConsoleScreenViewModel">
+    <Panel>
+        <Menu>
+            <MenuItem Header="_Database">
+                <MenuItem Header="_Vehicles..." />
+                <MenuItem Header="_Clients..." />
+                <MenuItem Header="_Personal..." />
+                <Separator />
+                <MenuItem Header="_Exit"
+                          Command="{Binding ExitMenuCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Reports">
+                <MenuItem Header="_Washes by period..." />
+                <MenuItem Header="_Salary..." />
+            </MenuItem>
+            <!-- Tools -->
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Batch Service Adding..."
+                          Command="{Binding BatchServiceAddingCommand}" />
+                <MenuItem Header="_Settings..." />
+            </MenuItem>
+            <!-- View -->
+            <MenuItem Header="View">
+                <MenuItem Header=":: tab list ::" />
+                <Separator />
+                <MenuItem Header="_Close All" />
+            </MenuItem>
+            <!-- Help -->
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." />
+            </MenuItem>
+        </Menu>
+    </Panel>
+</UserControl>

@@ -2,9 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
-             xmlns:controls="clr-namespace:Tabalonia.Controls;assembly=Tabalonia"
+             xmlns:duckieControls="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
-             xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
              xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              x:Class="Duckie2Client.Views.Screens.MainConsoleScreenView"
              x:CompileBindings="True"
@@ -14,89 +13,20 @@
         <ControlTheme TargetType="TabControl"
                       BasedOn="{StaticResource {x:Type TabControl}}"
                       x:Key="{x:Type TabControl}">
-
             <Setter Property="ItemTemplate">
                 <DataTemplate DataType="screens:MainConsoleScreenViewModel">
                     <Button Content="foo" />
                 </DataTemplate>
             </Setter>
-
         </ControlTheme>
     </UserControl.Resources>
 
     <DockPanel>
-        <!-- 
-        Main Menu 
-        -->
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Database">
-                <MenuItem Header="_Vehicles..." />
-                <MenuItem Header="_Clients..." />
-                <MenuItem Header="_Personal..." />
-                <Separator />
-                <MenuItem Header="_Exit"
-                          Command="{Binding ExitMenuCommand}" />
-            </MenuItem>
-            <MenuItem Header="_Reports">
-                <MenuItem Header="_Washes by period..." />
-                <MenuItem Header="_Salary..." />
-            </MenuItem>
-            <!-- 
-            Tools 
-            -->
-            <MenuItem Header="_Tools">
-                <MenuItem Header="_Batch Service Adding..."
-                          Command="{Binding BatchServiceAddingCommand}" />
-                <MenuItem Header="_Settings..." />
-            </MenuItem>
-            <!-- 
-            View
-            -->
-            <MenuItem Header="View">
-                <MenuItem Header=":: tab list ::" />
-                <Separator />
-                <MenuItem Header="_Close All" />
-            </MenuItem>
-            <!-- 
-            Help 
-            -->
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About..." />
-            </MenuItem>
-        </Menu>
-        <!-- 
-        Startup Control
-        -->
-        <managerConsole:StartupControl IsVisible="{Binding IsStartupVisible}" />
-        <!-- 
-        Tabs 
-        -->
-        <Panel IsVisible="{Binding !IsStartupVisible}">
-            <controls:TabsControl ItemsSource="{Binding TabItems}"
-                                  FixedHeaderCount="0"
-                                  ShowDefaultAddButton="False"
-                                  CloseItemCommand="{Binding TabCloseCommand}">
-                <!-- 
-                Tab header
-                -->
-                <TabControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
-                        <TextBlock Text="{Binding Header}" />
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-                <!-- 
-                Tab contents
-                -->
-                <TabControl.ContentTemplate>
-                    <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
-                        <Grid Background="{DynamicResource SelectedTabItemBackgroundBrush}">
-                            <ContentControl Content="{Binding Content}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch" />
-                        </Grid>
-                    </DataTemplate>
-                </TabControl.ContentTemplate>
-            </controls:TabsControl>
-        </Panel>
+        <!-- Main Menu -->
+        <duckieControls:MainMenu DockPanel.Dock="Top" />
+        <!-- Dashboard -->
+        <managerConsole:Dashboard IsVisible="{Binding IsDashboardVisible}" />
+        <!-- Tabs -->
+        <duckieControls:MainTabs />
     </DockPanel>
 </UserControl>

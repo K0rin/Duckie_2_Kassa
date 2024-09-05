@@ -1,0 +1,24 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             x:Class="Duckie2Client.Controls.ManagerConsole.TabsControl.DataLoadingState"
+             x:DataType="screens:BatchServiceAddingScreenViewModel">
+    <Grid ColumnDefinitions="Auto"
+          RowDefinitions="Auto,Auto,Auto"
+          IsVisible="{Binding IsDataLoadingContainerVisible}"
+          Name="DataLoadingContainer"
+          HorizontalAlignment="Center">
+        <TextBlock Text="::SPINNER::"
+                   TextAlignment="Center"
+                   Grid.Column="0"
+                   Grid.Row="0" />
+        <TextBlock Text="Загрузка данных..."
+                   TextAlignment="Center"
+                   Grid.Column="0"
+                   Grid.Row="1" />
+        <Button Content="Отмена"
+                Grid.Column="0"
+                Grid.Row="2"
+                HorizontalAlignment="Center" />
+    </Grid>
+</UserControl>

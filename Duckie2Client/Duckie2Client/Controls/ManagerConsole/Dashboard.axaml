@@ -1,6 +1,6 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Duckie2Client.Controls.ManagerConsole.StartupControl">
+             x:Class="Duckie2Client.Controls.ManagerConsole.Dashboard">
     <Panel Name="MainWindowStartupScreen"
            HorizontalAlignment="Center"
            VerticalAlignment="Center">

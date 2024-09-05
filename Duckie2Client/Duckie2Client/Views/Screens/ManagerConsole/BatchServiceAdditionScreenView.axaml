@@ -2,60 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:managerConsole1="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
              xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             xmlns:duckieControls="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.BatchServiceAddingScreenView"
              d:DataContext="{x:Static duckie2Client:App.VM_BatchServiceAdding}"
              d:DesignWidth="1024"
              d:DesignHeight="768"
-             x:DataType="managerConsole1:BatchServiceAddingScreenViewModel"
+             x:DataType="screens:BatchServiceAddingScreenViewModel"
              x:CompileBindings="True">
     <StackPanel Orientation="Vertical"
                 VerticalAlignment="Center">
-        <!-- 
-        Update message 
-        -->
-        <Grid ColumnDefinitions="*"
-              RowDefinitions="Auto,Auto"
-              IsVisible="{Binding IsUpdateDataContainerVisible}"
-              Name="UpdateMessageContainer">
-            <TextBlock TextAlignment="Center"
-                       Grid.Column="0"
-                       Grid.Row="0"
-                       xml:space="preserve">Данные не загружены.
-
-        Чтобы отобразить данные, нажмите кнопку "Обновить".
-        </TextBlock>
-            <Button Content="Обновить"
-                    HorizontalAlignment="Center"
-                    Command="{Binding UpdateDateCommand}"
-                    Grid.Column="0"
-                    Grid.Row="1" />
-        </Grid>
-        <!-- 
-        Data loading spinner
-        -->
-        <Grid ColumnDefinitions="Auto"
-              RowDefinitions="Auto,Auto,Auto"
-              IsVisible="{Binding IsDataLoadingContainerVisible}"
-              Name="DataLoadingContainer"
-              HorizontalAlignment="Center">
-            <TextBlock Text="::SPINNER::"
-                       TextAlignment="Center"
-                       Grid.Column="0"
-                       Grid.Row="0" />
-            <TextBlock Text="Загрузка данных..."
-                       TextAlignment="Center"
-                       Grid.Column="0"
-                       Grid.Row="1" />
-            <Button Content="Отмена"
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    HorizontalAlignment="Center" />
-        </Grid>
-        <!-- 
-        Data
-        -->
+        <!-- Ready state message -->
+        <duckieControls:ReadyStateControl />
+        <!-- Data loading state -->
+        <duckieControls:DataLoadingState />
+        <!-- Data state -->
         <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
               RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
               HorizontalAlignment="Center"

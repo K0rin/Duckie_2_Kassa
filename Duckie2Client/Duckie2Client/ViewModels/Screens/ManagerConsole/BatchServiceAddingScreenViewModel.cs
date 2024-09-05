@@ -38,7 +38,7 @@ public class BatchServiceAddingScreenViewModel : ViewModelBase
     private void UpdateDateExecute()
     {
         _tabContext.SetState(new DataLoadingState());
-        _tabContext.LoadData();
+        // _tabContext.LoadData();
 
         // IsUpdateDataContainerVisible = false;
         // IsDataLoadingContainerVisible = true;

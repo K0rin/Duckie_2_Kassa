@@ -23,5 +23,6 @@ public class ViewLocator : StrongViewLocator
         Register<SpinnerDialogViewModel, SpinnerDialog>();
         // Screens
         Register<BatchServiceAddingScreenViewModel, BatchServiceAddingScreenView>();
+        Register<ClientCardBatchAddScreenViewModel, ClientCardBatchAddScreenView>();
     }
 }

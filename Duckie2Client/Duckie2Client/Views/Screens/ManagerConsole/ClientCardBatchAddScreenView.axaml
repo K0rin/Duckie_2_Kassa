@@ -1,0 +1,269 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             x:DataType="vm:ClientCardBatchAddScreenViewModel">
+    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+          RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
+          HorizontalAlignment="Center"
+          Margin="0 24 0 24"
+          Name="DataContainer">
+
+        <!-- Client block -->
+
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="8 0 8 0"
+                Background="Black"
+                Width="2" />
+        <TextBlock Text="Клиент"
+                   FontWeight="Bold"
+                   Margin="0 0 0 24"
+                   Grid.Column="1"
+                   Grid.Row="0" />
+        <Grid ColumnDefinitions="Auto,Auto"
+              RowDefinitions="Auto,Auto,Auto"
+              Grid.Column="1"
+              Grid.Row="1">
+            <TextBlock Text="Имя:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="0" />
+            <TextBox Name="ClientFirstNameTextBox"
+                     MinWidth="200"
+                     MaxWidth="200"
+                     TabIndex="0"
+                     Grid.Column="1"
+                     Grid.Row="0" />
+            <TextBlock Text="Фамилия:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="1" />
+            <TextBox Name="ClientLastNameTextBox"
+                     MinWidth="200"
+                     MaxWidth="200"
+                     TabIndex="1"
+                     Grid.Column="1"
+                     Grid.Row="1" />
+            <TextBlock Text="Телефон:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="2" />
+            <TextBox Name="ClientPhoneTextBox"
+                     MinWidth="200"
+                     MaxWidth="200"
+                     TabIndex="2"
+                     Grid.Column="1"
+                     Grid.Row="2" />
+        </Grid>
+
+        <!-- Company block -->
+
+        <Border Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="8 0 8 0"
+                Background="Black"
+                Width="2" />
+        <TextBlock Text="Фирма"
+                   FontWeight="Bold"
+                   Margin="0 0 0 24"
+                   Grid.Column="3"
+                   Grid.Row="0" />
+        <Grid ColumnDefinitions="Auto"
+              RowDefinitions="Auto,Auto,Auto,Auto"
+              Grid.Column="3"
+              Grid.Row="1">
+            <TextBlock Text="Зарегистрированные:"
+                       Grid.Column="0"
+                       Grid.Row="0" />
+            <ComboBox Name="ClientFirmComboBox"
+                      MaxDropDownHeight="300"
+                      MinWidth="300"
+                      MaxWidth="300"
+                      TabIndex="3"
+                      Grid.Column="0"
+                      Grid.Row="1">
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+                <ComboBoxItem>Firm</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Новая фирма:"
+                       Grid.Column="0"
+                       Grid.Row="2" />
+            <TextBox Name="ClientNewFirmNameTextBox"
+                     Watermark="Наименование новой фирмы"
+                     MinWidth="300"
+                     MaxWidth="300"
+                     TabIndex="4"
+                     Grid.Column="0"
+                     Grid.Row="3" />
+        </Grid>
+
+        <!-- Vehicle block -->
+
+        <Border Grid.Column="4"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="8 0 8 0"
+                Background="Black"
+                Width="2" />
+        <TextBlock Text="Транспорт"
+                   FontWeight="Bold"
+                   Margin="0 0 0 24"
+                   Grid.Column="5"
+                   Grid.Row="0" />
+        <Grid ColumnDefinitions="Auto,Auto"
+              RowDefinitions="Auto,Auto,Auto"
+              Grid.Column="5"
+              Grid.Row="1">
+            <TextBlock Text="Номер:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="0" />
+            <TextBox Name="VehicleLicenceTextBox"
+                     MinWidth="200"
+                     MaxWidth="200"
+                     TabIndex="5"
+                     Grid.Column="1"
+                     Grid.Row="0" />
+            <TextBlock Text="Категория:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="1" />
+            <ComboBox Name="VehicleCategoryComboBox"
+                      MaxDropDownHeight="100"
+                      MinWidth="80"
+                      MaxWidth="80"
+                      TabIndex="6"
+                      Grid.Column="1"
+                      Grid.Row="1">
+                <ComboBoxItem>A</ComboBoxItem>
+                <ComboBoxItem>B</ComboBoxItem>
+                <ComboBoxItem>C</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Скидка:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="2" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
+                        Grid.Row="2">
+                <TextBox Name="VehicleDiscount"
+                         MinWidth="80"
+                         MaxWidth="80"
+                         TabIndex="7"
+                         TextAlignment="End" />
+                <TextBlock Text="%"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- End line -->
+
+        <Border Grid.Column="6"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="8 0 8 0"
+                Background="Black"
+                Width="2" />
+        <!-- <TextBlock Text="Vehicle Licence:" -->
+        <!--            Grid.Column="0" -->
+        <!--            Grid.Row="0" -->
+        <!--            Grid.ColumnSpan="2" /> -->
+        <!-- <TextBox Name="VehicleLicenceTextBox" -->
+        <!--          Grid.Column="0" -->
+        <!--          Grid.Row="1" -->
+        <!--          Text="{Binding VehicleLicenceTextBoxValue}" /> -->
+        <Button Name="AddButton"
+                Grid.Column="0"
+                Grid.Row="2"
+                Grid.ColumnSpan="7"
+                HorizontalAlignment="Center"
+                Margin="0 24 0 12"
+                Content="Add List"
+                TabIndex="8"
+                Command="{Binding AddVehicleLicenceCommand}" CommandParameter="{Binding #VehicleLicenceTextBox}" />
+
+        <!-- todo: change to a list of clients -->
+        <!-- List of vehicle licenses being added to the database -->
+
+        <Panel Grid.Column="0"
+               Grid.Row="3"
+               Grid.ColumnSpan="7"
+               MinHeight="256">
+            <ScrollViewer Background="Bisque"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Hidden"
+                          MinHeight="341">
+                <ItemsRepeater ItemsSource="{Binding VehicleLicensesItems}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="0"
+                                     Orientation="Vertical" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <Panel>
+                                <!-- 
+                                Костыль. 
+                                Использование TextBlock. 
+                                Не срабатывает присвоение текста атрибуту Text объекта ListItemWithDeleteButton. 
+                                -->
+                                <TextBlock Text="{Binding TitleText, Mode=OneWay}"
+                                           Name="ItemTitleTextHelper"
+                                           IsVisible="False" />
+                                <managerConsole:RemovableListItemControl
+                                    Text="{Binding #ItemTitleTextHelper.Text, Mode=OneWay}" />
+                            </Panel>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Panel>
+
+        <!-- Statistics -->
+
+        <TextBlock Text="Total records: 999"
+                   TextAlignment="Right"
+                   Margin="0 12 0 12"
+                   Grid.Column="0"
+                   Grid.Row="4"
+                   Grid.ColumnSpan="7" />
+
+        <!-- Add to the database button -->
+
+        <Button Name="AddDatabaseButton"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
+                Grid.Row="5"
+                Grid.ColumnSpan="7"
+                TabIndex="9"
+                Content="Add Database" />
+    </Grid>
+</UserControl>

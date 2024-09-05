@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
+             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+             xmlns:controls="clr-namespace:Tabalonia.Controls;assembly=Tabalonia"
+             xmlns:dc="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
+             xmlns:converters="clr-namespace:Duckie2Client.Converters"
+             x:Class="Duckie2Client.Controls.ManagerConsole.MainTabs"
+             x:DataType="screens:MainConsoleScreenViewModel">
+    <UserControl.Resources>
+        <converters:TabStateToVisibilityConverter x:Key="TabStateToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Panel IsVisible="{Binding !IsDashboardVisible}">
+        <controls:TabsControl ItemsSource="{Binding TabItems}"
+                              FixedHeaderCount="0"
+                              ShowDefaultAddButton="False"
+                              CloseItemCommand="{Binding TabCloseCommand}">
+
+            <!-- Tab header -->
+
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
+                    <TextBlock Text="{Binding Header}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <!-- Tab contents -->
+
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
+
+                    <StackPanel Background="{DynamicResource SelectedTabItemBackgroundBrush}">
+
+                        <!-- Ready State -->
+
+                        <dc:ReadyStateControl
+                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=ReadyLoadDataState}" />
+
+                        <!-- Loading State -->
+                        <dc:DataLoadingState
+                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=DataLoadingState }" />
+
+                        <!-- todo: refact: отдельный контрол для отображения состояния "Данные" -->
+                        <!-- Data State -->
+
+                        <Grid Background="{DynamicResource SelectedTabItemBackgroundBrush}"
+                              IsVisible="{Binding IsDataStateVisible}">
+                            <ContentControl Content="{Binding Content}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch" />
+                        </Grid>
+                    </StackPanel>
+
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </controls:TabsControl>
+    </Panel>
+</UserControl>

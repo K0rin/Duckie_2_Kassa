@@ -50,6 +50,9 @@ public partial class App : Application
     public static BatchServiceAddingScreenViewModel VM_BatchServiceAdding =>
         Locator.Current.GetService<BatchServiceAddingScreenViewModel>()!;
 
+    public static ClientCardBatchAddScreenViewModel VM_ClientCardBatchAdd =>
+        Locator.Current.GetService<ClientCardBatchAddScreenViewModel>()!;
+
     #endregion
 
     public override void Initialize()
@@ -64,6 +67,7 @@ public partial class App : Application
         SplatRegistrations.Register<SpinnerDialogViewModel>();
         SplatRegistrations.Register<InitialSetupWizardViewModel>();
         SplatRegistrations.Register<BatchServiceAddingScreenViewModel>();
+        SplatRegistrations.Register<ClientCardBatchAddScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

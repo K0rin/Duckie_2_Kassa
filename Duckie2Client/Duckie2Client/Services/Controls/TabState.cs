@@ -28,9 +28,8 @@ public abstract class TabState
     public void StartState()
     {
         Console.WriteLine(@$"show controls : {GetType().Name}");
+        Handle();
     }
 
-    public abstract void LoadData();
-
-    public abstract void CancelDataLoading();
+    public abstract void Handle();
 }

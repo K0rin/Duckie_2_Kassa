@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using Duckie2Client.Libs.Tabalonia;
+using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
@@ -23,14 +24,14 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
     #endregion
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
-    [Reactive] public bool IsStartupVisible { get; set; }
+    [Reactive] public bool IsDashboardVisible { get; set; }
 
     public MainConsoleScreenViewModel()
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         BatchServiceAddingCommand = ReactiveCommand.Create(BatchServiceAdditionCommandExecute);
         TabCloseCommand = ReactiveCommand.Create<object>(TabCloseCommandExecute);
-        IsStartupVisible = true;
+        IsDashboardVisible = true;
     }
 
     private void TabCloseCommandExecute(object value)
@@ -43,9 +44,12 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 
     private void BatchServiceAdditionCommandExecute()
     {
-        HideStartupControl();
-
-        TabItems.Add(new TabItemViewModel("Batch Service Adding", new BatchServiceAddingScreenView()));
+        HideDashboard();
+        var t = new TabItemViewModel(
+            "Client Card Batch Add (stated)",
+            new ClientCardBatchAddScreenView(),
+            new TabContext(new ReadyLoadDataState()));
+        TabItems.Add(t);
     }
 
     private void ExitMenuCommandExecute()
@@ -53,8 +57,8 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         App.ShutdownApplication();
     }
 
-    private void HideStartupControl()
+    private void HideDashboard()
     {
-        if (IsStartupVisible) IsStartupVisible = false;
+        if (IsDashboardVisible) IsDashboardVisible = false;
     }
 }
