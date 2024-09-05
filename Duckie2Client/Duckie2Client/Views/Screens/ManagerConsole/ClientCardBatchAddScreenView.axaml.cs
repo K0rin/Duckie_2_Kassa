@@ -1,7 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Duckie2Client.Views.Base;
+﻿using Duckie2Client.Views.Base;
 
 namespace Duckie2Client.Views.Screens.ManagerConsole;
 

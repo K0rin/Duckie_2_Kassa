@@ -3,6 +3,7 @@ using System.Reactive;
 using Duckie2Client.Libs.Tabalonia;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

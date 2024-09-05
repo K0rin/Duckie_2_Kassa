@@ -27,6 +27,6 @@
         <!-- Dashboard -->
         <managerConsole:Dashboard IsVisible="{Binding IsDashboardVisible}" />
         <!-- Tabs -->
-        <duckieControls:MainTabs />
+        <duckieControls:MainTab />
     </DockPanel>
 </UserControl>

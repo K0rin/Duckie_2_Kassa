@@ -1,9 +1,9 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
-             xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
              xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
-             x:DataType="vm:ClientCardBatchAddScreenViewModel">
+             xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
+             x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
           RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
           HorizontalAlignment="Center"
@@ -35,6 +35,7 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="0"
+                     Text="{Binding DataPayload}"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Фамилия:"

@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:Tabalonia.Controls;assembly=Tabalonia"
              xmlns:dc="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
              xmlns:converters="clr-namespace:Duckie2Client.Converters"
-             x:Class="Duckie2Client.Controls.ManagerConsole.MainTabs"
+             x:Class="Duckie2Client.Controls.ManagerConsole.MainTab"
              x:DataType="screens:MainConsoleScreenViewModel">
     <UserControl.Resources>
         <converters:TabStateToVisibilityConverter x:Key="TabStateToVisibilityConverter" />
@@ -37,8 +37,8 @@
                         <dc:ReadyStateControl
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=ReadyLoadDataState}" />
 
-
                         <!-- Loading State -->
+
                         <dc:DataLoadingState
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=DataLoadingState }" />
 

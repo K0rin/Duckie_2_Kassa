@@ -2,7 +2,7 @@ using Duckie2Client.Libs.HanumanInstitute;
 using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
-using Duckie2Client.ViewModels.Screens.ManagerConsole;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.Views;
 using Duckie2Client.Views.Dialogs;
 using Duckie2Client.Views.Screens;

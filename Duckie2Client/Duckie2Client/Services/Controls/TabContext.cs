@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Duckie2Client.Services.Controls;
 
@@ -8,6 +9,7 @@ public class TabContext
 {
     // Ссылка на текущее состояние Контекста.
     public TabState? CurrentState { get; set; }
+    // private Dictionary<TabState, Func<bool>> Delegates = new();
 
     public TabContext(TabState? state)
     {
@@ -16,10 +18,11 @@ public class TabContext
         CurrentState = state;
     }
 
+
     // Контекст позволяет изменять объект Состояния во время выполнения.
     public void SetState(TabState? state)
     {
-        Console.WriteLine($@"Context: Set state to {state?.GetType().Name}.");
+        // Console.WriteLine($@"Context: Set state to {state?.GetType().Name}.");
         CurrentState?.EndState();
         CurrentState = state;
         CurrentState?.SetContext(this);
@@ -27,8 +30,4 @@ public class TabContext
     }
 
     // Контекст делегирует часть своего поведения текущему объекту Состояния.
-    public void Request()
-    {
-        CurrentState?.Handle();
-    }
 }

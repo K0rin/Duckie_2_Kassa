@@ -12,7 +12,7 @@ using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
-using Duckie2Client.ViewModels.Screens.ManagerConsole;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.Views;
 using Splat;
 

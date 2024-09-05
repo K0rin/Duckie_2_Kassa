@@ -2,6 +2,8 @@
 using Avalonia.Controls;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.Views.Base;
+using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -17,7 +19,7 @@ public class TabItemViewModel : ViewModelBase
     /// <summary>Content of the tab.</summary>
     public Control Content { get; set; }
 
-    public bool IsDataStateVisible { get; set; }
+    [Reactive] public bool IsDataStateVisible { get; set; }
     [Reactive] public TabState? CurrentState { get; set; }
     public TabContext? Context { get; }
     public ReactiveCommand<Unit, Unit> UpdateDateCommand { get; }
@@ -26,7 +28,7 @@ public class TabItemViewModel : ViewModelBase
     // ReSharper disable once ConvertToPrimaryConstructor
     public TabItemViewModel(string header, Control content, TabContext? context)
     {
-        UpdateDateCommand = ReactiveCommand.Create(UpdateDateExecute);
+        UpdateDateCommand = ReactiveCommand.Create(UpdateDataExecute);
         DataLoadingCancelCommand = ReactiveCommand.Create(DataLoadingCancelExecute);
         Header = header;
         Content = content;
@@ -40,10 +42,17 @@ public class TabItemViewModel : ViewModelBase
         throw new System.NotImplementedException();
     }
 
-    private void UpdateDateExecute()
+    private void UpdateDataExecute()
     {
         Context?.SetState(new DataLoadingState());
         CurrentState = Context?.CurrentState;
+        var x = Context?.CurrentState?.UpdateData();
+        ((ITabViewModel)Content.DataContext!).DataPayload = x;
+        
+        Context?.SetState(new DataState());
+        CurrentState = Context?.CurrentState;
+
+        IsDataStateVisible = true;
     }
 
     public override string ToString()

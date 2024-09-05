@@ -2,7 +2,13 @@
 
 public class ReadyLoadDataState : TabState
 {
-    public override void Handle()
+    public override string? UpdateData()
+    {
+        // Nothing to do due to Ready State does not perform any operations.
+        return null;
+    }
+
+    public override void CancelDataLoading()
     {
         // Nothing to do due to Ready State does not perform any operations.
     }

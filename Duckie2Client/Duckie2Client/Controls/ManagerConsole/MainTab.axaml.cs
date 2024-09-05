@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Duckie2Client.Controls.ManagerConsole;
 
-public partial class MainTabs : UserControl
+public partial class MainTab : UserControl
 {
-    public MainTabs()
+    public MainTab()
     {
         InitializeComponent();
     }

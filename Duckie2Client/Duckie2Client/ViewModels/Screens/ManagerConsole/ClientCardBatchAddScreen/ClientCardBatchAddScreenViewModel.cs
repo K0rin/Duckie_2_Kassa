@@ -7,10 +7,11 @@ using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 
-public class ClientCardBatchAddScreenViewModel : ViewModelBase
+public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel
 {
+    [Reactive] public string? DataPayload { get; set; }
     public ObservableCollection<RemovableListItem>? VehicleLicensesItems { get; set; }
     [Reactive] public string VehicleLicenceTextBoxValue { get; set; }
     public ReactiveCommand<TextBox, Unit> AddVehicleLicenceCommand { get; }
@@ -37,4 +38,5 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase
     {
         Console.WriteLine("batch service close");
     }
+
 }
