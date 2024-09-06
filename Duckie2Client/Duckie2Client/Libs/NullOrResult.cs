@@ -1,5 +1,6 @@
 ﻿namespace Duckie2Client.Libs;
 
+// todo: refact: применить объект в коде проекта.
 /// <summary>
 /// <para>
 /// The class is used as a replacement for null-value.

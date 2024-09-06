@@ -7,14 +7,20 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Duckie2Client.ViewModels;
 
-/// <summary>Represents the data model for an individual tab on the main screen of the Application in the “Manager
-/// Console” mode of operation.</summary>
+/// <summary>
+/// Represents the data model for an individual tab on the main screen of the Application in the “Manager Console” mode
+/// of operation.
+/// </summary>
 public class TabItemViewModel : ViewModelBase
 {
-    /// <summary>The tab header text.</summary>
+    /// <summary>
+    /// The tab header text.
+    /// </summary>
     public string Header { get; set; }
 
-    /// <summary>Content of the tab.</summary>
+    /// <summary>
+    /// Content of the tab.
+    /// </summary>
     public Control Content { get; set; }
 
     [Reactive] public bool IsDataStateVisible { get; set; }
@@ -62,14 +68,16 @@ public class TabItemViewModel : ViewModelBase
 
         if (data.IsNull)
         {
-            // todo: Switch to the Ready state.
+            // Switch to the Ready state.
+
             Context?.SetState(new ReadyLoadDataState());
             CurrentState = Context?.CurrentState;
         }
         else
         {
-            ((ITabViewModel)Content.DataContext!).DataPayload = data.Result.ToString();
             // Switch to data display mode.
+
+            ((ITabViewModel)Content.DataContext!).DataPayload = data.Result!.ToString();
             Context?.SetState(new DataState());
             CurrentState = Context?.CurrentState;
             IsDataStateVisible = true;

@@ -5,10 +5,10 @@ namespace Duckie2Client.Services.Controls;
 
 public class DataState : TabState
 {
-    public override async Task<NullOrResult> UpdateData()
+    public override Task<NullOrResult> UpdateData()
     {
         // nothing to do.
-        return new NullOrResult();
+        return Task.FromResult(new NullOrResult());
     }
 
     public override void CancelDataLoading()

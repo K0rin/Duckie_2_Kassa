@@ -8,7 +8,7 @@ public class ReadyLoadDataState : TabState
     public override Task<NullOrResult> UpdateData()
     {
         // Nothing to do due to Ready State does not perform any operations.
-        return null!;
+        return Task.FromResult(new NullOrResult());
     }
 
     public override void CancelDataLoading()

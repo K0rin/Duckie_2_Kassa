@@ -5,6 +5,7 @@
              x:Class="Duckie2Client.Controls.ManagerConsole.TabsControl.DataLoadingState"
              x:DataType="vm:TabItemViewModel">
     <UserControl.Styles>
+        <!-- todo: refact: вынести в отдельный ресурс, ибо повторяется. -->
         <!-- Spinner Animation -->
         <Style Selector="Image.CircleWithGap">
             <Style.Animations>

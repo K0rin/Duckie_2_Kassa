@@ -5,12 +5,20 @@ using Duckie2Client.Libs;
 
 namespace Duckie2Client.Services.Controls;
 
+// todo: refact: Класс должен принадлежать только ClientCardBatchAddScreenView. Структура директорий проекта.
+
+/// <summary>
+/// Класс реализует функционал, задействованный в работе состояния вкладки "DataLoading" экрана "Пакетное добавление
+/// скидки Карты Клиента".
+/// </summary>
 public class DataLoadingState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
 
     private static NullOrResult LoadCompanyList()
     {
+        // todo: Load data from the database.
+
         Console.WriteLine(@"Task start...");
 
         var i = 0;
