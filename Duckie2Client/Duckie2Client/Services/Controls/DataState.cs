@@ -1,11 +1,14 @@
-﻿namespace Duckie2Client.Services.Controls;
+﻿using System.Threading.Tasks;
+using Duckie2Client.Libs;
 
-public class DataState: TabState 
+namespace Duckie2Client.Services.Controls;
+
+public class DataState : TabState
 {
-    public override string? UpdateData()
+    public override async Task<NullOrResult> UpdateData()
     {
-       // nothing to do.
-       return null;
+        // nothing to do.
+        return new NullOrResult();
     }
 
     public override void CancelDataLoading()

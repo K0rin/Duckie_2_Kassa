@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Duckie2Client.Libs;
 
 namespace Duckie2Client.Services.Controls;
 
@@ -31,6 +33,6 @@ public abstract class TabState
     }
 
     // public abstract void UpdateData();
-    public abstract string? UpdateData();
+    public abstract Task<NullOrResult> UpdateData();
     public abstract void CancelDataLoading();
 }

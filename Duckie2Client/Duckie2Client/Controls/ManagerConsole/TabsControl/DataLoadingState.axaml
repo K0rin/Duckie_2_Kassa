@@ -26,21 +26,27 @@
           RowDefinitions="Auto,Auto,Auto"
           Name="DataLoadingContainer"
           HorizontalAlignment="Center">
+
         <!-- Spinner -->
+
         <Image Classes="CircleWithGap"
                Source="/Assets/loading.png"
                Height="64"
                Width="64"
                Grid.Column="0"
                Grid.Row="0" />
+
         <!-- Message -->
+
         <TextBlock
             Text="{Binding DataLoadingMessage, 
             RelativeSource={RelativeSource AncestorType=tabsControl:DataLoadingState}}"
             TextAlignment="Center"
             Grid.Column="0"
             Grid.Row="1" />
+
         <!-- Cancel Button -->
+
         <Button Content="_Cancel"
                 Grid.Column="0"
                 Grid.Row="2"

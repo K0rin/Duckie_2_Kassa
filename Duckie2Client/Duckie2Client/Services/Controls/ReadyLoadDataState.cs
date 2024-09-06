@@ -1,11 +1,14 @@
-﻿namespace Duckie2Client.Services.Controls;
+﻿using System.Threading.Tasks;
+using Duckie2Client.Libs;
+
+namespace Duckie2Client.Services.Controls;
 
 public class ReadyLoadDataState : TabState
 {
-    public override string? UpdateData()
+    public override Task<NullOrResult> UpdateData()
     {
         // Nothing to do due to Ready State does not perform any operations.
-        return null;
+        return null!;
     }
 
     public override void CancelDataLoading()

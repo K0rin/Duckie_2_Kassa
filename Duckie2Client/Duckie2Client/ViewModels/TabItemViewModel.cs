@@ -4,7 +4,6 @@ using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using DataLoadingState = Duckie2Client.Services.Controls.DataLoadingState;
 
 namespace Duckie2Client.ViewModels;
 
@@ -49,25 +48,32 @@ public class TabItemViewModel : ViewModelBase
 
     private void DataLoadingCancelExecute()
     {
-        // todo: implement
-        throw new System.NotImplementedException();
+        Context?.CurrentState?.CancelDataLoading();
     }
 
-    private void UpdateDataExecute()
+    private async void UpdateDataExecute()
     {
         // Switch state.
         Context?.SetState(new DataLoadingState());
         CurrentState = Context?.CurrentState;
 
         // Run update data method.
-        var data = Context?.CurrentState?.UpdateData();
-        ((ITabViewModel)Content.DataContext!).DataPayload = data;
+        var data = await Context?.CurrentState?.UpdateData()!;
 
-        // Switch to data display mode.
-        // Context?.SetState(new DataState());
-        // CurrentState = Context?.CurrentState;
-
-        // IsDataStateVisible = true;
+        if (data.IsNull)
+        {
+            // todo: Switch to the Ready state.
+            Context?.SetState(new ReadyLoadDataState());
+            CurrentState = Context?.CurrentState;
+        }
+        else
+        {
+            ((ITabViewModel)Content.DataContext!).DataPayload = data.Result.ToString();
+            // Switch to data display mode.
+            Context?.SetState(new DataState());
+            CurrentState = Context?.CurrentState;
+            IsDataStateVisible = true;
+        }
     }
 
     public override string ToString()
