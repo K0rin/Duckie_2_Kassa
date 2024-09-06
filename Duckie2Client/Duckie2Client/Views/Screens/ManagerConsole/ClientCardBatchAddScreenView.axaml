@@ -232,9 +232,12 @@
                         <DataTemplate>
                             <Panel>
                                 <!-- 
-                                Костыль. 
+                                todo: Костыль. 
                                 Использование TextBlock. 
                                 Не срабатывает присвоение текста атрибуту Text объекта ListItemWithDeleteButton. 
+                                Можно исправить, наверное: 
+                                Duckie2Client.Controls.ManagerConsole.TabsControl.ReadyStateControl.ReadyStateMessage. 
+                                Смотри "RelativeSource".
                                 -->
                                 <TextBlock Text="{Binding TitleText, Mode=OneWay}"
                                            Name="ItemTitleTextHelper"

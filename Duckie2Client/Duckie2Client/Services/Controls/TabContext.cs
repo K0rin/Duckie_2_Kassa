@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Duckie2Client.Services.Controls;
+﻿namespace Duckie2Client.Services.Controls;
 
 // Контекст определяет интерфейс, представляющий интерес для клиентов. Он также хранит ссылку на экземпляр подкласса
 // Состояния, который отображает текущее состояние Контекста.

@@ -1,21 +1,21 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Duckie2Client.Controls.ManagerConsole.TabsControl.ReadyStateControl"
+             xmlns:ctrl="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
              xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
              x:DataType="vm:TabItemViewModel">
     <Grid ColumnDefinitions="*"
-          RowDefinitions="Auto,Auto"
-          Name="UpdateMessageContainer">
+          RowDefinitions="Auto,Auto">
         <TextBlock TextAlignment="Center"
                    Grid.Column="0"
                    Grid.Row="0"
-                   xml:space="preserve">ready state
-        </TextBlock>
-        <Button Content="Обновить"
+                   xml:space="preserve"
+                   Text="{Binding ReadyStateMessage, 
+                   RelativeSource={RelativeSource AncestorType=ctrl:ReadyStateControl}}" />
+        <Button Content="_Update"
                 HorizontalAlignment="Center"
                 Grid.Column="0"
                 Grid.Row="1"
                 Command="{Binding UpdateDateCommand}" />
-
     </Grid>
 </UserControl>

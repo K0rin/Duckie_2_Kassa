@@ -1,11 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
              x:Class="Duckie2Client.Views.Dialogs.SpinnerDialog"
              xmlns:a="clr-namespace:Duckie2Client"
              d:DataContext="{x:Static a:App.VM_SpinnerDialog}">
@@ -27,7 +23,6 @@
             </Style.Animations>
         </Style>
     </UserControl.Styles>
-
     <StackPanel Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=Bounds.Width}">
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">

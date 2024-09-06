@@ -49,7 +49,11 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         var t = new TabItemViewModel(
             "Client Card Batch Add (stated)",
             new ClientCardBatchAddScreenView(),
-            new TabContext(new ReadyLoadDataState()));
+            new TabContext(new ReadyLoadDataState()))
+        {
+            ReadyStateMessageText = "Для загрузки данных нажмите кнопку 'Обновить'.",
+            DataLoadingMessageText = "Загружается список фирм..."
+        };
         TabItems.Add(t);
     }
 

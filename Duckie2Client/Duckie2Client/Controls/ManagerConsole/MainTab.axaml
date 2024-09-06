@@ -35,12 +35,16 @@
                         <!-- Ready State -->
 
                         <dc:ReadyStateControl
-                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=ReadyLoadDataState}" />
+                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, 
+                            ConverterParameter=ReadyLoadDataState}"
+                            ReadyStateMessage="{Binding ReadyStateMessageText}" />
 
                         <!-- Loading State -->
 
                         <dc:DataLoadingState
-                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, ConverterParameter=DataLoadingState }" />
+                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, 
+                            ConverterParameter=DataLoadingState }"
+                            DataLoadingMessage="{Binding DataLoadingMessageText}" />
 
                         <!-- todo: refact: отдельный контрол для отображения состояния "Данные" -->
                         <!-- Data State -->

@@ -1,21 +1,47 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Duckie2Client.ViewModels"
+             xmlns:tabsControl="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
              x:Class="Duckie2Client.Controls.ManagerConsole.TabsControl.DataLoadingState"
              x:DataType="vm:TabItemViewModel">
+    <UserControl.Styles>
+        <!-- Spinner Animation -->
+        <Style Selector="Image.CircleWithGap">
+            <Style.Animations>
+                <Animation Duration="0:0:1"
+                           IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="RotateTransform.Angle"
+                                Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="RotateTransform.Angle"
+                                Value="360" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
     <Grid ColumnDefinitions="Auto"
           RowDefinitions="Auto,Auto,Auto"
           Name="DataLoadingContainer"
           HorizontalAlignment="Center">
-        <TextBlock Text="::SPINNER::"
-                   TextAlignment="Center"
-                   Grid.Column="0"
-                   Grid.Row="0" />
-        <TextBlock Text="Загрузка данных..."
-                   TextAlignment="Center"
-                   Grid.Column="0"
-                   Grid.Row="1" />
-        <Button Content="Отмена"
+        <!-- Spinner -->
+        <Image Classes="CircleWithGap"
+               Source="/Assets/loading.png"
+               Height="64"
+               Width="64"
+               Grid.Column="0"
+               Grid.Row="0" />
+        <!-- Message -->
+        <TextBlock
+            Text="{Binding DataLoadingMessage, 
+            RelativeSource={RelativeSource AncestorType=tabsControl:DataLoadingState}}"
+            TextAlignment="Center"
+            Grid.Column="0"
+            Grid.Row="1" />
+        <!-- Cancel Button -->
+        <Button Content="_Cancel"
                 Grid.Column="0"
                 Grid.Row="2"
                 HorizontalAlignment="Center"

@@ -14,7 +14,8 @@ public partial class RemovableListItemControl : UserControl
     public RemovableListItemControl()
     {
         InitializeComponent();
-        DataContext = this; // Set the DataContext for binding custom attributes (e.g., Text).
+        // Set the DataContext for binding custom attributes (e.g., Text).
+        DataContext = this;
     }
 
     /// <summary>
