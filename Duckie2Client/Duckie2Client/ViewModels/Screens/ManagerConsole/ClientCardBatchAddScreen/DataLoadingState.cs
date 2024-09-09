@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Duckie2Client.Libs;
+using Duckie2Client.Services.Controls;
+using Duckie2Client.Services.DbmsService;
 
-namespace Duckie2Client.Services.Controls;
-
-// todo: refact: Класс должен принадлежать только ClientCardBatchAddScreenView. Структура директорий проекта.
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 
 /// <summary>
 /// Класс реализует функционал, задействованный в работе состояния вкладки "DataLoading" экрана "Пакетное добавление
@@ -17,31 +19,19 @@ public class DataLoadingState : TabState
 
     private static NullOrResult LoadCompanyList()
     {
-        // todo: Load data from the database.
-
-        Console.WriteLine(@"Task start...");
-
-        var i = 0;
-        const int TOTAL = 10;
-
-        while (i < TOTAL)
+        // Get the company list.
+        List<string> companies;
+        using (var db = new DbmsService())
         {
-            if (_cancelTokenSource.IsCancellationRequested)
-            {
-                Console.WriteLine(@"Task was cancelled.");
-                return new NullOrResult();
-            }
-
-            i++;
-            Console.WriteLine($@"Loading company {i}/{TOTAL}");
-            Thread.Sleep(500);
+            companies = db.LegacyCompanies.Select(e => e.Name).ToList();
         }
 
-        Console.WriteLine(@"...Task end");
+        // Clean collection. Remove empty names if they exist.
+        companies = companies.Where(n => n.Trim().Length > 0).ToList();
 
         var result = new NullOrResult
         {
-            Result = "company list data payload"
+            Result = companies
         };
         return result;
     }

@@ -1,7 +1,9 @@
-﻿using System.Reactive;
+﻿using System.Collections.Generic;
+using System.Reactive;
 using Avalonia.Controls;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -77,7 +79,7 @@ public class TabItemViewModel : ViewModelBase
         {
             // Switch to data display mode.
 
-            ((ITabViewModel)Content.DataContext!).DataPayload = data.Result!.ToString();
+            ((ITabViewModel<List<string>>)Content.DataContext!).DataPayload = data.Result as List<string>;
             Context?.SetState(new DataState());
             CurrentState = Context?.CurrentState;
             IsDataStateVisible = true;

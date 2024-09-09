@@ -23,22 +23,33 @@ public class DbmsService : BaseDbmsService
     /// List of clients.
     /// </summary>
     public DbSet<Client> Clients { get; set; } = null!;
+
     /// <summary>
-    /// List of communtication methods with clients.
+    /// List of communication methods with clients.
     /// </summary>
     public DbSet<CommunicationMean> CommunicationMeans { get; set; } = null!;
+
     /// <summary>
     /// List of client bonus summa.
     /// </summary>
     public DbSet<ClientBonus> ClientBonuses { get; set; } = null!;
+
     /// <summary>
     /// List of vehicle price types.
     /// </summary>
     public DbSet<PriceType> PriceTypes { get; set; } = null!;
+
     /// <summary>
     /// List of vehicles.
     /// </summary>
     public DbSet<Vehicle> Vehicles { get; set; } = null!;
+
+    #endregion
+
+    #region Legasy Tables
+
+    public DbSet<LegacyVehicle> LegasyVehicles { get; set; } = null!;
+    public DbSet<LegacyCompany> LegacyCompanies { get; set; } = null!;
 
     #endregion
 }

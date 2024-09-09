@@ -43,7 +43,7 @@
 
                         <dc:DataLoadingState
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, 
-                            ConverterParameter=DataLoadingState }"
+                            ConverterParameter=DataLoadingState}"
                             DataLoadingMessage="{Binding DataLoadingMessageText}" />
 
                         <!-- todo: refact: отдельный контрол для отображения состояния "Данные" -->

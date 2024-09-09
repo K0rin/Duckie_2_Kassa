@@ -3,7 +3,11 @@
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
              xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
+             xmlns:converters="clr-namespace:Duckie2Client.Converters"
              x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
+    <UserControl.Resources>
+    </UserControl.Resources>
+
     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
           RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
           HorizontalAlignment="Center"
@@ -35,7 +39,6 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="0"
-                     Text="{Binding DataPayload}"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Фамилия:"
@@ -80,41 +83,15 @@
             <TextBlock Text="Зарегистрированные:"
                        Grid.Column="0"
                        Grid.Row="0" />
-            <ComboBox Name="ClientFirmComboBox"
-                      MaxDropDownHeight="300"
-                      MinWidth="300"
-                      MaxWidth="300"
-                      TabIndex="3"
-                      Grid.Column="0"
-                      Grid.Row="1">
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-                <ComboBoxItem>Firm</ComboBoxItem>
-            </ComboBox>
+            <AutoCompleteBox Name="ClientFirmName"
+                             MaxDropDownHeight="300"
+                             MinWidth="300"
+                             MaxWidth="300"
+                             TabIndex="3"
+                             FilterMode="StartsWith"
+                             ItemsSource="{Binding DataPayload}"
+                             Grid.Column="0"
+                             Grid.Row="1" />
             <TextBlock Text="Новая фирма:"
                        Grid.Column="0"
                        Grid.Row="2" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Avalonia.Controls;
@@ -9,9 +10,10 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 
-public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel
+public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {
-    [Reactive] public string? DataPayload { get; set; }
+    [Reactive] public List<string>? DataPayload { get; set; }
+
     public ObservableCollection<RemovableListItem>? VehicleLicensesItems { get; set; }
     [Reactive] public string VehicleLicenceTextBoxValue { get; set; }
     public ReactiveCommand<TextBox, Unit> AddVehicleLicenceCommand { get; }
@@ -36,7 +38,6 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel
 
     public void OnScreenClose()
     {
-        Console.WriteLine("batch service close");
+        Console.WriteLine(@"batch service close");
     }
-
 }
