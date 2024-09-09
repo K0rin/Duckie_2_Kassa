@@ -1,9 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
-             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
-             xmlns:converters="clr-namespace:Duckie2Client.Converters"
              x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
     <UserControl.Resources>
     </UserControl.Resources>
@@ -39,6 +37,7 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="0"
+                     Text="{Binding ClientFirstNameValue, Mode=OneWayToSource}"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Фамилия:"
@@ -49,6 +48,7 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="1"
+                     Text="{Binding ClientLastNameValue, Mode=OneWayToSource}"
                      Grid.Column="1"
                      Grid.Row="1" />
             <TextBlock Text="Телефон:"
@@ -59,6 +59,7 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="2"
+                     Text="{Binding ClientPhoneValue, Mode=OneWayToSource}"
                      Grid.Column="1"
                      Grid.Row="2" />
         </Grid>
@@ -90,6 +91,7 @@
                              TabIndex="3"
                              FilterMode="StartsWith"
                              ItemsSource="{Binding DataPayload}"
+                             Text="{Binding CompanyNameValue, Mode=OneWayToSource}"
                              Grid.Column="0"
                              Grid.Row="1" />
             <TextBlock Text="Новая фирма:"
@@ -100,6 +102,7 @@
                      MinWidth="300"
                      MaxWidth="300"
                      TabIndex="4"
+                     Text="{Binding NewCompanyNameValue, Mode=OneWayToSource}"
                      Grid.Column="0"
                      Grid.Row="3" />
         </Grid>
@@ -129,6 +132,7 @@
                      MinWidth="200"
                      MaxWidth="200"
                      TabIndex="5"
+                     Text="{Binding VehicleLicenceValue, Mode=OneWayToSource}"
                      Grid.Column="1"
                      Grid.Row="0" />
             <TextBlock Text="Категория:"
@@ -140,6 +144,7 @@
                       MinWidth="80"
                       MaxWidth="80"
                       TabIndex="6"
+                      SelectedValue="{Binding VehiclePriceCategoryValue, Mode=OneWayToSource}"
                       Grid.Column="1"
                       Grid.Row="1">
                 <ComboBoxItem>A</ComboBoxItem>
@@ -157,6 +162,7 @@
                          MinWidth="80"
                          MaxWidth="80"
                          TabIndex="7"
+                         Text="{Binding VehicleDiscountValue, Mode=OneWayToSource}"
                          TextAlignment="End" />
                 <TextBlock Text="%"
                            VerticalAlignment="Center" />
@@ -171,14 +177,7 @@
                 Margin="8 0 8 0"
                 Background="Black"
                 Width="2" />
-        <!-- <TextBlock Text="Vehicle Licence:" -->
-        <!--            Grid.Column="0" -->
-        <!--            Grid.Row="0" -->
-        <!--            Grid.ColumnSpan="2" /> -->
-        <!-- <TextBox Name="VehicleLicenceTextBox" -->
-        <!--          Grid.Column="0" -->
-        <!--          Grid.Row="1" -->
-        <!--          Text="{Binding VehicleLicenceTextBoxValue}" /> -->
+
         <Button Name="AddButton"
                 Grid.Column="0"
                 Grid.Row="2"
@@ -199,32 +198,34 @@
             <ScrollViewer Background="Bisque"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Hidden"
-                          MinHeight="341">
-                <ItemsRepeater ItemsSource="{Binding VehicleLicensesItems}">
-                    <ItemsRepeater.Layout>
-                        <StackLayout Spacing="0"
-                                     Orientation="Vertical" />
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                            <Panel>
-                                <!-- 
-                                todo: Костыль. 
-                                Использование TextBlock. 
-                                Не срабатывает присвоение текста атрибуту Text объекта ListItemWithDeleteButton. 
-                                Можно исправить, наверное: 
-                                Duckie2Client.Controls.ManagerConsole.TabsControl.ReadyStateControl.ReadyStateMessage. 
-                                Смотри "RelativeSource".
-                                -->
-                                <TextBlock Text="{Binding TitleText, Mode=OneWay}"
-                                           Name="ItemTitleTextHelper"
-                                           IsVisible="False" />
-                                <managerConsole:RemovableListItemControl
-                                    Text="{Binding #ItemTitleTextHelper.Text, Mode=OneWay}" />
-                            </Panel>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
+                          MinHeight="341"
+                          MaxHeight="341">
+                <!-- <ItemsRepeater ItemsSource="{Binding ClientClientCardBatchAddItems}"> -->
+                <!--     <ItemsRepeater.Layout> -->
+                <!--         <StackLayout Spacing="0" -->
+                <!--                      Orientation="Vertical" /> -->
+                <!--     </ItemsRepeater.Layout> -->
+                <!--     <ItemsRepeater.ItemTemplate> -->
+                <!--         <DataTemplate> -->
+                <!--             <Panel> -->
+                <!--                 <managerConsole:ClientCardBatchAddItemControl -->
+                <!--                     ClientFirstName="{Binding ClientFirstName}" -->
+                <!--                     ClientLastName="{Binding ClientLastName}" -->
+                <!--                     ClientPhone="{Binding ClientPhone}" -->
+                <!--                     CompanyName="{Binding CompanyName}" -->
+                <!--                     VehicleLicence="{Binding VehicleLicence}" -->
+                <!--                     VehiclePriceCategory="{Binding VehiclePriceCategory}" -->
+                <!--                     VehicleDiscount="{Binding VehicleDiscount}" /> -->
+                <!--             </Panel> -->
+                <!--         </DataTemplate> -->
+                <!--     </ItemsRepeater.ItemTemplate> -->
+                <!-- </ItemsRepeater> -->
+                <DataGrid Margin="20" ItemsSource="{Binding ClientsToAdd}"
+                          AutoGenerateColumns="True"
+                          IsReadOnly="True"
+                          GridLinesVisibility="All"
+                          BorderThickness="1"
+                          BorderBrush="Gray" />
             </ScrollViewer>
         </Panel>
 

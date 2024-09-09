@@ -1,0 +1,56 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             x:Class="Duckie2Client.Controls.ManagerConsole.ClientCardBatchAddItemControl">
+    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+          RowDefinitions="Auto"
+          Background="LightGray"
+          ShowGridLines="True">
+        <TextBlock Name="ClientFirstNameTextBlock"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Text="{Binding ClientFirstName,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="ClientLastNameTextBlock"
+                   Grid.Column="1"
+                   Grid.Row="0"
+                   Text="{Binding ClientLastName,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="ClientPhoneTextBlock"
+                   Grid.Column="2"
+                   Grid.Row="0"
+                   Text="{Binding ClientPhone,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="CompanyNameTextBlock"
+                   Grid.Column="3"
+                   Grid.Row="0"
+                   Text="{Binding CompanyName,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="VehicleLicenceTextBlock"
+                   Grid.Column="4"
+                   Grid.Row="0"
+                   Text="{Binding VehicleLicence,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="VehiclePriceCategoryTextBlock"
+                   Grid.Column="5"
+                   Grid.Row="0"
+                   Text="{Binding VehiclePriceCategory,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <TextBlock Name="VehicleDiscountTextBlock"
+                   Grid.Column="6"
+                   Grid.Row="0"
+                   Text="{Binding VehicleDiscount,
+                   RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
+                   VerticalAlignment="Center" />
+        <Button Content="DEL"
+                Grid.Column="7"
+                Grid.Row="0" />
+
+    </Grid>
+</UserControl>
