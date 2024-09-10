@@ -105,6 +105,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         authorizationJobThread.Start();
         var dialogResult = (await DialogHost.Show(_processDialog, AUTHORIZATION_DIALOGS))!;
 
+        // todo: refact: Можно переписать результат с использованием перечисления кнопок диалогового окна. Использовать Cancel.
         var result = (dialogResult, authResult);
         if (result.Equals((false, false))) AuthorizationCanceled(authorizationJobThread);
         if (result.Equals((null, false)!)) AuthorizationFailed();

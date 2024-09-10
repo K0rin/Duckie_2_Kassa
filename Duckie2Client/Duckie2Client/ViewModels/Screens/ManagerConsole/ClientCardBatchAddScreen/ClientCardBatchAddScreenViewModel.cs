@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.VisualTree;
 using DialogHostAvalonia;
+using Duckie2Client.Libs.Enums;
 using Duckie2Client.Models;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
@@ -18,18 +21,25 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
 {
     private const string DIALOG_IDENTIFIER = "ClientCardBatchAddScreenDialogs";
 
-    [Reactive] public List<string>? DataPayload { get; set; }
+    [Reactive] public List<string>? DataPayload { get; set; } = [];
+
     public ObservableCollection<ClientCardBatchItem>? ClientClientCardBatchAddItems { get; set; }
-    public ReactiveCommand<TextBox, Unit> AddVehicleLicenceCommand { get; }
+    public ReactiveCommand<Unit, Unit> AddNewClientCommand { get; }
     public ReactiveCommand<Unit, Unit> RemoveItemCommand { get; }
     public ReactiveCommand<Unit, Unit> ClearListCommand { get; }
+    public List<Control> RequiredControls { get; set; }
+    private ErrorDialog _errorDialog;
+    private Dictionary<string, Control> _requiredControlsDictionary = new();
 
     public ClientCardBatchAddScreenViewModel()
     {
-        AddVehicleLicenceCommand = ReactiveCommand.Create<TextBox>(AddVehicleLicenceExecute);
+        AddNewClientCommand = ReactiveCommand.Create(AddNewClientExecute);
         RemoveItemCommand = ReactiveCommand.Create(RemoveItemExecute);
         ClearListCommand = ReactiveCommand.Create(ClearListExecute);
         ClientClientCardBatchAddItems = [];
+
+        // todo: Соответствиет элементов управления кодам ошибок.
+        _requiredControlsDictionary.Add("key", new Control());
     }
 
     /// <summary>
@@ -61,7 +71,8 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
 
     private readonly List<ClientCardBatchItem> _newClients = [];
 
-    private void AddVehicleLicenceExecute(TextBox textBox)
+
+    private void AddNewClientExecute()
     {
         try
         {
@@ -78,25 +89,33 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         // todo: refact: Make Duckie Exception.
         catch (Exception e)
         {
-            ShowErrorMessageDialog(e.Message);
-            // todo: Put the focus to a control with an error.
+            ShowErrorAndFocus(e.Message, "-1");
             return;
         }
 
         ClientsToAdd = new ObservableCollection<ClientCardBatchItem>(_newClients);
 
         // --- 
-        textBox.Clear();
-        textBox.Focus();
+        // textBox.Clear();
+        // textBox.Focus();
         // --- 
     }
 
-    private async void ShowErrorMessageDialog(string message)
+
+    private async void ShowErrorAndFocus(string message, string errorNumber)
     {
         // todo: message localization
         // var msg = Localization.GetString(() => ErrorMessages._301_UserHasNoAccessRights, ResourceTypes.ErrorMessages);
-        var errorDialog = new ErrorDialog(message);
-        await DialogHost.Show(errorDialog, DIALOG_IDENTIFIER);
+
+        _errorDialog = new ErrorDialog(message);
+        var dialogResult = (DialogButtons)(await DialogHost.Show(_errorDialog, DIALOG_IDENTIFIER))!;
+
+        // todo: Понять, на какой элемент управления ставить фокус.
+        // Использовать номер ошибки и словарь: номер ошибки - элемент управления.
+
+
+        // Put the focus to a control with an error.
+        if (dialogResult.Equals(DialogButtons.OK)) XRef.Focus();
     }
 
     private int GetVehicleDiscount()

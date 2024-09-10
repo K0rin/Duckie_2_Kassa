@@ -5,7 +5,7 @@ namespace Duckie2Client.Controls.ManagerConsole.TabsControl;
 
 public partial class DataLoadingState : UserControl
 {
-    private string _dataLoadingStateMessage;
+    private string _dataLoadingStateMessage = "::DATA_LOADING_STATE_MESSAGE::";
 
     public static readonly DirectProperty<DataLoadingState, string> DataLoadingMessageProperty =
         AvaloniaProperty.RegisterDirect<DataLoadingState, string>("DataLoadingMessage", o => o.DataLoadingMessage,

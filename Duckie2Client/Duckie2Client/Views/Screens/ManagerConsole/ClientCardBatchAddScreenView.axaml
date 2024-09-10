@@ -194,7 +194,7 @@
                     Margin="0 24 0 12"
                     Content="Add List"
                     TabIndex="8"
-                    Command="{Binding AddVehicleLicenceCommand}" CommandParameter="{Binding #VehicleLicenceTextBox}" />
+                    Command="{Binding AddNewClientCommand}" />
 
             <!-- List of new clients -->
 

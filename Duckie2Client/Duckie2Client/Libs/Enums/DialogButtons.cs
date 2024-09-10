@@ -5,5 +5,5 @@ public enum DialogButtons
     Cancel,
     Yes,
     No,
-    Ok
+    OK
 }

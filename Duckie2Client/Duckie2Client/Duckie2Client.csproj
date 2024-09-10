@@ -147,5 +147,6 @@
         <Reference Include="DialogHost.Avalonia">
             <HintPath>Packages\DialogHost.Avalonia.dll</HintPath>
         </Reference>
+        <Reference Include="System.Xaml"/>
     </ItemGroup>
 </Project>

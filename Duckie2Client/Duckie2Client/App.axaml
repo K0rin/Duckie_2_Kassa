@@ -6,6 +6,7 @@
     xmlns:local="using:Duckie2Client"
     xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:enums="clr-namespace:Duckie2Client.Libs.Enums"
     xmlns:tabalonia="clr-namespace:Tabalonia.Themes.Custom;assembly=Tabalonia"
     RequestedThemeVariant="Light">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
@@ -33,6 +34,10 @@
         <!-- Are necessary to pass boolean values through whatever attributes of the controls. -->
         <system:Boolean x:Key="True">True</system:Boolean>
         <system:Boolean x:Key="False">False</system:Boolean>
+
+        <!-- Dialog box return values. -->
+        <enums:DialogButtons x:Key="OkButton">OK</enums:DialogButtons>
+
     </Application.Resources>
 
 </Application>
