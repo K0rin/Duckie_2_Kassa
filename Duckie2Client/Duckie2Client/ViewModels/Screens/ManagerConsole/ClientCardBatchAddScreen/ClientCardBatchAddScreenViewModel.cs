@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using Avalonia.Controls;
+using DialogHostAvalonia;
 using Duckie2Client.Models;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.Views.Dialogs;
 using Microsoft.IdentityModel.Tokens;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -14,6 +16,8 @@ namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScre
 
 public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {
+    private const string DIALOG_IDENTIFIER = "ClientCardBatchAddScreenDialogs";
+
     [Reactive] public List<string>? DataPayload { get; set; }
     public ObservableCollection<ClientCardBatchItem>? ClientClientCardBatchAddItems { get; set; }
     public ReactiveCommand<TextBox, Unit> AddVehicleLicenceCommand { get; }
@@ -74,8 +78,8 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         // todo: refact: Make Duckie Exception.
         catch (Exception e)
         {
-            // todo: Show error message to user.
-            Console.WriteLine(e.Message);
+            ShowErrorMessageDialog(e.Message);
+            // todo: Put the focus to a control with an error.
             return;
         }
 
@@ -85,6 +89,14 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         textBox.Clear();
         textBox.Focus();
         // --- 
+    }
+
+    private async void ShowErrorMessageDialog(string message)
+    {
+        // todo: message localization
+        // var msg = Localization.GetString(() => ErrorMessages._301_UserHasNoAccessRights, ResourceTypes.ErrorMessages);
+        var errorDialog = new ErrorDialog(message);
+        await DialogHost.Show(errorDialog, DIALOG_IDENTIFIER);
     }
 
     private int GetVehicleDiscount()
