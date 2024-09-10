@@ -1,7 +1,9 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
-             x:Class="Duckie2Client.Controls.ManagerConsole.ClientCardBatchAddItemControl">
+             xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
+             x:Class="Duckie2Client.Controls.ManagerConsole.ClientCardBatchAddItemControl"
+             x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
           RowDefinitions="Auto"
           Background="LightGray"
@@ -49,8 +51,8 @@
                    RelativeSource={RelativeSource AncestorType=managerConsole:ClientCardBatchAddItemControl}}"
                    VerticalAlignment="Center" />
         <Button Content="DEL"
+                Command="{Binding RemoveItemCommand}"
                 Grid.Column="7"
                 Grid.Row="0" />
-
     </Grid>
 </UserControl>

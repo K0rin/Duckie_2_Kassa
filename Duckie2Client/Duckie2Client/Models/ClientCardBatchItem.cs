@@ -14,7 +14,10 @@ public class ClientCardBatchItem : ReactiveObject
         VehicleLicence = vehicleLicence;
         VehiclePriceCategory = vehiclePriceCategory;
         VehicleDiscount = vehicleDiscount;
+        IsSelected = false;
     }
+
+    public bool IsSelected { get; set; }
 
     public string? ClientFirstName { get; set; }
     public string? ClientLastName { get; set; }

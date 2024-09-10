@@ -3,8 +3,6 @@
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
              xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
              x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
-    <UserControl.Resources>
-    </UserControl.Resources>
 
     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
           RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
@@ -188,46 +186,49 @@
                 TabIndex="8"
                 Command="{Binding AddVehicleLicenceCommand}" CommandParameter="{Binding #VehicleLicenceTextBox}" />
 
-        <!-- todo: change to a list of clients -->
-        <!-- List of vehicle licenses being added to the database -->
+        <!-- List of new clients -->
 
-        <Panel Grid.Column="0"
-               Grid.Row="3"
-               Grid.ColumnSpan="7"
-               MinHeight="256">
-            <ScrollViewer Background="Bisque"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Hidden"
-                          MinHeight="341"
-                          MaxHeight="341">
-                <!-- <ItemsRepeater ItemsSource="{Binding ClientClientCardBatchAddItems}"> -->
-                <!--     <ItemsRepeater.Layout> -->
-                <!--         <StackLayout Spacing="0" -->
-                <!--                      Orientation="Vertical" /> -->
-                <!--     </ItemsRepeater.Layout> -->
-                <!--     <ItemsRepeater.ItemTemplate> -->
-                <!--         <DataTemplate> -->
-                <!--             <Panel> -->
-                <!--                 <managerConsole:ClientCardBatchAddItemControl -->
-                <!--                     ClientFirstName="{Binding ClientFirstName}" -->
-                <!--                     ClientLastName="{Binding ClientLastName}" -->
-                <!--                     ClientPhone="{Binding ClientPhone}" -->
-                <!--                     CompanyName="{Binding CompanyName}" -->
-                <!--                     VehicleLicence="{Binding VehicleLicence}" -->
-                <!--                     VehiclePriceCategory="{Binding VehiclePriceCategory}" -->
-                <!--                     VehicleDiscount="{Binding VehicleDiscount}" /> -->
-                <!--             </Panel> -->
-                <!--         </DataTemplate> -->
-                <!--     </ItemsRepeater.ItemTemplate> -->
-                <!-- </ItemsRepeater> -->
-                <DataGrid Margin="20" ItemsSource="{Binding ClientsToAdd}"
-                          AutoGenerateColumns="True"
-                          IsReadOnly="True"
-                          GridLinesVisibility="All"
-                          BorderThickness="1"
-                          BorderBrush="Gray" />
-            </ScrollViewer>
-        </Panel>
+        <DataGrid ItemsSource="{Binding ClientsToAdd}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  GridLinesVisibility="All"
+                  CanUserReorderColumns="False"
+                  BorderThickness="1"
+                  BorderBrush="Gray"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.Column="0"
+                  Grid.Row="3"
+                  Grid.ColumnSpan="7"
+                  MinHeight="341"
+                  MaxHeight="341"
+                  MaxWidth="1008">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header=""
+                                        Binding="{Binding IsSelected}" />
+                <DataGridTextColumn Header="First Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ClientFirstName}" />
+                <DataGridTextColumn Header="Last Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ClientLastName}" />
+                <DataGridTextColumn Header="Phone"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ClientPhone}" />
+                <DataGridTextColumn Header="Company Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding CompanyName}" />
+                <DataGridTextColumn Header="Vehicle Licence"
+                                    IsReadOnly="True"
+                                    Binding="{Binding VehicleLicence}" />
+                <DataGridTextColumn Header="Price Category"
+                                    IsReadOnly="True"
+                                    Binding="{Binding VehiclePriceCategory}" />
+                <DataGridTextColumn Header="Discount"
+                                    IsReadOnly="True"
+                                    Binding="{Binding VehicleDiscount}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
         <!-- Statistics -->
 
@@ -238,14 +239,25 @@
                    Grid.Row="4"
                    Grid.ColumnSpan="7" />
 
-        <!-- Add to the database button -->
+        <!-- Bottom Buttons -->
 
-        <Button Name="AddDatabaseButton"
-                HorizontalAlignment="Center"
-                Grid.Column="0"
-                Grid.Row="5"
-                Grid.ColumnSpan="7"
-                TabIndex="9"
-                Content="Add Database" />
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Grid.ColumnSpan="7">
+
+            <!-- Clear List Button -->
+
+            <Button Name="ClearListButton"
+                    Content="Clear List"
+                    Command="{Binding ClearListCommand}" />
+
+            <!-- Add to the database button -->
+
+            <Button Name="AddDatabaseButton"
+                    TabIndex="9"
+                    Content="Add Database" />
+        </StackPanel>
     </Grid>
 </UserControl>
