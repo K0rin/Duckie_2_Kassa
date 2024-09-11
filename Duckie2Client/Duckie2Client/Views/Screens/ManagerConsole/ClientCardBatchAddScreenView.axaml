@@ -171,7 +171,8 @@
                              MaxWidth="80"
                              TabIndex="7"
                              Text="{Binding VehicleDiscountValue, Mode=OneWayToSource}"
-                             TextAlignment="End" />
+                             TextAlignment="End"
+                             KeyDown="VehicleDiscount_OnKeyDown" />
                     <TextBlock Text="%"
                                VerticalAlignment="Center" />
                 </StackPanel>

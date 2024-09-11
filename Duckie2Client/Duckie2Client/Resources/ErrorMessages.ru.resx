@@ -51,4 +51,16 @@
     <data name="301_UserHasNoAccessRights" xml:space="preserve">
         <value>У пользователя отсутствуют права доступа.</value>
     </data>
+    <data name="401_VehicleDiscountNotSpecified" xml:space="preserve">
+        <value>Скидка Карты Клиента не указана.</value>
+    </data>
+    <data name="402_VehiclePriceCategoryNotSpecified" xml:space="preserve">
+        <value>Ценовая категория не указана.</value>
+    </data>
+    <data name="403_ClientPhoneNotSpecified" xml:space="preserve">
+        <value>Телефон клиента не указан.</value>
+    </data>
+    <data name="404_VehicleLicenceNotSpecified" xml:space="preserve">
+        <value>Номер транспортного средства не указан.</value>
+    </data>
 </root>

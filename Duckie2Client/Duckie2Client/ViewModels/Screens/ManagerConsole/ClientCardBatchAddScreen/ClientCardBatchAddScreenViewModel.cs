@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
 using Avalonia.Controls;
-using Avalonia.VisualTree;
 using DialogHostAvalonia;
+using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
 using Duckie2Client.Models;
 using Duckie2Client.ViewModels.Base;
@@ -27,9 +26,26 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
     public ReactiveCommand<Unit, Unit> AddNewClientCommand { get; }
     public ReactiveCommand<Unit, Unit> RemoveItemCommand { get; }
     public ReactiveCommand<Unit, Unit> ClearListCommand { get; }
-    public List<Control> RequiredControls { get; set; }
+
+    public Dictionary<string, Control> RequiredControls
+    {
+        set
+        {
+        // Matching controls that are checked for data to error codes.
+        // Necessary to set focus on a specific control.
+        _requiredControlsDictionary.Add((int)ErrorCodes.ClientPhoneNotSpecified,
+            value["ClientPhoneTextBox"]);
+        _requiredControlsDictionary.Add((int)ErrorCodes.VehicleLicenceNotSpecified,
+            value["VehicleLicenceTextBox"]);
+        _requiredControlsDictionary.Add((int)ErrorCodes.VehiclePriceCategoryNotSpecified,
+            value["VehicleCategoryComboBox"]);
+        _requiredControlsDictionary.Add((int)ErrorCodes.VehicleDiscountNotSpecified,
+            value["VehicleDiscount"]);
+        }
+    }
+
     private ErrorDialog _errorDialog;
-    private Dictionary<string, Control> _requiredControlsDictionary = new();
+    private readonly Dictionary<int, Control> _requiredControlsDictionary = new();
 
     public ClientCardBatchAddScreenViewModel()
     {
@@ -38,8 +54,6 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         ClearListCommand = ReactiveCommand.Create(ClearListExecute);
         ClientClientCardBatchAddItems = [];
 
-        // todo: Соответствиет элементов управления кодам ошибок.
-        _requiredControlsDictionary.Add("key", new Control());
     }
 
     /// <summary>
@@ -77,8 +91,8 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         try
         {
             var newItem = new ClientCardBatchItem(
-                ClientFirstNameValue,
-                ClientLastNameValue,
+                GetClientName(ClientFirstNameValue),
+                GetClientName(ClientLastNameValue),
                 GetClientPhone(),
                 GetCompanyName(),
                 GetVehicleLicence(),
@@ -86,10 +100,9 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
                 GetVehicleDiscount());
             _newClients.Add(newItem);
         }
-        // todo: refact: Make Duckie Exception.
-        catch (Exception e)
+        catch (DuckieException e)
         {
-            ShowErrorAndFocus(e.Message, "-1");
+            ShowErrorAndFocus(e);
             return;
         }
 
@@ -101,37 +114,33 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         // --- 
     }
 
-
-    private async void ShowErrorAndFocus(string message, string errorNumber)
+    private static NullOrResult GetClientName(string value)
     {
-        // todo: message localization
-        // var msg = Localization.GetString(() => ErrorMessages._301_UserHasNoAccessRights, ResourceTypes.ErrorMessages);
+        var result = value.IsNullOrEmpty() ? new NullOrResult() : new NullOrResult { Result = value };
+        return result;
+    }
 
-        _errorDialog = new ErrorDialog(message);
+    private async void ShowErrorAndFocus(DuckieException exception)
+    {
+        _errorDialog = new ErrorDialog(exception.Message);
         var dialogResult = (DialogButtons)(await DialogHost.Show(_errorDialog, DIALOG_IDENTIFIER))!;
 
-        // todo: Понять, на какой элемент управления ставить фокус.
-        // Использовать номер ошибки и словарь: номер ошибки - элемент управления.
-
-
         // Put the focus to a control with an error.
-        if (dialogResult.Equals(DialogButtons.OK)) XRef.Focus();
+        if (dialogResult.Equals(DialogButtons.OK)) _requiredControlsDictionary[exception.ErrorNumber].Focus();
     }
+
+// todo: refact: GetClientPhone, GetVehicleLicence, GetVehiclePriceCategory, GetVehicleDiscount - по сути, одинаковый код.
 
     private int GetVehicleDiscount()
     {
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (VehicleDiscountValue == null)
-            throw new Exception(@"no vehicle discount.");
+            throw new DuckieException(ErrorCodes.VehicleDiscountNotSpecified);
 
-        var isParsed = int.TryParse(VehicleDiscountValue, out var result);
-        if (!isParsed)
-            throw new Exception(@"Cannot convert the vehicle discount value.");
+        var result = int.Parse(VehicleDiscountValue);
 
         return result;
     }
-
-// todo: refact: GetClientPhone, GetVehicleLicence, GetVehiclePriceCategory - по сути, одинаковый код.
 
     private string GetVehiclePriceCategory()
     {
@@ -140,11 +149,10 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
             ? ((ComboBoxItem)VehiclePriceCategoryValue).Content as string
             : "";
         if (result.IsNullOrEmpty())
-            throw new Exception(@"no vehicle discount");
+            throw new DuckieException(ErrorCodes.VehiclePriceCategoryNotSpecified);
 
         return result!;
     }
-
 
     private string GetClientPhone()
     {
@@ -152,7 +160,7 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         var result = ClientPhoneValue != null ? ClientPhoneValue.Trim() : "";
 
         if (result.IsNullOrEmpty())
-            throw new Exception(@"no client phone");
+            throw new DuckieException(ErrorCodes.ClientPhoneNotSpecified);
 
         return result;
     }
@@ -162,32 +170,34 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         var result = VehicleLicenceValue != null ? VehicleLicenceValue.Trim() : "";
         if (result.IsNullOrEmpty())
-            throw new Exception(@"no vehicle licence");
+            throw new DuckieException(ErrorCodes.VehicleLicenceNotSpecified);
 
         return result;
     }
 
-    private string GetCompanyName()
+    private NullOrResult GetCompanyName()
     {
+        var result = new NullOrResult();
+        var isNoCompany = NewCompanyNameValue.IsNullOrEmpty() && CompanyNameValue.IsNullOrEmpty();
+
+        // If there is no company name listed, then a private client is being registered.
+        if (isNoCompany) return result;
+
         // If a company name is entered in an appropriate text box,
         // this value takes precedence over the value from the drop-down list of company names.
 
-        string result;
-
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (NewCompanyNameValue != null)
-            result = NewCompanyNameValue.Trim().IsNullOrEmpty() ? CompanyNameValue : NewCompanyNameValue.Trim();
-        else
-            result = CompanyNameValue;
+        var companyName = NewCompanyNameValue != null
+            ? NewCompanyNameValue.Trim().IsNullOrEmpty() ? CompanyNameValue : NewCompanyNameValue.Trim()
+            : CompanyNameValue;
 
-        if (result.Trim().IsNullOrEmpty())
-            throw new Exception(@"no company name");
-
+        result = new NullOrResult { Result = companyName };
         return result;
     }
 
     public void OnScreenClose()
     {
+        // todo: Запрос на сохранение не сохраненных данных.
         Console.WriteLine(@"batch service close");
     }
 }

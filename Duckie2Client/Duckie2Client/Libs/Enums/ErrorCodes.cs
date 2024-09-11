@@ -18,5 +18,11 @@ public enum ErrorCodes
     TargetDbDoesNotExist = 205,
 
     // The Application
-    UserHasNoAccessRights = 301
+    UserHasNoAccessRights = 301,
+
+    // Data presence
+    VehicleDiscountNotSpecified = 401,
+    VehiclePriceCategoryNotSpecified = 402,
+    ClientPhoneNotSpecified = 403,
+    VehicleLicenceNotSpecified = 404
 }

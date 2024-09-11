@@ -1,11 +1,12 @@
-﻿using ReactiveUI;
+﻿using Duckie2Client.Libs;
+using ReactiveUI;
 
 namespace Duckie2Client.Models;
 
 public class ClientCardBatchItem : ReactiveObject
 {
-    public ClientCardBatchItem(string? clientFirstName, string? clientLastName, string? clientPhone,
-        string? companyName, string? vehicleLicence, string? vehiclePriceCategory, int? vehicleDiscount)
+    public ClientCardBatchItem(NullOrResult clientFirstName, NullOrResult clientLastName, string? clientPhone,
+        NullOrResult companyName, string? vehicleLicence, string? vehiclePriceCategory, int? vehicleDiscount)
     {
         ClientFirstName = clientFirstName;
         ClientLastName = clientLastName;
@@ -19,10 +20,10 @@ public class ClientCardBatchItem : ReactiveObject
 
     public bool IsSelected { get; set; }
 
-    public string? ClientFirstName { get; set; }
-    public string? ClientLastName { get; set; }
+    public NullOrResult ClientFirstName { get; set; }
+    public NullOrResult ClientLastName { get; set; }
     public string? ClientPhone { get; set; }
-    public string? CompanyName { get; set; }
+    public NullOrResult CompanyName { get; set; }
     public string? VehicleLicence { get; set; }
     public string? VehiclePriceCategory { get; set; }
     public int? VehicleDiscount { get; set; }

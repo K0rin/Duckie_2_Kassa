@@ -166,5 +166,41 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("301_UserHasNoAccessRights", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _401_VehicleDiscountNotSpecified {
+            get {
+                return ResourceManager.GetString("401_VehicleDiscountNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _402_VehiclePriceCategoryNotSpecified {
+            get {
+                return ResourceManager.GetString("402_VehiclePriceCategoryNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _403_ClientPhoneNotSpecified {
+            get {
+                return ResourceManager.GetString("403_ClientPhoneNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string _404_VehicleLicenceNotSpecified {
+            get {
+                return ResourceManager.GetString("404_VehicleLicenceNotSpecified", resourceCulture);
+            }
+        }
     }
 }

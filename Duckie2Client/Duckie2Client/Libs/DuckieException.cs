@@ -15,6 +15,15 @@ public class DuckieException : Exception
     }
 
     public int ErrorNumber { get; }
+
+    /// <summary>
+    /// <para>
+    /// Возвращает сообщение об ошибке.
+    /// </para>
+    /// <para>
+    /// Сообщение локализовано для текущей локали.
+    /// </para>
+    /// </summary>
     public override string Message => CreateMessage();
 
     private string CreateMessage()
