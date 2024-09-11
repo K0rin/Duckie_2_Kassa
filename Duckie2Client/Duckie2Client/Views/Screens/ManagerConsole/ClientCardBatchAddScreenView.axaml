@@ -276,7 +276,9 @@
                 <Button Name="AddDatabaseButton"
                         TabIndex="9"
                         Content="Add Database"
-                        Command="{Binding AddDatabaseCommand}" />
+                        Command="{Binding AddDatabaseCommand}"
+                        IsEnabled="{Binding ClientsToAdd,
+                        Converter={StaticResource EnableByCollectionCountConverter }}" />
             </StackPanel>
         </Grid>
     </dialogHostAvalonia:DialogHost>
