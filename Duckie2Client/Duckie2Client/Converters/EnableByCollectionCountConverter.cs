@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
