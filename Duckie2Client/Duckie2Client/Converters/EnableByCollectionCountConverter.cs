@@ -12,13 +12,11 @@ public class EnableByCollectionCountConverter : IValueConverter
     {
         if (value is null) return false;
 
-        if (!value.GetType().Name.Contains("Collection"))
-        // Converter used for the wrong type.
+        if (value is not IEnumerable)
+            // Converter used for the wrong type.
             return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
-        
-        Console.WriteLine(((ICollection)value).Count);
-        return ((ICollection)value).Count > 0;
 
+        return ((ICollection)value).Count > 0;
     }
 
 
