@@ -24,36 +24,41 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
 
     public ObservableCollection<ClientCardBatchItem>? ClientClientCardBatchAddItems { get; set; }
     public ReactiveCommand<Unit, Unit> AddNewClientCommand { get; }
-    public ReactiveCommand<Unit, Unit> RemoveItemCommand { get; }
     public ReactiveCommand<Unit, Unit> ClearListCommand { get; }
+    public ReactiveCommand<Unit, Unit> AddDatabaseCommand { get; }
 
     public Dictionary<string, Control> RequiredControls
     {
         set
         {
-        // Matching controls that are checked for data to error codes.
-        // Necessary to set focus on a specific control.
-        _requiredControlsDictionary.Add((int)ErrorCodes.ClientPhoneNotSpecified,
-            value["ClientPhoneTextBox"]);
-        _requiredControlsDictionary.Add((int)ErrorCodes.VehicleLicenceNotSpecified,
-            value["VehicleLicenceTextBox"]);
-        _requiredControlsDictionary.Add((int)ErrorCodes.VehiclePriceCategoryNotSpecified,
-            value["VehicleCategoryComboBox"]);
-        _requiredControlsDictionary.Add((int)ErrorCodes.VehicleDiscountNotSpecified,
-            value["VehicleDiscount"]);
+            // Matching controls that are checked for data to error codes.
+            // Necessary to set focus on a specific control.
+            _requiredControlsDictionary.Add((int)ErrorCodes.ClientPhoneNotSpecified,
+                value["ClientPhoneTextBox"]);
+            _requiredControlsDictionary.Add((int)ErrorCodes.VehicleLicenceNotSpecified,
+                value["VehicleLicenceTextBox"]);
+            _requiredControlsDictionary.Add((int)ErrorCodes.VehiclePriceCategoryNotSpecified,
+                value["VehicleCategoryComboBox"]);
+            _requiredControlsDictionary.Add((int)ErrorCodes.VehicleDiscountNotSpecified,
+                value["VehicleDiscount"]);
         }
     }
 
-    private ErrorDialog _errorDialog;
+    private ErrorDialog? _errorDialog;
     private readonly Dictionary<int, Control> _requiredControlsDictionary = new();
 
     public ClientCardBatchAddScreenViewModel()
     {
         AddNewClientCommand = ReactiveCommand.Create(AddNewClientExecute);
-        RemoveItemCommand = ReactiveCommand.Create(RemoveItemExecute);
         ClearListCommand = ReactiveCommand.Create(ClearListExecute);
+        AddDatabaseCommand = ReactiveCommand.Create(AddDatabaseExecute);
         ClientClientCardBatchAddItems = [];
+    }
 
+    private void AddDatabaseExecute()
+    {
+        // todo: implement
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -65,23 +70,16 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         ClientsToAdd = new ObservableCollection<ClientCardBatchItem>(_newClients);
     }
 
-    private void RemoveItemExecute()
-    {
-        // todo: implement
-        Console.WriteLine(@"Item will be removed.");
-    }
+    [Reactive] public string? ClientFirstNameValue { get; set; }
+    [Reactive] public string? ClientLastNameValue { get; set; }
+    [Reactive] public string? ClientPhoneValue { get; set; }
+    [Reactive] public string? CompanyNameValue { get; set; }
+    [Reactive] public string? NewCompanyNameValue { get; set; }
+    [Reactive] public string? VehicleLicenceValue { get; set; }
+    [Reactive] public object? VehiclePriceCategoryValue { get; set; }
+    [Reactive] public string? VehicleDiscountValue { get; set; }
 
-
-    [Reactive] public string ClientFirstNameValue { get; set; }
-    [Reactive] public string ClientLastNameValue { get; set; }
-    [Reactive] public string ClientPhoneValue { get; set; }
-    [Reactive] public string CompanyNameValue { get; set; }
-    [Reactive] public string NewCompanyNameValue { get; set; }
-    [Reactive] public string VehicleLicenceValue { get; set; }
-    [Reactive] public object VehiclePriceCategoryValue { get; set; }
-    [Reactive] public string VehicleDiscountValue { get; set; }
-
-    [Reactive] public ObservableCollection<ClientCardBatchItem> ClientsToAdd { get; set; }
+    [Reactive] public ObservableCollection<ClientCardBatchItem>? ClientsToAdd { get; set; }
 
     private readonly List<ClientCardBatchItem> _newClients = [];
 
@@ -114,7 +112,7 @@ public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<Li
         // --- 
     }
 
-    private static NullOrResult GetClientName(string value)
+    private static NullOrResult GetClientName(string? value)
     {
         var result = value.IsNullOrEmpty() ? new NullOrResult() : new NullOrResult { Result = value };
         return result;

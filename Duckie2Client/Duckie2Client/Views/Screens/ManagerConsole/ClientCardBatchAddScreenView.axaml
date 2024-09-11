@@ -3,7 +3,12 @@
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
              xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:converters="clr-namespace:Duckie2Client.Converters"
              x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
+    <UserControl.Resources>
+        <converters:EnableByCollectionCountConverter x:Key="EnableByCollectionCountConverter" />
+    </UserControl.Resources>
+
     <!-- 
     todo: refact: 
     Какой-то UserControl, который предоставляет функционал диалога. 
@@ -219,16 +224,16 @@
                                             Binding="{Binding IsSelected}" />
                     <DataGridTextColumn Header="First Name"
                                         IsReadOnly="True"
-                                        Binding="{Binding ClientFirstName}" />
+                                        Binding="{Binding ClientFirstName.Result}" />
                     <DataGridTextColumn Header="Last Name"
                                         IsReadOnly="True"
-                                        Binding="{Binding ClientLastName}" />
+                                        Binding="{Binding ClientLastName.Result}" />
                     <DataGridTextColumn Header="Phone"
                                         IsReadOnly="True"
                                         Binding="{Binding ClientPhone}" />
                     <DataGridTextColumn Header="Company Name"
                                         IsReadOnly="True"
-                                        Binding="{Binding CompanyName}" />
+                                        Binding="{Binding CompanyName.Result}" />
                     <DataGridTextColumn Header="Vehicle Licence"
                                         IsReadOnly="True"
                                         Binding="{Binding VehicleLicence}" />
@@ -242,7 +247,7 @@
             </DataGrid>
 
             <!-- Statistics -->
-
+            <!-- todo: Stat update -->
             <TextBlock Text="Total records: 999"
                        TextAlignment="Right"
                        Margin="0 12 0 12"
@@ -262,13 +267,16 @@
 
                 <Button Name="ClearListButton"
                         Content="Clear List"
-                        Command="{Binding ClearListCommand}" />
+                        Command="{Binding ClearListCommand}"
+                        IsEnabled="{Binding ClientsToAdd,
+                        Converter={StaticResource EnableByCollectionCountConverter }}" />
 
                 <!-- Add to the database button -->
 
                 <Button Name="AddDatabaseButton"
                         TabIndex="9"
-                        Content="Add Database" />
+                        Content="Add Database"
+                        Command="{Binding AddDatabaseCommand}" />
             </StackPanel>
         </Grid>
     </dialogHostAvalonia:DialogHost>
