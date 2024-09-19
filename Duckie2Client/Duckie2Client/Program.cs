@@ -44,7 +44,6 @@ internal static class Program
         }
 
         CheckAppInstancesNumber(ref args);
-
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
@@ -64,6 +63,7 @@ internal static class Program
             MultiInstance.UnlockFile();
             return;
         }
+
         MultiInstance.SetInstanceForeground();
         Environment.Exit((int)ErrorCodes.ApplicationInstanceAlreadyExists);
     }

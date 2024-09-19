@@ -38,7 +38,7 @@ public class DatabaseService
         //  if (string.IsNullOrEmpty(password))
         // throw new ArgumentException("Password cannot be null or empty", nameof(password));
 
-        // connetionString = @"Data Source=DESKTOP-H1O55SG\SQLEXPRESS;Initial Catalog=dummydatabase;User ID=sa;Password=demol23";
+        // _connectionString = @"Data Source=DESKTOP-H1O55SG\SQLEXPRESS;Initial Catalog=dummydatabase;User ID=sa;Password=demol23";
         _connectionString =
             $"Data Source={serverName};" +
             $"Initial Catalog={initialCatalog};";
