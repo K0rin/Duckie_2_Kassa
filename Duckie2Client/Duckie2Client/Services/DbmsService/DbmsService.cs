@@ -44,6 +44,16 @@ public class DbmsService : BaseDbmsService
     /// </summary>
     public DbSet<Vehicle> Vehicles { get; set; } = null!;
 
+    /// <summary>
+    /// List of rates for Operator salaries, pollution levels, sale taxes.
+    /// </summary>
+    public DbSet<Rate> Rates { get; set; } = null;
+
+    /// <summary>
+    /// List of the Application users.
+    /// </summary>
+    public DbSet<User> Users { get; set; } = null;
+
     #endregion
 
     #region Legasy Tables
