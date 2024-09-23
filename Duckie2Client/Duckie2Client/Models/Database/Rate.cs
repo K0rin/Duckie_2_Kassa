@@ -8,8 +8,8 @@ namespace Duckie2Client.Models.Database;
 /// Represents an entity of type “Rate.”
 /// </para>
 /// <para>
-/// Contains information on wage rates, pollution levels, sales tax. Also includes information on the rate
-/// validity period.
+/// Contains information on wage rates, pollution levels, sales tax, prices.
+/// Also includes information on the rate validity period.
 /// </para>
 /// </summary>
 public class Rate
