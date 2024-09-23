@@ -69,6 +69,10 @@ public class DbmsService : BaseDbmsService
     /// </summary>
     public DbSet<PollutionLevel> PollutionLevels { get; set; } = null;
 
+    public DbSet<TradeUnit> TradeUnits { get; set; } = null;
+    public DbSet<Price> Prices { get; set; } = null;
+    public DbSet<TradeUnitLocalization> TradeUnitLocalizations { get; set; } = null;
+
     #endregion
 
     #region Legasy Tables
