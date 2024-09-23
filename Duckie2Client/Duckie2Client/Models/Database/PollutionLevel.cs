@@ -23,4 +23,5 @@ public class PollutionLevel
     [Column(TypeName = "NVARCHAR")]
     [StringLength(25)]
     public required string Name { get; set; }
+    // todo: добавить коэффициент для цены.
 }

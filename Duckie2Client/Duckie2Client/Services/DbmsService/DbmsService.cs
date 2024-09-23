@@ -72,6 +72,7 @@ public class DbmsService : BaseDbmsService
     public DbSet<TradeUnit> TradeUnits { get; set; } = null;
     public DbSet<Price> Prices { get; set; } = null;
     public DbSet<TradeUnitLocalization> TradeUnitLocalizations { get; set; } = null;
+    public DbSet<Wash> Washes { get; set; } = null;
 
     #endregion
 
