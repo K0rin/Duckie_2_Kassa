@@ -20,22 +20,22 @@ public class Client
     /// <summary>
     /// Client's name.
     /// </summary>
-    [Column(TypeName = "VARCHAR")]
-    [StringLength(100)]
+    [Column(TypeName = "NVARCHAR")]
+    [StringLength(50)]
     public string? FirstName { get; set; }
 
     /// <summary>
     /// Client's last name.
     /// </summary>
-    [Column(TypeName = "VARCHAR")]
-    [StringLength(100)]
+    [Column(TypeName = "NVARCHAR")]
+    [StringLength(50)]
     public string? LastName { get; set; }
 
     /// <summary>
     /// Notes about the client. This field is filled in by a company employee and is used to provide additional
     /// information about the client.
     /// </summary>
-    [Column(TypeName = "VARCHAR")]
+    [Column(TypeName = "NVARCHAR")]
     [StringLength(2000)]
     public string? Notes { get; set; }
 

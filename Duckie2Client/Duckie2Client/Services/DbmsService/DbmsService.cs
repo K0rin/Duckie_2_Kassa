@@ -54,6 +54,21 @@ public class DbmsService : BaseDbmsService
     /// </summary>
     public DbSet<User> Users { get; set; } = null;
 
+    /// <summary>
+    /// List of the company branches.
+    /// </summary>
+    public DbSet<Branch> Branches { get; set; } = null;
+
+    /// <summary>
+    /// The list of customers' companies.
+    /// </summary>
+    public DbSet<Company> Companies { get; set; } = null;
+
+    /// <summary>
+    /// The list of pollution levels.
+    /// </summary>
+    public DbSet<PollutionLevel> PollutionLevels { get; set; } = null;
+
     #endregion
 
     #region Legasy Tables
