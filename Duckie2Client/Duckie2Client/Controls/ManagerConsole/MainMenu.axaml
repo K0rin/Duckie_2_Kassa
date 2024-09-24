@@ -5,31 +5,43 @@
              x:DataType="vm:MainConsoleScreenViewModel">
     <Panel>
         <Menu>
+            <!-- Database menu -->
+
             <MenuItem Header="_Database">
                 <MenuItem Header="_Vehicles..." />
                 <MenuItem Header="_Clients..." />
-                <MenuItem Header="_Personal..." />
+                <MenuItem Header="_Personnel..."
+                          Command="{Binding PersonnelCommand}" />
                 <Separator />
                 <MenuItem Header="_Exit"
                           Command="{Binding ExitMenuCommand}" />
             </MenuItem>
+
+            <!-- Reports menu -->
+
             <MenuItem Header="_Reports">
                 <MenuItem Header="_Washes by period..." />
                 <MenuItem Header="_Salary..." />
             </MenuItem>
-            <!-- Tools -->
+
+            <!-- Tools menu -->
+
             <MenuItem Header="_Tools">
                 <MenuItem Header="_Batch Service Adding..."
                           Command="{Binding BatchServiceAddingCommand}" />
                 <MenuItem Header="_Settings..." />
             </MenuItem>
-            <!-- View -->
+
+            <!-- View menu -->
+
             <MenuItem Header="View">
                 <MenuItem Header=":: tab list ::" />
                 <Separator />
                 <MenuItem Header="_Close All" />
             </MenuItem>
-            <!-- Help -->
+
+            <!-- Help menu -->
+
             <MenuItem Header="_Help">
                 <MenuItem Header="_About..." />
             </MenuItem>

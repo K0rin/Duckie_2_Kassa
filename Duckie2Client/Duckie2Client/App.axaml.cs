@@ -13,6 +13,7 @@ using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.Views;
 using Splat;
 
@@ -24,6 +25,8 @@ public partial class App : Application
     private AppModes CurrentAppMode { get; set; }
 
     #region View Models
+
+    // todo: move to another partial file.
 
     // ReSharper disable once InconsistentNaming
     public static MainConsoleScreenViewModel VM_MainConsoleScreen =>
@@ -46,8 +49,13 @@ public partial class App : Application
     public static InitialSetupWizardViewModel VM_InitialSetupWizard =>
         Locator.Current.GetService<InitialSetupWizardViewModel>()!;
 
+    // ReSharper disable once InconsistentNaming
     public static ClientCardBatchAddScreenViewModel VM_ClientCardBatchAdd =>
         Locator.Current.GetService<ClientCardBatchAddScreenViewModel>()!;
+
+    // ReSharper disable once InconsistentNaming
+    public static PersonnelScreenViewModel VM_PersonnelScreen =>
+        Locator.Current.GetService<PersonnelScreenViewModel>()!;
 
     #endregion
 
@@ -55,6 +63,7 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
 
+        // todo: refact: Автоматическая регистрация по имени класса. Или указать директории, где находятся файлы моделей.
         // Register DI for view models.
         SplatRegistrations.Register<MainConsoleScreenViewModel>();
         SplatRegistrations.Register<AuthorizationScreenViewModel>();
@@ -63,6 +72,7 @@ public partial class App : Application
         SplatRegistrations.Register<SpinnerDialogViewModel>();
         SplatRegistrations.Register<InitialSetupWizardViewModel>();
         SplatRegistrations.Register<ClientCardBatchAddScreenViewModel>();
+        SplatRegistrations.Register<PersonnelScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

@@ -30,21 +30,28 @@ public class TabItemViewModel : ViewModelBase
     public TabContext? Context { get; }
     public ReactiveCommand<Unit, Unit> UpdateDateCommand { get; }
     public ReactiveCommand<Unit, Unit> DataLoadingCancelCommand { get; }
+    private TabState DataLoadingState { get; set; }
 
     /// <summary>
     /// Message showing in the "Ready" state of a tab.
     /// </summary>
     [Reactive]
-    public string ReadyStateMessageText { get; set; }
+    public string ReadyStateMessageText { get; set; } = null!;
 
     /// <summary>
     /// Message displayed in the “DataLoading” state of the tab.
     /// </summary>
     [Reactive]
-    public string DataLoadingMessageText { get; set; }
+    public string DataLoadingMessageText { get; set; } = null!;
 
-    // ReSharper disable once ConvertToPrimaryConstructor
-    public TabItemViewModel(string header, Control content, TabContext? context)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="header">The text of the tab name.</param>
+    /// <param name="content">Tab contents.</param>
+    /// <param name="context"></param>
+    /// <param name="dataLoadingState">Custom data loading mode for each tab.</param>
+    public TabItemViewModel(string header, Control content, TabContext? context, TabState dataLoadingState)
     {
         UpdateDateCommand = ReactiveCommand.Create(UpdateDataExecute);
         DataLoadingCancelCommand = ReactiveCommand.Create(DataLoadingCancelExecute);
@@ -52,6 +59,7 @@ public class TabItemViewModel : ViewModelBase
         Content = content;
         Context = context;
         CurrentState = Context?.CurrentState;
+        DataLoadingState = dataLoadingState;
     }
 
     private void DataLoadingCancelExecute()
@@ -62,7 +70,7 @@ public class TabItemViewModel : ViewModelBase
     private async void UpdateDataExecute()
     {
         // Switch state.
-        Context?.SetState(new DataLoadingState());
+        Context?.SetState(DataLoadingState);
         CurrentState = Context?.CurrentState;
 
         // Run update data method.
@@ -70,9 +78,7 @@ public class TabItemViewModel : ViewModelBase
 
         if (data.IsNull)
         {
-            // Switch to the Ready state.
-
-            Context?.SetState(new ReadyLoadDataState());
+            // Switch to the Ready state.            Context?.SetState(new ReadyLoadDataState());
             CurrentState = Context?.CurrentState;
         }
         else
