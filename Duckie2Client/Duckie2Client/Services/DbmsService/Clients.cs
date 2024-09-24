@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Duckie2Client.Services.DbmsService;
 
 /// <summary>
-/// Contains functionality for working with the “Clients” database entity.
+/// Contains functionality for working with the “Client” database entity.
 /// </summary>
 public class Clients
 {
