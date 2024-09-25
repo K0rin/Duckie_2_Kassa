@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Duckie2Client.Services.DbmsService.Records;
@@ -23,6 +22,7 @@ public static class PropertySetter
 
         foreach (var sourceProperty in sourceType?.GetProperties()!)
         {
+            // todo: refact: make generic type for RecordBase. TSkip. To skip specified type.
             var isRecordBaseChild = IsRecordBaseChild<RecordBase>(sourceProperty);
             if (isRecordBaseChild) continue;
 

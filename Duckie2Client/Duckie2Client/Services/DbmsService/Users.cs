@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Records;
 
@@ -12,7 +10,7 @@ namespace Duckie2Client.Services.DbmsService;
 /// </summary>
 public class Users
 {
-    private DbmsService db = new();
+    private readonly DbmsService _db = new();
 
     public void Create(UserRecord user)
     {
@@ -38,7 +36,7 @@ public class Users
 
         // Branch
 
-        var existingBranch = db.Branches.Find(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
+        var existingBranch = _db.Branches.Find(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
         // todo: error: record not found.
         newUser.Branch = existingBranch;
 
@@ -57,8 +55,8 @@ public class Users
             }).ToList();
         newUser.Communication = newCommunicationMeans;
 
-        db.Users.Add(newUser);
-        db.SaveChanges();
+        _db.Users.Add(newUser);
+        _db.SaveChanges();
     }
 
     public void Read()
