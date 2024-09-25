@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
 namespace Duckie2Client.Models.Database;
 
@@ -34,12 +35,12 @@ public class CommunicationMean
     // ONE-TO-MANY: Client. Each client can have many communication means (e.g., many phone numbers).
 
     /// <summary>
-    /// The identifier of the customer to which the communication method is bound.
-    /// </summary>
-    public Guid ClientId { get; set; }
-
-    /// <summary>
     /// A reference to the “Client” object to access the client through its communication means.
     /// </summary>
     public Client? Client { get; set; }
+
+    /// <summary>
+    /// A reference to the “User” object to access the client through its communication means.
+    /// </summary>
+    public User? User { get; set; }
 }

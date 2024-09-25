@@ -36,5 +36,5 @@ public class Branch
     /// <summary>
     /// The list of users belonging to a specific branch.
     /// </summary>
-    public List<User> Users { get; set; }
+    public List<User>? Users { get; set; }
 }

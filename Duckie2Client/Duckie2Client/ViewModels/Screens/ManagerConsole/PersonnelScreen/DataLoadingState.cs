@@ -15,6 +15,7 @@ public class DataLoadingState : TabState
     {
         List<string> output = [];
 
+        // todo: Загрузка списка работников.
         var result = new NullOrResult
         {
             Result = output

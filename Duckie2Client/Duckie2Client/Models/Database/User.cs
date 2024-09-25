@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Emit;
 
 namespace Duckie2Client.Models.Database;
 
@@ -27,6 +26,7 @@ public class User
     /// User login for signing in to the system. 
     /// </summary>
     [Required]
+    [StringLength(25)]
     [Column(TypeName = "VARCHAR")]
     public required string Login { get; set; }
 
@@ -79,5 +79,5 @@ public class User
     /// The branch of the company where the employee works.
     /// </summary>
     [Required]
-    public required Branch Branch { get; set; }
+    public required Branch? Branch { get; set; }
 }
