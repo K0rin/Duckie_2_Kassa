@@ -36,7 +36,7 @@ public class Users
 
         // Branch
 
-        var existingBranch = _db.Branches.Find(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
+        var existingBranch = _db.Branches.Find(user.Branch.Id);
         // todo: error: record not found.
         newUser.Branch = existingBranch;
 

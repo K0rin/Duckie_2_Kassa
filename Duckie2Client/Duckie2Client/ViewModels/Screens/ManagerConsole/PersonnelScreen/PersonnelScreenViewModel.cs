@@ -30,7 +30,6 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
     private void AddUserExecute()
     {
         // todo: show spinner dialog.
-        // todo: Create user record.
 
         var userRecord = new UserRecord
         {
@@ -40,7 +39,7 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
         var branch = new BranchRecord
         {
             // only existing
-            Id = Guid.Parse("d3a18d4c-1870-4f08-8ac4-af24193c2c53")
+            Id = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05")
         };
 
         var communication = new CommunicationMeanRecord
