@@ -23,15 +23,15 @@ public class DataLoadingState : TabState
         List<string> companies;
         using (var db = new DbmsService())
         {
-            companies = db.LegacyCompanies.Select(e => e.Name).ToList();
+            // companies = db.LegacyCompanies.Select(e => e.Name).ToList();
         }
 
         // Clean collection. Remove empty names if they exist.
-        companies = companies.Where(n => n.Trim().Length > 0).ToList();
+        // companies = companies.Where(n => n.Trim().Length > 0).ToList();
 
         var result = new NullOrResult
         {
-            Result = companies
+            // Result = companies
         };
         return result;
     }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.Controls;
+using Duckie2Client.Services.DbmsService;
 
 namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 
@@ -13,9 +13,8 @@ public class DataLoadingState : TabState
 
     private static NullOrResult LoadData()
     {
-        List<string> output = [];
+        Users.Read(out var output);
 
-        // todo: Загрузка списка работников.
         var result = new NullOrResult
         {
             Result = output

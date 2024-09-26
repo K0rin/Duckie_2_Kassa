@@ -198,6 +198,7 @@ public partial class App : Application
     /// <summary>This method is called before exiting the application.</summary>
     private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
+        // todo: выгрузка всех библиотек
     }
 
     public static void ShutdownApplication(int errorCode = 0)

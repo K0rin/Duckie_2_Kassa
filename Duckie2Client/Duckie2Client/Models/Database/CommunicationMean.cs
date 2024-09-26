@@ -32,15 +32,5 @@ public class CommunicationMean
     [StringLength(50)]
     public string? Phone { get; set; }
 
-    // ONE-TO-MANY: Client. Each client can have many communication means (e.g., many phone numbers).
-
-    /// <summary>
-    /// A reference to the “Client” object to access the client through its communication means.
-    /// </summary>
-    public Client? Client { get; set; }
-
-    /// <summary>
-    /// A reference to the “User” object to access the client through its communication means.
-    /// </summary>
-    public User? User { get; set; }
+    // todo: add "Notes"
 }

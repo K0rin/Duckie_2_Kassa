@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace Duckie2Client.Services.DbmsService.Records;
+
 // todo: info: имена атрибутов должны совпадать с именами атрибутов соответсвующей модели данных.
 public class UserRecord : RecordBase
 {
@@ -13,5 +14,5 @@ public class UserRecord : RecordBase
     public bool IsStaff { get; set; }
     public DateOnly RegistrationDate { get; set; }
     public RateRecord SalaryRate { get; set; }
-    public BranchRecord Branch { get; set; }
+    public List<BranchRecord> Branch { get; set; }
 }

@@ -9,7 +9,13 @@
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"
                                    Background="Chocolate">
-        <Button Content="ADD USER"
-                Command="{Binding AddUserCommand}" />
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button Content="ADD USER"
+                    Command="{Binding AddUserCommand}" />
+            <Button Content="DELETE USER"
+                    Command="{Binding DeleteUserCommand}" />
+        </StackPanel>
     </dialogHostAvalonia:DialogHost>
 </UserControl>

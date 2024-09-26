@@ -51,18 +51,18 @@ public class Clients
         var client1Contacts1 = new CommunicationMean
         {
             Email = "email1",
-            Phone = "phone1",
-            Client = client1
+            Phone = "phone1"
+            // Client = client1
         };
         var client1Contacts2 = new CommunicationMean
         {
-            Phone = "phone11",
-            Client = client1
+            Phone = "phone11"
+            // Client = client1
         };
         var client2Contacts1 = new CommunicationMean
         {
-            Phone = "phone2",
-            Client = client2
+            Phone = "phone2"
+            // Client = client2
         };
 
         // price types

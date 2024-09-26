@@ -31,4 +31,6 @@ public class Price
     /// </summary>
     [Required]
     public required Rate Value { get; set; }
+
+    // todo: определить тип цены. Для каждого типа цены свое значение стоимости.
 }
