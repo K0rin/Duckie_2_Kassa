@@ -47,4 +47,6 @@ public class Rate
     /// </summary>
     [Required]
     public DateOnly EndDate { get; set; }
+
+    public Guid UserId { get; set; }
 }

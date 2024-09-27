@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Security.Cryptography;
+using Duckie2Client.Libs.SecretStrings;
 using Duckie2Client.Services.DbmsService;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.ViewModels.Base;
@@ -87,8 +89,13 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
             // todo: Validate a login, first name, last name.
 
             userRecord.Login = $"<login{i}>";
-            // todo: secret string.
-            userRecord.Password = $"<password{i}>";
+
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedPassword = SecretStrings.GetHash($"<password{i}>", sha256);
+                userRecord.Password = hashedPassword;
+            }
+
             userRecord.FirstName = $"<firstname{i}>";
             userRecord.LastName = $"<lastname{i}>";
             userRecord.RegistrationDate = todayDateOnly;

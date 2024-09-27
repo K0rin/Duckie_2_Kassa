@@ -28,7 +28,7 @@ public static class SecretStrings
     /// </summary>
     /// <param name="input">The string whose hash is to be retrieved.</param>
     /// <param name="hashAlgorithm">The hashing algorithm that will be used to hash the string.</param>
-    /// <typeparam name="T">strint, SecureString</typeparam>
+    /// <typeparam name="T">string, SecureString</typeparam>
     public static string GetHash<T>(T input, HashAlgorithm hashAlgorithm)
     {
         // todo: Check for an empty input value.

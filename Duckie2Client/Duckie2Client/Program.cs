@@ -47,7 +47,6 @@ internal static class Program
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
-
     /// <summary>Checks the correctness of the arguments passed to the Application executable.</summary>
     private static void CheckCommandLineArguments(ref string[] args)
     {

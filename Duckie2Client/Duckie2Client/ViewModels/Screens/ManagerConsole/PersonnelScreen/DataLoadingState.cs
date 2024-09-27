@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
@@ -13,7 +14,8 @@ public class DataLoadingState : TabState
 
     private static NullOrResult LoadData()
     {
-        Users.Read(out var output);
+        // var output = Users.Read(RecordReadFlags.ActiveRecords | RecordReadFlags.InactiveRecords);
+        var output = Users.Read(RecordReadFlags.InactiveRecords);
 
         var result = new NullOrResult
         {
