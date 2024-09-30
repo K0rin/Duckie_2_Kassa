@@ -7,6 +7,7 @@ using Duckie2Client.Libs;
 using Duckie2Client.Libs.SecretStrings;
 using Duckie2Client.Services.DbmsService;
 using Duckie2Client.Services.DbmsService.Records;
+using Duckie2Client.Services.DbmsService.Records.Builders;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
 using ReactiveUI;
@@ -51,20 +52,32 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
     {
         try
         {
-            var communication = new CommunicationMeanRecord
+            // var communication = new CommunicationMeanRecord
+            // {
+            //     Id = Guid.Parse("83777285-10FF-4549-8761-C3C0911E8963"),
+            //     ClientId = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+            //
+            //     // todo: Validation of an email and a phone.
+            //
+            //     Phone = "<phone 6 updated>"
+            // };
+            var salaryRate = new RateRecord
             {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+                // todo: Take the value from the settings.
+                // todo: error: the settings file not found.
 
-                // todo: Validation of an email and a phone.
+                // todo: Get latest salary rate.
 
-                Phone = "<phone 6 updated>"
+                Id = Guid.Parse("C25BABDB-29F3-46F1-BB07-C298A976B54B"),
+                Value = 66
             };
+
+
             var updateUser = new UserRecord
             {
-                Id = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+                Id = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B")
                 // FirstName = "<firstname6>updated"
-                Communication = [communication]
+                // Communication = [communication]
             };
 
             var updateResult = new Users().Update(updateUser);
@@ -110,68 +123,94 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
     {
         // todo: show spinner dialog.
 
+        // todo: builder pattern for UserRecord
+
         for (var i = 0; i < 10; i++)
         {
-            var userRecord = new UserRecord
-            {
-                Id = Guid.NewGuid()
-            };
+            var newUserRecordBuilder = new UserRecordBuilder();
+            newUserRecordBuilder.AddFirstName($"<firstname{i}>");
+            newUserRecordBuilder.AddBranch(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
 
-            var branch = new BranchRecord
-            {
-                // only existing
-                Id = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05")
-            };
+            // var userRecord = new UserRecord
+            // {
+            // Id = Guid.NewGuid()
+            // };
+            // var branch = new BranchRecord
+            // {
+            // only existing
+            // Id = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05")
+            // };
 
-            var communication = new CommunicationMeanRecord
-            {
-                Id = Guid.NewGuid(),
-                ClientId = userRecord.Id,
+            var communicationMeanBuilder = new CommunicationMeanBuilder();
+            communicationMeanBuilder.AddEmail($"<email{i}>");
+            communicationMeanBuilder.AddPhone($"<phone{i}>");
+            newUserRecordBuilder.AddCommunication(communicationMeanBuilder);
 
-                // todo: Validation of an email and a phone.
+            // var communication = new CommunicationMeanRecord
+            // {
+            // Id = Guid.NewGuid(),
+            // ClientId = userRecord.Id,
 
-                Email = $"<email{i}>",
-                Phone = $"<phone{i}>"
-            };
+            // todo: Validation of an email and a phone.
+
+            // Email = $"<email{i}>",
+            // Phone = $"<phone{i}>"
+            // };
+
+
             var todayDateOnly = DateOnly.FromDateTime(DateTime.Today);
-            var salaryRate = new RateRecord
-            {
-                // todo: Take the value from the settings.
-                // todo: error: the settings file not found.
+            var salaryRateRecordBuilder = new SalaryRateBuilder();
+            salaryRateRecordBuilder.AddRateValue(i);
+            salaryRateRecordBuilder.AddStartDate(todayDateOnly);
+            salaryRateRecordBuilder.AddEndDate(todayDateOnly.AddDays(1));
+            newUserRecordBuilder.AddSalaryRate(salaryRateRecordBuilder);
 
-                Id = Guid.NewGuid(),
-                Value = i,
-                StartDate = todayDateOnly,
-                EndDate = todayDateOnly.AddDays(1)
-            };
+            // var salaryRate = new RateRecord
+            // {
+            // todo: Take the value from the settings.
+            // todo: error: the settings file not found.
+
+            // Id = Guid.NewGuid(),
+            // Value = i,
+            // StartDate = todayDateOnly,
+            // EndDate = todayDateOnly.AddDays(1)
+            // };
 
             // todo: functionality for adding many values.
 
-            userRecord.Branch = [branch];
+            // userRecord.Branch = [branch];
 
             // todo: functionality for adding many values.
 
-            userRecord.Communication = [communication];
+            // userRecord.Communication = [communication];
             // False by default due to the Operator user role.
-            userRecord.IsStaff = false;
+            // userRecord.IsStaff = false;
+
+            newUserRecordBuilder.AddIsStaff(false);
 
             // todo: Validate a login, first name, last name.
 
-            userRecord.Login = $"<login{i}>";
+            // userRecord.Login = $"<login{i}>";
+            newUserRecordBuilder.AddLogin($"<login{i}>");
 
             using (var sha256 = SHA256.Create())
             {
                 var hashedPassword = SecretStrings.GetHash($"<password{i}>", sha256);
-                userRecord.Password = hashedPassword;
+                // userRecord.Password = hashedPassword;
+                newUserRecordBuilder.AddPassword(hashedPassword);
             }
 
-            userRecord.FirstName = $"<firstname{i}>";
-            userRecord.LastName = $"<lastname{i}>";
-            userRecord.RegistrationDate = todayDateOnly;
-            userRecord.SalaryRate = salaryRate;
+           
+            // userRecord.FirstName = $"<firstname{i}>";
+            newUserRecordBuilder.AddLastName($"<lastname{i}>");
+            // userRecord.LastName = $"<lastname{i}>";
+            // userRecord.RegistrationDate = todayDateOnly;
+            newUserRecordBuilder.AddRegistrationDate(todayDateOnly);
+            // userRecord.SalaryRate = salaryRate;
 
             // Call meth to create.
-            new Users().Create(userRecord);
+            // new Users().Create(userRecord);
+            new Users().Create(newUserRecordBuilder.Build());
         }
     }
 

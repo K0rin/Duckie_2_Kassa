@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Duckie2Client.Enums;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Records;
-using DynamicData.Kernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Services.DbmsService;
@@ -155,8 +153,9 @@ public class Users
     {
         using (var db = new DbmsService())
         {
+            var record = userRecord;
             var updateUser = db.Users
-                .Where(u => u.Id.Equals(userRecord.Id))
+                .Where(u => u.Id.Equals(record.Id))
                 .Include(user => user.Communication);
 
             if (!updateUser.Any()) return DataModelOperationResult.RecordNotFound;
@@ -167,23 +166,37 @@ public class Users
                 for (var i = 0; i < updateUser.First().Communication.Count; i++)
                 {
                     var source = userRecord.Communication[i];
-                    var target = updateUser.First().Communication.AsList()[i];
-                    PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
-                        ref source,
-                        ref target,
-                        true);
+                    var target = db.CommunicationMeans.Find(userRecord.Communication[i].Id);
+
+                    if (target != null)
+                    {
+                        PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
+                            ref source,
+                            ref target,
+                            true);
+                        db.CommunicationMeans.Update(target);
+                    }
+                    else
+                    {
+                        return DataModelOperationResult.RecordNotFound;
+                    }
                 }
 
             if (userRecord.Branch != null)
                 // No Operator may be transferred to another branch from the current branch.
                 throw new NotImplementedException();
 
-            // if (userRecord.SalaryRate != null)
-            // {
-            // }
+            // todo: implement
+            if (userRecord.SalaryRate != null)
+                // todo: Условия возможности изменить ставку.
+                // - Изменить можно только текущую ставку. Нельзя менять "старые" ставки.
+                // - Ставку можно поменять, если Оператор не сделал ни одной мойки в период действия ставки. 
+                // Если была сделана хотя бы одна мойка, ставку поменять нельзя. Можно добавить новую со сроком начала
+                // действия с завтрашнего дня.
 
-            // todo: check updating...
-            
+                throw new NotImplementedException();
+
+            // Updating fields of not UserRecord type.
             var targetClass = updateUser.First();
             PropertySetter.SetProperties<UserRecord, User>(ref userRecord, ref targetClass, true);
 
