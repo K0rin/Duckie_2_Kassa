@@ -16,6 +16,8 @@
                     Command="{Binding AddUserCommand}" />
             <Button Content="DELETE USER"
                     Command="{Binding DeleteUserCommand}" />
+            <Button Content="UPDATE USER"
+                    Command="{Binding UpdateCommand}" />
         </StackPanel>
     </dialogHostAvalonia:DialogHost>
 </UserControl>

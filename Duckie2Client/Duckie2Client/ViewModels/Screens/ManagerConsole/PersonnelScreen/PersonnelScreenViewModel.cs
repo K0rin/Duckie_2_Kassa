@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Reactive;
 using System.Security.Cryptography;
+using Duckie2Client.Enums.Flags;
+using Duckie2Client.Libs;
 using Duckie2Client.Libs.SecretStrings;
 using Duckie2Client.Services.DbmsService;
 using Duckie2Client.Services.DbmsService.Records;
@@ -21,6 +23,7 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
 
     public ReactiveCommand<Unit, Unit> AddUserCommand { get; }
     public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
+    public ReactiveCommand<Unit, Unit> UpdateCommand { get; }
 
     // todo: DRY
     private ErrorDialog? _errorDialog;
@@ -29,11 +32,77 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
     {
         AddUserCommand = ReactiveCommand.Create(AddUserExecute);
         DeleteUserCommand = ReactiveCommand.Create(DeleteUserExecute);
+        UpdateCommand = ReactiveCommand.Create(UpdateUserExecute);
+    }
+
+    private void ShowDataConsistencyError()
+    {
+        // todo: show this message in a dialog.
+
+        const string MSG =
+            "DUCKIE_EXCEPTION: Нарушение целостности записей в базе данных.\n" +
+            "Запрашиваемая запись не найдена в базе, но предполагается, что она должна существовать .\n" +
+            "Необходима проверка базы данных.\n" +
+            "Дальнейшая работа с программой может увеличит несогласованность данных.";
+        throw new Exception(MSG);
+    }
+
+    private void UpdateUserExecute()
+    {
+        try
+        {
+            var communication = new CommunicationMeanRecord
+            {
+                Id = Guid.NewGuid(),
+                ClientId = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+
+                // todo: Validation of an email and a phone.
+
+                Phone = "<phone 6 updated>"
+            };
+            var updateUser = new UserRecord
+            {
+                Id = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+                // FirstName = "<firstname6>updated"
+                Communication = [communication]
+            };
+
+            var updateResult = new Users().Update(updateUser);
+
+            if (!updateResult.Equals(DataModelOperationResult.RecordNotFound)) return;
+
+            ShowDataConsistencyError();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     private void DeleteUserExecute()
     {
-        Console.WriteLine("delete");
+        try
+        {
+            // todo: Get selected rows from the table.
+
+            var usersToRemove = new List<UserRecord>
+            {
+                new() { Id = Guid.Parse("62A24E41-922C-47E8-8C85-9E4D022BA932") },
+                new() { Id = Guid.Parse("5C16F9D4-C22A-41B9-9735-DC4C248C5826") }
+            };
+
+            var deleteResult = new Users().Delete(usersToRemove);
+
+            if (!deleteResult.Equals(DataModelOperationResult.RecordNotFound)) return;
+
+            ShowDataConsistencyError();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
 

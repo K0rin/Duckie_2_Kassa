@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Duckie2Client.Enums;
+using Duckie2Client.Enums.Flags;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
