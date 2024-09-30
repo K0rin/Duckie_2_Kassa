@@ -31,21 +31,29 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
 
     public void AddLogin(string value)
     {
+        // todo: Validate
+
         GetProduct().Login = value;
     }
 
     public void AddFirstName(string value)
     {
+        // todo: Validate 
+
         GetProduct().FirstName = value;
     }
 
     public void AddLastName(string value)
     {
+        // todo: Validate 
+
         GetProduct().LastName = value;
     }
 
     public void AddRegistrationDate(DateOnly value)
     {
+        // todo: check: must be today day. Not tomorrow or yesterday.
+
         GetProduct().RegistrationDate = value;
     }
 

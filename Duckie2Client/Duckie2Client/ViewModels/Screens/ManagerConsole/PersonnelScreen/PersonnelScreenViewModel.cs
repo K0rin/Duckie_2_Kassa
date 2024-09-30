@@ -130,86 +130,33 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
             var newUserRecordBuilder = new UserRecordBuilder();
             newUserRecordBuilder.AddFirstName($"<firstname{i}>");
             newUserRecordBuilder.AddBranch(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
+            newUserRecordBuilder.AddLogin($"<login{i}>");
+            newUserRecordBuilder.AddLastName($"<lastname{i}>");
 
-            // var userRecord = new UserRecord
-            // {
-            // Id = Guid.NewGuid()
-            // };
-            // var branch = new BranchRecord
-            // {
-            // only existing
-            // Id = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05")
-            // };
+            var todayDateOnly = DateOnly.FromDateTime(DateTime.Today);
+            newUserRecordBuilder.AddRegistrationDate(todayDateOnly);
 
             var communicationMeanBuilder = new CommunicationMeanBuilder();
             communicationMeanBuilder.AddEmail($"<email{i}>");
             communicationMeanBuilder.AddPhone($"<phone{i}>");
             newUserRecordBuilder.AddCommunication(communicationMeanBuilder);
 
-            // var communication = new CommunicationMeanRecord
-            // {
-            // Id = Guid.NewGuid(),
-            // ClientId = userRecord.Id,
-
-            // todo: Validation of an email and a phone.
-
-            // Email = $"<email{i}>",
-            // Phone = $"<phone{i}>"
-            // };
-
-
-            var todayDateOnly = DateOnly.FromDateTime(DateTime.Today);
             var salaryRateRecordBuilder = new SalaryRateBuilder();
             salaryRateRecordBuilder.AddRateValue(i);
             salaryRateRecordBuilder.AddStartDate(todayDateOnly);
             salaryRateRecordBuilder.AddEndDate(todayDateOnly.AddDays(1));
             newUserRecordBuilder.AddSalaryRate(salaryRateRecordBuilder);
 
-            // var salaryRate = new RateRecord
-            // {
-            // todo: Take the value from the settings.
-            // todo: error: the settings file not found.
-
-            // Id = Guid.NewGuid(),
-            // Value = i,
-            // StartDate = todayDateOnly,
-            // EndDate = todayDateOnly.AddDays(1)
-            // };
-
-            // todo: functionality for adding many values.
-
-            // userRecord.Branch = [branch];
-
-            // todo: functionality for adding many values.
-
-            // userRecord.Communication = [communication];
             // False by default due to the Operator user role.
-            // userRecord.IsStaff = false;
-
             newUserRecordBuilder.AddIsStaff(false);
-
-            // todo: Validate a login, first name, last name.
-
-            // userRecord.Login = $"<login{i}>";
-            newUserRecordBuilder.AddLogin($"<login{i}>");
 
             using (var sha256 = SHA256.Create())
             {
                 var hashedPassword = SecretStrings.GetHash($"<password{i}>", sha256);
-                // userRecord.Password = hashedPassword;
                 newUserRecordBuilder.AddPassword(hashedPassword);
             }
 
-           
-            // userRecord.FirstName = $"<firstname{i}>";
-            newUserRecordBuilder.AddLastName($"<lastname{i}>");
-            // userRecord.LastName = $"<lastname{i}>";
-            // userRecord.RegistrationDate = todayDateOnly;
-            newUserRecordBuilder.AddRegistrationDate(todayDateOnly);
-            // userRecord.SalaryRate = salaryRate;
-
             // Call meth to create.
-            // new Users().Create(userRecord);
             new Users().Create(newUserRecordBuilder.Build());
         }
     }

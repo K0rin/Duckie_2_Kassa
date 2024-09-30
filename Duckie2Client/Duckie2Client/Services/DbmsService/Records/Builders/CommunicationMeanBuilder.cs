@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Avalonia.X11.Interop;
 
 namespace Duckie2Client.Services.DbmsService.Records.Builders;
 
@@ -8,11 +6,15 @@ public class CommunicationMeanBuilder : RecordBuilderBase<CommunicationMeanRecor
 {
     public void AddEmail(string value)
     {
+        // todo: Validation
+
         GetProduct().Email = value;
     }
 
     public void AddPhone(string value)
     {
+        // todo: Validation 
+
         GetProduct().Phone = value;
     }
 
@@ -20,5 +22,4 @@ public class CommunicationMeanBuilder : RecordBuilderBase<CommunicationMeanRecor
     {
         GetProduct().ClientId = value;
     }
-    
 }
