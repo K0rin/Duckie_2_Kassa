@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Duckie2Client.Services.DbmsService.Records;
 
-// todo: info: имена атрибутов должны совпадать с именами атрибутов соответсвующей модели данных.
+// todo: info: имена атрибутов должны совпадать с именами атрибутов соответствующей модели данных.
 public class UserRecord : RecordBase
 {
     public string? Login { get; set; }

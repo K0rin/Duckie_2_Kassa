@@ -4,6 +4,7 @@ using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Records;
+using Duckie2Client.Services.DbmsService.Records.Builders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Services.DbmsService;
@@ -11,61 +12,61 @@ namespace Duckie2Client.Services.DbmsService;
 /// <summary>
 /// Contains functionality for working with the "User" database entity.
 /// </summary>
-public class Users
+public class Users : CrudOperationsBase
 {
-    public void Create(UserRecord user)
+    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
-        // ReSharper disable once ConvertToUsingDeclaration
-        using (var db = new DbmsService())
-        {
-            // todo: async tasks: Branch getting
+        using var db = new DbmsService();
+        var builtUser = builder.Build() as UserRecord;
 
-            // Branch
+        // Branch
+        // todo: error: record not found.
+        // todo: async tasks: Branch getting
+        var existingBranches = builtUser!.Branch!.Select(
+            branchRecord => db.Branches.First(
+                branch => branch.Id.Equals(branchRecord.Id))
+        ).ToList();
 
-            // todo: error: record not found.
+        // Salary Rate
 
-            var existingBranches = user.Branch.Select(
-                branchRecord => db.Branches.First(
-                    branch => branch.Id.Equals(branchRecord.Id))
-            ).ToList();
+        var r = builtUser.SalaryRate;
+        var newSalaryRate = new Rate();
+        PropertySetter.SetProperties<RateRecord, Rate>(ref r, ref newSalaryRate);
 
-            // Salary Rate
+        // Communication Means
 
-            var r = user.SalaryRate;
-            var newSalaryRate = new Rate();
-            PropertySetter.SetProperties<RateRecord, Rate>(ref r, ref newSalaryRate);
+        // todo: error: email already exists.
+        // todo: error: phone already exists.
 
-            // Communication Means
-
-            // todo: error: email already exists.
-            // todo: error: phone already exists.
-
-            var newCommunicationMeans = user.Communication.Select(
-                communicationMeanRecord => new CommunicationMean
-                {
-                    Id = Guid.NewGuid(),
-                    Email = communicationMeanRecord.Email,
-                    Phone = communicationMeanRecord.Phone
-                }).ToList();
-
-            // User
-            var newUser = new User
+        var newCommunicationMeans = builtUser.Communication!.Select(
+            communicationMeanRecord => new CommunicationMean
             {
-                Login = "",
-                Password = "",
-                FirstName = "",
-                LastName = "",
-                Branches = existingBranches,
-                SalaryRate = [newSalaryRate],
-                Communication = newCommunicationMeans
-            };
+                Id = Guid.NewGuid(),
+                Email = communicationMeanRecord.Email,
+                Phone = communicationMeanRecord.Phone
+            }).ToList();
 
-            PropertySetter.SetProperties<UserRecord, User>(ref user, ref newUser);
+        // User
+        var newUserRec = new User
+        {
+            Login = "",
+            Password = "",
+            FirstName = "",
+            LastName = "",
+            Branches = existingBranches,
+            SalaryRate = [newSalaryRate],
+            Communication = newCommunicationMeans
+        };
 
-            db.Users.Add(newUser);
-            db.SaveChanges();
-        }
+        PropertySetter.SetProperties<UserRecord, User>(ref builtUser, ref newUserRec);
+
+        db.Users.Add(newUserRec);
+        db.SaveChanges();
+
+        return DataModelOperationResult.Successful;
     }
+
+
 
     /// <summary>
     /// <para>
@@ -78,14 +79,16 @@ public class Users
     /// <param name="readFlags">
     /// <see cref="RecordReadFlags"/>
     /// </param>
-    public static List<User> Read(RecordReadFlags readFlags)
+    public override object Read<TDataModel>(RecordReadFlags readFlags)
     {
+        // todo: refact: move to CrudOperationsBase
         // todo: error: empty flags. None - invalid flag
 
         var isOperatorActive = readFlags.HasFlag(RecordReadFlags.ActiveRecords);
         var isReadAllRecords = readFlags.HasFlag(RecordReadFlags.ActiveRecords) &
                                readFlags.HasFlag(RecordReadFlags.InactiveRecords);
-        List<User> result;
+        
+        object result;
 
         // todo: settings for the current branch id.
         var currentBranchId = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05");
@@ -113,14 +116,15 @@ public class Users
                     user.User.SalaryRate = new List<Rate> { user.LatestSalaryRate };
                     return user.User;
                 })
-                .ToList();
+                .ToList() ;
         }
 
-        return result;
+        return (List<TDataModel>) result;
     }
 
     public DataModelOperationResult Delete(UserRecord user)
     {
+        // todo: refact: move to CrudOperationsBase
         // todo: error: user.Id == null
 
         // todo: Delete conditions
@@ -144,6 +148,7 @@ public class Users
 
     public DataModelOperationResult Delete(List<UserRecord> users)
     {
+        // todo: refact: move to CrudOperationsBase
         return users.Any(userRecord => Delete(userRecord).Equals(DataModelOperationResult.RecordNotFound))
             ? DataModelOperationResult.RecordNotFound
             : DataModelOperationResult.Successful;
@@ -151,6 +156,7 @@ public class Users
 
     public DataModelOperationResult Update(UserRecord userRecord)
     {
+        // todo: refact: move to CrudOperationsBase
         using (var db = new DbmsService())
         {
             var record = userRecord;

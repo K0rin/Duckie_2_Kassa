@@ -17,7 +17,7 @@ public abstract class RecordBuilderBase<TRecord> : IRecordBuilder where TRecord 
         Product = new TRecord();
     }
 
-    public void AddId()
+    private void AddId()
     {
         Product.Id = Guid.NewGuid();
     }
@@ -29,7 +29,7 @@ public abstract class RecordBuilderBase<TRecord> : IRecordBuilder where TRecord 
         return result;
     }
 
-    public TRecord GetProduct()
+    protected TRecord GetProduct()
     {
         return Product;
     }

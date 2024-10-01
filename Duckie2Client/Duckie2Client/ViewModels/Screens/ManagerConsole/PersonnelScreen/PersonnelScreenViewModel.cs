@@ -123,8 +123,6 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
     {
         // todo: show spinner dialog.
 
-        // todo: builder pattern for UserRecord
-
         for (var i = 0; i < 10; i++)
         {
             var newUserRecordBuilder = new UserRecordBuilder();
@@ -156,8 +154,10 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
                 newUserRecordBuilder.AddPassword(hashedPassword);
             }
 
-            // Call meth to create.
-            new Users().Create(newUserRecordBuilder.Build());
+            // var result = new Users().Create(newUserRecordBuilder.Build());
+            var result = new Users().Create(newUserRecordBuilder);
+            if (!result.Equals(DataModelOperationResult.RecordNotFound)) return;
+            ShowDataConsistencyError();
         }
     }
 

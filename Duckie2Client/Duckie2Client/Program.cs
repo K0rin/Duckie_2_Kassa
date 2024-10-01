@@ -4,6 +4,8 @@ using Avalonia;
 using Avalonia.ReactiveUI;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
+using Duckie2Client.Services.DbmsService;
+using Duckie2Client.Services.DbmsService.Records.Builders;
 
 namespace Duckie2Client;
 
@@ -30,6 +32,7 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        DebugMeth();
         // FIX: LINUX:
         // System.InvalidOperationException:
         // Cannot perform requested operation because the Dispatcher shut down
@@ -47,7 +50,17 @@ internal static class Program
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
-    /// <summary>Checks the correctness of the arguments passed to the Application executable.</summary>
+    private static void DebugMeth()
+    {
+        var branchRecordBuilder = new BranchRecordBuilder();
+        branchRecordBuilder.AddName("Branch 4");
+        branchRecordBuilder.AddAddress("Branch 4 Address");
+        new Branches().Create(branchRecordBuilder);
+    }
+
+    /// <summary>
+    /// Checks the correctness of the arguments passed to the Application executable.
+    /// </summary>
     private static void CheckCommandLineArguments(ref string[] args)
     {
         var argumentCollection = new List<StartupOption> { new("mode", ["console", "kassa"], false) };
