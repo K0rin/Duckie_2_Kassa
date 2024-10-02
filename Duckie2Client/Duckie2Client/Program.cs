@@ -32,7 +32,6 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        DebugMeth();
         // FIX: LINUX:
         // System.InvalidOperationException:
         // Cannot perform requested operation because the Dispatcher shut down
@@ -50,13 +49,6 @@ internal static class Program
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
-    private static void DebugMeth()
-    {
-        var branchRecordBuilder = new BranchRecordBuilder();
-        branchRecordBuilder.AddName("Branch 4");
-        branchRecordBuilder.AddAddress("Branch 4 Address");
-        new Branches().Create(branchRecordBuilder);
-    }
 
     /// <summary>
     /// Checks the correctness of the arguments passed to the Application executable.

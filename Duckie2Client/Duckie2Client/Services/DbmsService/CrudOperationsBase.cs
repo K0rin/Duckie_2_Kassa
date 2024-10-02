@@ -7,12 +7,44 @@ namespace Duckie2Client.Services.DbmsService;
 
 public abstract class CrudOperationsBase
 {
+    // ReSharper disable once UnusedMethodReturnValue.Global
+    // ReSharper disable once UnusedMemberInSuper.Global
     public virtual DataModelOperationResult Create<T>(RecordBuilderBase<T> builder) where T : RecordBase, new()
     {
         throw new System.NotSupportedException();
     }
 
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedMemberInSuper.Global
     public virtual object Read<TDataModel>(RecordReadFlags readFlags)
+    {
+        throw new System.NotSupportedException();
+    }
+
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedParameter.Global
+    // ReSharper disable once UnusedMemberInSuper.Global
+    public virtual DataModelOperationResult DeleteMany<T>(List<RecordBuilderBase<T>> builder)
+        where T : RecordBase, new()
+    {
+        throw new System.NotSupportedException();
+    }
+
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedParameter.Global
+    // ReSharper disable once UnusedMemberInSuper.Global
+    public virtual DataModelOperationResult Delete<T>(RecordBuilderBase<T> builder) where T : RecordBase, new()
+    {
+        throw new System.NotSupportedException();
+    }
+
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedParameter.Global
+    public virtual DataModelOperationResult Update<T>(RecordBuilderBase<T> builder) where T : RecordBase, new()
     {
         throw new System.NotSupportedException();
     }

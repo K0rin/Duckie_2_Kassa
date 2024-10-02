@@ -10,8 +10,16 @@ using ReactiveUI.Fody.Helpers;
 using Tabalonia.Controls;
 using PersonnelScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen.DataLoadingState;
+using BranchesScreenDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen.DataLoadingState;
+using PollutionLevelsScreenDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen.DataLoadingState;
+using PriceTypesScreenDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen.DataLoadingState;
 using ClientCardBatchAddScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen.DataLoadingState;
+using ClientsScreenDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen.DataLoadingState;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -24,22 +32,75 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 
     public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; }
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
-    public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
+    public ReactiveCommand<Unit, Unit> PersonnelListCommand { get; }
+    public ReactiveCommand<Unit, Unit> BranchesListCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> PriceTypesListCommand { get; }
+    public ReactiveCommand<Unit, Unit> PollutionLevelsListCommand { get; }
     public ReactiveCommand<object, Unit> TabCloseCommand { get; }
 
     #endregion
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
     [Reactive] public bool IsDashboardVisible { get; set; }
+    public ReactiveCommand<Unit, Unit> ClientListCommand { get; }
 
     public MainConsoleScreenViewModel()
     {
         BatchServiceAddingCommand = ReactiveCommand.Create(BatchServiceAdditionCommandExecute);
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
-        PersonnelCommand = ReactiveCommand.Create(PersonnelCommandExecute);
+        PersonnelListCommand = ReactiveCommand.Create(PersonnelCommandExecute);
+        BranchesListCommand = ReactiveCommand.Create(BranchesListCommandExecute);
         TabCloseCommand = ReactiveCommand.Create<object>(TabCloseCommandExecute);
+        PriceTypesListCommand = ReactiveCommand.Create(PriceTypesListCommandExecute);
+        PollutionLevelsListCommand = ReactiveCommand.Create(PollutionLevelsListCommandExecute);
+        ClientListCommand = ReactiveCommand.Create(ClientListCommandExecute);
 
         IsDashboardVisible = true;
+    }
+
+    private void ClientListCommandExecute()
+    {
+        AddTabItem(
+            "Pollution Levels List",
+            new ClientsScreenView(),
+            new ClientsScreenDataLoadingState(),
+            "Для загрузки списка клиентов нажмите кнопку 'Обновить'.",
+            "Загружается список клиентов..."
+        );
+    }
+
+    private void PollutionLevelsListCommandExecute()
+    {
+        AddTabItem(
+            "Pollution Levels List",
+            new PollutionLevelsScreenView(),
+            new PollutionLevelsScreenDataLoadingState(),
+            "Для загрузки списка уровней загрязнения нажмите кнопку 'Обновить'.",
+            "Загружается список уровней загрязнения..."
+        );
+    }
+
+    private void PriceTypesListCommandExecute()
+    {
+        AddTabItem(
+            "Price Types List",
+            new PriceTypesScreenView(),
+            new PriceTypesScreenDataLoadingState(),
+            "Для загрузки списка типов цен нажмите кнопку 'Обновить'.",
+            "Загружается список типов цен..."
+        );
+    }
+
+    private void BranchesListCommandExecute()
+    {
+        AddTabItem(
+            "Branch List",
+            new BranchesScreenView(),
+            new BranchesScreenDataLoadingState(),
+            "Для загрузки списка филиалов нажмите кнопку 'Обновить'.",
+            "Загружается список филиалов..."
+        );
     }
 
     private void TabCloseCommandExecute(object value)
@@ -100,7 +161,7 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         );
     }
 
-    private void ExitMenuCommandExecute()
+    private static void ExitMenuCommandExecute()
     {
         App.ShutdownApplication();
     }

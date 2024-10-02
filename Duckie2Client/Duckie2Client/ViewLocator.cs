@@ -23,8 +23,12 @@ using Duckie2Client.Libs.HanumanInstitute;
 using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
 using Duckie2Client.Views;
 using Duckie2Client.Views.Dialogs;
 using Duckie2Client.Views.Screens;
@@ -46,5 +50,9 @@ public class ViewLocator : StrongViewLocator
         // Screens
         Register<ClientCardBatchAddScreenViewModel, ClientCardBatchAddScreenView>();
         Register<PersonnelScreenViewModel, PersonnelScreenView>();
+        Register<BranchesScreenViewModel, BranchesScreenView>();
+        Register<PollutionLevelsScreenViewModel, PollutionLevelsScreenView>();
+        Register<PriceTypesScreenViewModel, PriceTypesScreenView>();
+        Register<ClientsScreenViewModel, ClientsScreenView>();
     }
 }

@@ -67,7 +67,6 @@ public class Users : CrudOperationsBase
     }
 
 
-
     /// <summary>
     /// <para>
     /// Returns a list of users.
@@ -81,19 +80,17 @@ public class Users : CrudOperationsBase
     /// </param>
     public override object Read<TDataModel>(RecordReadFlags readFlags)
     {
-        // todo: refact: move to CrudOperationsBase
         // todo: error: empty flags. None - invalid flag
 
         var isOperatorActive = readFlags.HasFlag(RecordReadFlags.ActiveRecords);
         var isReadAllRecords = readFlags.HasFlag(RecordReadFlags.ActiveRecords) &
                                readFlags.HasFlag(RecordReadFlags.InactiveRecords);
-        
+
         object result;
 
         // todo: settings for the current branch id.
         var currentBranchId = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05");
 
-        // ReSharper disable once ConvertToUsingDeclaration
         using (var db = new DbmsService())
         {
             var query = db.Users
@@ -116,15 +113,14 @@ public class Users : CrudOperationsBase
                     user.User.SalaryRate = new List<Rate> { user.LatestSalaryRate };
                     return user.User;
                 })
-                .ToList() ;
+                .ToList();
         }
 
-        return (List<TDataModel>) result;
+        return (List<TDataModel>)result;
     }
 
-    public DataModelOperationResult Delete(UserRecord user)
+    public override DataModelOperationResult Delete<T>(RecordBuilderBase<T> builder)
     {
-        // todo: refact: move to CrudOperationsBase
         // todo: error: user.Id == null
 
         // todo: Delete conditions
@@ -132,85 +128,84 @@ public class Users : CrudOperationsBase
 
         // todo: If a record cannot be removed then mark it as "deleted".
 
-        // ReSharper disable once ConvertToUsingDeclaration
-        using (var db = new DbmsService())
-        {
-            var removeUser = db.Users.Find(user.Id);
+        using var db = new DbmsService();
 
-            if (removeUser == null) return DataModelOperationResult.RecordNotFound;
+        var removeUser = db.Users.Find(builder.Build().Id);
 
-            db.Users.Remove(removeUser);
-            db.SaveChanges();
-        }
+        if (removeUser == null) return DataModelOperationResult.RecordNotFound;
+
+        db.Users.Remove(removeUser);
+        db.SaveChanges();
 
         return DataModelOperationResult.Successful;
     }
 
-    public DataModelOperationResult Delete(List<UserRecord> users)
+    public override DataModelOperationResult DeleteMany<T>(List<RecordBuilderBase<T>> builder)
     {
-        // todo: refact: move to CrudOperationsBase
-        return users.Any(userRecord => Delete(userRecord).Equals(DataModelOperationResult.RecordNotFound))
+        var any = builder.Select(Delete).Contains(DataModelOperationResult.RecordNotFound);
+
+        return any
             ? DataModelOperationResult.RecordNotFound
             : DataModelOperationResult.Successful;
     }
 
-    public DataModelOperationResult Update(UserRecord userRecord)
+    public DataModelOperationResult Update<T>(RecordBuilderBase<T> builder) where T : RecordBase, new()
     {
-        // todo: refact: move to CrudOperationsBase
-        using (var db = new DbmsService())
-        {
-            var record = userRecord;
-            var updateUser = db.Users
-                .Where(u => u.Id.Equals(record.Id))
-                .Include(user => user.Communication);
-
-            if (!updateUser.Any()) return DataModelOperationResult.RecordNotFound;
-
-            // todo: refact: автоматизировать процесс присвоения данных для типа RecordBase.
-
-            if (userRecord.Communication != null)
-                for (var i = 0; i < updateUser.First().Communication.Count; i++)
-                {
-                    var source = userRecord.Communication[i];
-                    var target = db.CommunicationMeans.Find(userRecord.Communication[i].Id);
-
-                    if (target != null)
-                    {
-                        PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
-                            ref source,
-                            ref target,
-                            true);
-                        db.CommunicationMeans.Update(target);
-                    }
-                    else
-                    {
-                        return DataModelOperationResult.RecordNotFound;
-                    }
-                }
-
-            if (userRecord.Branch != null)
-                // No Operator may be transferred to another branch from the current branch.
-                throw new NotImplementedException();
-
-            // todo: implement
-            if (userRecord.SalaryRate != null)
-                // todo: Условия возможности изменить ставку.
-                // - Изменить можно только текущую ставку. Нельзя менять "старые" ставки.
-                // - Ставку можно поменять, если Оператор не сделал ни одной мойки в период действия ставки. 
-                // Если была сделана хотя бы одна мойка, ставку поменять нельзя. Можно добавить новую со сроком начала
-                // действия с завтрашнего дня.
-
-                throw new NotImplementedException();
-
-            // Updating fields of not UserRecord type.
-            var targetClass = updateUser.First();
-            PropertySetter.SetProperties<UserRecord, User>(ref userRecord, ref targetClass, true);
-
-            db.Users.Update(targetClass);
-
-            db.SaveChanges();
-        }
-
+        // using var db = new DbmsService();
+        //
+        // // UserRecord record = userRecord.;
+        // UserRecord record = builder.Build();
+        //
+        // var updateUser = db.Users
+        //     .Where(u => u.Id.Equals(record.Id))
+        //     .Include(user => user.Communication);
+        //
+        // if (!updateUser.Any()) return DataModelOperationResult.RecordNotFound;
+        //
+        // // todo: refact: автоматизировать процесс присвоения данных для типа RecordBase.
+        //
+        // if (userRecord.Communication != null)
+        //     for (var i = 0; i < updateUser.First().Communication.Count; i++)
+        //     {
+        //         var source = userRecord.Communication[i];
+        //         var target = db.CommunicationMeans.Find(userRecord.Communication[i].Id);
+        //
+        //         if (target != null)
+        //         {
+        //             PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
+        //                 ref source,
+        //                 ref target,
+        //                 true);
+        //             db.CommunicationMeans.Update(target);
+        //         }
+        //         else
+        //         {
+        //             return DataModelOperationResult.RecordNotFound;
+        //         }
+        //     }
+        //
+        // if (userRecord.Branch != null)
+        //     // No Operator may be transferred to another branch from the current branch.
+        //     throw new NotImplementedException();
+        //
+        // // todo: implement
+        // if (userRecord.SalaryRate != null)
+        //     // todo: Условия возможности изменить ставку.
+        //     // - Изменить можно только текущую ставку. Нельзя менять "старые" ставки.
+        //     // - Ставку можно поменять, если Оператор не сделал ни одной мойки в период действия ставки. 
+        //     // Если была сделана хотя бы одна мойка, ставку поменять нельзя. Можно добавить новую со сроком начала
+        //     // действия с завтрашнего дня.
+        //
+        //     throw new NotImplementedException();
+        //
+        // // Updating fields of not UserRecord type.
+        // var targetClass = updateUser.First();
+        // PropertySetter.SetProperties<UserRecord, User>(ref userRecord, ref targetClass, true);
+        //
+        // db.Users.Update(targetClass);
+        //
+        // db.SaveChanges();
+        //
         return DataModelOperationResult.Successful;
     }
 }

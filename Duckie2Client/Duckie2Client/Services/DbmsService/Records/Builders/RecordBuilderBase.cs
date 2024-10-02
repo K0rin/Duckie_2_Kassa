@@ -22,6 +22,11 @@ public abstract class RecordBuilderBase<TRecord> : IRecordBuilder where TRecord 
         Product.Id = Guid.NewGuid();
     }
 
+    public void AddId(Guid value)
+    {
+        Product.Id = value;
+    }
+
     public TRecord Build()
     {
         var result = Product;

@@ -12,8 +12,12 @@ using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
 using Duckie2Client.Views;
 using Splat;
 
@@ -24,40 +28,6 @@ public partial class App : Application
 {
     private AppModes CurrentAppMode { get; set; }
 
-    #region View Models
-
-    // todo: move to another partial file.
-
-    // ReSharper disable once InconsistentNaming
-    public static MainConsoleScreenViewModel VM_MainConsoleScreen =>
-        Locator.Current.GetService<MainConsoleScreenViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static AuthorizationScreenViewModel VM_AuthorizationScreen =>
-        Locator.Current.GetService<AuthorizationScreenViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static ConsoleWindowViewModel VM_ConsoleWindow => Locator.Current.GetService<ConsoleWindowViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static KassaWindowViewModel VM_KassaWindow => Locator.Current.GetService<KassaWindowViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static SpinnerDialogViewModel VM_SpinnerDialog => Locator.Current.GetService<SpinnerDialogViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static InitialSetupWizardViewModel VM_InitialSetupWizard =>
-        Locator.Current.GetService<InitialSetupWizardViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static ClientCardBatchAddScreenViewModel VM_ClientCardBatchAdd =>
-        Locator.Current.GetService<ClientCardBatchAddScreenViewModel>()!;
-
-    // ReSharper disable once InconsistentNaming
-    public static PersonnelScreenViewModel VM_PersonnelScreen =>
-        Locator.Current.GetService<PersonnelScreenViewModel>()!;
-
-    #endregion
 
     public override void Initialize()
     {
@@ -73,6 +43,10 @@ public partial class App : Application
         SplatRegistrations.Register<InitialSetupWizardViewModel>();
         SplatRegistrations.Register<ClientCardBatchAddScreenViewModel>();
         SplatRegistrations.Register<PersonnelScreenViewModel>();
+        SplatRegistrations.Register<BranchesScreenViewModel>();
+        SplatRegistrations.Register<PollutionLevelsScreenViewModel>();
+        SplatRegistrations.Register<PriceTypesScreenViewModel>();
+        SplatRegistrations.Register<ClientsScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

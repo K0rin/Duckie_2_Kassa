@@ -7,29 +7,37 @@
         <Menu>
             <!-- Database menu -->
 
-            <MenuItem Header="_Database">
-                <MenuItem Header="_Vehicles..." />
-                <MenuItem Header="_Clients..." />
-                <MenuItem Header="_Personnel..."
-                          Command="{Binding PersonnelCommand}" />
+            <MenuItem Header="Database">
+                <MenuItem Header="Clients..."
+                          Command="{Binding ClientListCommand}" />
+                <MenuItem Header="Personnel..."
+                          Command="{Binding PersonnelListCommand}" />
                 <Separator />
-                <MenuItem Header="_Exit"
+                <MenuItem Header="Branches..."
+                          Command="{Binding BranchesListCommand}" />
+                <MenuItem Header="Price Types..."
+                          Command="{Binding PriceTypesListCommand}" />
+                <MenuItem Header="Pollution Levels..."
+                          Command="{Binding PollutionLevelsListCommand}" />
+                <Separator />
+                <MenuItem Header="Exit"
                           Command="{Binding ExitMenuCommand}" />
             </MenuItem>
 
             <!-- Reports menu -->
 
-            <MenuItem Header="_Reports">
-                <MenuItem Header="_Washes by period..." />
-                <MenuItem Header="_Salary..." />
+            <MenuItem Header="Reports">
+                <MenuItem Header="Washes by period..." />
+                <MenuItem Header="Salary..." />
             </MenuItem>
 
             <!-- Tools menu -->
 
-            <MenuItem Header="_Tools">
-                <MenuItem Header="_Batch Service Adding..."
-                          Command="{Binding BatchServiceAddingCommand}" />
-                <MenuItem Header="_Settings..." />
+            <MenuItem Header="Tools">
+                <MenuItem Header="Search..." />
+                <!-- <MenuItem Header="_Batch Service Adding..." -->
+                <!-- Command="{Binding BatchServiceAddingCommand}" /> -->
+                <MenuItem Header="Settings..." />
             </MenuItem>
 
             <!-- View menu -->
@@ -37,13 +45,13 @@
             <MenuItem Header="View">
                 <MenuItem Header=":: tab list ::" />
                 <Separator />
-                <MenuItem Header="_Close All" />
+                <MenuItem Header="Close All" />
             </MenuItem>
 
             <!-- Help menu -->
 
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About..." />
+            <MenuItem Header="Help">
+                <MenuItem Header="About..." />
             </MenuItem>
         </Menu>
     </Panel>

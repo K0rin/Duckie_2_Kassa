@@ -50,47 +50,47 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
 
     private void UpdateUserExecute()
     {
-        try
-        {
-            // var communication = new CommunicationMeanRecord
-            // {
-            //     Id = Guid.Parse("83777285-10FF-4549-8761-C3C0911E8963"),
-            //     ClientId = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
-            //
-            //     // todo: Validation of an email and a phone.
-            //
-            //     Phone = "<phone 6 updated>"
-            // };
-            var salaryRate = new RateRecord
-            {
-                // todo: Take the value from the settings.
-                // todo: error: the settings file not found.
-
-                // todo: Get latest salary rate.
-
-                Id = Guid.Parse("C25BABDB-29F3-46F1-BB07-C298A976B54B"),
-                Value = 66
-            };
-
-
-            var updateUser = new UserRecord
-            {
-                Id = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B")
-                // FirstName = "<firstname6>updated"
-                // Communication = [communication]
-            };
-
-            var updateResult = new Users().Update(updateUser);
-
-            if (!updateResult.Equals(DataModelOperationResult.RecordNotFound)) return;
-
-            ShowDataConsistencyError();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        // try
+        // {
+        //     // var communication = new CommunicationMeanRecord
+        //     // {
+        //     //     Id = Guid.Parse("83777285-10FF-4549-8761-C3C0911E8963"),
+        //     //     ClientId = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B"),
+        //     //
+        //     //     // todo: Validation of an email and a phone.
+        //     //
+        //     //     Phone = "<phone 6 updated>"
+        //     // };
+        //     var salaryRate = new RateRecord
+        //     {
+        //         // todo: Take the value from the settings.
+        //         // todo: error: the settings file not found.
+        //
+        //         // todo: Get latest salary rate.
+        //
+        //         Id = Guid.Parse("C25BABDB-29F3-46F1-BB07-C298A976B54B"),
+        //         Value = 66
+        //     };
+        //
+        //
+        //     var updateUser = new UserRecord
+        //     {
+        //         Id = Guid.Parse("304DF7DB-07A1-4DA2-BC11-92CA3A8CB49B")
+        //         // FirstName = "<firstname6>updated"
+        //         // Communication = [communication]
+        //     };
+        //
+        //     var updateResult = new Users().Update<UserRecord>(updateUser);
+        //
+        //     if (!updateResult.Equals(DataModelOperationResult.RecordNotFound)) return;
+        //
+        //     ShowDataConsistencyError();
+        // }
+        // catch (Exception e)
+        // {
+        //     Console.WriteLine(e);
+        //     throw;
+        // }
     }
 
     private void DeleteUserExecute()
@@ -99,13 +99,13 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
         {
             // todo: Get selected rows from the table.
 
-            var usersToRemove = new List<UserRecord>
-            {
-                new() { Id = Guid.Parse("62A24E41-922C-47E8-8C85-9E4D022BA932") },
-                new() { Id = Guid.Parse("5C16F9D4-C22A-41B9-9735-DC4C248C5826") }
-            };
+            var user1 = new UserRecordBuilder();
+            var user2 = new UserRecordBuilder();
+            user1.AddId(Guid.Parse("62A24E41-922C-47E8-8C85-9E4D022BA932"));
+            user2.AddId(Guid.Parse("5C16F9D4-C22A-41B9-9735-DC4C248C5826"));
 
-            var deleteResult = new Users().Delete(usersToRemove);
+            var usersToRemove = new List<RecordBuilderBase<UserRecord>> { user1, user2 };
+            var deleteResult = new Users().DeleteMany(usersToRemove);
 
             if (!deleteResult.Equals(DataModelOperationResult.RecordNotFound)) return;
 
@@ -156,7 +156,7 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
 
             // var result = new Users().Create(newUserRecordBuilder.Build());
             var result = new Users().Create(newUserRecordBuilder);
-            if (!result.Equals(DataModelOperationResult.RecordNotFound)) return;
+            if (!result.Equals(DataModelOperationResult.RecordNotFound)) continue;
             ShowDataConsistencyError();
         }
     }

@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:clientsScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientsScreenView"
+             x:DataType="clientsScreen:ClientsScreenViewModel">
+    <dialogHostAvalonia:DialogHost Identifier="{Binding DialogIdentifier, Mode=OneWay}"
+                                   DialogMargin="0"
+                                   dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
+                                   OverlayBackground="Black"
+                                   Background="Chocolate">
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button Content="ADD BRANCH"
+                    Command="{Binding AddClientCommand}" />
+
+        </StackPanel>
+    </dialogHostAvalonia:DialogHost>
+</UserControl>
