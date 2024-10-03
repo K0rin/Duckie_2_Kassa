@@ -22,6 +22,9 @@ public class Users : CrudOperationsBase
         // Branch
         // todo: error: record not found.
         // todo: async tasks: Branch getting
+
+        // todo: refact: обработать список, как в Clients.
+
         var existingBranches = builtUser!.Branch!.Select(
             branchRecord => db.Branches.First(
                 branch => branch.Id.Equals(branchRecord.Id))
@@ -37,6 +40,8 @@ public class Users : CrudOperationsBase
 
         // todo: error: email already exists.
         // todo: error: phone already exists.
+
+        // todo: refact: обработать список, как в Clients.
 
         var newCommunicationMeans = builtUser.Communication!.Select(
             communicationMeanRecord => new CommunicationMean

@@ -15,6 +15,7 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
 
     public void AddCommunication(CommunicationMeanBuilder value)
     {
+        // todo: метод принимает список строителей.
         value.AddClienId(GetProduct().Id);
         GetProduct().Communication = [value.Build()];
     }

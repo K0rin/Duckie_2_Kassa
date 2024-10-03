@@ -19,6 +19,7 @@ public abstract class CrudOperationsBase
     // ReSharper disable once UnusedMemberInSuper.Global
     public virtual object Read<TDataModel>(RecordReadFlags readFlags)
     {
+        // todo: Постраничное чтение записей из базы.
         throw new System.NotSupportedException();
     }
 

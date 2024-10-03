@@ -52,7 +52,7 @@ public class Client
     /// <summary>
     /// The number of bonuses earned by the client and their validity date.
     /// </summary>
-    public required ClientBonus Bonus { get; set; }
+    public ClientBonus? Bonus { get; set; }
 
     /// <summary>
     /// A list of vehicles registered to the client.

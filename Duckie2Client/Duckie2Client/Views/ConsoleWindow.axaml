@@ -20,12 +20,10 @@
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"
                                    Background="Chocolate">
-        <Panel>
-            <TransitioningContentControl Content="{Binding CurrentPage}">
-                <TransitioningContentControl.PageTransition>
-                    <CrossFade Duration="0:00:00.100" />
-                </TransitioningContentControl.PageTransition>
-            </TransitioningContentControl>
-        </Panel>
+        <TransitioningContentControl Content="{Binding CurrentPage}">
+            <TransitioningContentControl.PageTransition>
+                <CrossFade Duration="0:00:00.100" />
+            </TransitioningContentControl.PageTransition>
+        </TransitioningContentControl>
     </dialogHostAvalonia:DialogHost>
 </Window>

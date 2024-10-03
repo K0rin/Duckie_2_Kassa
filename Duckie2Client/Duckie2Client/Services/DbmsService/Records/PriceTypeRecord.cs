@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace Duckie2Client.Services.DbmsService.Records;
 
-namespace Duckie2Client.Services.DbmsService.Records;
-
-public class PriceType : RecordBase
+public class PriceTypeRecord : RecordBase
 {
     public string Name { get; set; }
-    public Guid Id { get; set; }
 }

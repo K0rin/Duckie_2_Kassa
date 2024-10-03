@@ -15,9 +15,8 @@
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <Button Content="ADD BRANCH"
+            <Button Content="ADD CLIENT"
                     Command="{Binding AddClientCommand}" />
-
         </StackPanel>
     </dialogHostAvalonia:DialogHost>
 </UserControl>

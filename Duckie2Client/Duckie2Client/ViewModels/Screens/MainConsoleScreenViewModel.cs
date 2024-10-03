@@ -62,7 +62,7 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
     private void ClientListCommandExecute()
     {
         AddTabItem(
-            "Pollution Levels List",
+            "Client List",
             new ClientsScreenView(),
             new ClientsScreenDataLoadingState(),
             "Для загрузки списка клиентов нажмите кнопку 'Обновить'.",

@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
+using Duckie2Client.Models.Database;
+using Duckie2Client.Services.DbmsService.Records;
+using Duckie2Client.Services.DbmsService.Records.Builders;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -20,92 +24,73 @@ public class Clients : CrudOperationsBase
 
         return (List<TDataModel>)result;
     }
-    // public static void Add()
-    // {
-    //     var db = new DbmsService();
-    //
-    //     var client1Id = Guid.NewGuid();
-    //     var client2Id = Guid.NewGuid();
-    //
-    //     // clients
-    //     var client1 = new Client
-    //     {
-    //         Id = client1Id,
-    //         FirstName = "First1",
-    //         LastName = "Last1",
-    //         Notes = "Notes1",
-    //         Bonus = new ClientBonus
-    //         {
-    //             ClientId = client1Id,
-    //             EndDateTime = DateTime.UtcNow,
-    //             Summa = 1
-    //         }
-    //     };
-    //     var client2 = new Client
-    //     {
-    //         Id = client2Id,
-    //         FirstName = "First2",
-    //         LastName = "Last2",
-    //         Notes = "Notes2",
-    //         Bonus = new ClientBonus
-    //         {
-    //             ClientId = client2Id,
-    //             EndDateTime = DateTime.UtcNow,
-    //             Summa = 2
-    //         }
-    //     };
-    //
-    //     // contact information
-    //     var client1Contacts1 = new CommunicationMean
-    //     {
-    //         Email = "email1",
-    //         Phone = "phone1"
-    //         // Client = client1
-    //     };
-    //     var client1Contacts2 = new CommunicationMean
-    //     {
-    //         Phone = "phone11"
-    //         // Client = client1
-    //     };
-    //     var client2Contacts1 = new CommunicationMean
-    //     {
-    //         Phone = "phone2"
-    //         // Client = client2
-    //     };
-    //
-    //     // price types
-    //     var priceTypeA = db.PriceTypes.Find(new Guid("4F94CF26-FC9A-4026-878D-929381B58FE8")); // cat a
-    //
-    //     // vehicles
-    //     var client1Vehicle = new Vehicle
-    //     {
-    //         Id = Guid.NewGuid(),
-    //         Licence = "CLIENT1",
-    //         PriceType = priceTypeA
-    //     };
-    //     var client2Vehicle = new Vehicle
-    //     {
-    //         Id = Guid.NewGuid(),
-    //         Licence = "CLIENT2",
-    //         PriceType = priceTypeA
-    //     };
-    //
-    //     client1.Vehicles?.Add(client1Vehicle);
-    //     client2.Vehicles?.Add(client2Vehicle);
-    //
-    //     client1.CommunicationMeans?.AddRange(new List<CommunicationMean> { client1Contacts1, client1Contacts2 });
-    //     client2.CommunicationMeans?.AddRange(new List<CommunicationMean> { client2Contacts1 });
-    //
-    //     db.Clients.AddRange(client1, client2);
-    //
-    //     db.SaveChanges();
 
-    // Получение данных со связями.
-    // var companies = db.Clients
-    //     .Include(c => c.CommunicationMeans)
-    //     .Include(b => b.Bonus).ToList();
+    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
+    {
+        using var db = new DbmsService();
 
-    // {
-    // }
-    // }
+        var builtClient = builder.Build() as ClientRecord;
+
+        // communication mean
+
+        var newClientCommunicationMeans = new List<CommunicationMean>();
+
+        foreach (var communicationMean in builtClient?.CommunicationMeans!)
+        {
+            var newCommunicationMean = new CommunicationMean();
+            var communicationMeanRecord = communicationMean;
+            PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
+                ref communicationMeanRecord,
+                ref newCommunicationMean);
+            newClientCommunicationMeans.Add(newCommunicationMean);
+        }
+
+
+        // bonus
+
+        var bonusRecord = builtClient.Bonus;
+        var newClientBonus = new ClientBonus();
+        PropertySetter.SetProperties<ClientBonusRecord, ClientBonus>(ref bonusRecord!, ref newClientBonus);
+
+        // vehicle
+
+
+        var newClientVehicles = new List<Vehicle>();
+
+        foreach (var vehicle in builtClient.Vehicles)
+        {
+            // todo: not found error
+            var existingPriceType = db.PriceTypes.First(pt => pt.Id.Equals(vehicle.PriceType.Id));
+
+            var newVehicle = new Vehicle
+            {
+                Licence = null!,
+                PriceType = existingPriceType
+            };
+            var vehicleRecord = vehicle;
+
+            PropertySetter.SetProperties<VehicleRecord, Vehicle>(ref vehicleRecord, ref newVehicle);
+            newClientVehicles.Add(newVehicle);
+        }
+
+
+        var newClient = new Client
+        {
+            // FirstName = builtClient?.FirstName,
+            // LastName = builtClient?.LastName,
+            // Notes = builtClient?.Notes,
+            // FirstRegistration = builtClient!.FirstRegistration,
+
+            // CommunicationMeans = newClientCommunicationMean,
+            CommunicationMeans = newClientCommunicationMeans,
+            Bonus = newClientBonus,
+            Vehicles = newClientVehicles
+        };
+        PropertySetter.SetProperties<ClientRecord, Client>(ref builtClient, ref newClient);
+
+        db.Clients.Add(newClient);
+        db.SaveChanges();
+
+        return DataModelOperationResult.Successful;
+    }
 }

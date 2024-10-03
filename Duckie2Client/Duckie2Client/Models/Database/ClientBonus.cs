@@ -31,7 +31,7 @@ public class ClientBonus
     public decimal Summa { get; set; }
 
     /// <summary>
-    /// Term (date and time) until which the client can use the amount of accumulated bonuses. When the deadline
+    /// Term (date and time) until which the client can use the number of accumulated bonuses. When the deadline
     /// is reached, the amount is reset.
     /// </summary>
     [Required]
