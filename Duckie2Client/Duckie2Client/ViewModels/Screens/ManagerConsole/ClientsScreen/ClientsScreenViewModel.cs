@@ -38,10 +38,10 @@ public class ClientsScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
         communicationMeanBuilder.AddPhone(fc.Phone!);
         newClientBuilder.AddCommunicationMean([communicationMeanBuilder]);
 
-        var clientBonusRecordBuilder = new ClientBonusRecordBuilder();
-        clientBonusRecordBuilder.AddSumma(fc.Bonus.Summa);
-        clientBonusRecordBuilder.AddEndDateTime(fc.Bonus.BonusEndDateTime);
-        newClientBuilder.AddBonus(clientBonusRecordBuilder);
+        // var clientBonusRecordBuilder = new ClientBonusRecordBuilder();
+        // clientBonusRecordBuilder.AddSumma(fc.Bonus.Summa);
+        // clientBonusRecordBuilder.AddEndDateTime(fc.Bonus.BonusEndDateTime);
+        // newClientBuilder.AddBonus(clientBonusRecordBuilder);
 
         var vehiclePriceTypeBuilder = new PriceTypeRecordBuilder();
         vehiclePriceTypeBuilder.AddId(fakePriceTypeId);
