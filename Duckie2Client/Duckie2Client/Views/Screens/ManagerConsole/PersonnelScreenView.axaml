@@ -4,7 +4,7 @@
              xmlns:personnelScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.PersonnelScreenView"
              x:DataType="personnelScreen:PersonnelScreenViewModel">
-    <dialogHostAvalonia:DialogHost Identifier="PersonnelScreenDialogs"
+    <dialogHostAvalonia:DialogHost Identifier="{Binding DialogIdentifier, Mode=OneWay}"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"

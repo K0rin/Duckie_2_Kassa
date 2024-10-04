@@ -26,6 +26,7 @@ using Duckie2Client.ViewModels.Screens;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
@@ -54,5 +55,6 @@ public class ViewLocator : StrongViewLocator
         Register<PollutionLevelsScreenViewModel, PollutionLevelsScreenView>();
         Register<PriceTypesScreenViewModel, PriceTypesScreenView>();
         Register<ClientsScreenViewModel, ClientsScreenView>();
+        Register<CompaniesScreenViewModel, CompaniesScreenView>();
     }
 }

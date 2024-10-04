@@ -20,6 +20,8 @@ using ClientCardBatchAddScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen.DataLoadingState;
 using ClientsScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen.DataLoadingState;
+using CompaniesScreenDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen.DataLoadingState;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -30,22 +32,29 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 {
     #region Commands
 
-    public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; }
-    public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
-    public ReactiveCommand<Unit, Unit> PersonnelListCommand { get; }
-    public ReactiveCommand<Unit, Unit> BranchesListCommand { get; }
+    public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> PersonnelListCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> BranchesListCommand { get; set; }
 
-    public ReactiveCommand<Unit, Unit> PriceTypesListCommand { get; }
-    public ReactiveCommand<Unit, Unit> PollutionLevelsListCommand { get; }
-    public ReactiveCommand<object, Unit> TabCloseCommand { get; }
+    public ReactiveCommand<Unit, Unit> PriceTypesListCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> PollutionLevelsListCommand { get; set; }
+    public ReactiveCommand<object, Unit> TabCloseCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> ClientListCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> CompaniesListCommand { get; set; }
 
     #endregion
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
     [Reactive] public bool IsDashboardVisible { get; set; }
-    public ReactiveCommand<Unit, Unit> ClientListCommand { get; }
 
     public MainConsoleScreenViewModel()
+    {
+        InitializeCommands();
+        IsDashboardVisible = true;
+    }
+
+    private void InitializeCommands()
     {
         BatchServiceAddingCommand = ReactiveCommand.Create(BatchServiceAdditionCommandExecute);
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
@@ -55,8 +64,18 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         PriceTypesListCommand = ReactiveCommand.Create(PriceTypesListCommandExecute);
         PollutionLevelsListCommand = ReactiveCommand.Create(PollutionLevelsListCommandExecute);
         ClientListCommand = ReactiveCommand.Create(ClientListCommandExecute);
+        CompaniesListCommand = ReactiveCommand.Create(CompaniesListCommandExecute);
+    }
 
-        IsDashboardVisible = true;
+    private void CompaniesListCommandExecute()
+    {
+        AddTabItem(
+            "Company List",
+            new CompaniesScreenView(),
+            new CompaniesScreenDataLoadingState(),
+            "Для загрузки списка фирм нажмите кнопку 'Обновить'.",
+            "Загружается список фирм..."
+        );
     }
 
     private void ClientListCommandExecute()

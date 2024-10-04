@@ -18,13 +18,13 @@ namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 
 public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {
-    // todo: refact: перенести константу в интерфейс ITabViewModel.
-    private const string DIALOG_IDENTIFIER = "PersonnelScreenDialogs";
+    public static string DialogIdentifier => "PersonnelScreenDialogs";
     public List<string>? DataPayload { get; set; }
 
     public ReactiveCommand<Unit, Unit> AddUserCommand { get; }
     public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
     public ReactiveCommand<Unit, Unit> UpdateCommand { get; }
+
 
     // todo: DRY
     private ErrorDialog? _errorDialog;

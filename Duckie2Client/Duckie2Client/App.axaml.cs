@@ -15,6 +15,7 @@ using Duckie2Client.ViewModels.Screens;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
@@ -32,7 +33,11 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        RegisterViewModels();
+    }
 
+    private void RegisterViewModels()
+    {
         // todo: refact: Автоматическая регистрация по имени класса. Или указать директории, где находятся файлы моделей.
         // Register DI for view models.
         SplatRegistrations.Register<MainConsoleScreenViewModel>();
@@ -47,6 +52,7 @@ public partial class App : Application
         SplatRegistrations.Register<PollutionLevelsScreenViewModel>();
         SplatRegistrations.Register<PriceTypesScreenViewModel>();
         SplatRegistrations.Register<ClientsScreenViewModel>();
+        SplatRegistrations.Register<CompaniesScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

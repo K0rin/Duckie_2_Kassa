@@ -4,6 +4,7 @@ using Duckie2Client.ViewModels.Screens;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
@@ -61,6 +62,10 @@ public partial class App
     // ReSharper disable once InconsistentNaming
     public static ClientsScreenViewModel VM_ClientsScreen =>
         Locator.Current.GetService<ClientsScreenViewModel>()!;
+
+    // ReSharper disable once InconsistentNaming
+    public static CompaniesScreenViewModel VM_CompaniesScreen =>
+        Locator.Current.GetService<CompaniesScreenViewModel>()!;
 
     #endregion
 }

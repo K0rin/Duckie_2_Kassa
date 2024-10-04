@@ -58,6 +58,7 @@ public class Clients : CrudOperationsBase
         }
 
         // vehicle
+        // todo: refact: функция добавления транспорта
 
         var newClientVehicles = new List<Vehicle>();
 

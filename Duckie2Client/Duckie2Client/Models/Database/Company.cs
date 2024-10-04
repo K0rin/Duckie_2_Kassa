@@ -43,11 +43,11 @@ public class Company
     /// Indicator: whether the customer company marked as "deleted" (false) or not (true).
     /// </summary>
     [Required]
-    public required bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 
     /// <summary>
     /// The list of vehicles belonging to the customer company.
     /// </summary>
     [Required]
-    public required List<Vehicle> Vehicles { get; set; }
+    public List<Vehicle>? Vehicles { get; set; }
 }
