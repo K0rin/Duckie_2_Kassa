@@ -17,9 +17,6 @@
                     HorizontalAlignment="Center">
             <Button Content="ADD PRICE TYPE"
                     Command="{Binding AddPriceTypeCommand}" />
-
-            <Button Content="DELETE BRANCH" />
-            <Button Content="UPDATE BRANCH" />
         </StackPanel>
     </dialogHostAvalonia:DialogHost>
 </UserControl>
