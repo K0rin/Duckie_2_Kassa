@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive;
+using Duckie2Client.Enums.Flags;
+using Duckie2Client.Services.DbmsService;
+using Duckie2Client.Services.DbmsService.Records.Builders;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 
@@ -19,7 +23,30 @@ public class PollutionLevelsScreenViewModel : ViewModelBase, ITabViewModel<List<
 
     private void AddPollutionLevelCommandExecute()
     {
-        throw new System.NotImplementedException();
+        var newPollutionLevel = new PollutionRecordBuilder();
+        newPollutionLevel.AddName("Слабое");
+
+        var rateRecordBuilder = new RateBuilder();
+        var todayDateOnly = DateOnly.FromDateTime(DateTime.Today);
+        rateRecordBuilder.AddRateValue(1);
+        rateRecordBuilder.AddStartDate(todayDateOnly);
+        rateRecordBuilder.AddEndDate(todayDateOnly.AddDays(1));
+        newPollutionLevel.AddRate([rateRecordBuilder]);
+
+        var result = new PollutionLevels().Create(newPollutionLevel);
+        if (result.Equals(DataModelOperationResult.RecordNotFound)) ShowDataConsistencyError();
+    }
+
+    private void ShowDataConsistencyError()
+    {
+        // todo: show this message in a dialog.
+
+        const string MSG =
+            "DUCKIE_EXCEPTION: Нарушение целостности записей в базе данных.\n" +
+            "Запрашиваемая запись не найдена в базе, но предполагается, что она должна существовать .\n" +
+            "Необходима проверка базы данных.\n" +
+            "Дальнейшая работа с программой может увеличит несогласованность данных.";
+        throw new Exception(MSG);
     }
 
     // todo: refact: Часть интерфейса. Можно не реализовывать, если не надо.

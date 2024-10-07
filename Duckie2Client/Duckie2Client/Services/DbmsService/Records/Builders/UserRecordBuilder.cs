@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Duckie2Client.Services.DbmsService.Records.Builders;
 
@@ -20,9 +21,12 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
         GetProduct().Communication = [value.Build()];
     }
 
-    public void AddSalaryRate(SalaryRateBuilder value)
+    public void AddSalaryRate(List<RateBuilder> value)
     {
-        GetProduct().SalaryRate = value.Build();
+        GetProduct().SalaryRates = [];
+        foreach (var rate in value) GetProduct().SalaryRates?.Add(rate.Build());
+
+        // GetProduct().SalaryRates = value.Build();
     }
 
     public void AddIsStaff(bool value)

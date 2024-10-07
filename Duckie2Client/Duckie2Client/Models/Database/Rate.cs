@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Duckie2Client.Models.Database;
@@ -48,5 +49,6 @@ public class Rate
     [Required]
     public DateOnly EndDate { get; set; }
 
-    public Guid UserId { get; set; }
+    public List<User>? Users { get; set; } = [];
+    public List<PollutionLevel>? PollutionLevels { get; set; } = [];
 }

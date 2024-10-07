@@ -57,7 +57,7 @@ public class User
     /// <summary>
     /// A list of ways to communicate with an Operator.
     /// </summary>
-    public ICollection<CommunicationMean> Communication { get; set; }
+    public List<CommunicationMean> Communication { get; set; } = [];
 
     /// <summary>
     /// User role indicator: true - Manager, false - Operator. 
@@ -73,7 +73,7 @@ public class User
     /// <summary>
     /// Operator wage rate. 
     /// </summary>
-    public ICollection<Rate>? SalaryRate { get; set; }
+    public List<Rate>? SalaryRates { get; set; } = [];
 
     /// <summary>
     /// <para>
@@ -84,7 +84,7 @@ public class User
     /// </para>
     /// </summary>
     [Required]
-    public ICollection<Branch> Branches { get; set; }
+    public List<Branch> Branches { get; set; } = [];
 
     /// <summary>
     /// Indicates whether the user has active position (true) or removed from the system and not working in the company

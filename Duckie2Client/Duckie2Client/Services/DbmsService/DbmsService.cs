@@ -78,8 +78,8 @@ public class DbmsService : BaseDbmsService
 
     #region Legasy Tables
 
-    public DbSet<LegacyVehicle> LegacyVehicles { get; set; } = null!;
-    public DbSet<LegacyCompany> LegacyCompanies { get; set; } = null!;
+    // public DbSet<LegacyVehicle> LegacyVehicles { get; set; } = null!;
+    // public DbSet<LegacyCompany> LegacyCompanies { get; set; } = null!;
 
     #endregion
 }

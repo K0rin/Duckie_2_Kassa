@@ -139,11 +139,11 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
             communicationMeanBuilder.AddPhone($"<phone{i}>");
             newUserRecordBuilder.AddCommunication(communicationMeanBuilder);
 
-            var salaryRateRecordBuilder = new SalaryRateBuilder();
+            var salaryRateRecordBuilder = new RateBuilder();
             salaryRateRecordBuilder.AddRateValue(i);
             salaryRateRecordBuilder.AddStartDate(todayDateOnly);
             salaryRateRecordBuilder.AddEndDate(todayDateOnly.AddDays(1));
-            newUserRecordBuilder.AddSalaryRate(salaryRateRecordBuilder);
+            newUserRecordBuilder.AddSalaryRate([salaryRateRecordBuilder]);
 
             // False by default due to the Operator user role.
             newUserRecordBuilder.AddIsStaff(false);

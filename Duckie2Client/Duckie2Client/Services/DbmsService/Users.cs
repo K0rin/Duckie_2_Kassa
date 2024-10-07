@@ -32,9 +32,19 @@ public class Users : CrudOperationsBase
 
         // Salary Rate
 
-        var r = builtUser.SalaryRate;
-        var newSalaryRate = new Rate();
-        PropertySetter.SetProperties<RateRecord, Rate>(ref r, ref newSalaryRate);
+        // var r = builtUser.SalaryRate;
+        // var newSalaryRate = new Rate();
+        // PropertySetter.SetProperties<RateRecord, Rate>(ref r, ref newSalaryRate);
+
+        var newSalaryRate = builtUser.SalaryRates!.Select(
+            r => new Rate
+            {
+                Id = r.Id,
+                EndDate = r.EndDate,
+                StartDate = r.StartDate,
+                Value = r.Value
+            }
+        ).ToList();
 
         // Communication Means
 
@@ -59,7 +69,7 @@ public class Users : CrudOperationsBase
             FirstName = "",
             LastName = "",
             Branches = existingBranches,
-            SalaryRate = [newSalaryRate],
+            SalaryRates = newSalaryRate,
             Communication = newCommunicationMeans
         };
 
@@ -106,7 +116,7 @@ public class Users : CrudOperationsBase
                 {
                     User = user,
                     // The list of wage rates is filtered so that the most recent rate is included in the sample.
-                    LatestSalaryRate = user.SalaryRate!.OrderByDescending(sr => sr.EndDate).First()
+                    LatestSalaryRate = user.SalaryRates!.OrderByDescending(sr => sr.EndDate).First()
                 });
 
             if (!isReadAllRecords)
@@ -115,7 +125,7 @@ public class Users : CrudOperationsBase
             result = query.ToList()
                 .Select(user =>
                 {
-                    user.User.SalaryRate = new List<Rate> { user.LatestSalaryRate };
+                    user.User.SalaryRates = new List<Rate> { user.LatestSalaryRate };
                     return user.User;
                 })
                 .ToList();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,5 +25,8 @@ public class PollutionLevel
     [StringLength(25)]
     public required string Name { get; set; }
 
-    // todo: добавить коэффициент для цены. rate
+    /// <summary>
+    /// A percentage added to the price for the level of pollution. 
+    /// </summary>
+    public required List<Rate>? Rates { get; set; } = [];
 }

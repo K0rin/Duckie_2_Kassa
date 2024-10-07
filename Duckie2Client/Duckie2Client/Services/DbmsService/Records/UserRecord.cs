@@ -13,6 +13,6 @@ public class UserRecord : RecordBase
     public List<CommunicationMeanRecord>? Communication { get; set; }
     public bool? IsStaff { get; set; }
     public DateOnly? RegistrationDate { get; set; }
-    public RateRecord? SalaryRate { get; set; }
+    public List<RateRecord>? SalaryRates { get; set; }
     public List<BranchRecord>? Branch { get; set; }
 }

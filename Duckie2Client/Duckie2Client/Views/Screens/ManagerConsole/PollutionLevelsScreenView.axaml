@@ -17,9 +17,6 @@
                     HorizontalAlignment="Center">
             <Button Content="ADD POLLUTION LEVEL"
                     Command="{Binding AddPollutionLevelCommand}" />
-
-            <Button Content="DELETE BRANCH" />
-            <Button Content="UPDATE BRANCH" />
         </StackPanel>
     </dialogHostAvalonia:DialogHost>
 </UserControl>
