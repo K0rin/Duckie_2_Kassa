@@ -25,8 +25,6 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
     {
         GetProduct().SalaryRates = [];
         foreach (var rate in value) GetProduct().SalaryRates?.Add(rate.Build());
-
-        // GetProduct().SalaryRates = value.Build();
     }
 
     public void AddIsStaff(bool value)
