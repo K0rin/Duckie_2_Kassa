@@ -18,7 +18,7 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
     {
         // todo: метод принимает список строителей.
         value.AddClienId(GetProduct().Id);
-        GetProduct().Communication = [value.Build()];
+        GetProduct().CommunicationMeans = [value.Build()];
     }
 
     public void AddSalaryRate(List<RateBuilder> value)

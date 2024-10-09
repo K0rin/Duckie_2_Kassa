@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
@@ -31,9 +30,31 @@ public class Clients : CrudOperationsBase
         using var db = new DbmsService();
 
         var builtClient = builder.Build() as ClientRecord;
+        var newClientCommunicationMeans = CreateCommunicationMeanList(builtClient);
+        var newClientBonus = CreateClientBonus(builtClient);
 
-        // communication mean
+        List<Vehicle> newClientVehicles;
+        try
+        {
+            newClientVehicles = CreateVehicleList(builtClient, db);
+        }
+        catch (Exception e) when (e is ArgumentNullException or InvalidOperationException)
+        {
+            return DataModelOperationResult.RecordNotFound;
+        }
 
+        var newClient = CreateClient(builtClient, newClientCommunicationMeans, newClientVehicles, newClientBonus);
+
+        db.Clients.Add(newClient);
+        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
+        db.SaveChanges();
+
+        return DataModelOperationResult.Successful;
+    }
+
+
+    private static List<CommunicationMean> CreateCommunicationMeanList(ClientRecord? builtClient)
+    {
         var newClientCommunicationMeans = new List<CommunicationMean>();
 
         foreach (var communicationMean in builtClient?.CommunicationMeans!)
@@ -46,35 +67,31 @@ public class Clients : CrudOperationsBase
             newClientCommunicationMeans.Add(newCommunicationMean);
         }
 
-        // bonus
+        return newClientCommunicationMeans;
+    }
 
+    private static ClientBonus? CreateClientBonus(ClientRecord? builtClient)
+    {
+        if (builtClient?.Bonus != null) return null;
+
+        var bonusRecord = builtClient?.Bonus;
         var newClientBonus = new ClientBonus();
-        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (builtClient.Bonus != null)
-        {
-            var bonusRecord = builtClient.Bonus;
-            newClientBonus = new ClientBonus();
-            PropertySetter.SetProperties<ClientBonusRecord, ClientBonus>(ref bonusRecord, ref newClientBonus);
-        }
 
-        // vehicle
-        // todo: refact: функция добавления транспорта
+        PropertySetter.SetProperties<ClientBonusRecord, ClientBonus>(ref bonusRecord!, ref newClientBonus);
 
+        return newClientBonus;
+    }
+
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+#pragma warning disable CA1822
+    private List<Vehicle> CreateVehicleList(ClientRecord? builtClient, DbmsService db)
+#pragma warning restore CA1822
+    {
         var newClientVehicles = new List<Vehicle>();
 
-        foreach (var vehicle in builtClient.Vehicles)
+        foreach (var vehicle in builtClient?.Vehicles!)
         {
-            PriceType existingPriceType;
-
-            try
-            {
-                existingPriceType = db.PriceTypes.First(pt => pt.Id.Equals(vehicle.PriceType.Id));
-            }
-            catch (Exception e) when (e is ArgumentNullException or InvalidOperationException)
-            {
-                return DataModelOperationResult.RecordNotFound;
-            }
-
+            var existingPriceType = db.PriceTypes.First(pt => pt.Id.Equals(vehicle.PriceType.Id));
             var newVehicle = new Vehicle
             {
                 Licence = null!,
@@ -86,18 +103,22 @@ public class Clients : CrudOperationsBase
             newClientVehicles.Add(newVehicle);
         }
 
+        return newClientVehicles;
+    }
+
+    private static Client CreateClient(
+        ClientRecord? builtClient,
+        List<CommunicationMean> newClientCommunicationMeans,
+        List<Vehicle> newClientVehicles,
+        ClientBonus? newClientBonus)
+    {
         var newClient = new Client
         {
             CommunicationMeans = newClientCommunicationMeans,
             Vehicles = newClientVehicles
         };
-        if (builtClient.Bonus != null) newClient.Bonus = newClientBonus;
-        PropertySetter.SetProperties<ClientRecord, Client>(ref builtClient, ref newClient);
-
-        db.Clients.Add(newClient);
-        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        if (builtClient?.Bonus != null) newClient.Bonus = newClientBonus;
+        PropertySetter.SetProperties<ClientRecord, Client>(ref builtClient!, ref newClient);
+        return newClient;
     }
 }

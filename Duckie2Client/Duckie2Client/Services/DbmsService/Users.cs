@@ -17,63 +17,12 @@ public class Users : CrudOperationsBase
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
         using var db = new DbmsService();
+
         var builtUser = builder.Build() as UserRecord;
-
-        // Branch
-        // todo: error: record not found.
-        // todo: async tasks: Branch getting
-
-        // todo: refact: обработать список, как в Clients.
-
-        var existingBranches = builtUser!.Branch!.Select(
-            branchRecord => db.Branches.First(
-                branch => branch.Id.Equals(branchRecord.Id))
-        ).ToList();
-
-        // Salary Rate
-
-        // var r = builtUser.SalaryRate;
-        // var newSalaryRate = new Rate();
-        // PropertySetter.SetProperties<RateRecord, Rate>(ref r, ref newSalaryRate);
-
-        var newSalaryRate = builtUser.SalaryRates!.Select(
-            r => new Rate
-            {
-                Id = r.Id,
-                EndDate = r.EndDate,
-                StartDate = r.StartDate,
-                Value = r.Value
-            }
-        ).ToList();
-
-        // Communication Means
-
-        // todo: error: email already exists.
-        // todo: error: phone already exists.
-
-        // todo: refact: обработать список, как в Clients.
-
-        var newCommunicationMeans = builtUser.Communication!.Select(
-            communicationMeanRecord => new CommunicationMean
-            {
-                Id = Guid.NewGuid(),
-                Email = communicationMeanRecord.Email,
-                Phone = communicationMeanRecord.Phone
-            }).ToList();
-
-        // User
-        var newUserRec = new User
-        {
-            Login = "",
-            Password = "",
-            FirstName = "",
-            LastName = "",
-            Branches = existingBranches,
-            SalaryRates = newSalaryRate,
-            Communication = newCommunicationMeans
-        };
-
-        PropertySetter.SetProperties<UserRecord, User>(ref builtUser, ref newUserRec);
+        var existingBranches = GetExistingBranchList(builtUser, db);
+        var newSalaryRate = CreateSalaryRateList(builtUser);
+        var newCommunicationMeans = CreateCommunicationMeanList(builtUser!);
+        var newUserRec = CreateUser(builtUser, existingBranches, newSalaryRate, newCommunicationMeans);
 
         db.Users.Add(newUserRec);
         db.SaveChanges();
@@ -222,5 +171,93 @@ public class Users : CrudOperationsBase
         // db.SaveChanges();
         //
         return DataModelOperationResult.Successful;
+    }
+
+    // todo: refact: generic
+    private static List<CommunicationMean> CreateCommunicationMeanList(UserRecord builtUser)
+    {
+        // todo: error: email already exists.
+        // todo: error: phone already exists.
+
+        //     var newCommunicationMeans = new List<CommunicationMean>();
+        //     // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        //     foreach (var communicationMeanRecord in builtUser.Communication!)
+        //     {
+        //         var newCommunicationMean = new CommunicationMean
+        //         {
+        //             Id = Guid.NewGuid(),
+        //             Email = communicationMeanRecord.Email,
+        //             Phone = communicationMeanRecord.Phone
+        //         };
+        //         newCommunicationMeans.Add(newCommunicationMean);
+        //     }
+        //
+        //     return newCommunicationMeans;
+        // }
+
+        var newCommunicationMeans = new List<CommunicationMean>();
+
+        foreach (var communicationMean in builtUser?.CommunicationMeans!)
+        {
+            var newCommunicationMean = new CommunicationMean();
+            var communicationMeanRecord = communicationMean;
+            PropertySetter.SetProperties<CommunicationMeanRecord, CommunicationMean>(
+                ref communicationMeanRecord,
+                ref newCommunicationMean);
+            newCommunicationMeans.Add(newCommunicationMean);
+        }
+
+        return newCommunicationMeans;
+    }
+
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+#pragma warning disable CA1822
+    private List<Branch> GetExistingBranchList(UserRecord? builtUser, DbmsService db)
+#pragma warning restore CA1822
+    {
+        // todo: error: record not found.
+        // todo: async tasks: Branch getting
+
+        var existingBranches = new List<Branch>();
+        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var branchRecord in builtUser!.Branch!)
+            existingBranches.Add(db.Branches.First(branch => branch.Id.Equals(branchRecord.Id)));
+        return existingBranches;
+    }
+
+    private static List<Rate> CreateSalaryRateList(UserRecord? builtUser)
+    {
+        var newSalaryRate = new List<Rate>();
+        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var r in builtUser?.SalaryRates!)
+            newSalaryRate.Add(new Rate
+            {
+                Id = r.Id,
+                EndDate = r.EndDate,
+                StartDate = r.StartDate,
+                Value = r.Value
+            });
+        return newSalaryRate;
+    }
+
+    private static User CreateUser(
+        UserRecord? builtUser,
+        List<Branch> existingBranches,
+        List<Rate> newSalaryRate,
+        List<CommunicationMean> newCommunicationMeans)
+    {
+        var newUserRec = new User
+        {
+            Login = "",
+            Password = "",
+            FirstName = "",
+            LastName = "",
+            Branches = existingBranches,
+            SalaryRates = newSalaryRate,
+            Communication = newCommunicationMeans
+        };
+
+        PropertySetter.SetProperties<UserRecord, User>(ref builtUser!, ref newUserRec);
+        return newUserRec;
     }
 }

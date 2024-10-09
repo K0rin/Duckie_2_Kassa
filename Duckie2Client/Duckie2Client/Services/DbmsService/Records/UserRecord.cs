@@ -10,7 +10,7 @@ public class UserRecord : RecordBase
     public string? Password { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public List<CommunicationMeanRecord>? Communication { get; set; }
+    public List<CommunicationMeanRecord>? CommunicationMeans { get; set; }
     public bool? IsStaff { get; set; }
     public DateOnly? RegistrationDate { get; set; }
     public List<RateRecord>? SalaryRates { get; set; }
