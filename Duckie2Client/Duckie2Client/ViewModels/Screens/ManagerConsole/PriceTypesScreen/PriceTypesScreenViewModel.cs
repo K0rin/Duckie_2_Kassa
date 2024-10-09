@@ -24,10 +24,15 @@ public class PriceTypesScreenViewModel : ViewModelBase, ITabViewModel<List<strin
     private void AddPriceTypeCommandExecute()
     {
         var newPriceTypeBuilder = new PriceTypeRecordBuilder();
-        newPriceTypeBuilder.AddName("Price A");
 
-        var result = new PriceTypes().Create(newPriceTypeBuilder);
-        if (result.Equals(DataModelOperationResult.RecordNotFound)) ShowDataConsistencyError();
+        for (var i = 3 - 1; i >= 0; i--)
+        {
+            newPriceTypeBuilder.AddName($"P{i + 1}");
+            var result = new PriceTypes().Create(newPriceTypeBuilder);
+            if (!result.Equals(DataModelOperationResult.RecordNotFound)) continue;
+            ShowDataConsistencyError();
+            return;
+        }
     }
 
     private void ShowDataConsistencyError()
@@ -41,6 +46,7 @@ public class PriceTypesScreenViewModel : ViewModelBase, ITabViewModel<List<strin
             "Дальнейшая работа с программой может увеличит несогласованность данных.";
         throw new Exception(MSG);
     }
+
     // todo: refact: Часть интерфейса. Можно не реализовывать, если не надо.
     public void OnScreenClose()
     {

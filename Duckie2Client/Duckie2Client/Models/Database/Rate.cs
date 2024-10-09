@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Duckie2Client.Models.Database;
 
@@ -26,16 +27,10 @@ public class Rate
     /// <para>
     /// Value of the rate.
     /// </para>
-    /// <para>
-    /// Valid values are numbers in the range of 1 to 99.
-    /// </para>
     /// </summary>
     [Required]
-    public int Value { get; set; }
-    // todo: Проверка числа на принадлежность к диапазону при установке значения.
-    // Выбрасывать исключение "Число вне диапазона допустимых значений".
-    // Исключение критическое, завершает работу приложения.
-    // todo: При получении данных, выдавать самую последнюю ставку. Чтобы не возиться со списком.
+    [Column(TypeName = "DECIMAL(10,2)")]
+    public decimal Value { get; set; }
 
     /// <summary>
     /// Rate commencement date.

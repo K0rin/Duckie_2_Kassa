@@ -19,6 +19,7 @@ using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen;
 using Duckie2Client.Views;
 using Splat;
 
@@ -53,6 +54,7 @@ public partial class App : Application
         SplatRegistrations.Register<PriceTypesScreenViewModel>();
         SplatRegistrations.Register<ClientsScreenViewModel>();
         SplatRegistrations.Register<CompaniesScreenViewModel>();
+        SplatRegistrations.Register<TradeUnitsScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 

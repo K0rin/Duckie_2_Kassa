@@ -8,6 +8,8 @@ using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Tabalonia.Controls;
+
+// todo: refact: move data loading functionality files to a separate directory.
 using PersonnelScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen.DataLoadingState;
 using BranchesScreenDataLoadingState =
@@ -22,6 +24,8 @@ using ClientsScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen.DataLoadingState;
 using CompaniesScreenDataLoadingState =
     Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen.DataLoadingState;
+using TradeUnitssDataLoadingState =
+    Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen.DataLoadingState;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -42,6 +46,7 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
     public ReactiveCommand<object, Unit> TabCloseCommand { get; set; }
     public ReactiveCommand<Unit, Unit> ClientListCommand { get; set; }
     public ReactiveCommand<Unit, Unit> CompaniesListCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> TradeUnitsListCommand { get; set; }
 
     #endregion
 
@@ -56,6 +61,7 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 
     private void InitializeCommands()
     {
+        // todo: refact: move to separate method.
         BatchServiceAddingCommand = ReactiveCommand.Create(BatchServiceAdditionCommandExecute);
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         PersonnelListCommand = ReactiveCommand.Create(PersonnelCommandExecute);
@@ -65,6 +71,18 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         PollutionLevelsListCommand = ReactiveCommand.Create(PollutionLevelsListCommandExecute);
         ClientListCommand = ReactiveCommand.Create(ClientListCommandExecute);
         CompaniesListCommand = ReactiveCommand.Create(CompaniesListCommandExecute);
+        TradeUnitsListCommand = ReactiveCommand.Create(TradeUnitsListCommandExecute);
+    }
+
+    private void TradeUnitsListCommandExecute()
+    {
+        AddTabItem(
+            "Servives and Goods",
+            new TradeUnitsScreenView(),
+            new TradeUnitssDataLoadingState(),
+            "Для загрузки списка услуг и товаров нажмите кнопку 'Обновить'.",
+            "Загружается список услуг и товаров..."
+        );
     }
 
     private void CompaniesListCommandExecute()

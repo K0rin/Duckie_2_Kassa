@@ -12,6 +12,8 @@
                           Command="{Binding ClientListCommand}" />
                 <MenuItem Header="Personnel..."
                           Command="{Binding PersonnelListCommand}" />
+                <MenuItem Header="Services and Goods..."
+                          Command="{Binding TradeUnitsListCommand}" />
                 <MenuItem Header="Companies..."
                           Command="{Binding CompaniesListCommand}" />
                 <Separator />

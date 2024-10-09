@@ -48,7 +48,7 @@ public class Wash
     public required int PaymentType { get; set; }
 
     /// <summary>
-    /// The amount of bonuses used to pay for the order.
+    /// The number of bonuses used to pay for the order.
     /// </summary>
     [Column(TypeName = "DECIMAL(10,2)")]
     public decimal? BonusesUses { get; set; } = 0;

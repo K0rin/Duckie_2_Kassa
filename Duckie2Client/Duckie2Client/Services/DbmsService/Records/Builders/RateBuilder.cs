@@ -2,9 +2,10 @@
 
 namespace Duckie2Client.Services.DbmsService.Records.Builders;
 
+// todo: refact: rename to 'RateRecordBuilder'.
 public class RateBuilder : RecordBuilderBase<RateRecord>
 {
-    public void AddRateValue(int value)
+    public void AddRateValue(decimal value)
     {
         // todo: Take the value from the settings.
         // todo: error: the settings file not found.

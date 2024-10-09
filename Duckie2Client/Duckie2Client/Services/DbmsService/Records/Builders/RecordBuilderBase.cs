@@ -30,7 +30,7 @@ public abstract class RecordBuilderBase<TRecord> : IRecordBuilder where TRecord 
     public TRecord Build()
     {
         var result = Product;
-        Reset();
+        // Reset();
         return result;
     }
 

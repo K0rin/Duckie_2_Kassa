@@ -30,6 +30,7 @@ using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
 using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen;
 using Duckie2Client.Views;
 using Duckie2Client.Views.Dialogs;
 using Duckie2Client.Views.Screens;
@@ -56,5 +57,6 @@ public class ViewLocator : StrongViewLocator
         Register<PriceTypesScreenViewModel, PriceTypesScreenView>();
         Register<ClientsScreenViewModel, ClientsScreenView>();
         Register<CompaniesScreenViewModel, CompaniesScreenView>();
+        Register<TradeUnitsScreenViewModel, TradeUnitsScreenView>();
     }
 }

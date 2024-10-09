@@ -41,4 +41,6 @@ public class TradeUnit
     /// The list of names for the trade unit translated into denoted languages.
     /// </summary>
     public required List<TradeUnitLocalization> Names { get; set; }
+
+    public List<Wash> Washes { get; set; }
 }

@@ -4,7 +4,7 @@ namespace Duckie2Client.Services.DbmsService.Records;
 
 public class RateRecord : RecordBase
 {
-    public int Value { get; set; }
+    public decimal Value { get; set; }
     public DateOnly StartDate { get; set; }
 
     /// <summary>

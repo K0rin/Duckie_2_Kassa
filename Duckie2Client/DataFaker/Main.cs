@@ -11,7 +11,7 @@ public class Main
         var gender = fkr.Random.Number(1);
         var bonus = new FakeBonus
         {
-            Summa = Math.Round(new Faker().Random.Decimal(1.0m, 100.0m), 2),
+            Summa = GetDecimalSumma(),
             BonusEndDateTime = new Faker().Date.Future()
         };
         var vehicle = new FakeVehicle
@@ -54,5 +54,18 @@ public class Main
         var result = company.Generate();
         result.RegistrationNumber = $"REGNUM-{result.Name}";
         return result;
+    }
+
+    public decimal GetDecimalSumma()
+    {
+        return Math.Round(new Faker().Random.Decimal(1.0m, 200.0m), 2);
+    }
+
+    public List<decimal> GetSortedSummaList(int count)
+    {
+        var priceRateValues = new List<decimal>();
+        for (var i = count - 1; i >= 0; i--) priceRateValues.Add(new Main().GetDecimalSumma());
+        priceRateValues.Sort();
+        return priceRateValues;
     }
 }

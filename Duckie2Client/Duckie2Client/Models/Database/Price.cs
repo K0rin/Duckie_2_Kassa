@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Duckie2Client.Models.Database;
@@ -24,7 +25,7 @@ public class Price
     /// The trade unit that the price belongs to.
     /// </summary>
     [Required]
-    public required TradeUnit TradeUnit { get; set; }
+    public required List<TradeUnit> TradeUnit { get; set; }
 
     /// <summary>
     /// The value of the price.
@@ -32,5 +33,9 @@ public class Price
     [Required]
     public required Rate Value { get; set; }
 
-    // todo: определить тип цены. Для каждого типа цены свое значение стоимости.
+    /// <summary>
+    /// The price type of the value price.
+    /// </summary>
+    [Required]
+    public required PriceType PriceType { get; set; }
 }
