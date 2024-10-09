@@ -68,4 +68,8 @@ public class Main
         priceRateValues.Sort();
         return priceRateValues;
     }
+
+    public void GetServiceName()
+    {
+    }
 }

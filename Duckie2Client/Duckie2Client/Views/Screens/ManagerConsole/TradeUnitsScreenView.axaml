@@ -2,11 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:tradeUnitsScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.TradeUnitsScreenView"
-             x:DataType="tradeUnitsScreen:TradeUnitsScreenViewModel">
+             x:DataType="managerConsole:TradeUnitsScreenViewModel">
     <dialogHostAvalonia:DialogHost Identifier="{Binding DialogIdentifier, Mode=OneWay}"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"

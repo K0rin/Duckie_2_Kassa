@@ -7,15 +7,16 @@ using Duckie2Client.Models.Database;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 
-public class DataLoadingState : TabState
+public class PersonnelScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
 
     private static NullOrResult LoadData()
     {
-        var output = new PollutionLevels().Read<PollutionLevel>(RecordReadFlags.None);
+        // var output = Users.Read(RecordReadFlags.ActiveRecords | RecordReadFlags.InactiveRecords);
+        var output = new Users().Read<User>(RecordReadFlags.InactiveRecords);
 
         var result = new NullOrResult
         {

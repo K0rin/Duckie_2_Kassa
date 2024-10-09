@@ -7,7 +7,7 @@ using Duckie2Client.Services.DbmsService.Records.Builders;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 public class ClientsScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {

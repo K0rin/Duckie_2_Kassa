@@ -12,14 +12,7 @@ using Duckie2Client.ViewModels;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.ViewModels.Dialogs;
 using Duckie2Client.ViewModels.Screens;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole;
 using Duckie2Client.Views;
 using Splat;
 

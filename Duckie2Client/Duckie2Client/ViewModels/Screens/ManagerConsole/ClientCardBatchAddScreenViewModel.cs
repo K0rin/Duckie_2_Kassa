@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 public class ClientCardBatchAddScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {

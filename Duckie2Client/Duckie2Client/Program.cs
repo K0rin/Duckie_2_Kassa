@@ -4,8 +4,6 @@ using Avalonia;
 using Avalonia.ReactiveUI;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
-using Duckie2Client.Services.DbmsService;
-using Duckie2Client.Services.DbmsService.Records.Builders;
 
 namespace Duckie2Client;
 

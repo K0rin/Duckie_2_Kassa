@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+using Duckie2Client.ViewModels.Screens.ManagerConsole;
 using Duckie2Client.Views.Base;
 
 namespace Duckie2Client.Views.Screens.ManagerConsole;

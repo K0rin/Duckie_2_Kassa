@@ -1,31 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs.Tabalonia;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Base;
-using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Tabalonia.Controls;
 
-// todo: refact: move data loading functionality files to a separate directory.
-using PersonnelScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen.DataLoadingState;
-using BranchesScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.BranchesScreen.DataLoadingState;
-using PollutionLevelsScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen.DataLoadingState;
-using PriceTypesScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen.DataLoadingState;
-using ClientCardBatchAddScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen.DataLoadingState;
-using ClientsScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen.DataLoadingState;
-using CompaniesScreenDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen.DataLoadingState;
-using TradeUnitssDataLoadingState =
-    Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen.DataLoadingState;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -36,22 +19,15 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
 {
     #region Commands
 
-    public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; set; }
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> PersonnelListCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> BranchesListCommand { get; set; }
-
-    public ReactiveCommand<Unit, Unit> PriceTypesListCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> PollutionLevelsListCommand { get; set; }
     public ReactiveCommand<object, Unit> TabCloseCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> ClientListCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> CompaniesListCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> TradeUnitsListCommand { get; set; }
+    public ReactiveCommand<ManagerConsoleTabs, Unit> OpenTabCommand { get; set; }
 
     #endregion
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
     [Reactive] public bool IsDashboardVisible { get; set; }
+
 
     public MainConsoleScreenViewModel()
     {
@@ -59,86 +35,31 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         IsDashboardVisible = true;
     }
 
+
     private void InitializeCommands()
     {
-        // todo: refact: move to separate method.
-        BatchServiceAddingCommand = ReactiveCommand.Create(BatchServiceAdditionCommandExecute);
+        OpenTabCommand = ReactiveCommand.Create<ManagerConsoleTabs>(OpenTabCommandExecute);
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
-        PersonnelListCommand = ReactiveCommand.Create(PersonnelCommandExecute);
-        BranchesListCommand = ReactiveCommand.Create(BranchesListCommandExecute);
         TabCloseCommand = ReactiveCommand.Create<object>(TabCloseCommandExecute);
-        PriceTypesListCommand = ReactiveCommand.Create(PriceTypesListCommandExecute);
-        PollutionLevelsListCommand = ReactiveCommand.Create(PollutionLevelsListCommandExecute);
-        ClientListCommand = ReactiveCommand.Create(ClientListCommandExecute);
-        CompaniesListCommand = ReactiveCommand.Create(CompaniesListCommandExecute);
-        TradeUnitsListCommand = ReactiveCommand.Create(TradeUnitsListCommandExecute);
     }
 
-    private void TradeUnitsListCommandExecute()
+    private void OpenTabCommandExecute(ManagerConsoleTabs tabEnumValue)
     {
-        AddTabItem(
-            "Servives and Goods",
-            new TradeUnitsScreenView(),
-            new TradeUnitssDataLoadingState(),
-            "Для загрузки списка услуг и товаров нажмите кнопку 'Обновить'.",
-            "Загружается список услуг и товаров..."
-        );
+        // todo: check for type of tabEnumValue
+
+        AddTab(tabEnumValue.GetTitle(), tabEnumValue.GetView(), tabEnumValue.GetTabRecord());
     }
 
-    private void CompaniesListCommandExecute()
+    private void AddTab(string title, TabUserControlView view, TabStateRecord tabStateRecord)
     {
         AddTabItem(
-            "Company List",
-            new CompaniesScreenView(),
-            new CompaniesScreenDataLoadingState(),
-            "Для загрузки списка фирм нажмите кнопку 'Обновить'.",
-            "Загружается список фирм..."
-        );
+            title,
+            view,
+            tabStateRecord.State,
+            tabStateRecord.ReadyStateMessage,
+            tabStateRecord.DataLoadingStateMessage);
     }
 
-    private void ClientListCommandExecute()
-    {
-        AddTabItem(
-            "Client List",
-            new ClientsScreenView(),
-            new ClientsScreenDataLoadingState(),
-            "Для загрузки списка клиентов нажмите кнопку 'Обновить'.",
-            "Загружается список клиентов..."
-        );
-    }
-
-    private void PollutionLevelsListCommandExecute()
-    {
-        AddTabItem(
-            "Pollution Levels List",
-            new PollutionLevelsScreenView(),
-            new PollutionLevelsScreenDataLoadingState(),
-            "Для загрузки списка уровней загрязнения нажмите кнопку 'Обновить'.",
-            "Загружается список уровней загрязнения..."
-        );
-    }
-
-    private void PriceTypesListCommandExecute()
-    {
-        AddTabItem(
-            "Price Types List",
-            new PriceTypesScreenView(),
-            new PriceTypesScreenDataLoadingState(),
-            "Для загрузки списка типов цен нажмите кнопку 'Обновить'.",
-            "Загружается список типов цен..."
-        );
-    }
-
-    private void BranchesListCommandExecute()
-    {
-        AddTabItem(
-            "Branch List",
-            new BranchesScreenView(),
-            new BranchesScreenDataLoadingState(),
-            "Для загрузки списка филиалов нажмите кнопку 'Обновить'.",
-            "Загружается список филиалов..."
-        );
-    }
 
     private void TabCloseCommandExecute(object value)
     {
@@ -174,28 +95,6 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
             DataLoadingMessageText = dataLoadingMessage
         };
         TabItems.Add(tabItem);
-    }
-
-    private void BatchServiceAdditionCommandExecute()
-    {
-        AddTabItem(
-            "Client Card Batch Add (stated)",
-            new ClientCardBatchAddScreenView(),
-            new ClientCardBatchAddScreenDataLoadingState(),
-            "Для загрузки данных нажмите кнопку 'Обновить'.",
-            "Загружается список фирм..."
-        );
-    }
-
-    private void PersonnelCommandExecute()
-    {
-        AddTabItem(
-            "Personnel List",
-            new PersonnelScreenView(),
-            new PersonnelScreenDataLoadingState(),
-            "Для загрузки списка персонала нажмите кнопку 'Обновить'.",
-            "Загружается список персонала..."
-        );
     }
 
     private static void ExitMenuCommandExecute()

@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
-             xmlns:clientsScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientsScreenView"
-             x:DataType="clientsScreen:ClientsScreenViewModel">
+             x:DataType="managerConsole:ClientsScreenViewModel">
     <dialogHostAvalonia:DialogHost Identifier="{Binding DialogIdentifier, Mode=OneWay}"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"

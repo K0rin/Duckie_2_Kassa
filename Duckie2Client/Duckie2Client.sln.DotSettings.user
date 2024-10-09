@@ -27,7 +27,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FResources1_002Eru_005FRU/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FStoredProcedures/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FStoredProcedures/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FUserInterface/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Duckie2Client_002FResources_002FUserInterface/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ResourcesWriter_002Fbin_002FDebug_002Fnet8_002E0_002FCarResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ResourcesWriter_002Fbin_002FDebug_002Fnet8_002E0_002FCarResources/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=ResourcesWriter_002FResources1/@EntryIndexedValue">False</s:Boolean>

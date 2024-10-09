@@ -8,7 +8,7 @@ using Duckie2Client.Services.DbmsService.Records.Builders;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.TradeUnitsScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 public class TradeUnitsScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {

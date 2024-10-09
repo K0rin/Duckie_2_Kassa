@@ -33,4 +33,67 @@
     <data name="DBMSServiceRunCheckSuccess" xml:space="preserve">
         <value>Сервер баз данных запущен.</value>
     </data>
+    <data name="TabTitleBranchList" xml:space="preserve">
+        <value>Филиалы</value>
+    </data>
+    <data name="TabTitleClientList" xml:space="preserve">
+        <value>Клиенты</value>
+    </data>
+    <data name="TabTitleCompanyList" xml:space="preserve">
+        <value>Фирмы</value>
+    </data>
+    <data name="TabTitlePersonnelList" xml:space="preserve">
+        <value>Персонал</value>
+    </data>
+    <data name="TabTitlePriceTypeList" xml:space="preserve">
+        <value>Категории цен</value>
+    </data>
+    <data name="TabTitlePollutionList" xml:space="preserve">
+        <value>Уровни загрязнения</value>
+    </data>
+    <data name="TabTitleTradeUnitList" xml:space="preserve">
+        <value>Услуги и товары</value>
+    </data>
+    <data name="TabReadyStateMessageBranchList" xml:space="preserve">
+        <value>Для загрузки списка филиалов нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessageClientList" xml:space="preserve">
+        <value>Для загрузки списка клиентов нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessageCompanyList" xml:space="preserve">
+        <value>Для загрузки списка фирм нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessagePersonnelList" xml:space="preserve">
+        <value>Для загрузки списка персонала нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessagePriceTypeList" xml:space="preserve">
+        <value>Для загрузки списка типов цен нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessagePollutionList" xml:space="preserve">
+        <value>Для загрузки списка уровней загрязнения нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabReadyStateMessageTradeUnitList" xml:space="preserve">
+        <value>Для загрузки списка услуг и товаров нажмите кнопку 'Обновить'.</value>
+    </data>
+    <data name="TabDataLoadingStateBranchList" xml:space="preserve">
+        <value>Загружается список филиалов...</value>
+    </data>
+    <data name="TabDataLoadingStateClientList" xml:space="preserve">
+        <value>Загружается список клиентов...</value>
+    </data>
+    <data name="TabDataLoadingStateCompanyList" xml:space="preserve">
+        <value>Загружается список фирм...</value>
+    </data>
+    <data name="TabDataLoadingStatePersonnelList" xml:space="preserve">
+        <value>Загружается список персонала...</value>
+    </data>
+    <data name="TabDataLoadingStatePriceTypeList" xml:space="preserve">
+        <value>Загружается список типов цен...</value>
+    </data>
+    <data name="TabDataLoadingStatePollutionList" xml:space="preserve">
+        <value>Загружается список уровней загрязнения...</value>
+    </data>
+    <data name="TabDataLoadingStateTradeUnitList" xml:space="preserve">
+        <value>Загружается список услуг и товаров...</value>
+    </data>
 </root>

@@ -7,7 +7,7 @@ using Duckie2Client.Services.DbmsService.Records.Builders;
 using Duckie2Client.ViewModels.Base;
 using ReactiveUI;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PollutionLevelsScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 public class PollutionLevelsScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {

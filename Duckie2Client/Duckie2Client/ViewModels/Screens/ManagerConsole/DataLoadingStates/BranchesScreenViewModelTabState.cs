@@ -7,15 +7,15 @@ using Duckie2Client.Models.Database;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PriceTypesScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 
-public class DataLoadingState : TabState
+public class BranchesScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
 
     private static NullOrResult LoadData()
     {
-        var output = new PriceTypes().Read<PriceType>(RecordReadFlags.None);
+        var output = new Branches().Read<Branch>(RecordReadFlags.None);
         var result = new NullOrResult
         {
             Result = output

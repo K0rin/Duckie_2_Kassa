@@ -1,6 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Duckie2Client.ViewModels.Screens"
+             xmlns:enums="clr-namespace:Duckie2Client.Enums"
              x:Class="Duckie2Client.Controls.ManagerConsole.MainMenu"
              x:DataType="vm:MainConsoleScreenViewModel">
     <Panel>
@@ -9,20 +10,27 @@
 
             <MenuItem Header="Database">
                 <MenuItem Header="Clients..."
-                          Command="{Binding ClientListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.ClientsList}" />
                 <MenuItem Header="Personnel..."
-                          Command="{Binding PersonnelListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.PersonnelList}" />
                 <MenuItem Header="Services and Goods..."
-                          Command="{Binding TradeUnitsListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.TradeUnitsList}" />
                 <MenuItem Header="Companies..."
-                          Command="{Binding CompaniesListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.CompaniesList}" />
                 <Separator />
                 <MenuItem Header="Branches..."
-                          Command="{Binding BranchesListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.BranchesList}" />
                 <MenuItem Header="Price Types..."
-                          Command="{Binding PriceTypesListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.PriceTypesList}" />
                 <MenuItem Header="Pollution Levels..."
-                          Command="{Binding PollutionLevelsListCommand}" />
+                          Command="{Binding OpenTabCommand}"
+                          CommandParameter="{x:Static enums:ManagerConsoleTabs.PollutionLevelsList}" />
                 <Separator />
                 <MenuItem Header="Exit"
                           Command="{Binding ExitMenuCommand}" />

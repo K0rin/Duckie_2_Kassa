@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 
 /// <summary>
 /// Класс реализует функционал, задействованный в работе состояния вкладки "DataLoading" экрана "Пакетное добавление
 /// скидки Карты Клиента".
 /// </summary>
-public class DataLoadingState : TabState
+public class ClientCardBatchAddScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
 

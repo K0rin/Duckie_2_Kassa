@@ -112,5 +112,194 @@ namespace Duckie2Client.Resources {
                 return ResourceManager.GetString("LoadingProcessDone", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStateBranchList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStateBranchList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStateClientList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStateClientList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStateCompanyList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStateCompanyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStatePersonnelList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStatePersonnelList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStatePollutionList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStatePollutionList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStatePriceTypeList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStatePriceTypeList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabDataLoadingStateTradeUnitList {
+            get {
+                return ResourceManager.GetString("TabDataLoadingStateTradeUnitList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessageBranchList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessageBranchList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessageClientList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessageClientList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessageCompanyList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessageCompanyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessagePersonnelList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessagePersonnelList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessagePollutionList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessagePollutionList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessagePriceTypeList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessagePriceTypeList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabReadyStateMessageTradeUnitList {
+            get {
+                return ResourceManager.GetString("TabReadyStateMessageTradeUnitList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitleBranchList {
+            get {
+                return ResourceManager.GetString("TabTitleBranchList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitleClientList {
+            get {
+                return ResourceManager.GetString("TabTitleClientList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitleCompanyList {
+            get {
+                return ResourceManager.GetString("TabTitleCompanyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitlePersonnelList {
+            get {
+                return ResourceManager.GetString("TabTitlePersonnelList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitlePollutionList {
+            get {
+                return ResourceManager.GetString("TabTitlePollutionList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitlePriceTypeList {
+            get {
+                return ResourceManager.GetString("TabTitlePriceTypeList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;no translation&gt;.
+        /// </summary>
+        public static string TabTitleTradeUnitList {
+            get {
+                return ResourceManager.GetString("TabTitleTradeUnitList", resourceCulture);
+            }
+        }
     }
 }

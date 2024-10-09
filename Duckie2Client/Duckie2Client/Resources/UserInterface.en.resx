@@ -33,4 +33,67 @@
     <data name="DBMSServiceRunCheckSuccess" xml:space="preserve">
         <value>Server is running.</value>
     </data>
+    <data name="TabTitleBranchList" xml:space="preserve">
+        <value>Branch List</value>
+    </data>
+    <data name="TabTitleClientList" xml:space="preserve">
+        <value>Client List</value>
+    </data>
+    <data name="TabTitleCompanyList" xml:space="preserve">
+        <value>Company List</value>
+    </data>
+    <data name="TabTitlePersonnelList" xml:space="preserve">
+        <value>Personnel List</value>
+    </data>
+    <data name="TabTitlePriceTypeList" xml:space="preserve">
+        <value>Price Types List</value>
+    </data>
+    <data name="TabTitlePollutionList" xml:space="preserve">
+        <value>Pollution Levels List</value>
+    </data>
+    <data name="TabTitleTradeUnitList" xml:space="preserve">
+        <value>Services and Goods</value>
+    </data>
+    <data name="TabReadyStateMessageBranchList" xml:space="preserve">
+        <value>Click the 'Update' button to load the list of branches.</value>
+    </data>
+    <data name="TabReadyStateMessageClientList" xml:space="preserve">
+        <value>Click the 'Update' button to load the client list.</value>
+    </data>
+    <data name="TabReadyStateMessageCompanyList" xml:space="preserve">
+        <value>Click the 'Update' button to load the list of firms.</value>
+    </data>
+    <data name="TabReadyStateMessagePersonnelList" xml:space="preserve">
+        <value>Click the 'Update' button to load the staff list.</value>
+    </data>
+    <data name="TabReadyStateMessagePriceTypeList" xml:space="preserve">
+        <value>Click the 'Update' button to load the list of price types.</value>
+    </data>
+    <data name="TabReadyStateMessagePollutionList" xml:space="preserve">
+        <value>Click the 'Update' button to load the list of pollution levels.</value>
+    </data>
+    <data name="TabReadyStateMessageTradeUnitList" xml:space="preserve">
+        <value>Click the 'Update' button to load the list of services and products.</value>
+    </data>
+    <data name="TabDataLoadingStateBranchList" xml:space="preserve">
+        <value>A list of branches is being downloaded...</value>
+    </data>
+    <data name="TabDataLoadingStateClientList" xml:space="preserve">
+        <value>The client list is loading...</value>
+    </data>
+    <data name="TabDataLoadingStateCompanyList" xml:space="preserve">
+        <value>A list of companies is loading...</value>
+    </data>
+    <data name="TabDataLoadingStatePersonnelList" xml:space="preserve">
+        <value>The staff list is being uploaded...</value>
+    </data>
+    <data name="TabDataLoadingStatePriceTypeList" xml:space="preserve">
+        <value>A list of price types is loaded...</value>
+    </data>
+    <data name="TabDataLoadingStatePollutionList" xml:space="preserve">
+        <value>A list of pollution levels is being downloaded...</value>
+    </data>
+    <data name="TabDataLoadingStateTradeUnitList" xml:space="preserve">
+        <value>A list of services and products is being uploaded...</value>
+    </data>
 </root>

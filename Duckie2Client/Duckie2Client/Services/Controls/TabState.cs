@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Duckie2Client.Libs;
 
 namespace Duckie2Client.Services.Controls;

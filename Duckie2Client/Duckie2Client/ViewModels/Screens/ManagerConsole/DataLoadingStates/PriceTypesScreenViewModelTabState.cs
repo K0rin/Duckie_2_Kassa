@@ -7,15 +7,15 @@ using Duckie2Client.Models.Database;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.ClientsScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 
-public class DataLoadingState : TabState
+public class PriceTypesScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
 
     private static NullOrResult LoadData()
     {
-        var output = new Clients().Read<Client>(RecordReadFlags.None);
+        var output = new PriceTypes().Read<PriceType>(RecordReadFlags.None);
         var result = new NullOrResult
         {
             Result = output
@@ -28,6 +28,7 @@ public class DataLoadingState : TabState
     {
         _cancelTokenSource = new CancellationTokenSource();
         var token = _cancelTokenSource.Token;
+
         var x = await Task.Run(LoadData, token);
         return x;
     }

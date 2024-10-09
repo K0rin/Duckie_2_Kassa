@@ -1,10 +1,10 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Duckie2Client.Views.Screens.ManagerConsole.ClientCardBatchAddScreenView"
-             xmlns:clientCardBatchAddScreen="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              xmlns:converters="clr-namespace:Duckie2Client.Converters"
-             x:DataType="clientCardBatchAddScreen:ClientCardBatchAddScreenViewModel">
+             xmlns:managerConsole="clr-namespace:Duckie2Client.ViewModels.Screens.ManagerConsole"
+             x:DataType="managerConsole:ClientCardBatchAddScreenViewModel">
     <UserControl.Resources>
         <converters:EnableByCollectionCountConverter x:Key="EnableByCollectionCountConverter" />
     </UserControl.Resources>

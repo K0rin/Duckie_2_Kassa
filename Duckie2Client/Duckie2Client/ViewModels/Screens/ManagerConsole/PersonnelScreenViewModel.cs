@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Security.Cryptography;
 using Duckie2Client.Enums.Flags;
-using Duckie2Client.Libs;
 using Duckie2Client.Libs.SecretStrings;
 using Duckie2Client.Services.DbmsService;
 using Duckie2Client.Services.DbmsService.Records;
@@ -12,7 +11,7 @@ using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
 using ReactiveUI;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 // todo: Error on database.
 

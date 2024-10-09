@@ -8,7 +8,7 @@ using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
 using ReactiveUI;
 
-namespace Duckie2Client.ViewModels.Screens.ManagerConsole.CompaniesScreen;
+namespace Duckie2Client.ViewModels.Screens.ManagerConsole;
 
 public class CompaniesScreenViewModel : ViewModelBase, ITabViewModel<List<string>>
 {
