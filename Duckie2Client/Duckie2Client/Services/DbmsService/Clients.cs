@@ -27,11 +27,12 @@ public class Clients : CrudOperationsBase
 
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
-        using var db = new DbmsService();
+        if (builder.Build() is not ClientRecord builtClient) return DataModelOperationResult.RecordNotFound;
 
-        var builtClient = builder.Build() as ClientRecord;
         var newClientCommunicationMeans = CreateCommunicationMeanList(builtClient);
         var newClientBonus = CreateClientBonus(builtClient);
+
+        using var db = new DbmsService();
 
         List<Vehicle> newClientVehicles;
         try
@@ -44,12 +45,7 @@ public class Clients : CrudOperationsBase
         }
 
         var newClient = CreateClient(builtClient, newClientCommunicationMeans, newClientVehicles, newClientBonus);
-
-        db.Clients.Add(newClient);
-        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        return AddAndSave(db.Clients, db, newClient);
     }
 
 

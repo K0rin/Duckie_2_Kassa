@@ -2,6 +2,7 @@
 using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
+using Duckie2Client.Services.DbmsService.Libs;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
 
@@ -11,11 +12,19 @@ public class TradeUnits : CrudOperationsBase
 {
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
+        if (builder.Build() is not TradeUnitRecord builtTradeUnit) return DataModelOperationResult.RecordNotFound;
+
+        var newTradeUnit = CreateTradeUnit(builtTradeUnit);
+
         using var db = new DbmsService();
-        var builtTradeUnit = builder.Build() as TradeUnitRecord;
+        newTradeUnit.Prices = CreatePriceList(builtTradeUnit, newTradeUnit, db);
+        newTradeUnit.Names = CreateLocalizations(builtTradeUnit);
 
-        // Trade Unit
+        return AddAndSave(db.TradeUnits, db, newTradeUnit);
+    }
 
+    private static TradeUnit CreateTradeUnit(TradeUnitRecord builtTradeUnit)
+    {
         var newTradeUnit = new TradeUnit
         {
             IsGood = false,
@@ -23,42 +32,45 @@ public class TradeUnits : CrudOperationsBase
             Names = null!
         };
         PropertySetter.SetProperties<TradeUnitRecord, TradeUnit>(ref builtTradeUnit!, ref newTradeUnit);
+        return newTradeUnit;
+    }
 
-        // Price
-
-        var priceList = builtTradeUnit.Prices.Select(
-            p => new Price
+    private List<Price> CreatePriceList(TradeUnitRecord builtTradeUnit, TradeUnit newTradeUnit, DbmsService dbmsService)
+    {
+        var priceList = new List<Price>();
+        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var p in builtTradeUnit.Prices)
+        {
+            var rateRecord = p.Value;
+            var price = new Price
             {
                 Id = p.Id,
-                PriceType = db.PriceTypes.First(pt => pt.Id.Equals(p.PriceType.Id)),
-                Value = new Rate
-                {
-                    Id = p.Value.Id,
-                    EndDate = p.Value.EndDate,
-                    StartDate = p.Value.StartDate,
-                    Value = p.Value.Value
-                },
+                PriceType = dbmsService.PriceTypes.First(pt => pt.Id.Equals(p.PriceType.Id)),
+                Value = RatesHelper.CreateRate(rateRecord),
                 TradeUnit = [newTradeUnit]
-            }
-        ).ToList();
-        newTradeUnit.Prices = priceList;
+            };
+            priceList.Add(price);
+        }
 
-        // Localization
+        return priceList;
+    }
 
-        var localizations = builtTradeUnit.Names.Select(
-            l => new TradeUnitLocalization
+    private static List<TradeUnitLocalization> CreateLocalizations(TradeUnitRecord builtTradeUnit)
+    {
+        var localizations = new List<TradeUnitLocalization>();
+        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var l in builtTradeUnit.Names)
+        {
+            var tradeUnitLocalization = new TradeUnitLocalization
             {
                 Id = l.Id,
                 Locale = l.Locale,
                 Value = l.Value
-            }
-        ).ToList();
-        newTradeUnit.Names = localizations;
+            };
+            localizations.Add(tradeUnitLocalization);
+        }
 
-        db.TradeUnits.Add(newTradeUnit);
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        return localizations;
     }
 
     public override object Read<TDataModel>(RecordReadFlags readFlags)

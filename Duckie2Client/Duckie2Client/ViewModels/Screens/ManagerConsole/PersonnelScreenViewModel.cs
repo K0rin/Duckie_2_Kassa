@@ -126,7 +126,7 @@ public class PersonnelScreenViewModel : ViewModelBase, ITabViewModel<List<string
         {
             var newUserRecordBuilder = new UserRecordBuilder();
             newUserRecordBuilder.AddFirstName($"<firstname{i}>");
-            newUserRecordBuilder.AddBranch(new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05"));
+            newUserRecordBuilder.AddBranch(new Guid("7EFF09D9-D11E-4B21-A7A6-AC294F29C382"));
             newUserRecordBuilder.AddLogin($"<login{i}>");
             newUserRecordBuilder.AddLastName($"<lastname{i}>");
 

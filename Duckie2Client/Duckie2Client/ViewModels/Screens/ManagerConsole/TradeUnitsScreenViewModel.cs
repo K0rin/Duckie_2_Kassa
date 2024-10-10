@@ -69,8 +69,8 @@ public class TradeUnitsScreenViewModel : ViewModelBase, ITabViewModel<List<strin
 
         var servicesDict = new Dictionary<string, string>
         {
-            { "ru", "service1-ru" },
-            { "en", "service1-en" }
+            { "ru", "service2-ru" },
+            { "en", "service2-en" }
         };
 
         foreach (var keyValuePair in servicesDict)

@@ -2,6 +2,7 @@
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -48,5 +49,15 @@ public abstract class CrudOperationsBase
     public virtual DataModelOperationResult Update<T>(RecordBuilderBase<T> builder) where T : RecordBase, new()
     {
         throw new System.NotSupportedException();
+    }
+
+    protected static DataModelOperationResult AddAndSave<T>(DbSet<T> dbSet, DbmsService dbmsService, T newRecord)
+        where T : class
+    {
+        dbSet.Add(newRecord);
+        dbmsService.SaveChanges();
+        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
+
+        return DataModelOperationResult.Successful;
     }
 }

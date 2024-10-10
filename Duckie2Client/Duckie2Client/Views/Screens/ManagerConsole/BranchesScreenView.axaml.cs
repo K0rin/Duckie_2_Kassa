@@ -7,7 +7,7 @@ public partial class BranchesScreenView : TabUserControlView
     public BranchesScreenView()
     {
         InitializeComponent();
-        DataContext = App.VM_PersonnelScreen;
+        DataContext = App.VM_BranchesScreen;
     }
 
     public override void OnTabClose(string message)

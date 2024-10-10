@@ -2,6 +2,7 @@
 using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
+using Duckie2Client.Services.DbmsService.Libs;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
 
@@ -9,6 +10,29 @@ namespace Duckie2Client.Services.DbmsService;
 
 public class PollutionLevels : CrudOperationsBase
 {
+    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
+    {
+        if (builder.Build() is not PollutionLevelRecord builtPollutionLevel)
+            return DataModelOperationResult.RecordNotFound;
+
+        var newRates = RatesHelper.CreateRateList(builtPollutionLevel);
+        var newPollutionLevel = CreatePollutionLevel(builtPollutionLevel, newRates);
+
+        var db = new DbmsService();
+        return AddAndSave(db.PollutionLevels, db, newPollutionLevel);
+    }
+
+    private static PollutionLevel CreatePollutionLevel(PollutionLevelRecord record, List<Rate> newRates)
+    {
+        var pollutionLevel = new PollutionLevel
+        {
+            Name = string.Empty,
+            Rates = newRates
+        };
+        PropertySetter.SetProperties<PollutionLevelRecord, PollutionLevel>(ref record, ref pollutionLevel);
+        return pollutionLevel;
+    }
+
     public override object Read<TDataModel>(RecordReadFlags readFlags)
     {
         object result;
@@ -19,42 +43,5 @@ public class PollutionLevels : CrudOperationsBase
         }
 
         return (List<TDataModel>)result;
-    }
-
-    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
-    {
-        using var db = new DbmsService();
-
-        var builtPollutionLevel = builder.Build() as PollutionLevelRecord;
-
-        // Rate 
-
-        var newRates = builtPollutionLevel?.Rates.Select(
-            r => new Rate
-            {
-                Id = r.Id,
-                EndDate = r.EndDate,
-                StartDate = r.StartDate,
-                Value = r.Value
-            }
-        ).ToList();
-
-        // Pollution Level
-
-        var newPollutionLevel = new PollutionLevel
-        {
-            Name = "",
-            Rates = newRates
-        };
-        PropertySetter.SetProperties<PollutionLevelRecord, PollutionLevel>(
-            ref builtPollutionLevel!,
-            ref newPollutionLevel);
-
-
-        db.PollutionLevels.Add(newPollutionLevel);
-        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
     }
 }

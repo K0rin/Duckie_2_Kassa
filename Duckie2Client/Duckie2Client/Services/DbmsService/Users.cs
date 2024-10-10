@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
+using Duckie2Client.Services.DbmsService.Libs;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
 using Microsoft.EntityFrameworkCore;
@@ -16,18 +17,17 @@ public class Users : CrudOperationsBase
 {
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
+        if (builder.Build() is not UserRecord builtUser) return DataModelOperationResult.RecordNotFound;
+
+        var newSalaryRate = RatesHelper.CreateRateList(builtUser);
+        var newCommunicationMeans = CreateCommunicationMeanList(builtUser!);
+
         using var db = new DbmsService();
 
-        var builtUser = builder.Build() as UserRecord;
         var existingBranches = GetExistingBranchList(builtUser, db);
-        var newSalaryRate = CreateSalaryRateList(builtUser);
-        var newCommunicationMeans = CreateCommunicationMeanList(builtUser!);
         var newUserRec = CreateUser(builtUser, existingBranches, newSalaryRate, newCommunicationMeans);
 
-        db.Users.Add(newUserRec);
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        return AddAndSave(db.Users, db, newUserRec);
     }
 
 
@@ -50,35 +50,32 @@ public class Users : CrudOperationsBase
         var isReadAllRecords = readFlags.HasFlag(RecordReadFlags.ActiveRecords) &
                                readFlags.HasFlag(RecordReadFlags.InactiveRecords);
 
-        object result;
-
         // todo: settings for the current branch id.
-        var currentBranchId = new Guid("6D074317-4514-4444-AF39-0A65F4A4BE05");
+        // зависимость. аргумент метода.
+        var currentBranchId = new Guid("7EFF09D9-D11E-4B21-A7A6-AC294F29C382");
 
-        using (var db = new DbmsService())
-        {
-            var query = db.Users
-                // Selects only those Operators who work in the current branch.
-                .Where(user => user.Branches.Any(branch => branch.Id.Equals(currentBranchId)))
-                .Include(user => user.Communication)
-                .Select(user => new
-                {
-                    User = user,
-                    // The list of wage rates is filtered so that the most recent rate is included in the sample.
-                    LatestSalaryRate = user.SalaryRates!.OrderByDescending(sr => sr.EndDate).First()
-                });
+        using var db = new DbmsService();
+        var query = db.Users
+            // Selects only those Operators who work in the current branch.
+            .Where(user => user.Branches.Any(branch => branch.Id.Equals(currentBranchId)))
+            .Include(user => user.Communication)
+            .Select(user => new
+            {
+                User = user,
+                // The list of wage rates is filtered so that the most recent rate is included in the sample.
+                LatestSalaryRate = user.SalaryRates!.OrderByDescending(sr => sr.EndDate).First()
+            });
 
-            if (!isReadAllRecords)
-                query = query.Where(user => user.User.IsActive.Equals(isOperatorActive));
+        if (!isReadAllRecords)
+            query = query.Where(user => user.User.IsActive.Equals(isOperatorActive));
 
-            result = query.ToList()
-                .Select(user =>
-                {
-                    user.User.SalaryRates = new List<Rate> { user.LatestSalaryRate };
-                    return user.User;
-                })
-                .ToList();
-        }
+        object result = query.ToList()
+            .Select(user =>
+            {
+                user.User.SalaryRates = new List<Rate> { user.LatestSalaryRate };
+                return user.User;
+            })
+            .ToList();
 
         return (List<TDataModel>)result;
     }
@@ -174,30 +171,14 @@ public class Users : CrudOperationsBase
     }
 
     // todo: refact: generic
-    private static List<CommunicationMean> CreateCommunicationMeanList(UserRecord builtUser)
+    private static List<CommunicationMean> CreateCommunicationMeanList(UserRecord record)
     {
         // todo: error: email already exists.
         // todo: error: phone already exists.
 
-        //     var newCommunicationMeans = new List<CommunicationMean>();
-        //     // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
-        //     foreach (var communicationMeanRecord in builtUser.Communication!)
-        //     {
-        //         var newCommunicationMean = new CommunicationMean
-        //         {
-        //             Id = Guid.NewGuid(),
-        //             Email = communicationMeanRecord.Email,
-        //             Phone = communicationMeanRecord.Phone
-        //         };
-        //         newCommunicationMeans.Add(newCommunicationMean);
-        //     }
-        //
-        //     return newCommunicationMeans;
-        // }
-
         var newCommunicationMeans = new List<CommunicationMean>();
 
-        foreach (var communicationMean in builtUser?.CommunicationMeans!)
+        foreach (var communicationMean in record.CommunicationMeans!)
         {
             var newCommunicationMean = new CommunicationMean();
             var communicationMeanRecord = communicationMean;
@@ -225,26 +206,11 @@ public class Users : CrudOperationsBase
         return existingBranches;
     }
 
-    private static List<Rate> CreateSalaryRateList(UserRecord? builtUser)
-    {
-        var newSalaryRate = new List<Rate>();
-        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
-        foreach (var r in builtUser?.SalaryRates!)
-            newSalaryRate.Add(new Rate
-            {
-                Id = r.Id,
-                EndDate = r.EndDate,
-                StartDate = r.StartDate,
-                Value = r.Value
-            });
-        return newSalaryRate;
-    }
-
     private static User CreateUser(
-        UserRecord? builtUser,
+        UserRecord? record,
         List<Branch> existingBranches,
-        List<Rate> newSalaryRate,
-        List<CommunicationMean> newCommunicationMeans)
+        List<Rate> rates,
+        List<CommunicationMean> communicationMeans)
     {
         var newUserRec = new User
         {
@@ -253,11 +219,11 @@ public class Users : CrudOperationsBase
             FirstName = "",
             LastName = "",
             Branches = existingBranches,
-            SalaryRates = newSalaryRate,
-            Communication = newCommunicationMeans
+            SalaryRates = rates,
+            Communication = communicationMeans
         };
 
-        PropertySetter.SetProperties<UserRecord, User>(ref builtUser!, ref newUserRec);
+        PropertySetter.SetProperties<UserRecord, User>(ref record!, ref newUserRec);
         return newUserRec;
     }
 }

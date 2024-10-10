@@ -11,21 +11,21 @@ public class Branches : CrudOperationsBase
 {
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
-        var branchRecord = builder.Build() as BranchRecord;
+        if (builder.Build() is not BranchRecord branchRecord) return DataModelOperationResult.RecordNotFound;
+        var newBranch = CreateBranch(branchRecord);
         using var db = new DbmsService();
+        return AddAndSave(db.Branches, db, newBranch);
+    }
 
+    private static Branch CreateBranch(BranchRecord? branchRecord)
+    {
         var newBranch = new Branch
         {
             Name = null!,
             Address = null!
         };
-
         PropertySetter.SetProperties<BranchRecord, Branch>(ref branchRecord!, ref newBranch);
-
-        db.Branches.Add(newBranch);
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        return newBranch;
     }
 
     public override object Read<TDataModel>(RecordReadFlags readFlags)

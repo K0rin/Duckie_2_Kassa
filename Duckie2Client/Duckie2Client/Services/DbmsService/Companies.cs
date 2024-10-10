@@ -10,6 +10,66 @@ namespace Duckie2Client.Services.DbmsService;
 
 public class Companies : CrudOperationsBase
 {
+    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
+    {
+        if (builder.Build() is not CompanyRecord builtCompany) return DataModelOperationResult.RecordNotFound;
+
+        using var db = new DbmsService();
+
+        List<Vehicle> newCompanyVehicles;
+        try
+        {
+            newCompanyVehicles = CreateVehicleList(builtCompany, db);
+        }
+        catch (Exception e) when (e is ArgumentNullException or InvalidOperationException)
+        {
+            return DataModelOperationResult.RecordNotFound;
+        }
+
+        var newCompany = CreateCompany(builtCompany, newCompanyVehicles);
+        return AddAndSave(db.Companies, db, newCompany);
+    }
+
+    private List<Vehicle> CreateVehicleList(CompanyRecord? record, DbmsService db)
+    {
+        var newCompanyVehicles = new List<Vehicle>();
+
+        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var vehicle in record?.Vehicles!)
+        {
+            var vehicleRecord = vehicle;
+            var existingPriceType = db.PriceTypes.First(pt => pt.Id.Equals(vehicleRecord.PriceType.Id));
+            var newVehicle = CreateVehicle(existingPriceType, vehicleRecord);
+            newCompanyVehicles.Add(newVehicle);
+        }
+
+        return newCompanyVehicles;
+    }
+
+    private static Vehicle CreateVehicle(PriceType existingPriceType, VehicleRecord vehicle)
+    {
+        var newVehicle = new Vehicle
+        {
+            Licence = null!,
+            PriceType = existingPriceType
+        };
+        var vehicleRecord = vehicle;
+        PropertySetter.SetProperties<VehicleRecord, Vehicle>(ref vehicleRecord, ref newVehicle);
+        return newVehicle;
+    }
+
+    private static Company CreateCompany(CompanyRecord? builtCompany, List<Vehicle> newCompanyVehicles)
+    {
+        var newCompany = new Company
+        {
+            Name = string.Empty,
+            Address = string.Empty,
+            Vehicles = newCompanyVehicles
+        };
+        PropertySetter.SetProperties<CompanyRecord, Company>(ref builtCompany!, ref newCompany);
+        return newCompany;
+    }
+
     public override object Read<TDataModel>(RecordReadFlags readFlags)
     {
         object result;
@@ -20,56 +80,5 @@ public class Companies : CrudOperationsBase
         }
 
         return (List<TDataModel>)result;
-    }
-
-    public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
-    {
-        using var db = new DbmsService();
-
-        var builtCompany = builder.Build() as CompanyRecord;
-
-        // vehicle
-        // todo: refact: функция добавления транспорта
-
-        var newCompanyVehicles = new List<Vehicle>();
-
-        foreach (var vehicle in builtCompany?.Vehicles!)
-        {
-            PriceType existingPriceType;
-
-            try
-            {
-                existingPriceType = db.PriceTypes.First(pt => pt.Id.Equals(vehicle.PriceType.Id));
-            }
-            catch (Exception e) when (e is ArgumentNullException or InvalidOperationException)
-            {
-                return DataModelOperationResult.RecordNotFound;
-            }
-
-            var newVehicle = new Vehicle
-            {
-                Licence = null!,
-                PriceType = existingPriceType
-            };
-            var vehicleRecord = vehicle;
-
-            PropertySetter.SetProperties<VehicleRecord, Vehicle>(ref vehicleRecord, ref newVehicle);
-            newCompanyVehicles.Add(newVehicle);
-        }
-
-        var newCompany = new Company
-        {
-            Name = "",
-            Address = "",
-            Vehicles = newCompanyVehicles
-        };
-
-        PropertySetter.SetProperties<CompanyRecord, Company>(ref builtCompany!, ref newCompany);
-
-        db.Companies.Add(newCompany);
-        // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
     }
 }

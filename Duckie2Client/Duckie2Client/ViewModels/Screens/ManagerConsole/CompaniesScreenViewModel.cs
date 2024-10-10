@@ -34,7 +34,7 @@ public class CompaniesScreenViewModel : ViewModelBase, ITabViewModel<List<string
         // fake  ---
         var fakeCompany = new DataFaker.Main().GetCompany();
         var fakeVehicleLicence = new DataFaker.Main().GetVehicleLicence();
-        var fakePriceTypeId = Guid.Parse("EE9124D0-F5C3-4CC1-A551-E8E47E102BA4");
+        var fakePriceTypeId = Guid.Parse("678AEE9B-718F-4406-D8DF-08DCE74F0DC9");
         // --- fake  
 
         var newCompanyRecordBuilder = new CompanyRecordBuilder();

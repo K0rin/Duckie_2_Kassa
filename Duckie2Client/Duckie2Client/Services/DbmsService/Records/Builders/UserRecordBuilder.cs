@@ -23,8 +23,8 @@ public class UserRecordBuilder : RecordBuilderBase<UserRecord>
 
     public void AddSalaryRate(List<RateBuilder> value)
     {
-        GetProduct().SalaryRates = [];
-        foreach (var rate in value) GetProduct().SalaryRates?.Add(rate.Build());
+        GetProduct().Rates = [];
+        foreach (var rate in value) GetProduct().Rates?.Add(rate.Build());
     }
 
     public void AddIsStaff(bool value)

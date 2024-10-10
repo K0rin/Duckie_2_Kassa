@@ -23,15 +23,12 @@ public class PriceTypes : CrudOperationsBase
 
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)
     {
-        using var db = new DbmsService();
-        var builtPriceType = builder.Build() as PriceTypeRecord;
+        if (builder.Build() is not PriceTypeRecord builtPriceType) return DataModelOperationResult.RecordNotFound;
 
         var newPriceType = new PriceType();
-        PropertySetter.SetProperties<PriceTypeRecord, PriceType>(ref builtPriceType!, ref newPriceType);
+        PropertySetter.SetProperties<PriceTypeRecord, PriceType>(ref builtPriceType, ref newPriceType);
 
-        db.PriceTypes.Add(newPriceType);
-        db.SaveChanges();
-
-        return DataModelOperationResult.Successful;
+        using var db = new DbmsService();
+        return AddAndSave(db.PriceTypes, db, newPriceType);
     }
 }
