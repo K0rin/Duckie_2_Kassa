@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs;
 
 namespace Duckie2Client.Services.Controls;
@@ -9,7 +10,7 @@ namespace Duckie2Client.Services.Controls;
 public abstract class TabState
 {
     protected TabContext? Context;
-
+    public  TabStates State { get; set; }
     public void SetContext(TabContext? context)
     {
         Context = context;

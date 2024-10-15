@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Duckie2Client.Enums;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Libs;
 using Duckie2Client.Models.Database;
@@ -12,6 +13,11 @@ namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 public class TradeUnitsScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
+
+    public TradeUnitsScreenViewModelTabState()
+    {
+        State = TabStates.DataLoading;
+    }
 
     private static NullOrResult LoadData()
     {

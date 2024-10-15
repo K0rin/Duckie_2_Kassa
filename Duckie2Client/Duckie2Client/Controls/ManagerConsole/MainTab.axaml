@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:Tabalonia.Controls;assembly=Tabalonia"
              xmlns:dc="clr-namespace:Duckie2Client.Controls.ManagerConsole.TabsControl"
              xmlns:converters="clr-namespace:Duckie2Client.Converters"
+             xmlns:enums="clr-namespace:Duckie2Client.Enums"
              x:Class="Duckie2Client.Controls.ManagerConsole.MainTab"
              x:DataType="screens:MainConsoleScreenViewModel">
     <UserControl.Resources>
@@ -36,16 +37,18 @@
 
                         <dc:ReadyStateControl
                             IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, 
-                            ConverterParameter=ReadyLoadDataState}"
+                            ConverterParameter={x:Static enums:TabStates.DataReady}}"
                             ReadyStateMessage="{Binding ReadyStateMessageText}" />
 
                         <!-- Loading State -->
 
                         <dc:DataLoadingState
-                            IsVisible="{Binding CurrentState, Converter={StaticResource TabStateToVisibilityConverter}, 
-                            ConverterParameter=DataLoadingState}"
+                            IsVisible="{Binding CurrentState, 
+                            Converter={StaticResource TabStateToVisibilityConverter}, 
+                            ConverterParameter={x:Static enums:TabStates.DataLoading}}"
                             DataLoadingMessage="{Binding DataLoadingMessageText}" />
 
+                            <!-- ConverterParameter=DataLoadingState}" -->
                         <!-- todo: refact: отдельный контрол для отображения состояния "Данные" -->
                         <!-- Data State -->
 

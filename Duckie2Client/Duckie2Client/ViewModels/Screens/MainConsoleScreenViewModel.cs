@@ -4,7 +4,9 @@ using Duckie2Client.Enums;
 using Duckie2Client.Libs.Tabalonia;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.ViewModels.Base;
+using Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 using Duckie2Client.Views.Base;
+using Duckie2Client.Views.Screens.ManagerConsole;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Tabalonia.Controls;
@@ -28,6 +30,8 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
     [Reactive] public bool IsDashboardVisible { get; set; }
 
+    [Reactive] public string DataLoadingTabStateName { get; set; }
+    
 
     public MainConsoleScreenViewModel()
     {
@@ -43,11 +47,27 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         TabCloseCommand = ReactiveCommand.Create<object>(TabCloseCommandExecute);
     }
 
+    private void BranchesCommandExecute(ManagerConsoleTabs tabEnumValue)
+    {
+        AddTabItem(
+            "Branches List",
+            new BranchesScreenView(),
+            new BranchesScreenViewModelTabState(),
+            "Для загрузки списка персонала нажмите кнопку 'Обновить'.",
+            "Загружается список персонала..."
+        );
+    }
+
     private void OpenTabCommandExecute(ManagerConsoleTabs tabEnumValue)
     {
         // todo: check for type of tabEnumValue
 
-        AddTab(tabEnumValue.GetTitle(), tabEnumValue.GetView(), tabEnumValue.GetTabRecord());
+        var tabRecord = tabEnumValue.GetTabRecord();
+        DataLoadingTabStateName = tabRecord.State.GetType().Name;
+            
+        
+        
+        AddTab(tabEnumValue.GetTitle(), tabEnumValue.GetView(), tabRecord);
     }
 
     private void AddTab(string title, TabUserControlView view, TabStateRecord tabStateRecord)
@@ -96,6 +116,7 @@ public class MainConsoleScreenViewModel : ViewModelPageBase
         };
         TabItems.Add(tabItem);
     }
+
 
     private static void ExitMenuCommandExecute()
     {

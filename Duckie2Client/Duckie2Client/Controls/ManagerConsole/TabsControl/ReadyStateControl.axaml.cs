@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Duckie2Client.Enums;
 
 namespace Duckie2Client.Controls.ManagerConsole.TabsControl;
 
@@ -11,6 +12,7 @@ public partial class ReadyStateControl : UserControl
         AvaloniaProperty.RegisterDirect<ReadyStateControl, string>("ReadyStateMessage", o => o.ReadyStateMessage,
             (o, v) => o.ReadyStateMessage = v);
 
+    public static TabStates State = TabStates.DataReady;
     public ReadyStateControl()
     {
         InitializeComponent();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Duckie2Client.Enums;
 using Duckie2Client.Libs;
 using Duckie2Client.Services.Controls;
 using Duckie2Client.Services.DbmsService;
@@ -15,6 +16,11 @@ namespace Duckie2Client.ViewModels.Screens.ManagerConsole.DataLoadingStates;
 public class ClientCardBatchAddScreenViewModelTabState : TabState
 {
     private static CancellationTokenSource _cancelTokenSource = null!;
+
+    public ClientCardBatchAddScreenViewModelTabState()
+    {
+        State = TabStates.DataLoading;
+    }
 
     private static NullOrResult LoadCompanyList()
     {

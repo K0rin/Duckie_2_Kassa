@@ -12,7 +12,7 @@
                    xml:space="preserve"
                    Text="{Binding ReadyStateMessage, 
                    RelativeSource={RelativeSource AncestorType=ctrl:ReadyStateControl}}" />
-        <Button Content="_Update"
+        <Button Content="Update"
                 HorizontalAlignment="Center"
                 Grid.Column="0"
                 Grid.Row="1"
