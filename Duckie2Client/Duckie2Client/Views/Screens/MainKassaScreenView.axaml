@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:duckie2Client="clr-namespace:Duckie2Client"
+             xmlns:duckieControls="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             x:Class="Duckie2Client.Views.Screens.MainKassaScreenView"
+             x:CompileBindings="True"
+             d:DataContext="{x:Static duckie2Client:App.VM_MainKassaScreen}"
+             x:DataType="screens:MainKassaScreenViewModel">
+
+	<DockPanel>
+		<!-- Main Menu -->
+		<StackPanel Background="Blue" Orientation="Vertical" DockPanel.Dock="Left">
+			<TextBlock DockPanel.Dock="Left" Text="LOGO" Background="Aqua" />
+			<StackPanel DockPanel.Dock="Left">
+				<Button Content="ORDERS"
+						Command="{Binding ShowOrdersScreen}"
+						/>
+				<Button Content="WASHES"
+						Command="{Binding ShowWashesScreen}"
+						/>
+				<Button Content="CHECKOUT"
+						Command="{Binding CheckoutAndExit}"
+						/>
+			</StackPanel>
+		</StackPanel>
+		<StackPanel Background="Chocolate" Orientation="Vertical" DockPanel.Dock="Left">
+			<DockPanel VerticalAlignment="Top" Dock="Left" Background="Magenta">
+				<DockPanel Dock="Left" Name="usersPanel" >
+					<ContentControl Content="{Binding DockaPanelUserButtons}"></ContentControl>
+					<Button DockPanel.Dock="Left" Content="ADD" Command="{Binding NewUserAuthorization}"/>
+				</DockPanel>
+				<DockPanel Dock="Left">
+					<Button DockPanel.Dock="Left" Content="ORDER1" />
+					<Button DockPanel.Dock="Left" Content="ORDER2" />
+					<Button DockPanel.Dock="Left" Content="ADD" />
+				</DockPanel>
+			</DockPanel>
+			<TransitioningContentControl Content="{Binding CurrentPage}">
+				<TransitioningContentControl.PageTransition>
+					<CrossFade Duration="0:00:00.100" />
+				</TransitioningContentControl.PageTransition>
+			</TransitioningContentControl>
+		</StackPanel>
+	</DockPanel>
+</UserControl>

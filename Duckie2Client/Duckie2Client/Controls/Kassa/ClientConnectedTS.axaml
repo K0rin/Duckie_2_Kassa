@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.ClientConnectedTS">
+	<StackPanel Name="TransportScreenPanel"
+			   HorizontalAlignment="Center"
+			   VerticalAlignment="Center">
+		<TextBlock Text="Clients connected with TS" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 0, 0, 20"/>
+		<Grid Margin="0, 0, 0, 20">
+			<!-- Определяем три столбца -->
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Определяем пять строк -->
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<!-- Пример ячеек таблицы -->
+			<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Phone" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="FirstName" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Lastname" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+
+			<Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+
+			<!-- И так далее до пятой строки -->
+
+			<Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+			<Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+				<TextBlock Text="Ячейка 1,3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</Border>
+		</Grid>
+		<DockPanel DockPanel.Dock="Top">
+			<Button DockPanel.Dock="Left"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="0, 10, 0, 0"
+                        Content="Back"
+						
+                         />
+			<Button DockPanel.Dock="Left"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10, 10, 0, 0"
+                        Content="Another Client"
+						
+                         />
+			<Button DockPanel.Dock="Left"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10, 10, 0, 0"
+                        Content="Next"
+						
+                         />
+		</DockPanel>
+	</StackPanel>
+</UserControl>

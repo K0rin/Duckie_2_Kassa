@@ -30,6 +30,7 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        //new Duckie2Client.ViewModels.Screens.ManagerConsole.PersonnelScreen.PersonnelScreenViewModel().AddUserExecute();
         // FIX: LINUX:
         // System.InvalidOperationException:
         // Cannot perform requested operation because the Dispatcher shut down

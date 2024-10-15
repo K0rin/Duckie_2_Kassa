@@ -48,6 +48,7 @@ public partial class App : Application
         SplatRegistrations.Register<ClientsScreenViewModel>();
         SplatRegistrations.Register<CompaniesScreenViewModel>();
         SplatRegistrations.Register<TradeUnitsScreenViewModel>();
+        SplatRegistrations.Register<MainKassaScreenViewModel>();
         SplatRegistrations.SetupIOC();
     }
 
@@ -163,9 +164,15 @@ public partial class App : Application
 
     private static KassaWindow CreateKassaWindow()
     {
+        List<ViewModelPageBase> pages =
+        [
+            new AuthorizationScreenViewModel(),
+            new MainKassaScreenViewModel()
+        ];
+
         var output = new KassaWindow
         {
-            DataContext = new KassaWindowViewModel()
+            DataContext = new KassaWindowViewModel(pages, 0)
         };
         return output;
     }

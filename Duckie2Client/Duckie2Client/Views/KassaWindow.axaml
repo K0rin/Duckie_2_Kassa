@@ -1,18 +1,32 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="using:Duckie2Client.ViewModels"
+        xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+        xmlns:duckie2Client="clr-namespace:Duckie2Client"
+        x:Class="Duckie2Client.Views.KassaWindow"
+        x:DataType="vm:KassaWindowViewModel"
+        d:DataContext="{x:Static duckie2Client:App.VM_KassaWindow}"
+        x:CompileBindings="True"
         Width="1024"
         Height="768"
         MinWidth="1024"
         MinHeight="768"
-        x:Class="Duckie2Client.Views.KassaWindow"
-        xmlns:duckie2Client="clr-namespace:Duckie2Client"
-        d:DataContext="{x:Static duckie2Client:App.VM_KassaWindow}"
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         Title="Duckie2: Kassa">
 
-    <TextBlock Text="Kassa"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center" />
+	<dialogHostAvalonia:DialogHost Identifier="MainDialogHost"
+                                   DialogMargin="0"
+                                   dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
+                                   OverlayBackground="Black"
+                                   Background="Chocolate">
+		<Panel>
+			<TransitioningContentControl Content="{Binding CurrentPage}">
+				<TransitioningContentControl.PageTransition>
+					<CrossFade Duration="0:00:00.100" />
+				</TransitioningContentControl.PageTransition>
+			</TransitioningContentControl>
+		</Panel>
+	</dialogHostAvalonia:DialogHost>
 </Window>

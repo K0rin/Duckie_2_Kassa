@@ -1,0 +1,12 @@
+using Avalonia;
+using Avalonia.Controls;
+
+namespace Duckie2Client.Controls.Kassa;
+
+public partial class NewClientPhoneNumber : UserControl
+{
+    public NewClientPhoneNumber()
+    {
+        InitializeComponent();
+    }
+}

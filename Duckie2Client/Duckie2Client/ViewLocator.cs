@@ -51,5 +51,6 @@ public class ViewLocator : StrongViewLocator
         Register<ClientsScreenViewModel, ClientsScreenView>();
         Register<CompaniesScreenViewModel, CompaniesScreenView>();
         Register<TradeUnitsScreenViewModel, TradeUnitsScreenView>();
+        Register<MainKassaScreenViewModel, MainKassaScreenView>();
     }
 }

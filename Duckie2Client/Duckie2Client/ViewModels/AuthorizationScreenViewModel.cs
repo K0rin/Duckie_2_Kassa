@@ -5,10 +5,13 @@ using Avalonia.Threading;
 using DialogHostAvalonia;
 using Duckie2Client.Libs;
 using Duckie2Client.Libs.Enums;
+using Duckie2Client.Models;
 using Duckie2Client.Resources;
 using Duckie2Client.Services.Commands;
 using Duckie2Client.ViewModels.Base;
 using Duckie2Client.Views.Dialogs;
+using Duckie2Client.Services.DbmsService;
+using Duckie2Client.ViewModels.Screens;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -25,6 +28,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
     private readonly Mutex _mutexObj = new();
     private SpinnerDialog _processDialog;
     private ErrorDialog _errorDialog;
+    public string initialUser { get; set; }
     private const string AUTHORIZATION_DIALOGS = "AuthorizationDialogs";
 
     public AuthorizationScreenViewModel()
@@ -45,7 +49,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
     }
 
 
-    private void DoAuthorization(Action<bool> callback)
+    private void DoAuthorization(Action<LoginUserRecord?> callback)
     {
         _mutexObj.WaitOne();
 
@@ -54,7 +58,11 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         {
         }
 
-        var authorizationResult = false;
+        // Идея в том, чтобы вернуть не false, а UserRecord или null.
+        // var authorizationResult = false;
+        LoginUserRecord? authorizationResult = null;
+
+        // var userInitial = "";
 
         try
         {
@@ -69,8 +77,12 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
             invoker.SetCommand(checkDatabaseConnectionCommand);
             invoker.ExecuteCommand();
 
-            invoker.SetCommand(checkAuthorizationCommand);
-            invoker.ExecuteCommand(out authorizationResult);
+            //invoker.SetCommand(checkAuthorizationCommand);
+            //invoker.ExecuteCommand(out authorizationResult);
+
+            authorizationResult = Users.CheckLoginandPassword(UserLogin, UserPassword);
+
+            // userInitial = Users.getUserInitial(UserLogin);
         }
         catch (ThreadAbortException e) // thread aborted
         {
@@ -86,6 +98,7 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         }
 
         callback(authorizationResult);
+        // initials(userInitial);
     }
 
 
@@ -94,19 +107,28 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         _isDialogLoaded = true;
     }
 
+    private LoginUserRecord? _authorizedUserRecord;
 
     private async void BeginAuthorizationCommandExecute()
     {
         _processDialog = CreateDialog();
-        var authResult = false;
-        var authorizationJobThread = new Thread(() => DoAuthorization(result => authResult = result));
+
+        // "userInitials" грамматически вернее.
+        // var initialsUser = "";
+
+        var authorizationJobThread = new Thread(
+            () => DoAuthorization(result => _authorizedUserRecord = result)
+        );
 
         // Start the thread and then show the dialog. The thread will wait for showing the dialog on the screen.
         authorizationJobThread.Start();
         var dialogResult = (await DialogHost.Show(_processDialog, AUTHORIZATION_DIALOGS))!;
 
         // todo: refact: Можно переписать результат с использованием перечисления кнопок диалогового окна. Использовать Cancel.
-        var result = (dialogResult, authResult);
+        var result = (dialogResult, _authorizedUserRecord != null);
+
+        // authResult.initials - здесь инициалы. Можно передавать дальше объект.
+
         if (result.Equals((false, false))) AuthorizationCanceled(authorizationJobThread);
         if (result.Equals((null, false)!)) AuthorizationFailed();
         if (result.Equals((null, true)!)) AuthorizationGranted();
@@ -134,6 +156,9 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
     private void AuthorizationGranted()
     {
-        PagerViewModel.SwitchPage(1);
+        PagerViewModel?.SwitchPage(1);
+
+        // Страница 1, это MainKassaScreenViewModel
+        (PagerViewModel?.CurrentPage as MainKassaScreenViewModel)?.AddLoggedInUser(_authorizedUserRecord);
     }
 }

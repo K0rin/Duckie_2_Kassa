@@ -19,6 +19,7 @@ namespace Duckie2Client.ViewModels.Screens;
 /// </summary>
 public class MainConsoleScreenViewModel : ViewModelPageBase
 {
+    internal object SwitchContentPanel;
     #region Commands
 
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; set; }

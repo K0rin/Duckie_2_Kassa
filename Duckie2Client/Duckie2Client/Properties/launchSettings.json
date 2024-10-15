@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Duckie2Client": {
+      "commandName": "Project",
+      "commandLineArgs": "--mode kassa"
+    },
+    "Profile 1": {
+      "commandName": "Executable"
+    }
+  }
+}

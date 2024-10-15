@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
+using System.Security.Cryptography;
 using Duckie2Client.Enums.Flags;
+using Duckie2Client.Libs.SecretStrings;
+using Duckie2Client.Models;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Libs;
 using Duckie2Client.Services.DbmsService.Records;
@@ -225,5 +229,46 @@ public class Users : CrudOperationsBase
 
         PropertySetter.SetProperties<UserRecord, User>(ref record!, ref newUserRec);
         return newUserRec;
+    }
+
+    public static LoginUserRecord? CheckLoginandPassword(string login, string inputtedPassword)
+    {
+        LoginUserRecord? returnResult = null;
+
+        using var db = new DbmsService();
+
+        var foundUser = db.Users
+            .Select(p => new User
+            {
+                Id = p.Id,
+                Login = p.Login,
+                Password = p.Password,
+                LastName = p.LastName,
+                FirstName = p.FirstName
+            })
+            .FirstOrDefault(u => u.Login == login);
+
+        if (foundUser == null) return returnResult;
+
+        var securePassword = new SecureString();
+        foreach (var c in inputtedPassword) securePassword.AppendChar(c);
+        securePassword.MakeReadOnly();
+
+        using var sha256 = SHA256.Create();
+
+        var hashedPassword = SecretStrings.GetHash(securePassword, sha256);
+        var isEquals = SecretStrings.VerifyHash(inputtedPassword, foundUser.Password, sha256);
+
+        // Если пользователь авторизован успешно - присвоить переменной его запись.
+        if (isEquals) returnResult = new LoginUserRecord(foundUser.Id, GetUserInitials(foundUser));
+
+        return returnResult;
+    }
+
+    private static string GetUserInitials(User user)
+    {
+        var firstName = user.FirstName.ToCharArray()[0].ToString().ToUpper();
+        var lastName = user.LastName.ToCharArray()[0].ToString().ToUpper();
+        return $"{firstName}{lastName}";
     }
 }

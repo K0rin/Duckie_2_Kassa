@@ -1,0 +1,117 @@
+is_global = true
+build_property.AvaloniaNameGeneratorIsEnabled = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassName
+build_property.AvaloniaNameGeneratorAttachDevTools = true
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Duckie2Client
+build_property.ProjectDir = C:\Users\Владимир\source\repos\duckie2\Duckie2Client\Duckie2Client\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientConnectedTS.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientPhoneNumber.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/FIrmConnectedWithTS.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/FirmName.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewClient.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewClientPhoneNumber.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewFirm.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/TransportScreen.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/Dashboard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/ListItemWithDeleteButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/MainMenu.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/MainTab.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/TabsControl/DataLoadingState.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/TabsControl/ReadyStateControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/ConsoleWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Dialogs/ErrorDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Dialogs/SpinnerDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/InitialSetupWizardWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/KassaWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/AuthorizationScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/MainConsoleScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/MainKassaScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/BranchesScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/ClientCardBatchAddScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/ClientsScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/CompaniesScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/PersonnelScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/PollutionLevelsScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/PriceTypesScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/Screens/ManagerConsole/TradeUnitsScreenView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Views/SplashWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

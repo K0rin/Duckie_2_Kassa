@@ -10,7 +10,7 @@ public class DbmsService : BaseDbmsService
     protected override string ServiceName => "MSSQL$SQLEXPRESS";
 
     // todo: the data goes from the settings.
-    protected override string ServerName => "DESKTOP-H1O55SG\\SQLEXPRESS";
+    protected override string ServerName => "HOME-PC\\SQLEXPRESS";
 
     // todo: the data goes from the settings.
     protected override string DatabaseName => "CarWash";
