@@ -2,12 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
-             xmlns:duckieControls="clr-namespace:Duckie2Client.Controls.ManagerConsole"
+             xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
              xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
-             xmlns:managerConsole="clr-namespace:Duckie2Client.Controls.ManagerConsole"
              x:Class="Duckie2Client.Views.Screens.MainKassaScreenView"
              x:CompileBindings="True"
-             d:DataContext="{x:Static duckie2Client:App.VM_MainKassaScreen}"
+             d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
              x:DataType="screens:MainKassaScreenViewModel">
 
 	<DockPanel>

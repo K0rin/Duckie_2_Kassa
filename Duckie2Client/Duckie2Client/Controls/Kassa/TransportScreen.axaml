@@ -1,6 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              x:Class="Duckie2Client.Controls.Kassa.TransportScreen"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
 			 >
 	<StackPanel Name="TransportScreenPanel"
 			 HorizontalAlignment="Center"
@@ -9,6 +14,9 @@
 		<TextBox
 				 Margin="0,40,0,0"
 				 DockPanel.Dock="Top"
+				 Name="VehicleNUmberTextBox"
+				 Text="{Binding CarNumber}"
+				 
         />
 		<DockPanel DockPanel.Dock="Top">
 			<Button DockPanel.Dock="Left"
@@ -16,7 +24,8 @@
                         VerticalAlignment="Top"
                         Margin="0, 10, 0, 0"
                         Content="Private"
-						
+						Command="{Binding ShowClientsConnectedWithTS}"
+						CommandParameter="private"
                          />
 			<Button DockPanel.Dock="Left"
                         HorizontalAlignment="Left"
@@ -29,8 +38,9 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="10, 10, 0, 0"
-                        Content="Empty"
-						
+                        Content="Firm"
+						Command="{Binding ShowClientsConnectedWithTS}"
+						CommandParameter="firm"
                          />
 		</DockPanel>
 	</StackPanel>

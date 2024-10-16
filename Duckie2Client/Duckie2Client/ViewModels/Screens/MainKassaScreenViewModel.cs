@@ -14,19 +14,15 @@ using Tabalonia.Controls;
 //using ClientCardBatchAddScreenDataLoadingState =
 //    Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen.DataLoadingState;
 using System.Collections.Generic;
-using DynamicData.Kernel;
 using Avalonia.Controls;
 using Duckie2Client.Controls.Kassa;
 using System;
-using System.Collections;
-using Duckie2Client.Services.DbmsService;
-using System.IO;
 using Duckie2Client.Models;
-using Duckie2Client.Services.DbmsService.Records;
 using System.Linq;
 using Avalonia.Controls.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Avalonia;
+//using MessageBox.Avalonia;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -38,6 +34,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
+    public ReactiveCommand<string, Unit> ShowClientsConnectedWithTS { get; }
+    public ReactiveCommand<string, Unit> NewClientScreen { get; }
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
@@ -55,6 +53,10 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public bool IsDashboardVisible { get; set; }
 
     [Reactive] public bool TransportNomerScreen { get; set; }
+
+    [Reactive] public string CarNumber { get; set; }
+
+    [Reactive] public string TypeOfClient { get; set; }
 
     //public DockPanel usersPanel {  get; set; }
 
@@ -82,9 +84,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
+        ShowClientsConnectedWithTS = ReactiveCommand.Create<string>(ShowClientsConnectedWithTSExecute);
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
+        NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
     }
 
     public void AddLoggedInUser(LoginUserRecord? userRecord)
@@ -182,6 +186,48 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         CurrentPage = panel1View;
     }
 
+    private void NewClientScreenExecute(string parameter)
+    {
+        var panel1View = new NewClient();
+        CurrentPage = panel1View;
+    }
+
+    private void ShowClientsConnectedWithTSExecute(string parameter)
+    {
+        if (parameter.Equals("private")) 
+        {
+            if (string.IsNullOrWhiteSpace(CarNumber)) 
+            {
+
+            }
+            else 
+            {
+                var panel1View = new ClientConnectedTS();
+                TypeOfClient = "private";
+                CurrentPage = panel1View;
+            }
+            
+        }
+        if (parameter.Equals("firm"))
+        {
+            if (string.IsNullOrWhiteSpace(CarNumber))
+            {
+
+            }
+            else
+            {
+                var panel1View = new ClientConnectedTS();
+                TypeOfClient = "firm";
+                CurrentPage = panel1View;
+            }
+        }
+        else 
+        { 
+        
+        }
+        
+    }
+
     public void AddOperatorButtonExecute(List<LoginUserRecord> users)
     {
         var dockPanel = new DockPanel();
@@ -259,13 +305,4 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         else
             TransportNomerScreen = true;
     }
-
-    //private void ChechLogginedUsersExecute(ArrayList usersID) 
-    //{
-    //    foreach (var id in usersID) 
-    //    {
-    //        var stringID = id.ToString();
-    //        AddOperatorBUtton(stringID);
-    //    }
-    //}
 }
