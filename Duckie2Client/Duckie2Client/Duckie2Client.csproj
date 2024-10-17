@@ -19,8 +19,23 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Controls\Kassa\NewClientPhoneNumber.axaml.cs">
-          <DependentUpon>NewClientPhoneNumber.axaml</DependentUpon>
+        <Compile Update="Controls\Kassa\ClientConnectedWithVehicle.axaml.cs">
+          <DependentUpon>ClientConnectedWithVehicle.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\CompanyConnectedWithVehicle.axaml.cs">
+          <DependentUpon>CompanyConnectedWithVehicle.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\CompanyName.axaml.cs">
+          <DependentUpon>CompanyName.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\ClientPhoneSearch.axaml.cs">
+          <DependentUpon>ClientPhoneSearch.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\NewCompany.axaml.cs">
+          <DependentUpon>NewCompany.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\VehicleScreen.axaml.cs">
+          <DependentUpon>VehicleScreen.axaml</DependentUpon>
         </Compile>
         <Compile Update="Views\KassaWindow.axaml.cs">
             <DependentUpon>KassaWindow.axaml</DependentUpon>

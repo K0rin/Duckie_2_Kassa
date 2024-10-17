@@ -23,28 +23,25 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientConnectedTS.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientConnectedWithVehicle.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientPhoneNumber.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/ClientPhoneSearch.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/FIrmConnectedWithTS.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/CompanyConnectedWithVehicle.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/FirmName.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/CompanyName.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewClient.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewClientPhoneNumber.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewCompany.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/NewFirm.axaml]
-build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
-
-[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/TransportScreen.axaml]
+[C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/Kassa/VehicleScreen.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/Владимир/source/repos/duckie2/Duckie2Client/Duckie2Client/Controls/ManagerConsole/Dashboard.axaml]

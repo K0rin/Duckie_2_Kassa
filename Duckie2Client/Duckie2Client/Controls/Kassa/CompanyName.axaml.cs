@@ -3,9 +3,9 @@ using Avalonia.Controls;
 
 namespace Duckie2Client.Controls.Kassa;
 
-public partial class NewFirm : UserControl
+public partial class CompanyName : UserControl
 {
-    public NewFirm()
+    public CompanyName()
     {
         InitializeComponent();
     }

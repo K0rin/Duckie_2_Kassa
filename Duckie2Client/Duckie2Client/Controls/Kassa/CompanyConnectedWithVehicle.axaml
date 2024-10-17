@@ -1,10 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Duckie2Client.Controls.Kassa.FIrmConnectedWithTS">
+             x:Class="Duckie2Client.Controls.Kassa.CompanyConnectedWithVehicle">
 	<StackPanel Name="TransportScreenPanel"
 			   HorizontalAlignment="Center"
 			   VerticalAlignment="Center">
-		<TextBlock Text="List Of Firm connected with Firm" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+		<TextBlock Text="List Of Firms connected with Vehicle" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
 		<Grid Margin="0, 0, 0, 20">
 			<!-- Определяем три столбца -->
 			<Grid.ColumnDefinitions>
@@ -28,36 +28,11 @@
 			<Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
 				<TextBlock Text="MediaWay OU" HorizontalAlignment="Center" VerticalAlignment="Center" />
 			</Border>
-			
-
-			
-
-			<!-- И так далее до пятой строки -->
-
-			
 		</Grid>
 		<DockPanel DockPanel.Dock="Top">
-			<Button DockPanel.Dock="Left"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="0, 10, 0, 0"
-                        Content="Back"
-						
-                         />
-			<Button DockPanel.Dock="Left"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="10, 10, 0, 0"
-                        Content="Another Firm"
-						
-                         />
-			<Button DockPanel.Dock="Left"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="10, 10, 0, 0"
-                        Content="Next"
-						
-                         />
+			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 10, 0, 0" Content="Back"/>
+			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Another Firm"/>
+			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Next"/>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

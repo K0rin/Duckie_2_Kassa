@@ -3,9 +3,9 @@ using Avalonia.Controls;
 
 namespace Duckie2Client.Controls.Kassa;
 
-public partial class ClientConnectedTS : UserControl
+public partial class ClientPhoneSearch : UserControl
 {
-    public ClientConnectedTS()
+    public ClientPhoneSearch()
     {
         InitializeComponent();
     }

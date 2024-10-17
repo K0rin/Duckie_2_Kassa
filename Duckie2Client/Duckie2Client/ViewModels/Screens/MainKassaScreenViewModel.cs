@@ -14,15 +14,19 @@ using Tabalonia.Controls;
 //using ClientCardBatchAddScreenDataLoadingState =
 //    Duckie2Client.ViewModels.Screens.ManagerConsole.ClientCardBatchAddScreen.DataLoadingState;
 using System.Collections.Generic;
+using DynamicData.Kernel;
 using Avalonia.Controls;
 using Duckie2Client.Controls.Kassa;
 using System;
+using System.Collections;
+using Duckie2Client.Services.DbmsService;
+using System.IO;
 using Duckie2Client.Models;
+using Duckie2Client.Services.DbmsService.Records;
 using System.Linq;
 using Avalonia.Controls.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Avalonia;
-//using MessageBox.Avalonia;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -34,8 +38,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
-    public ReactiveCommand<string, Unit> ShowClientsConnectedWithTS { get; }
-    public ReactiveCommand<string, Unit> NewClientScreen { get; }
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
@@ -52,17 +54,12 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     [Reactive] public bool IsDashboardVisible { get; set; }
 
-    [Reactive] public bool TransportNomerScreen { get; set; }
-
     [Reactive] public string CarNumber { get; set; }
 
-    [Reactive] public string TypeOfClient { get; set; }
+    [Reactive] public string ClientType { get; set; }
 
-    //public DockPanel usersPanel {  get; set; }
 
-    //[Reactive] public Panel usersPanel { get; set; }
 
-    //[Reactive] public ArrayList usersIDs { get; set; }
 
     private object _currentPage;
 
@@ -84,11 +81,9 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
-        ShowClientsConnectedWithTS = ReactiveCommand.Create<string>(ShowClientsConnectedWithTSExecute);
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
-        NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
     }
 
     public void AddLoggedInUser(LoginUserRecord? userRecord)
@@ -138,28 +133,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         TabItems.Add(tabItem);
     }
 
-    //private void BatchServiceAdditionCommandExecute()
-    //{
-    //    AddTabItem(
-    //        "Client Card Batch Add (stated)",
-    //        new ClientCardBatchAddScreenView(),
-    //        new ClientCardBatchAddScreenDataLoadingState(),
-    //        "Для загрузки данных нажмите кнопку 'Обновить'.",
-    //        "Загружается список фирм..."
-    //    );
-    //}
-
-    //private void PersonnelCommandExecute()
-    //{
-    //    AddTabItem(
-    //        "Personnel List",
-    //        new PersonnelScreenView(),
-    //        new PersonnelScreenDataLoadingState(),
-    //        "Для загрузки списка персонала нажмите кнопку 'Обновить'.",
-    //        "Загружается список персонала..."
-    //    );
-    //}
-
     private void ExitMenuCommandExecute()
     {
         App.ShutdownApplication();
@@ -182,9 +155,10 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void ShowOrdersScreenExecute()
     {
-        var panel1View = new TransportScreen();
+        var panel1View = new VehicleScreen();
         CurrentPage = panel1View;
     }
+
 
     private void NewClientScreenExecute(string parameter)
     {
@@ -194,39 +168,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void ShowClientsConnectedWithTSExecute(string parameter)
     {
-        if (parameter.Equals("private")) 
-        {
-            if (string.IsNullOrWhiteSpace(CarNumber)) 
-            {
-
-            }
-            else 
-            {
-                var panel1View = new ClientConnectedTS();
-                TypeOfClient = "private";
-                CurrentPage = panel1View;
-            }
-            
-        }
-        if (parameter.Equals("firm"))
-        {
-            if (string.IsNullOrWhiteSpace(CarNumber))
-            {
-
-            }
-            else
-            {
-                var panel1View = new ClientConnectedTS();
-                TypeOfClient = "firm";
-                CurrentPage = panel1View;
-            }
-        }
-        else 
-        { 
-        
-        }
-        
+        if (string.IsNullOrWhiteSpace(CarNumber)) return;
+        ClientType = parameter;
+        CurrentPage = new ClientConnectedWithVehicle();
     }
+
 
     public void AddOperatorButtonExecute(List<LoginUserRecord> users)
     {
@@ -250,20 +196,12 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             popup.IsOpen = false;
             userButton.Click += (sender, args) => 
             {
-                if (popup.IsOpen == false)
-                {
-                    popup.IsOpen = true;
-                }
-                else 
-                {
-                    popup.IsOpen = false;
-                }
-                
+                popup.IsOpen = !popup.IsOpen;
             };
             textBlock2.Tapped += (sender, args) => 
             {
                 var userId = textBlock2.Name.ToString();
-                finishOperator(userId);
+                LogoutOperator(userId);
                 popup.IsOpen = false;
             };
             stackPanel.Children.Add( userButton );
@@ -276,13 +214,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         DockaPanelUserButtons = dockPanel;
     }
 
-    private void finishOperator(string userId) 
+    private void LogoutOperator(string userId) 
     {
-        var id = userId;
         var guid = Guid.Parse(userId);
         var foundUser = _loggedInUsers.FirstOrDefault(u => u?.Id == guid);
         _loggedInUsers.Remove(foundUser);
-        var debug = true;
         if (_loggedInUsers.IsNullOrEmpty() == true) 
         {
             App.ShutdownApplication();
@@ -298,6 +234,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         if (IsDashboardVisible) IsDashboardVisible = false;
     }
 
+
     private void HideTransportNomerScreen()
     {
         if (TransportNomerScreen.Equals(true))
@@ -305,4 +242,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         else
             TransportNomerScreen = true;
     }
+
+
 }
