@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataFaker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a18fb4a35b677624a586bbc9ae69d66e23ef4828")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52b179170aa0d0610aff5b479363b55d0cfb4746")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataFaker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataFaker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

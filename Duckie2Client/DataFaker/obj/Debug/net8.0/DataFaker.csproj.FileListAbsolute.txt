@@ -1,0 +1,13 @@
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\bin\Debug\net8.0\DataFaker.deps.json
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\bin\Debug\net8.0\DataFaker.dll
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\bin\Debug\net8.0\DataFaker.pdb
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.csproj.AssemblyReference.cache
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.AssemblyInfoInputs.cache
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.AssemblyInfo.cs
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.csproj.CoreCompileInputs.cache
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.sourcelink.json
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.dll
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\refint\DataFaker.dll
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\DataFaker.pdb
+C:\Users\Владимир\source\repos\duckie2\Duckie2Client\DataFaker\obj\Debug\net8.0\ref\DataFaker.dll
