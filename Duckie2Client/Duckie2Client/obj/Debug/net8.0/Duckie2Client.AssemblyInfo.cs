@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Duckie2Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e3fafd09c07a01cc27a9084dd8d4587212ae156")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01046f512e149352fc0a2c34b31b0fa8f123a3c9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Duckie2Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Duckie2Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
