@@ -41,6 +41,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
+    public ReactiveCommand<string, Unit> NewClientScreen { get; }
+    public ReactiveCommand<string, Unit> ShowClientsConnectedWithVehicle { get; }
     //public ReactiveCommand<Unit, Unit> AddOperatorButton { get; }
     //public ReactiveCommand<object, Unit> TabCloseCommand { get; }
 
@@ -49,6 +51,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     #endregion
 
     private List<LoginUserRecord?> _loggedInUsers = [];
+
+    
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
 
 
@@ -81,9 +85,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
+        ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(ShowClientsConnectedWithTSExecute);
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
+        NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
     }
 
     public void AddLoggedInUser(LoginUserRecord? userRecord)
@@ -232,15 +238,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     private void HideDashboard()
     {
         if (IsDashboardVisible) IsDashboardVisible = false;
-    }
-
-
-    private void HideTransportNomerScreen()
-    {
-        if (TransportNomerScreen.Equals(true))
-            TransportNomerScreen = false;
-        else
-            TransportNomerScreen = true;
     }
 
 
