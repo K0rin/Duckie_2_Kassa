@@ -52,7 +52,9 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private List<LoginUserRecord?> _loggedInUsers = [];
 
-    
+    private List<VehicleRecord?> _vehicle = [];
+
+
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
 
 
@@ -175,6 +177,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     private void ShowClientsConnectedWithTSExecute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
+        VehiclesRecord? vehicle = Vehicles.findVehicle(CarNumber);
+        if (vehicle == null) return;
         ClientType = parameter;
         CurrentPage = new ClientConnectedWithVehicle();
     }
