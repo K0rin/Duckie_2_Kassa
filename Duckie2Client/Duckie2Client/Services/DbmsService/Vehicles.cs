@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Models;
 using Duckie2Client.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -12,20 +13,15 @@ namespace Duckie2Client.Services.DbmsService;
 public class Vehicles : CrudOperationsBase
 {
 
-    public static VehiclesRecord? findVehicle(string licence)
+    public static VehiclesRecord? FindVehicle(string licence)
     {
         VehiclesRecord returnResult = null;
 
         using var db = new DbmsService();
 
         var foundVehicle = db.Vehicles
-            .Select(p => new Vehicle
-            {
-                Id = p.Id,
-                Licence = p.Licence,
-                PriceType = p.PriceType,
-                Clients = p.Clients
-            })
+            .Where(v=> v.Licence.Equals(licence))
+            .Include(vehicle => vehicle.Clients)
             .FirstOrDefault(v => v.Licence == licence);
 
         if (foundVehicle == null) return returnResult;

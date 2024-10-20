@@ -41,6 +41,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
+    public ReactiveCommand<Unit, Unit> SearchClientPhone { get; }
     public ReactiveCommand<string, Unit> NewClientScreen { get; }
     public ReactiveCommand<string, Unit> ShowClientsConnectedWithVehicle { get; }
     //public ReactiveCommand<Unit, Unit> AddOperatorButton { get; }
@@ -61,7 +62,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public bool IsDashboardVisible { get; set; }
 
     [Reactive] public string CarNumber { get; set; }
-
+    [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
 
 
@@ -87,7 +88,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
-        ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(ShowClientsConnectedWithTSExecute);
+        ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(VehicleRoute);
+        SearchClientPhone = ReactiveCommand.Create(SearchClientPhoneExecute);
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
@@ -163,24 +165,32 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void ShowOrdersScreenExecute()
     {
-        var panel1View = new VehicleScreen();
-        CurrentPage = panel1View;
+        CurrentPage = new VehicleScreen();
     }
 
 
     private void NewClientScreenExecute(string parameter)
     {
-        var panel1View = new NewClient();
-        CurrentPage = panel1View;
+        CurrentPage = new NewClient();
     }
 
-    private void ShowClientsConnectedWithTSExecute(string parameter)
+    private void SearchClientPhoneExecute() 
+    {
+        if (string.IsNullOrWhiteSpace(ClientPhone)) return;
+        CommunicationMeansRecords searchPhone = CommunicationMeans.FindCommunicationClient(ClientPhone);
+        if (searchPhone == null) 
+        {
+            CurrentPage = new NewClient();
+        }
+    }
+
+    private void VehicleRoute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
-        VehiclesRecord? vehicle = Vehicles.findVehicle(CarNumber);
-        if (vehicle == null) return;
         ClientType = parameter;
-        CurrentPage = new ClientConnectedWithVehicle();
+        CurrentPage = Vehicles.FindVehicle(CarNumber) == null
+            ? new ClientPhoneSearch()
+            : new ClientConnectedWithVehicle();
     }
 
 
