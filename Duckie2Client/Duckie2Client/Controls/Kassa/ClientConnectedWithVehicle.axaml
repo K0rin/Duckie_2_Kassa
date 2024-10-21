@@ -6,18 +6,53 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
-			 >
+>
 	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<TextBlock Text="Clients connected with TS" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 0, 0, 20"/>
-		<DataGrid Margin="20" ItemsSource="{Binding VehicleClient}"
-          AutoGenerateColumns="True" IsReadOnly="True"
-          GridLinesVisibility="All"
-          BorderThickness="1" BorderBrush="Gray">
+		<TextBlock 
+			Text="Clients connected with Vehicle" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 0, 0, 20"
+		/>
+		<DataGrid 
+			Margin="0,0,0,20" 
+			ItemsSource="{Binding VehicleClient}" 
+			AutoGenerateColumns="False" 
+			IsReadOnly="True" 
+			GridLinesVisibility="All" 
+			BorderThickness="1" 
+			BorderBrush="Gray"
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+				<DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+				<DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+			</DataGrid.Columns>
 		</DataGrid>
 		<DockPanel DockPanel.Dock="Top">
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 10, 0, 0" Content="Back" Command="{Binding ShowOrdersScreen}"/>
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Another Client" Command="{Binding NewClientScreen}"/>
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Next"/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="0, 10, 0, 0" 
+				Content="Back" 
+				Command="{Binding ShowOrdersScreen}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Another Client" 
+				Command="{Binding NewClientScreen}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Next"
+			/>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

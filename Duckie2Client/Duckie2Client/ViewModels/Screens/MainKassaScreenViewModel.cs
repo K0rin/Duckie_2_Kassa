@@ -64,7 +64,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public bool IsDashboardVisible { get; set; }
 
     [Reactive] public string CarNumber { get; set; }
-    [Reactive] public ObservableCollection<Client> VehicleClient { get; set; }
+    [Reactive] public ObservableCollection<CommunicationClientRecords> VehicleClient { get; set; }
     [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
 
@@ -199,7 +199,19 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         else
         {
             if (vehicle.VehicleClients.IsNullOrEmpty()) return;
-            VehicleClient = new ObservableCollection<Client>(vehicle.VehicleClients);
+            List<CommunicationClientRecords> communicationClients = new List<CommunicationClientRecords>();
+            string firstname = "";
+            string lastname = "";
+            foreach (Client client in vehicle.VehicleClients)
+            {
+                foreach (CommunicationMean comm in client.CommunicationMeans)
+                {
+                    CommunicationClientRecords commClient = new CommunicationClientRecords(null, comm.Phone, client.FirstName, client.LastName);
+                    communicationClients.Add(commClient);
+                }
+            }
+            VehicleClient = new ObservableCollection<CommunicationClientRecords>(communicationClients);
+            
             CurrentPage = new ClientConnectedWithVehicle();
         }
     }

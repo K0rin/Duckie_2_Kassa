@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bogus.DataSets;
 using Duckie2Client.Models;
 using Duckie2Client.Models.Database;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ public class Vehicles : CrudOperationsBase
         var foundVehicle = db.Vehicles
             .Where(v=> v.Licence.Equals(licence))
             .Include(vehicle => vehicle.Clients)
+            .ThenInclude(comm => comm.CommunicationMeans)
             .FirstOrDefault(v => v.Licence == licence);
 
         if (foundVehicle == null) return returnResult;
