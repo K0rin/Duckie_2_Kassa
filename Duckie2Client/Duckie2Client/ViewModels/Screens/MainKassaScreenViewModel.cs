@@ -27,6 +27,8 @@ using System.Linq;
 using Avalonia.Controls.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Avalonia;
+using Bogus;
+using Duckie2Client.Models.Database;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -62,6 +64,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public bool IsDashboardVisible { get; set; }
 
     [Reactive] public string CarNumber { get; set; }
+    [Reactive] public ObservableCollection<Client> VehicleClient { get; set; }
     [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
 
@@ -187,14 +190,21 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     private void VehicleRoute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
+        VehiclesRecord? vehicle = Vehicles.FindVehicle(CarNumber);
         ClientType = parameter;
-        CurrentPage = Vehicles.FindVehicle(CarNumber) == null
-            ? new ClientPhoneSearch()
-            : new ClientConnectedWithVehicle();
+        if (vehicle == null)
+        {
+            CurrentPage = new ClientPhoneSearch();
+        }
+        else
+        {
+            if (vehicle.VehicleClients.IsNullOrEmpty()) return;
+            VehicleClient = new ObservableCollection<Client>(vehicle.VehicleClients);
+            CurrentPage = new ClientConnectedWithVehicle();
+        }
     }
 
-
-    public void AddOperatorButtonExecute(List<LoginUserRecord> users)
+    private void AddOperatorButtonExecute(List<LoginUserRecord> users)
     {
         var dockPanel = new DockPanel();
         foreach (LoginUserRecord? user in users) 
