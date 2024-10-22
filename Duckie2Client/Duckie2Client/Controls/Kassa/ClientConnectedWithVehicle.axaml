@@ -22,6 +22,7 @@
 			GridLinesVisibility="All" 
 			BorderThickness="1" 
 			BorderBrush="Gray"
+			SelectionChanged="OnSelectionChanged"
 		>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
@@ -52,6 +53,7 @@
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0" 
 				Content="Next"
+				Command="{Binding OrderRoute}"
 			/>
 		</DockPanel>
 	</StackPanel>

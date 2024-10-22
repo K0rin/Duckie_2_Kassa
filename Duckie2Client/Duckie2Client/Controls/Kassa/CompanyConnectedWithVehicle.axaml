@@ -4,7 +4,7 @@
 	<StackPanel Name="TransportScreenPanel"
 			   HorizontalAlignment="Center"
 			   VerticalAlignment="Center">
-		<TextBlock Text="List Of Firms connected with Vehicle" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+		<TextBlock Text="List Of Companies connected with Vehicle" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
 		<Grid Margin="0, 0, 0, 20">
 			<!-- Определяем три столбца -->
 			<Grid.ColumnDefinitions>

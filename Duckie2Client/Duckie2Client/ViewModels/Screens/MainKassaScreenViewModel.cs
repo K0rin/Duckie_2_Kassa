@@ -29,6 +29,7 @@ using Microsoft.IdentityModel.Tokens;
 using Avalonia;
 using Bogus;
 using Duckie2Client.Models.Database;
+using System.Reactive.Linq;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -43,6 +44,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
+    public ReactiveCommand<Unit, Unit> OrderRoute { get; }
     public ReactiveCommand<Unit, Unit> SearchClientPhone { get; }
     public ReactiveCommand<string, Unit> NewClientScreen { get; }
     public ReactiveCommand<string, Unit> ShowClientsConnectedWithVehicle { get; }
@@ -65,6 +67,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     [Reactive] public string CarNumber { get; set; }
     [Reactive] public ObservableCollection<CommunicationClientRecords> VehicleClient { get; set; }
+    [Reactive] public CommunicationClientRecords SelectedClient { get; set; }
     [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
 
@@ -96,6 +99,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
+        OrderRoute = ReactiveCommand.Create(OrderRouteExecute);
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
     }
 
@@ -187,6 +191,37 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         }
     }
 
+    public void SelectCLientExecute(object? sender , SelectionChangedEventArgs e)
+    {
+        var dataGrid = sender as DataGrid;
+        if (dataGrid != null && dataGrid.SelectedItem != null)
+        {
+            // Получаем выбранный элемент (строку)
+            var selectedItem = dataGrid.SelectedItem;
+
+            var selectedClient = selectedItem as CommunicationClientRecords;
+
+            var clientRecord = new CommunicationClientRecords(
+                selectedClient.Id,
+                selectedClient.Phone,
+                selectedClient.FirstName,
+                selectedClient.LastName,
+                selectedClient.ClientId
+            );
+            SelectedClient = clientRecord;
+        }
+    }
+
+    private void OrderRouteExecute() 
+    {
+        if (SelectedClient == null) return;
+        bool debug = true;
+        if (ClientType.Equals("firm")) 
+        { 
+            CurrentPage = new CompanyConnectedWithVehicle();
+        }
+    }
+
     private void VehicleRoute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
@@ -200,13 +235,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         {
             if (vehicle.VehicleClients.IsNullOrEmpty()) return;
             List<CommunicationClientRecords> communicationClients = new List<CommunicationClientRecords>();
-            string firstname = "";
-            string lastname = "";
             foreach (Client client in vehicle.VehicleClients)
             {
                 foreach (CommunicationMean comm in client.CommunicationMeans)
                 {
-                    CommunicationClientRecords commClient = new CommunicationClientRecords(null, comm.Phone, client.FirstName, client.LastName);
+                    CommunicationClientRecords commClient = new CommunicationClientRecords(comm.Id, comm.Phone, client.FirstName, client.LastName, client.Id);
                     communicationClients.Add(commClient);
                 }
             }
