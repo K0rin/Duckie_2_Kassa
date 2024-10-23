@@ -1,38 +1,61 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Duckie2Client.Controls.Kassa.CompanyConnectedWithVehicle">
-	<StackPanel Name="TransportScreenPanel"
-			   HorizontalAlignment="Center"
-			   VerticalAlignment="Center">
-		<TextBlock Text="List Of Companies connected with Vehicle" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
-		<Grid Margin="0, 0, 0, 20">
-			<!-- Определяем три столбца -->
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				
-			</Grid.ColumnDefinitions>
-
-			<!-- Определяем пять строк -->
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
-
-			<!-- Пример ячеек таблицы -->
-			<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-				<TextBlock Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center" />
-			</Border>
-			<Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-				<TextBlock Text="MediaWay OU" HorizontalAlignment="Center" VerticalAlignment="Center" />
-			</Border>
-		</Grid>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"			 
+             x:Class="Duckie2Client.Controls.Kassa.CompanyConnectedWithVehicle"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+>
+	<StackPanel 
+		Name="TransportScreenPanel" 
+		HorizontalAlignment="Center" 
+		VerticalAlignment="Center"
+	>
+		<TextBlock 
+			Text="Company connected with Vehicle" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center"
+		/>
+		<DataGrid
+			Margin="0,0,0,20"
+			ItemsSource="{Binding CompanyVehicle}"
+			AutoGenerateColumns="False"
+			IsReadOnly="True"
+			GridLinesVisibility="All"
+			BorderThickness="1"
+			BorderBrush="Gray"
+			
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>
+			</DataGrid.Columns>
+		</DataGrid>
 		<DockPanel DockPanel.Dock="Top">
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 10, 0, 0" Content="Back"/>
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Another Firm"/>
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 0, 0" Content="Next"/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="0, 10, 0, 0" 
+				Content="Back"
+				Command="{Binding ShowClientsConnectedWithVehicle}" 
+				CommandParameter="{Binding ClientType}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Another Firm"
+				Command="{Binding NewCompanyScreen}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Next"
+			/>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

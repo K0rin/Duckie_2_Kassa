@@ -47,6 +47,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> OrderRoute { get; }
     public ReactiveCommand<Unit, Unit> SearchClientPhone { get; }
     public ReactiveCommand<string, Unit> NewClientScreen { get; }
+    public ReactiveCommand<Unit, Unit> NewCompanyScreen { get; }
     public ReactiveCommand<string, Unit> ShowClientsConnectedWithVehicle { get; }
     //public ReactiveCommand<Unit, Unit> AddOperatorButton { get; }
     //public ReactiveCommand<object, Unit> TabCloseCommand { get; }
@@ -68,6 +69,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public string CarNumber { get; set; }
     [Reactive] public ObservableCollection<CommunicationClientRecords> VehicleClient { get; set; }
     [Reactive] public CommunicationClientRecords SelectedClient { get; set; }
+    [Reactive] public ObservableCollection<CompaniesRecord> CompanyVehicle { get; set; }
     [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
 
@@ -100,6 +102,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
         OrderRoute = ReactiveCommand.Create(OrderRouteExecute);
+        NewCompanyScreen = ReactiveCommand.Create(NewCompanyScreenExecute); 
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
     }
 
@@ -181,6 +184,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         CurrentPage = new NewClient();
     }
 
+    private void NewCompanyScreenExecute()
+    {
+        CurrentPage = new NewCompany();
+    }
+
     private void SearchClientPhoneExecute() 
     {
         if (string.IsNullOrWhiteSpace(ClientPhone)) return;
@@ -196,7 +204,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         var dataGrid = sender as DataGrid;
         if (dataGrid != null && dataGrid.SelectedItem != null)
         {
-            // Получаем выбранный элемент (строку)
             var selectedItem = dataGrid.SelectedItem;
 
             var selectedClient = selectedItem as CommunicationClientRecords;
@@ -206,7 +213,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
                 selectedClient.Phone,
                 selectedClient.FirstName,
                 selectedClient.LastName,
-                selectedClient.ClientId
+                selectedClient.ClientId,
+                selectedClient.VehicleId
             );
             SelectedClient = clientRecord;
         }
@@ -217,7 +225,10 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         if (SelectedClient == null) return;
         bool debug = true;
         if (ClientType.Equals("firm")) 
-        { 
+        {
+            CompaniesRecord company = Companies.FindCompanyConnectedWithVehicle(SelectedClient.VehicleId);
+            CompanyVehicle = new ObservableCollection<CompaniesRecord>();
+            CompanyVehicle.Add(company);
             CurrentPage = new CompanyConnectedWithVehicle();
         }
     }
@@ -239,7 +250,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             {
                 foreach (CommunicationMean comm in client.CommunicationMeans)
                 {
-                    CommunicationClientRecords commClient = new CommunicationClientRecords(comm.Id, comm.Phone, client.FirstName, client.LastName, client.Id);
+                    CommunicationClientRecords commClient = new CommunicationClientRecords(comm.Id, comm.Phone, client.FirstName, client.LastName, client.Id, vehicle.Id);
                     communicationClients.Add(commClient);
                 }
             }

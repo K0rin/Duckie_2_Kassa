@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
+using Duckie2Client.Models;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -80,5 +83,20 @@ public class Companies : CrudOperationsBase
         }
 
         return (List<TDataModel>)result;
+    }
+
+    public static CompaniesRecord? FindCompanyConnectedWithVehicle(Guid VehicleId)
+    {
+        CompaniesRecord returnResult = null;
+
+        using var db = new DbmsService();
+
+        var foundCompanies = db.Companies
+            .Where(company => company.Vehicles.Any(vehicle => vehicle.Id == VehicleId) && company.IsActive == true)
+            .FirstOrDefault();
+
+        if (foundCompanies == null) return returnResult;
+        returnResult = new CompaniesRecord(foundCompanies.Id, foundCompanies.Name);
+        return returnResult;
     }
 }

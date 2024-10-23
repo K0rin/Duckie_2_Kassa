@@ -23,6 +23,7 @@
 			BorderThickness="1" 
 			BorderBrush="Gray"
 			SelectionChanged="OnSelectionChanged"
+			SelectedItem=""
 		>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
