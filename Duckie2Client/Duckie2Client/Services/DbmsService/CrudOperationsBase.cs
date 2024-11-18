@@ -57,7 +57,7 @@ public abstract class CrudOperationsBase
         dbSet.Add(newRecord);
         dbmsService.SaveChanges();
         // todo: Учитывать количество сделанных изменений. Если их 0, тогда, это ошибка.
-
+        //var debug = true;
         return DataModelOperationResult.Successful;
     }
 }

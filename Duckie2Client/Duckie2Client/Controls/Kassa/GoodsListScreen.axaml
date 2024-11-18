@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.GoodsListScreen"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+>
+	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+		<TextBlock
+			Text="List of Goods"
+			DockPanel.Dock="Top"
+			HorizontalAlignment="Center"
+			Margin="0, 0, 0, 20"
+		/>
+		<DataGrid
+			Margin="0,0,0,20"
+			ItemsSource="{Binding GoodsList}"
+			AutoGenerateColumns="False"
+			IsReadOnly="True"
+			GridLinesVisibility="All"
+			BorderThickness="1"
+			BorderBrush="Gray"
+			SelectionChanged="OnSelectionChanged"
+			SelectedItem=""
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Trade Unit" Binding="{Binding TradeUnitName}"/>
+				<DataGridTextColumn Header="Price" Binding="{Binding RateValue}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<DockPanel DockPanel.Dock="Top">
+			<Button
+				DockPanel.Dock="Left"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Margin="0, 10, 0, 0"
+				Content="Back"
+				Command="{Binding ShowOrdersScreen}"
+			/>
+		</DockPanel>
+	</StackPanel>
+</UserControl>

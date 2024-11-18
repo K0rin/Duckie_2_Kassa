@@ -30,6 +30,11 @@ using Avalonia;
 using Bogus;
 using Duckie2Client.Models.Database;
 using System.Reactive.Linq;
+using Duckie2Client.Services.DbmsService.Records.Builders;
+using Microsoft.EntityFrameworkCore;
+using Duckie2Client.Views.Screens;
+using System.Reflection;
+using ExCSS;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -42,10 +47,19 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
+    public ReactiveCommand<Unit, Unit> PageClientPhoneSearch { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
     public ReactiveCommand<Unit, Unit> OrderRoute { get; }
     public ReactiveCommand<Unit, Unit> SearchClientPhone { get; }
+    public ReactiveCommand<Unit, Unit> ServicesListScreen { get; }
+    public ReactiveCommand<Unit, Unit> GoodsListScreen { get; }
+    public ReactiveCommand<Unit, Unit> AddItemToShoppingCart { get; }
+    public ReactiveCommand<Unit, Unit> FindCompanyScreen { get; }
+    public ReactiveCommand<Unit, Unit> FindCompany { get; }
+    public ReactiveCommand<Unit, Unit> SaveNewClient { get; }
+    public ReactiveCommand<Unit, Unit> ShoppingCartScreen { get; }
+    public ReactiveCommand<Unit, Unit> SaveNewCompany { get; }
     public ReactiveCommand<string, Unit> NewClientScreen { get; }
     public ReactiveCommand<Unit, Unit> NewCompanyScreen { get; }
     public ReactiveCommand<string, Unit> ShowClientsConnectedWithVehicle { get; }
@@ -58,8 +72,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private List<LoginUserRecord?> _loggedInUsers = [];
 
-    private List<VehicleRecord?> _vehicle = [];
-
+    private VehiclesRecord? FoundVehicle { get; set; }
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
 
@@ -67,11 +80,28 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public bool IsDashboardVisible { get; set; }
 
     [Reactive] public string CarNumber { get; set; }
+    
+    [Reactive] public string NewClientFirstName { get; set; }
+    [Reactive] public string NewCopmanyName { get; set; }
+    [Reactive] public string NewCompanyRegister { get; set; }
+    [Reactive] public string NewCompanyAdress { get; set; }
+    [Reactive] public string NewClientLastName { get; set; }
+    [Reactive] public string NewClientEmail { get; set; }
+    [Reactive] public string CompanyName { get; set; }
+    [Reactive] public string NewClientNotes { get; set; }
+    [Reactive] public bool ClientPanelVisibility { get; set; }
     [Reactive] public ObservableCollection<CommunicationClientRecords> VehicleClient { get; set; }
     [Reactive] public CommunicationClientRecords SelectedClient { get; set; }
+    [Reactive] public PricesRecord SelectedService { get; set; }
+    [Reactive] public PricesRecord SelectedGood { get; set; }
     [Reactive] public ObservableCollection<CompaniesRecord> CompanyVehicle { get; set; }
+    [Reactive] public ObservableCollection<PricesRecord> ServicesList { get; set; }
+    [Reactive] public ObservableCollection<PricesRecord> GoodsList { get; set; }
+    [Reactive] public ObservableCollection<PricesRecord> ItemsInShoppingCartList { get; set; }
     [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
+
+    public static double PanelHeigth { get; set; }
 
 
 
@@ -80,10 +110,52 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     public object contentUserButtons = new DockPanel();
 
+    public object ClientInfoStackPanel = new StackPanel();
+
+    public object LeftPanelKassaButtons = new StackPanel();
+
+    public object LeftPanelKassaButtonsExecute
+    {
+        get => LeftPanelKassaButtons;
+        set => this.RaiseAndSetIfChanged(ref LeftPanelKassaButtons, value);
+    }
+    
+    public object UserPanel = new DockPanel();
+
+    public object UserPanelView
+    {
+        get => UserPanel;
+        set => this.RaiseAndSetIfChanged(ref UserPanel, value);
+    }
+
+    
+
+    public object OrderPanel = new DockPanel();
+
+    public object OrderPanelView
+    {
+        get => OrderPanel;
+        set => this.RaiseAndSetIfChanged(ref OrderPanel, value);
+    }
+
+    public object OrderCheckoutPanel = new DockPanel();
+
+    public object OrderCheckoutPanelView
+    {
+        get => OrderCheckoutPanel;
+        set => this.RaiseAndSetIfChanged(ref OrderCheckoutPanel, value);
+    }
+
     public object DockaPanelUserButtons
     {
         get => contentUserButtons;
         set => this.RaiseAndSetIfChanged(ref contentUserButtons, value);
+    }
+
+    public object ClientInfo
+    {
+        get => ClientInfoStackPanel;
+        set => this.RaiseAndSetIfChanged(ref ClientInfoStackPanel, value);
     }
 
     public object CurrentPage
@@ -98,12 +170,26 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
         ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(VehicleRoute);
         SearchClientPhone = ReactiveCommand.Create(SearchClientPhoneExecute);
+        PageClientPhoneSearch = ReactiveCommand.Create(PageClientPhoneSearchExecute);
         CheckoutAndExit = ReactiveCommand.Create(CheckoutAndExitExecute);
         NewUserAuthorization = ReactiveCommand.Create(NewUserAuthorizationExecute);
         ShowWashesScreen = ReactiveCommand.Create(ShowWashesScreenExecute);
         OrderRoute = ReactiveCommand.Create(OrderRouteExecute);
-        NewCompanyScreen = ReactiveCommand.Create(NewCompanyScreenExecute); 
+        NewCompanyScreen = ReactiveCommand.Create(NewCompanyScreenExecute);
+        FindCompanyScreen = ReactiveCommand.Create(FindCompanyScreenExecute);
+        FindCompany = ReactiveCommand.Create(FindCompanyExecute);
+        SaveNewClient = ReactiveCommand.Create(SaveNewClientExecute);
+        SaveNewCompany = ReactiveCommand.Create(SaveNewCompanyExecute);
+        ServicesListScreen = ReactiveCommand.Create(ServicesListScreenExecute);
+        GoodsListScreen = ReactiveCommand.Create(GoodsListScreenExecute);
+        ShoppingCartScreen = ReactiveCommand.Create(ShoppingCartScreenExecute);
+        AddItemToShoppingCart = ReactiveCommand.Create(AddItemToShoppingCartExecute);
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
+        ClientPanelVisibility = false;
+        LeftPanelKassaButtonsExecute = new KassaLeftPanel();
+        UserPanelView = new UserPanel();
+        OrderPanelView = new OrderPanel();
+        OrderCheckoutPanelView = new OrderCheckoutPanel();
     }
 
     public void AddLoggedInUser(LoginUserRecord? userRecord)
@@ -152,6 +238,15 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         };
         TabItems.Add(tabItem);
     }
+    public static void SetPanelHeigt(double value) 
+    {
+        PanelHeigth = value;
+    }
+
+    private void GetPanelHeight() 
+    { 
+    
+    }
 
     private void ExitMenuCommandExecute()
     {
@@ -175,6 +270,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void ShowOrdersScreenExecute()
     {
+        ClientPanelVisibility = false;
         CurrentPage = new VehicleScreen();
     }
 
@@ -182,6 +278,86 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     private void NewClientScreenExecute(string parameter)
     {
         CurrentPage = new NewClient();
+    }
+
+    private void SaveNewClientExecute() 
+    {
+        if (FoundVehicle != null)
+        {
+            var debug = true;
+            Vehicles.AddClientToVehicle(CarNumber,NewClientFirstName,NewClientLastName,ClientPhone,NewClientEmail,NewClientNotes);
+            VehicleRoute(ClientType);
+        }
+        else 
+        {
+            var newClientBuilder = new ClientRecordBuilder();
+            newClientBuilder.AddFirstName(NewClientFirstName);
+            newClientBuilder.AddLastName(NewClientLastName);
+            newClientBuilder.AddNotes(NewClientNotes);
+            newClientBuilder.AddFirstRegistrationDateTime(DateTime.Now);
+            newClientBuilder.AddId(Guid.NewGuid());
+
+            var communicationMeanBuilder = new CommunicationMeanBuilder();
+            communicationMeanBuilder.AddEmail(NewClientEmail);
+            communicationMeanBuilder.AddPhone(ClientPhone);
+            communicationMeanBuilder.AddId(Guid.NewGuid());
+            newClientBuilder.AddCommunicationMean([communicationMeanBuilder]);
+
+            var vehiclePriceTypeBuilder = new PriceTypeRecordBuilder();
+            var priceType = PriceTypes.FindFirstPriceType();
+            vehiclePriceTypeBuilder.AddId(priceType.Id);
+
+            var vehicleRecordBuilder = new VehicleRecordBuilder();
+            vehicleRecordBuilder.AddLicence(CarNumber);
+            vehicleRecordBuilder.AddId(Guid.NewGuid());
+            vehicleRecordBuilder.AddPriceType(vehiclePriceTypeBuilder);
+            //var vehicleClient = new 
+            newClientBuilder.AddVehicle([vehicleRecordBuilder]);
+
+            var clientBonus = new ClientBonusRecordBuilder();
+            clientBonus.AddEndDateTime(DateTime.Now);
+            clientBonus.AddSumma(0);
+            clientBonus.AddId(Guid.NewGuid());
+
+            newClientBuilder.AddBonus(clientBonus);
+
+            //var debug = true;
+            var result = new Clients().Create(newClientBuilder);
+            VehicleRoute(ClientType);
+
+        }
+        
+    }
+
+    private void SaveNewCompanyExecute() 
+    {
+        Companies.AddCompanyToVehicle(CarNumber, NewCopmanyName, NewCompanyAdress, NewCompanyRegister);
+        OrderRouteExecute();
+    }
+
+    private void FindCompanyScreenExecute() 
+    {
+        CurrentPage = new FindCompanyName();
+    }
+
+    private void FindCompanyExecute() 
+    {
+        CompaniesRecord company = Companies.FindCompanyConnectedWithVehicle(SelectedClient.VehicleId);
+        bool exist = Companies.FindCompany(CompanyName);
+        var debug = true;
+        if (company == null )
+        {
+            CurrentPage = new NewCompany();
+        }
+        if (exist == true)
+        {
+            Companies.AddExistedCompanyToVehicle(CarNumber, CompanyName);
+            OrderRouteExecute();
+        }
+        if (exist == false) 
+        {
+            CurrentPage = new NewCompany();
+        }
     }
 
     private void NewCompanyScreenExecute()
@@ -193,10 +369,28 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         if (string.IsNullOrWhiteSpace(ClientPhone)) return;
         CommunicationMeansRecords searchPhone = CommunicationMeans.FindCommunicationClient(ClientPhone);
-        if (searchPhone == null) 
+        if (searchPhone == null)
         {
             CurrentPage = new NewClient();
         }
+        else if (searchPhone != null && FoundVehicle != null)
+        {
+            var debug = true;
+            Clients.AddExistedVehicletoExistedClient(ClientPhone, CarNumber);
+            VehicleRoute(ClientType);
+        }
+        else 
+        {
+            var debug = true;
+            Clients.AddVehicletoClient(ClientPhone, CarNumber);
+            VehicleRoute(ClientType);
+        }
+    }
+
+    private void PageClientPhoneSearchExecute()
+    {
+        
+        CurrentPage = new ClientPhoneSearch();
     }
 
     public void SelectCLientExecute(object? sender , SelectionChangedEventArgs e)
@@ -214,9 +408,89 @@ public class MainKassaScreenViewModel : ViewModelPageBase
                 selectedClient.FirstName,
                 selectedClient.LastName,
                 selectedClient.ClientId,
-                selectedClient.VehicleId
+                selectedClient.VehicleId,
+                selectedClient.VehicleName
             );
             SelectedClient = clientRecord;
+        }
+    }
+
+    public void AddItemToShoppingCartExecute() 
+    {
+        if (ServicesList == null) 
+        {
+            if (SelectedGood == null)
+            {
+                return;
+            }
+            else 
+            {
+                ItemsInShoppingCartList.Add(SelectedGood);
+                var debug = false;
+            }
+        }else if (GoodsList == null)
+        {
+            if (SelectedService == null)
+            {
+                return;
+            }
+            else 
+            {
+                ItemsInShoppingCartList.Add(SelectedService);
+            }
+        }
+    }
+
+    public void ShoppingCartScreenExecute() 
+    {
+        CurrentPage = new ShoppingCart();
+    }
+
+    public void SelectServiceExecute(object? sender, SelectionChangedEventArgs e)
+    {
+        var dataGrid = sender as DataGrid;
+        if (dataGrid != null && dataGrid.SelectedItem != null)
+        {
+            var selectedItem = dataGrid.SelectedItem;
+
+            var selectedService = selectedItem as PricesRecord;
+
+            var serviceRecord = new PricesRecord(
+                selectedService.PriceId,
+                selectedService.TradeUnitId,
+                selectedService.TradeUnitName,
+                selectedService.RateId,
+                selectedService.RateValue,
+                selectedService.ProcessTime,
+                selectedService.CurrentTime,
+                selectedService.TimeToStop
+            );
+            SelectedService = serviceRecord;
+            var debug = true;
+        }
+    }
+
+    public void SelectGoodExecute(object? sender, SelectionChangedEventArgs e)
+    {
+        var dataGrid = sender as DataGrid;
+        if (dataGrid != null && dataGrid.SelectedItem != null)
+        {
+            var selectedItem = dataGrid.SelectedItem;
+
+            var selectedGood = selectedItem as PricesRecord;
+
+            var goodRecord = new PricesRecord(
+                selectedGood.PriceId,
+                selectedGood.TradeUnitId,
+                selectedGood.TradeUnitName,
+                selectedGood.RateId,
+                selectedGood.RateValue,
+                selectedGood.ProcessTime,
+                selectedGood.CurrentTime,
+                selectedGood.TimeToStop
+            );
+            SelectedGood = goodRecord;
+            var debug = true;
         }
     }
 
@@ -224,33 +498,56 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         if (SelectedClient == null) return;
         bool debug = true;
-        if (ClientType.Equals("firm")) 
+        if (ClientType.Equals("firm"))
         {
             CompaniesRecord company = Companies.FindCompanyConnectedWithVehicle(SelectedClient.VehicleId);
             CompanyVehicle = new ObservableCollection<CompaniesRecord>();
             CompanyVehicle.Add(company);
             CurrentPage = new CompanyConnectedWithVehicle();
         }
+        else if (ClientType.Equals("private")) 
+        {
+            ServicesListScreenExecute();
+        }
+    }
+
+    private void ServicesListScreenExecute() 
+    {
+        List<PricesRecord> services = Prices.GetServicesListInEn();
+        ServicesList = new ObservableCollection<PricesRecord>(services);
+        ClientInfoStackPanelExecute();
+        GoodsList = null;
+        CurrentPage = new ServicesListScreen();
+        ItemsInShoppingCartList = new ObservableCollection<PricesRecord>();
+    }
+
+    private void GoodsListScreenExecute()
+    {
+        List<PricesRecord> goods = Prices.GetGoodsListInEn();
+        GoodsList = new ObservableCollection<PricesRecord>(goods);
+        ClientInfoStackPanelExecute();
+        ServicesList = null;
+        CurrentPage = new GoodsListScreen();
     }
 
     private void VehicleRoute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
-        VehiclesRecord? vehicle = Vehicles.FindVehicle(CarNumber);
+        FoundVehicle = Vehicles.FindVehicle(CarNumber);
         ClientType = parameter;
-        if (vehicle == null)
+        if (FoundVehicle == null)
         {
             CurrentPage = new ClientPhoneSearch();
         }
         else
         {
-            if (vehicle.VehicleClients.IsNullOrEmpty()) return;
+            if (FoundVehicle.VehicleClients.IsNullOrEmpty()) return;
             List<CommunicationClientRecords> communicationClients = new List<CommunicationClientRecords>();
-            foreach (Client client in vehicle.VehicleClients)
+            foreach (Client client in FoundVehicle.VehicleClients)
             {
                 foreach (CommunicationMean comm in client.CommunicationMeans)
                 {
-                    CommunicationClientRecords commClient = new CommunicationClientRecords(comm.Id, comm.Phone, client.FirstName, client.LastName, client.Id, vehicle.Id);
+                    CommunicationClientRecords commClient = new CommunicationClientRecords(comm.Id, comm.Phone, client.FirstName, client.LastName, client.Id, FoundVehicle.Id, FoundVehicle.Licence);
                     communicationClients.Add(commClient);
                 }
             }
@@ -293,11 +590,44 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             stackPanel.Children.Add( userButton );
             stackPanel.Children.Add( popup );
             popup.Child = stackPanelList;
-            stackPanelList.Children.Add( textBlock1 );
+            stackPanelList.Children.Add(textBlock1);
             stackPanelList.Children.Add(textBlock2);
             dockPanel.Children.Add(stackPanel);
         }
         DockaPanelUserButtons = dockPanel;
+    }
+
+    private void ClientInfoStackPanelExecute() 
+    { 
+        StackPanel userPanel = new StackPanel();
+        TextBlock userName = new TextBlock();
+        TextBlock userPhone = new TextBlock();
+        TextBlock vehicleNumber = new TextBlock();
+        TextBlock companyName = new TextBlock();
+        userName.Text = SelectedClient.FirstName + " " + SelectedClient.LastName;
+        userName.TextAlignment = Avalonia.Media.TextAlignment.Center;
+        userPhone.Text = SelectedClient.Phone;
+        userPhone.TextAlignment = Avalonia.Media.TextAlignment.Center;
+        vehicleNumber.Text = SelectedClient.VehicleName;
+        vehicleNumber.TextAlignment = Avalonia.Media.TextAlignment.Center;
+        if (ClientType == "firm") 
+        {
+            foreach (var company in CompanyVehicle) 
+            {
+                companyName.Text = company.CompanyName;
+                companyName.TextAlignment = Avalonia.Media.TextAlignment.Center;
+                break;
+            }
+        }
+        userPanel.Children.Add(vehicleNumber);
+        userPanel.Children.Add(userPhone);
+        userPanel.Children.Add(userName);
+        if (ClientType.Equals("firm")) 
+        {
+            userPanel.Children.Add(companyName);
+        }
+        ClientPanelVisibility = true;
+        ClientInfo = userPanel;
     }
 
     private void LogoutOperator(string userId) 

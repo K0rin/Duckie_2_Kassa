@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
+using Duckie2Client.Models;
 using Duckie2Client.Models.Database;
 using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -19,6 +21,15 @@ public class PriceTypes : CrudOperationsBase
         }
 
         return (List<TDataModel>)result;
+    }
+
+    public static PriceType? FindFirstPriceType()
+    {
+        using var db = new DbmsService();
+
+        var foundPriceType = db.PriceTypes.FirstOrDefault();
+
+        return foundPriceType;
     }
 
     public override DataModelOperationResult Create<T>(RecordBuilderBase<T> builder)

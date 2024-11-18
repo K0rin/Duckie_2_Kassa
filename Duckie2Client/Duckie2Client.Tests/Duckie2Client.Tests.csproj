@@ -15,6 +15,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.2.0" />
         <PackageReference Include="coverlet.collector" Version="6.0.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -23,11 +25,11 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1"/>
-        <PackageReference Include="MSTest.TestAdapter" Version="3.6.0"/>
-        <PackageReference Include="MSTest.TestFramework" Version="3.6.0"/>
-        <PackageReference Include="xunit" Version="2.9.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+        <PackageReference Include="MSTest.TestAdapter" Version="3.6.2" />
+        <PackageReference Include="MSTest.TestFramework" Version="3.6.2" />
+        <PackageReference Include="xunit" Version="2.9.2" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Duckie2Client\Duckie2Client.csproj"/>
+        <ProjectReference Include="..\Duckie2Client\Duckie2Client.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,24 @@
+using Avalonia;
+using Avalonia.Controls;
+using Duckie2Client.ViewModels.Screens;
+using System;
+
+namespace Duckie2Client.Controls.Kassa;
+
+public partial class ServicesListScreen : UserControl
+{
+    public ServicesListScreen()
+    {
+        InitializeComponent();
+    }
+
+    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is MainKassaScreenViewModel viewModel)
+        {
+            viewModel.SelectServiceExecute(sender,e);
+        }
+    }
+
+
+}

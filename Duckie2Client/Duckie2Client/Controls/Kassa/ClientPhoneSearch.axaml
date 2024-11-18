@@ -29,15 +29,24 @@
 				Margin="0, 10, 0, 0" 
 				Content="Back"
 				Command="{Binding ShowOrdersScreen}"
-			/>
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Back</TextBlock>
+				</DockPanel>
+			</Button>
 			<Button 
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
-				Margin="120, 10, 0, 0" 
-				Content="Search"
+				Margin="120, 10, 0, 0"
 				Command="{Binding SearchClientPhone}"
-			/>
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_search.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Search</TextBlock>
+				</DockPanel>			
+			</Button>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.UserPanel"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+>
+	<DockPanel Dock="Left" Name="usersPanel" Height="50">
+		<ContentControl Content="{Binding DockaPanelUserButtons}"></ContentControl>
+		<Button
+			DockPanel.Dock="Left"
+			Command="{Binding NewUserAuthorization}"
+					>
+			<Image Source="avares://Duckie2Client/Assets/addIcon.png" Width="35" Height="32"/>
+		</Button>
+	</DockPanel>
+</UserControl>

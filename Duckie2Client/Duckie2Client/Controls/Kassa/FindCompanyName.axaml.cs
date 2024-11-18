@@ -3,9 +3,9 @@ using Avalonia.Controls;
 
 namespace Duckie2Client.Controls.Kassa;
 
-public partial class CompanyName : UserControl
+public partial class FindCompanyName : UserControl
 {
-    public CompanyName()
+    public FindCompanyName()
     {
         InitializeComponent();
     }

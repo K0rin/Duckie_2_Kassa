@@ -12,11 +12,15 @@
 		HorizontalAlignment="Center" 
 		VerticalAlignment="Center"
 	>
-		<TextBlock 
-			Text="Company connected with Vehicle" 
-			DockPanel.Dock="Top" 
+		<DockPanel HorizontalAlignment="Center">
+			<TextBlock
+			Text="Companies connected with "
+			DockPanel.Dock="Left"
 			HorizontalAlignment="Center"
-		/>
+			Margin="0, 0, 0, 20"
+			/>
+			<TextBlock Text="{Binding CarNumber}" DockPanel.Dock="Left"></TextBlock>
+		</DockPanel>
 		<DataGrid
 			Margin="0,0,0,20"
 			ItemsSource="{Binding CompanyVehicle}"
@@ -40,22 +44,37 @@
 				Content="Back"
 				Command="{Binding ShowClientsConnectedWithVehicle}" 
 				CommandParameter="{Binding ClientType}"
-			/>
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Back</TextBlock>
+				</DockPanel>
+			</Button>
 			<Button 
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0" 
 				Content="Another Firm"
-				Command="{Binding NewCompanyScreen}"
-			/>
+				Command="{Binding FindCompanyScreen}"
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_new_firm.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Another Company</TextBlock>
+				</DockPanel>
+			</Button>
 			<Button 
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0" 
-				Content="Next"
-			/>
+				Command="{Binding ServicesListScreen}"
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_next.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Next</TextBlock>
+				</DockPanel>
+			</Button>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

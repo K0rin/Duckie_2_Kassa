@@ -4,4 +4,4 @@ using System.Collections.Generic;
 
 namespace Duckie2Client.Models;
 
-public record VehiclesRecord(Guid Id, string Licence, List<Client> VehicleClients);
+public record VehiclesRecord(Guid Id, string Licence, List<Client> VehicleClients, Guid PriceTypeId);

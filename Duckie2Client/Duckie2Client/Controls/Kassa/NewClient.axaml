@@ -8,19 +8,85 @@
 			 x:DataType="screens:MainKassaScreenViewModel"
 			 >
 	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<TextBlock Text="New client: 6573549" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 10"/>
-		<TextBlock Text="FirstName" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-		<TextBox Margin="0,0,0,0" DockPanel.Dock="Top" Width="240"/>
-		<TextBlock Text="Lastname" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-		<TextBox Margin="0,0,0,0" DockPanel.Dock="Top" Width="240"/>
-		<TextBlock Text="Email" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-		<TextBox Margin="0,0,0,0" DockPanel.Dock="Top" Width="240"/>
-		<TextBlock Text="Notes about client" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-		<TextBox Margin="0,0,0,0" DockPanel.Dock="Top" Width="240" Height="90"/>
-		<DockPanel DockPanel.Dock="Top">
+		<DockPanel HorizontalAlignment="Center">
+			<TextBlock Text="New client:" DockPanel.Dock="Left" />
+			<TextBlock Text="{Binding ClientPhone}" DockPanel.Dock="Left"/>
+		</DockPanel>
+		<TextBlock 
+			Text="FirstName" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 10, 0, 0"
+		/>
+		<TextBox 
+			Margin="0,0,0,0" 
+			DockPanel.Dock="Top" 
+			Width="240"
+			Text="{Binding NewClientFirstName}"
+		/>
+		<TextBlock 
+			Text="Lastname" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 10, 0, 0"
+		/>
+		<TextBox 
+			Margin="0,0,0,0" 
+			DockPanel.Dock="Top" 
+			Width="240"
+			Text="{Binding NewClientLastName}"
+		/>
+		<TextBlock 
+			Text="Email" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 10, 0, 0"
+		/>
+		<TextBox 
+			Margin="0,0,0,0" 
+			DockPanel.Dock="Top" 
+			Width="240"
+			Text="{Binding NewClientEmail}"
+		/>
+		<TextBlock 
+			Text="Notes about client" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 10, 0, 0"
+		/>
+		<TextBox 
+			Margin="0,0,0,0" 
+			DockPanel.Dock="Top" 
+			Width="240" Height="90"
+			Text="{Binding NewClientNotes}"
+		/>
+		<DockPanel DockPanel.Dock="Top" Width="240">
 
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 10, 0, 0" Content="Back" Command="{Binding ShowClientsConnectedWithVehicle}" CommandParameter="{Binding ClientType}"/>
-			<Button DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140, 10, 0, 0" Content="Save"/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="0, 10, 0, 0"
+				Command="{Binding ShowClientsConnectedWithVehicle}" 
+				CommandParameter="{Binding ClientType}"
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Back</TextBlock>
+				</DockPanel>
+			</Button>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="98, 10, 0, 0"
+				Command="{Binding SaveNewClient}"
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_save.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Save</TextBlock>
+				</DockPanel>
+			</Button>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

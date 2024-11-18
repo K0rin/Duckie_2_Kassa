@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.ListOfServices"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+>
+	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<TextBlock 
+			Text="List of services" 
+			DockPanel.Dock="Top" 
+			HorizontalAlignment="Center" 
+			Margin="0, 0, 0, 20"
+		/>
+		<DataGrid 
+			Margin="0,0,0,20" 
+			ItemsSource="{Binding VehicleClient}" 
+			AutoGenerateColumns="False" 
+			IsReadOnly="True" 
+			GridLinesVisibility="All" 
+			BorderThickness="1" 
+			BorderBrush="Gray"
+			SelectedItem=""
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+				<DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+				<DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<DockPanel DockPanel.Dock="Top">
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="0, 10, 0, 0" 
+				Content="Back" 
+				Command="{Binding ShowOrdersScreen}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Another Client" 
+				Command="{Binding NewClientScreen}"
+			/>
+			<Button 
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Next"
+				Command="{Binding OrderRoute}"
+			/>
+		</DockPanel>
+	</StackPanel>
+</UserControl>

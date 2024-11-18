@@ -1,0 +1,111 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.OrderCheckoutPanel"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+>
+	<StackPanel HorizontalAlignment="Right" Background="#6a91a1" IsVisible="{Binding ClientPanelVisibility}">
+		<ContentControl Content="{Binding ClientInfo}"></ContentControl>
+		<DockPanel>
+			<StackPanel>
+				<ComboBox SelectedIndex="0" Background="#6a91a1">
+					<ComboBoxItem Background="#6a91a1" Margin="0,-5,0,0">
+						<Panel>
+							<Svg Path="/Assets/icon_price_i.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1">
+						<Panel>
+							<Svg Path="/Assets/icon_price_ii.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1" Margin="0,0,0,-5">
+						<Panel>
+							<Svg Path="/Assets/icon_price_iii.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+				</ComboBox>
+
+				<Button
+					DockPanel.Dock="Left"
+					Content="Bonus"
+					Width="95"
+					Height="50"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+							/>
+
+				<Button
+					DockPanel.Dock="Left"
+					Width="95"
+					Height="60"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+					Command="{Binding AddItemToShoppingCart}"
+				>
+					<Svg Path="/Assets/additional_service.svg" Width="50" Height="50"/>
+				</Button>
+			</StackPanel>
+			<StackPanel>
+				<ComboBox SelectedIndex="0" Background="#6a91a1">
+					<ComboBoxItem Background="#6a91a1" Margin="0,-5,0,0">
+						<Panel>
+							<Svg Path="/Assets/icon_pollution_normal.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1">
+						<Panel>
+							<Svg Path="/Assets/icon_pollution_middle.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1" Margin="0,0,0,-5">
+						<Panel>
+							<Svg Path="/Assets/icon_pollution_high.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+				</ComboBox>
+			</StackPanel>
+			<StackPanel>
+				<ComboBox SelectedIndex="0" Background="#6a91a1">
+					<ComboBoxItem Background="#6a91a1" Margin="0,-5,0,0">
+						<Panel>
+							<Svg Path="/Assets/icon_payment_type_cash.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1">
+						<Panel>
+							<Svg Path="/Assets/icon_payment_type_card.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+					<ComboBoxItem Background="#6a91a1" Margin="0,0,0,-5">
+						<Panel>
+							<Svg Path="/Assets/icon_payment_type_debt.svg" Width="50" Height="50"/>
+						</Panel>
+					</ComboBoxItem>
+				</ComboBox>
+
+				<Button
+					DockPanel.Dock="Left"
+					Content="ClientCard"
+					Width="95"
+					Height="50"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+				/>
+
+				<Button
+					DockPanel.Dock="Left"
+					Width="95"
+					Height="60"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+							>
+					<Svg Path="/Assets/icon_print_receipt.svg" Width="50" Height="50"/>
+				</Button>
+			</StackPanel>
+		</DockPanel>
+	</StackPanel>
+</UserControl>

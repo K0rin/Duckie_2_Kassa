@@ -12,12 +12,15 @@
 		HorizontalAlignment="Center" 
 		VerticalAlignment="Center"
 	>
-		<TextBlock 
-			Text="New Company" 
-			DockPanel.Dock="Top" 
-			HorizontalAlignment="Center" 
-			Margin="0, 10, 0, 10"
-		/>
+		<DockPanel HorizontalAlignment="Center">
+			<TextBlock
+			Text="New comany: "
+			DockPanel.Dock="Left"
+			HorizontalAlignment="Center"
+			Margin="0, 0, 0, 20"
+			/>
+			<TextBlock Text="{Binding CompanyName}" DockPanel.Dock="Left"></TextBlock>
+		</DockPanel>
 		<TextBlock 
 			Text="Name" 
 			DockPanel.Dock="Top" 
@@ -28,6 +31,7 @@
 			Margin="0,0,0,0" 
 			DockPanel.Dock="Top" 
 			Width="240"
+			Text="{Binding NewCopmanyName}"
 		/>
 		<TextBlock 
 			Text="Registry number" 
@@ -39,6 +43,7 @@
 			Margin="0,0,0,0" 
 			DockPanel.Dock="Top" 
 			Width="240"
+			Text="{Binding NewCompanyRegister}"
 		/>
 		<TextBlock 
 			Text="Adress" 
@@ -51,8 +56,9 @@
 			DockPanel.Dock="Top" 
 			Width="240" 
 			Height="90"
+			Text="{Binding NewCompanyAdress}"
 		/>
-		<DockPanel DockPanel.Dock="Top">
+		<DockPanel DockPanel.Dock="Top" Width="240">
 			<Button 
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
@@ -60,14 +66,24 @@
 				Margin="0, 10, 0, 0" 
 				Content="Back"
 				Command="{Binding OrderRoute}"
-			/>
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Back</TextBlock>
+				</DockPanel>
+			</Button>
 			<Button 
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
-				Margin="140, 10, 0, 0" 
-				Content="Save"
-			/>
+				Margin="98, 10, 0, 0"
+				Command="{Binding SaveNewCompany}"
+			>
+				<DockPanel>
+					<Svg Path="/Assets/icon_save.svg" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="Black">Save</TextBlock>
+				</DockPanel>
+			</Button>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

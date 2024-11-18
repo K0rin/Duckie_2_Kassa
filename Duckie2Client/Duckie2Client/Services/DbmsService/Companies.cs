@@ -8,6 +8,7 @@ using Duckie2Client.Services.DbmsService.Records;
 using Duckie2Client.Services.DbmsService.Records.Builders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ReactiveUI;
 
 namespace Duckie2Client.Services.DbmsService;
 
@@ -98,5 +99,85 @@ public class Companies : CrudOperationsBase
         if (foundCompanies == null) return returnResult;
         returnResult = new CompaniesRecord(foundCompanies.Id, foundCompanies.Name);
         return returnResult;
+    }
+
+    public static void AddCompanyToVehicle(string licence, string companyName, string adress, string registrationNumber)
+    {
+
+        using var db = new DbmsService();
+
+        var foundVehicle = db.Vehicles
+           .Where(v => v.Licence.Equals(licence))
+           .FirstOrDefault();
+
+        Company company = new() 
+        { 
+            Name = companyName,
+            Address = adress,
+            IsActive = true,
+            RegistrationNumber = registrationNumber
+        };
+
+        db.Companies.Add(company);
+        db.SaveChanges();
+
+        var foundCompany = db.Companies
+            .Where(c => c.Name.Equals(companyName) && c.IsActive == true)
+            .Include(c => c.Vehicles)
+            .FirstOrDefault();
+
+        foundCompany.Vehicles.Add(foundVehicle);
+        db.Companies.Update(company);
+        db.SaveChanges();
+
+        //foundVehicle.Clients.Add(newClient);
+        //db.Vehicles.Update(foundVehicle);
+        //db.SaveChanges();
+    }
+
+    public static void AddExistedCompanyToVehicle(string licence, string companyName)
+    {
+
+        using var db = new DbmsService();
+
+        var foundVehicle = db.Vehicles
+           .Where(v => v.Licence.Equals(licence))
+           .FirstOrDefault();
+
+        var foundCompany = db.Companies
+            .Where(c => c.Name.Equals(companyName) && c.IsActive == true)
+            .Include(c => c.Vehicles)
+            .FirstOrDefault();
+
+        foundCompany.Vehicles.Add(foundVehicle);
+        db.Companies.Update(foundCompany);
+        db.SaveChanges();
+
+        //foundVehicle.Clients.Add(newClient);
+        //db.Vehicles.Update(foundVehicle);
+        //db.SaveChanges();
+    }
+
+    public static bool FindCompany(string companyName)
+    {
+
+        using var db = new DbmsService();
+
+
+
+        var foundCompany = db.Companies
+            .Where(c => c.Name.Equals(companyName))
+            .FirstOrDefault();
+
+        if (foundCompany != null) 
+        { 
+            return true;
+        }
+
+        return false;
+
+        //foundVehicle.Clients.Add(newClient);
+        //db.Vehicles.Update(foundVehicle);
+        //db.SaveChanges();
     }
 }
