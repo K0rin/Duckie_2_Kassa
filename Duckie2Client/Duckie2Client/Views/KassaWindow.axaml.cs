@@ -19,7 +19,6 @@ public partial class KassaWindow : Window
         InitializeComponent();
         //this.PropertyChanged += OnPropertyChanged;
         var debug = true;
-        MainKassaScreenViewModel.SetPanelHeigt(this.Height * 0.93);
         //MainKassaScreenViewModel.PanelHeigth += this.Height*0.93;
         //this.WindowState = WindowState.Maximized;
     }

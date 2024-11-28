@@ -6,6 +6,7 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
 >
 	<StackPanel 
 		Name="TransportScreenPanel" 
@@ -14,7 +15,7 @@
 	>
 		<DockPanel HorizontalAlignment="Center">
 			<TextBlock
-			Text="Companies connected with "
+			Text="Company connected with "
 			DockPanel.Dock="Left"
 			HorizontalAlignment="Center"
 			Margin="0, 0, 0, 20"
@@ -29,14 +30,16 @@
 			GridLinesVisibility="All"
 			BorderThickness="1"
 			BorderBrush="Gray"
-			
 		>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>
+				<DataGridTextColumn Header="Company Address" Binding="{Binding Address}"/>
+				<DataGridTextColumn Header="Company Name" Binding="{Binding IsActive}"/>
 			</DataGrid.Columns>
 		</DataGrid>
-		<DockPanel DockPanel.Dock="Top">
-			<Button 
+		<DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+			<Button
+				Name="BackButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
@@ -44,35 +47,45 @@
 				Content="Back"
 				Command="{Binding ShowClientsConnectedWithVehicle}" 
 				CommandParameter="{Binding ClientType}"
+				PointerEntered="CompanyScreenBackButtonCursorEntered"
+				PointerExited="CompanyScreenBackButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Back</TextBlock>
+					<svg:Svg Path="{Binding CompanyScreenBackButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding CompanyScreenBackButtonTextColor}">Back</TextBlock>
 				</DockPanel>
 			</Button>
-			<Button 
+			<Button
+				Name="AnotherCompany"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0" 
 				Content="Another Firm"
 				Command="{Binding FindCompanyScreen}"
+				IsEnabled="{Binding AnotherCompanyButtonEnabled}"
+				PointerEntered="AnotherCompanyButtonCursorEntered"
+				PointerExited="AnotherCompanyBackButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_new_firm.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Another Company</TextBlock>
+					<svg:Svg Path="{Binding AnotherCompanyButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding AnotherCompanyButtonTextColor}">Another Company</TextBlock>
 				</DockPanel>
 			</Button>
-			<Button 
+			<Button
+				Name="NextButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0" 
 				Command="{Binding ServicesListScreen}"
+				IsEnabled="{Binding CompanyScreenNextButtonEnabled}"
+				PointerEntered="CompanyScreenNextButtonCursorEntered"
+				PointerExited="CompanyScreenNextButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_next.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Next</TextBlock>
+					<svg:Svg Path="{Binding CompanyScreenNextButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding CompanyScreenNextButtonTextColor}">Next</TextBlock>
 				</DockPanel>
 			</Button>
 		</DockPanel>

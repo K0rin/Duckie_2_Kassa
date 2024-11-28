@@ -6,6 +6,7 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
 >
 	<StackPanel 
 		Name="TransportScreenPanel" 
@@ -25,40 +26,52 @@
 		/>
 		<DockPanel DockPanel.Dock="Top">
 			<Button 
+				Name="PrivateButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="0, 10, 0, 0" 
 				Command="{Binding ShowClientsConnectedWithVehicle}" 
 				CommandParameter="private"
+				IsEnabled="{Binding PrivateButtonEnabled}"
+				PointerEntered="PrivateButtonCursorEntered"
+				PointerExited="PrivateButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_private_individual.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Private</TextBlock>
+					<svg:Svg Path="{Binding PrivateButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding PrivateButtonTextColor}">Private</TextBlock>
 				</DockPanel>
 			</Button>
 			<Button 
+				Name="EmptyButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="10, 10, 0, 0"
+				IsEnabled="{Binding EmptyButtonEnabled}"
+				PointerEntered="EmptyButtonCursorEntered"
+				PointerExited="EmptyButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_blank_order.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Empty</TextBlock>
+					<svg:Svg Path="{Binding EmptyButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding EmptyButtonTextColor}">Empty</TextBlock>
 				</DockPanel>
 			</Button>
 			<Button 
+				Name="CompanyButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="8, 10, 0, 0" 
 				Command="{Binding ShowClientsConnectedWithVehicle}" 
 				CommandParameter="firm"
+				IsEnabled="{Binding CompanyButtonEnabled}"
+				PointerEntered="CompanyButtonCursorEntered"
+				PointerExited="CompanyButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_legal_entity.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Company</TextBlock>
+					<svg:Svg Path="{Binding CompanyButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding CompanyButtonTextColor}">Company</TextBlock>
 				</DockPanel>
 			</Button>
 		</DockPanel>

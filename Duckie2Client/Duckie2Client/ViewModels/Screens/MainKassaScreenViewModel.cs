@@ -35,6 +35,9 @@ using Microsoft.EntityFrameworkCore;
 using Duckie2Client.Views.Screens;
 using System.Reflection;
 using ExCSS;
+using System.ComponentModel;
+using Avalonia.Input;
+using System.Xml;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -79,72 +82,143 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     [Reactive] public bool IsDashboardVisible { get; set; }
 
-    [Reactive] public string CarNumber { get; set; }
-    
     [Reactive] public string NewClientFirstName { get; set; }
-    [Reactive] public string NewCopmanyName { get; set; }
-    [Reactive] public string NewCompanyRegister { get; set; }
-    [Reactive] public string NewCompanyAdress { get; set; }
     [Reactive] public string NewClientLastName { get; set; }
     [Reactive] public string NewClientEmail { get; set; }
-    [Reactive] public string CompanyName { get; set; }
     [Reactive] public string NewClientNotes { get; set; }
     [Reactive] public bool ClientPanelVisibility { get; set; }
     [Reactive] public ObservableCollection<CommunicationClientRecords> VehicleClient { get; set; }
-    [Reactive] public CommunicationClientRecords SelectedClient { get; set; }
     [Reactive] public PricesRecord SelectedService { get; set; }
     [Reactive] public PricesRecord SelectedGood { get; set; }
-    [Reactive] public ObservableCollection<CompaniesRecord> CompanyVehicle { get; set; }
     [Reactive] public ObservableCollection<PricesRecord> ServicesList { get; set; }
     [Reactive] public ObservableCollection<PricesRecord> GoodsList { get; set; }
     [Reactive] public ObservableCollection<PricesRecord> ItemsInShoppingCartList { get; set; }
-    [Reactive] public string ClientPhone { get; set; }
     [Reactive] public string ClientType { get; set; }
-
-    public static double PanelHeigth { get; set; }
-
-
+    [Reactive] public string BonusButtonIconPath { get; set; }
+    [Reactive] public bool BonusButtonEnabled { get; set; }
+    [Reactive] public decimal BonusValue { get; set; }
+    [Reactive] public string PrivateButtonIconPath { get; set; }
+    [Reactive] public string PrivateButtonTextColor { get; set; }
+    [Reactive] public bool PrivateButtonEnabled { get; set; }
+    [Reactive] public string EmptyButtonIconPath { get; set; }
+    [Reactive] public string EmptyButtonTextColor { get; set; }
+    [Reactive] public bool EmptyButtonEnabled { get; set; }
+    [Reactive] public string CompanyButtonIconPath { get; set; }
+    [Reactive] public string CompanyButtonTextColor { get; set; }
+    [Reactive] public bool CompanyButtonEnabled { get; set; }
+    [Reactive] public string ClientPhoneSearchButtonIconPath { get; set; }
+    [Reactive] public string ClientPhoneSearchButtonTextColor { get; set; }
+    [Reactive] public bool ClientPhoneSearchButtonEnabled { get; set; }
+    [Reactive] public string ClientPhoneSearchBackButtonIconPath { get; set; }
+    [Reactive] public string ClientPhoneSearchBackButtonTextColor { get; set; }
+    [Reactive] public string CompanySearchButtonIconPath { get; set; }
+    [Reactive] public string CompanySearchButtonTextColor { get; set; }
+    [Reactive] public bool CompanySearchButtonEnabled { get; set; }
+    [Reactive] public string CompanySearchBackButtonIconPath { get; set; }
+    [Reactive] public string CompanySearchBackButtonTextColor { get; set; }
+    [Reactive] public string VehicleScreenBackButtonIconPath { get; set; }
+    [Reactive] public string VehicleScreenBackButtonTextColor { get; set; }
+    [Reactive] public string AnotherClientButtonIconPath { get; set; }
+    [Reactive] public string AnotherClientButtonTextColor { get; set; }
+    [Reactive] public bool AnotherClientButtonEnabled { get; set; }
+    [Reactive] public string VehicleClientsScreenNextButtonIconPath { get; set; }
+    [Reactive] public string VehicleClientsScreenNextButtonTextColor { get; set; }
+    [Reactive] public bool VehicleClientsScreenNextButtonEnabled { get; set; }
+    [Reactive] public string CompanyScreenBackButtonIconPath { get; set; }
+    [Reactive] public string CompanyScreenBackButtonTextColor { get; set; }
+    [Reactive] public string AnotherCompanyButtonIconPath { get; set; }
+    [Reactive] public string AnotherCompanyButtonTextColor { get; set; }
+    [Reactive] public bool AnotherCompanyButtonEnabled { get; set; }
+    [Reactive] public string CompanyScreenNextButtonIconPath { get; set; }
+    [Reactive] public string CompanyScreenNextButtonTextColor { get; set; }
+    [Reactive] public bool CompanyScreenNextButtonEnabled { get; set; }
+    [Reactive] public string SaveNewCompanyButtonIconPath { get; set; }
+    [Reactive] public string SaveNewCompanyButtonTextColor { get; set; }
+    [Reactive] public bool SaveNewCompanyButtonEnabled { get; set; }
+    [Reactive] public string SaveNewCompanyBackButtonIconPath { get; set; }
+    [Reactive] public string SaveNewCompanyBackButtonTextColor { get; set; }
+    [Reactive] public string SaveNewClientButtonIconPath { get; set; }
+    [Reactive] public bool SaveNewClientButtonEnabled { get; set; }
+    [Reactive] public string SaveNewClientBackButtonIconPath { get; set; }
+    [Reactive] public string SaveNewClientBackButtonTextColor { get; set; }
+    [Reactive] public string SaveNewClientButtonTextColor { get; set; }
 
 
     private object _currentPage;
 
+    public object CurrentPage
+    {
+        get => _currentPage;
+        set => this.RaiseAndSetIfChanged(ref _currentPage, value);
+    }
+
+    private string _clientPhone;
+    [Reactive] 
+    public string ClientPhone 
+    { 
+        get => _clientPhone; 
+        set => this.RaiseAndSetIfChanged(ref _clientPhone, value); 
+    }
+    
+    private string _carNumber;
+
+    [Reactive]
+    public string CarNumber
+    {
+        get => _carNumber;
+        set => this.RaiseAndSetIfChanged(ref _carNumber, value);
+    }
+
+    private CommunicationClientRecords _selectedClient;
+    
+    [Reactive] 
+    public CommunicationClientRecords SelectedClient 
+    { 
+        get => _selectedClient; 
+        set => this.RaiseAndSetIfChanged(ref _selectedClient, value); 
+    }
+
+    private string _companyName;
+    [Reactive] 
+    public string CompanyName 
+    { 
+        get => _companyName; 
+        set => this.RaiseAndSetIfChanged(ref _companyName, value); 
+    }
+
+    private string _newCompanyName;
+    
+    [Reactive] 
+    public string NewCopmanyName 
+    { 
+        get => _newCompanyName; 
+        set => this.RaiseAndSetIfChanged(ref _newCompanyName, value); 
+    }
+
+    private string _newCompanyRegister;
+    [Reactive]
+    public string NewCompanyRegister 
+    { 
+        get => _newCompanyRegister; 
+        set => this.RaiseAndSetIfChanged(ref _newCompanyRegister, value); 
+    }
+    private string _newCompanyAddress;
+    [Reactive] 
+    public string NewCompanyAdress 
+    { 
+        get => _newCompanyAddress; 
+        set => this.RaiseAndSetIfChanged(ref _newCompanyAddress, value); 
+    }
+
+    private ObservableCollection<CompaniesRecord> _companyVehicles;
+    [Reactive] 
+    public ObservableCollection<CompaniesRecord> CompanyVehicle 
+    { 
+        get => _companyVehicles; 
+        set => this.RaiseAndSetIfChanged(ref _companyVehicles, value); 
+    }
+
     public object contentUserButtons = new DockPanel();
-
-    public object ClientInfoStackPanel = new StackPanel();
-
-    public object LeftPanelKassaButtons = new StackPanel();
-
-    public object LeftPanelKassaButtonsExecute
-    {
-        get => LeftPanelKassaButtons;
-        set => this.RaiseAndSetIfChanged(ref LeftPanelKassaButtons, value);
-    }
-    
-    public object UserPanel = new DockPanel();
-
-    public object UserPanelView
-    {
-        get => UserPanel;
-        set => this.RaiseAndSetIfChanged(ref UserPanel, value);
-    }
-
-    
-
-    public object OrderPanel = new DockPanel();
-
-    public object OrderPanelView
-    {
-        get => OrderPanel;
-        set => this.RaiseAndSetIfChanged(ref OrderPanel, value);
-    }
-
-    public object OrderCheckoutPanel = new DockPanel();
-
-    public object OrderCheckoutPanelView
-    {
-        get => OrderCheckoutPanel;
-        set => this.RaiseAndSetIfChanged(ref OrderCheckoutPanel, value);
-    }
 
     public object DockaPanelUserButtons
     {
@@ -152,16 +226,61 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         set => this.RaiseAndSetIfChanged(ref contentUserButtons, value);
     }
 
+    public event PropertyChangedEventHandler PropertyChanged;
+    private int _selectedPriceTypeIndex;
+    public int SelectedPriceTypeIndex
+    {
+        get => _selectedPriceTypeIndex;
+        set
+        {
+            if (_selectedPriceTypeIndex != value)
+            {
+                _selectedPriceTypeIndex = value;
+                OnPropertyChanged(nameof(SelectedPriceTypeIndex));
+            }
+        }
+    }
+
+    private int _selectedPollutionTypeIndex;
+    public int SelectedPollutionTypeIndex
+    {
+        get => _selectedPollutionTypeIndex;
+        set
+        {
+            if (_selectedPollutionTypeIndex != value)
+            {
+                _selectedPollutionTypeIndex = value;
+                OnPropertyChanged(nameof(SelectedPollutionTypeIndex));
+            }
+        }
+    }
+
+    private int _selectedPaymentTypeIndex;
+    public int SelectedPaymentTypeIndex
+    {
+        get => _selectedPaymentTypeIndex;
+        set
+        {
+            if (_selectedPaymentTypeIndex != value)
+            {
+                _selectedPaymentTypeIndex = value;
+                OnPropertyChanged(nameof(SelectedPaymentTypeIndex));
+            }
+        }
+    }
+
+    public object ClientInfoStackPanel = new StackPanel();
     public object ClientInfo
     {
         get => ClientInfoStackPanel;
         set => this.RaiseAndSetIfChanged(ref ClientInfoStackPanel, value);
     }
 
-    public object CurrentPage
+    public object ClientBonusesStackPanel = new StackPanel();
+    public object ClientBonusesPanel
     {
-        get => _currentPage;
-        set => this.RaiseAndSetIfChanged(ref _currentPage, value);
+        get => ClientBonusesStackPanel;
+        set => this.RaiseAndSetIfChanged(ref ClientBonusesStackPanel, value);
     }
 
     public MainKassaScreenViewModel()
@@ -186,10 +305,250 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         AddItemToShoppingCart = ReactiveCommand.Create(AddItemToShoppingCartExecute);
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
         ClientPanelVisibility = false;
-        LeftPanelKassaButtonsExecute = new KassaLeftPanel();
-        UserPanelView = new UserPanel();
-        OrderPanelView = new OrderPanel();
-        OrderCheckoutPanelView = new OrderCheckoutPanel();
+        this.WhenAnyValue(x => x.CarNumber)
+            .Where(value => !string.IsNullOrEmpty(value)) // if CarNumber is not Empty
+            .Subscribe(value =>
+            {
+                VehicleScreenButtons(true);
+            });
+        this.WhenAnyValue(x => x.CarNumber)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if CarNumber is Empty
+            .Subscribe(value =>
+            {
+                VehicleScreenButtons(false);
+            });
+        this.WhenAnyValue(x => x.ClientPhone)
+            .Where(value => !string.IsNullOrEmpty(value)) // if ClientPhone is not Empty
+            .Subscribe(value =>
+            {
+                ClientPhoneSearchButtons(true);
+            });
+        this.WhenAnyValue(x => x.ClientPhone)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if ClientPhone is Empty
+            .Subscribe(value =>
+            {
+                ClientPhoneSearchButtons(false);
+            });
+        this.WhenAnyValue(x => x.CompanyName)
+            .Where(value => !string.IsNullOrEmpty(value)) // if CompanyName is not Empty
+            .Subscribe(value =>
+            {
+                CompanySearchButtons(true);
+            });
+        this.WhenAnyValue(x => x.CompanyName)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if CompanyName is Empty
+            .Subscribe(value =>
+            {
+                CompanySearchButtons(false);
+            });
+        this.WhenAnyValue(x => x.SelectedClient)
+            .Where(client => client != null) // if SelectedClient is not Empty
+            .Subscribe(value =>
+            {
+                VehicleClientsScreenButtons(true);
+            });
+        this.WhenAnyValue(x => x.SelectedClient)
+            .Where(client => client == null) // if SelectedClient is Empty
+            .Subscribe(value =>
+            {
+                VehicleClientsScreenButtons(false);
+            });
+        this.WhenAnyValue(x => x.CompanyVehicle)
+            .Where(company => company != null) // if CompanyVehicle is not Empty
+            .Subscribe(value =>
+            {
+                CompanyScreenButtons(true);
+            });
+        this.WhenAnyValue(x => x.CompanyVehicle)
+            .Where(company => company == null) // if CompanyVehicle is Empty
+            .Subscribe(value =>
+            {
+                CompanyScreenButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewCopmanyName)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewCopmanyName is not Empty
+            .Subscribe(value =>
+            {
+                if (NewCompanyRegister.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else if (NewCompanyAdress.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else 
+                {
+                    NewCompanyButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewCopmanyName)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewCopmanyName is Empty
+            .Subscribe(value =>
+            {
+                NewCompanyButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewCompanyAdress)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewCompanyAdress is not Empty
+            .Subscribe(value =>
+            {
+                if (NewCompanyRegister.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else if (NewCopmanyName.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else
+                {
+                    NewCompanyButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewCompanyAdress)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewCompanyAdress is Empty
+            .Subscribe(value =>
+            {
+                NewCompanyButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewCompanyRegister)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewCompanyRegister is not Empty
+            .Subscribe(value =>
+            {
+                if (NewCompanyAdress.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else if (NewCopmanyName.IsNullOrEmpty())
+                {
+                    NewCompanyButtons(false);
+                }
+                else
+                {
+                    NewCompanyButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewCompanyRegister)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewCompanyRegister is Empty
+            .Subscribe(value =>
+            {
+                NewCompanyButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewClientFirstName)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewClientFirstName is not Empty
+            .Subscribe(value =>
+            {
+                if (NewClientLastName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientEmail.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientNotes.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else
+                {
+                    NewClientButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewClientFirstName)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewClientFirstName is Empty
+            .Subscribe(value =>
+            {
+                NewClientButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewClientLastName)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewClientLastName is not Empty
+            .Subscribe(value =>
+            {
+                if (NewClientFirstName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientEmail.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientNotes.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else
+                {
+                    NewClientButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewClientLastName)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewClientLastName is Empty
+            .Subscribe(value =>
+            {
+                NewClientButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewClientEmail)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewClientEmail is not Empty
+            .Subscribe(value =>
+            {
+                if (NewClientFirstName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientLastName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientNotes.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else
+                {
+                    NewClientButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewClientEmail)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewClientEmail is Empty
+            .Subscribe(value =>
+            {
+                NewClientButtons(false);
+            });
+        this.WhenAnyValue(x => x.NewClientNotes)
+            .Where(value => !string.IsNullOrEmpty(value)) // if NewClientNotes is not Empty
+            .Subscribe(value =>
+            {
+                if (NewClientFirstName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientLastName.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else if (NewClientEmail.IsNullOrEmpty())
+                {
+                    NewClientButtons(false);
+                }
+                else
+                {
+                    NewClientButtons(true);
+                }
+            });
+        this.WhenAnyValue(x => x.NewClientNotes)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if NewClientNotes is Empty
+            .Subscribe(value =>
+            {
+                NewClientButtons(false);
+            });
+
+    }
+
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        var debug = true;
     }
 
     public void AddLoggedInUser(LoginUserRecord? userRecord)
@@ -238,15 +597,6 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         };
         TabItems.Add(tabItem);
     }
-    public static void SetPanelHeigt(double value) 
-    {
-        PanelHeigth = value;
-    }
-
-    private void GetPanelHeight() 
-    { 
-    
-    }
 
     private void ExitMenuCommandExecute()
     {
@@ -270,6 +620,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void ShowOrdersScreenExecute()
     {
+        SelectedClient = null;
         ClientPanelVisibility = false;
         CurrentPage = new VehicleScreen();
     }
@@ -347,6 +698,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         var debug = true;
         if (company == null )
         {
+            NewCopmanyName = CompanyName;
+            NewCompanyRegister = "nonexistent";
             CurrentPage = new NewCompany();
         }
         if (exist == true)
@@ -356,6 +709,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         }
         if (exist == false) 
         {
+            NewCopmanyName = CompanyName;
+            NewCompanyRegister = "nonexistent";
             CurrentPage = new NewCompany();
         }
     }
@@ -364,6 +719,426 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         CurrentPage = new NewCompany();
     }
+
+    private void ClientBonus() 
+    {
+        
+        decimal bonus = ClientBonuses.FindBoonus(SelectedClient.ClientId);
+        if (bonus > 0)
+        {
+            BonusValue = bonus;
+            BonusButtonIconPath = "/Assets/icon_use_bonuses.svg";
+            BonusButtonEnabled = true;
+        }
+        else 
+        {
+            BonusValue = bonus;
+            BonusButtonIconPath = "/Assets/icon_use_bonuses_disabled.svg";
+            BonusButtonEnabled = false;
+        }
+    }
+
+    private void VehicleScreenButtons(bool status) 
+    {
+        if (status == false)
+        {
+            PrivateButtonEnabled = false;
+            PrivateButtonIconPath = "/Assets/icon_private_individual_disabled.svg";
+            PrivateButtonTextColor = "#B5B8B1";
+            EmptyButtonEnabled = false;
+            EmptyButtonIconPath = "/Assets/icon_blank_order_disabled.svg";
+            EmptyButtonTextColor = "#B5B8B1";
+            CompanyButtonEnabled = false;
+            CompanyButtonIconPath = "/Assets/icon_legal_entity_disabled.svg";
+            CompanyButtonTextColor = "#B5B8B1";
+        }
+        else 
+        {
+            PrivateButtonEnabled = true;
+            PrivateButtonIconPath = "/Assets/icon_private_individual.svg";
+            PrivateButtonTextColor = "Black";
+            EmptyButtonEnabled = true;
+            EmptyButtonIconPath = "/Assets/icon_blank_order.svg";
+            EmptyButtonTextColor = "Black";
+            CompanyButtonEnabled = true;
+            CompanyButtonIconPath = "/Assets/icon_legal_entity.svg";
+            CompanyButtonTextColor = "Black";
+        }
+    }
+
+    private void VehicleClientsScreenButtons(bool status)
+    {
+        if (status == false)
+        {
+            VehicleScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            VehicleScreenBackButtonTextColor = "Black";
+            AnotherClientButtonEnabled = true;
+            AnotherClientButtonIconPath = "/Assets/icon_new_client.svg";
+            AnotherClientButtonTextColor = "Black";
+            VehicleClientsScreenNextButtonEnabled = false;
+            VehicleClientsScreenNextButtonIconPath = "/Assets/icon_next_disabled.svg";
+            VehicleClientsScreenNextButtonTextColor = "#B5B8B1";
+        }
+        else
+        {
+            VehicleScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            VehicleScreenBackButtonTextColor = "Black";
+            AnotherClientButtonEnabled = true;
+            AnotherClientButtonIconPath = "/Assets/icon_new_client.svg";
+            AnotherClientButtonTextColor = "Black";
+            VehicleClientsScreenNextButtonEnabled = true;
+            VehicleClientsScreenNextButtonIconPath = "/Assets/icon_next.svg";
+            VehicleClientsScreenNextButtonTextColor = "Black";
+        }
+    }
+    private void CompanyScreenButtons(bool status)
+    {
+        if (status == false)
+        {
+            CompanyScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanyScreenBackButtonTextColor = "#B5B8B1";
+            AnotherCompanyButtonEnabled = false;
+            AnotherCompanyButtonIconPath = "/Assets/icon_new_firm_disabled.svg";
+            AnotherCompanyButtonTextColor = "#B5B8B1";
+            CompanyScreenNextButtonEnabled = false;
+            CompanyScreenNextButtonIconPath = "/Assets/icon_next_disabled.svg";
+            CompanyScreenNextButtonTextColor = "#B5B8B1";
+        }
+        else
+        {
+            CompanyScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanyScreenBackButtonTextColor = "Black";
+            AnotherCompanyButtonEnabled = true;
+            AnotherCompanyButtonIconPath = "/Assets/icon_new_firm.svg";
+            AnotherCompanyButtonTextColor = "Black";
+            CompanyScreenNextButtonEnabled = true;
+            CompanyScreenNextButtonIconPath = "/Assets/icon_next.svg";
+            CompanyScreenNextButtonTextColor = "Black";
+        }
+    }
+
+    private void ClientPhoneSearchButtons(bool status) 
+    {
+        if (status == false)
+        {
+            ClientPhoneSearchButtonEnabled = false;
+            ClientPhoneSearchButtonIconPath = "/Assets/icon_search_disabled.svg";
+            ClientPhoneSearchButtonTextColor = "#B5B8B1";
+            ClientPhoneSearchBackButtonIconPath = "/Assets/icon_back.svg";
+            ClientPhoneSearchBackButtonTextColor = "Black";
+        }
+        else 
+        { 
+            ClientPhoneSearchButtonEnabled = true;
+            ClientPhoneSearchButtonIconPath = "/Assets/icon_search.svg";
+            ClientPhoneSearchButtonTextColor = "Black";
+            ClientPhoneSearchBackButtonIconPath = "/Assets/icon_back.svg";
+            ClientPhoneSearchBackButtonTextColor = "Black";
+        }
+    }
+
+    private void CompanySearchButtons(bool status)
+    {
+        if (status == false)
+        {
+            CompanySearchButtonEnabled = false;
+            CompanySearchButtonIconPath = "/Assets/icon_search_disabled.svg";
+            CompanySearchButtonTextColor = "#B5B8B1";
+            CompanySearchBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanySearchBackButtonTextColor = "Black";
+        }
+        else
+        {
+            CompanySearchButtonEnabled = true;
+            CompanySearchButtonIconPath = "/Assets/icon_search.svg";
+            CompanySearchButtonTextColor = "Black";
+            CompanySearchBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanySearchBackButtonTextColor = "Black";
+        }
+    }
+
+    private void NewCompanyButtons(bool status)
+    {
+        if (status == false)
+        {
+            SaveNewCompanyButtonEnabled = false;
+            SaveNewCompanyButtonIconPath = "/Assets/icon_save_disabled.svg";
+            SaveNewCompanyButtonTextColor = "#B5B8B1";
+            SaveNewCompanyBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewCompanyBackButtonTextColor = "Black";
+        }
+        else
+        {
+            SaveNewCompanyButtonEnabled = true;
+            SaveNewCompanyButtonIconPath = "/Assets/icon_save.svg";
+            SaveNewCompanyButtonTextColor = "Black";
+            SaveNewCompanyBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewCompanyBackButtonTextColor = "Black";
+        }
+    }
+    private void NewClientButtons(bool status)
+    {
+        if (status == false)
+        {
+            SaveNewClientButtonEnabled = false;
+            SaveNewClientButtonIconPath = "/Assets/icon_save_disabled.svg";
+            SaveNewClientButtonTextColor = "#B5B8B1";
+            SaveNewClientBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewClientBackButtonTextColor = "Black";
+        }
+        else
+        {
+            SaveNewClientButtonEnabled = true;
+            SaveNewClientButtonIconPath = "/Assets/icon_save.svg";
+            SaveNewClientButtonTextColor = "Black";
+            SaveNewClientBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewClientBackButtonTextColor = "Black";
+        }
+    }
+
+    public void PrivateButtonCursor(bool status) 
+    {
+        if (status == true)
+        {
+            PrivateButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            PrivateButtonTextColor = "Black";
+        }
+    }
+
+    public void EmptyButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            EmptyButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            EmptyButtonTextColor = "Black";
+        }
+    }
+
+    public void CompanyButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            CompanyButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            CompanyButtonTextColor = "Black";
+        }
+    }
+
+    public void ClientBonusButtonCursorEnteredExecute() 
+    {
+        BonusButtonIconPath = "/Assets/icon_use_bonuses_active.svg";
+    }
+
+    public void ClientBonusButtonCursorExitedExecute()
+    {
+        BonusButtonIconPath = "/Assets/icon_use_bonuses.svg";
+    }
+
+    public void ClientPhoneSearchButtonCursor(bool status) 
+    {
+        if (status == true)
+        {
+            ClientPhoneSearchButtonIconPath = "/Assets/icon_search_active.svg";
+            ClientPhoneSearchButtonTextColor = "#eef5f7";
+        }
+        else 
+        {
+            ClientPhoneSearchButtonIconPath = "/Assets/icon_search.svg";
+            ClientPhoneSearchButtonTextColor = "Black";
+        }
+    }
+
+    public void ClientPhoneSearchBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            ClientPhoneSearchBackButtonIconPath = "/Assets/icon_back_active.svg";
+            ClientPhoneSearchBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            ClientPhoneSearchBackButtonIconPath = "/Assets/icon_back.svg";
+            ClientPhoneSearchBackButtonTextColor = "Black";
+        }
+    }
+
+    public void CompanySearchButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            CompanySearchButtonIconPath = "/Assets/icon_search_active.svg";
+            CompanySearchButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            CompanySearchButtonIconPath = "/Assets/icon_search.svg";
+            CompanySearchButtonTextColor = "Black";
+        }
+    }
+
+    public void CompanySearchBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            CompanySearchBackButtonIconPath = "/Assets/icon_back_active.svg";
+            CompanySearchBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            CompanySearchBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanySearchBackButtonTextColor = "Black";
+        }
+    }
+
+    public void VehicleClientBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            VehicleScreenBackButtonIconPath = "/Assets/icon_back_active.svg";
+            VehicleScreenBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            VehicleScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            VehicleScreenBackButtonTextColor = "Black";
+        }
+    }
+
+    public void AnotherClientButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            AnotherClientButtonIconPath = "/Assets/icon_new_client_active.svg";
+            AnotherClientButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            AnotherClientButtonIconPath = "/Assets/icon_new_client.svg";
+            AnotherClientButtonTextColor = "Black";
+        }
+    }
+
+    public void VehicleClientsScreenNextButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            VehicleClientsScreenNextButtonIconPath = "/Assets/icon_next_active.svg";
+            VehicleClientsScreenNextButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            VehicleClientsScreenNextButtonIconPath = "/Assets/icon_next.svg";
+            VehicleClientsScreenNextButtonTextColor = "Black";
+        }
+    }
+
+    public void CompanyScreenNextButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            CompanyScreenNextButtonIconPath = "/Assets/icon_next_active.svg";
+            CompanyScreenNextButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            CompanyScreenNextButtonIconPath = "/Assets/icon_next.svg";
+            CompanyScreenNextButtonTextColor = "Black";
+        }
+    }
+
+    public void CompanyScreenBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            CompanyScreenBackButtonIconPath = "/Assets/icon_back_active.svg";
+            CompanyScreenBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            CompanyScreenBackButtonIconPath = "/Assets/icon_back.svg";
+            CompanyScreenBackButtonTextColor = "Black";
+        }
+    }
+
+    public void AnotherCompanyButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            AnotherCompanyButtonIconPath = "/Assets/icon_new_firm_active.svg";
+            AnotherCompanyButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            AnotherCompanyButtonIconPath = "/Assets/icon_new_firm.svg";
+            AnotherCompanyButtonTextColor = "Black";
+        }
+    }
+
+    public void NewCompanyBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            SaveNewCompanyBackButtonIconPath = "/Assets/icon_back_active.svg";
+            SaveNewCompanyBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            SaveNewCompanyBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewCompanyBackButtonTextColor = "Black";
+        }
+    }
+
+    public void SaveNewCompanyButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            SaveNewCompanyButtonIconPath = "/Assets/icon_save_active.svg";
+            SaveNewCompanyButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            SaveNewCompanyButtonIconPath = "/Assets/icon_save.svg";
+            SaveNewCompanyButtonTextColor = "Black";
+        }
+    }
+
+    public void NewClientBackButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            SaveNewClientBackButtonIconPath = "/Assets/icon_back_active.svg";
+            SaveNewClientBackButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            SaveNewClientBackButtonIconPath = "/Assets/icon_back.svg";
+            SaveNewClientBackButtonTextColor = "Black";
+        }
+    }
+
+    public void SaveNewClientButtonCursor(bool status)
+    {
+        if (status == true)
+        {
+            SaveNewClientButtonIconPath = "/Assets/icon_save_active.svg";
+            SaveNewClientButtonTextColor = "#eef5f7";
+        }
+        else
+        {
+            SaveNewClientButtonIconPath = "/Assets/icon_save.svg";
+            SaveNewClientButtonTextColor = "Black";
+        }
+    }
+
+
 
     private void SearchClientPhoneExecute() 
     {
@@ -515,6 +1290,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         List<PricesRecord> services = Prices.GetServicesListInEn();
         ServicesList = new ObservableCollection<PricesRecord>(services);
+        ClientBonus();
         ClientInfoStackPanelExecute();
         GoodsList = null;
         CurrentPage = new ServicesListScreen();

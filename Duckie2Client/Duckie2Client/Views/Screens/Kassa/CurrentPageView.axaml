@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="Duckie2Client.Views.Kassa.CurrentPageView"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+			 mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+			 xmlns:views="clr-namespace:Duckie2Client.Views.Kassa"
+>
+	<Panel 
+		HorizontalAlignment="Stretch" 
+		VerticalAlignment="Stretch" 
+		Background="#dbd8c4"
+	>
+		<TransitioningContentControl Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DockPanel.Dock="Left">
+			<TransitioningContentControl.PageTransition>
+				<CrossFade Duration="0:00:00.100" />
+			</TransitioningContentControl.PageTransition>
+		</TransitioningContentControl>
+	</Panel>
+</UserControl>

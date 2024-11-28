@@ -4,4 +4,4 @@ using System.Collections.Generic;
 
 namespace Duckie2Client.Models;
 
-public record CompaniesRecord(Guid Id, string CompanyName);
+public record CompaniesRecord(Guid Id, string CompanyName, string Address, bool IsActive, string RegisteryNumber);

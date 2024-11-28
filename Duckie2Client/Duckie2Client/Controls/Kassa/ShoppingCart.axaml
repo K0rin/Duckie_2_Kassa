@@ -9,7 +9,7 @@
 >
 	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
 		<TextBlock
-			Text="List of Services and Goods in Shopping Cart"
+			Text="Shopping Cart"
 			DockPanel.Dock="Top"
 			HorizontalAlignment="Center"
 			Margin="0, 0, 0, 20"
@@ -22,7 +22,6 @@
 			GridLinesVisibility="All"
 			BorderThickness="1"
 			BorderBrush="Gray"
-			SelectionChanged="OnSelectionChanged"
 			SelectedItem=""
 		>
 			<DataGrid.Columns>

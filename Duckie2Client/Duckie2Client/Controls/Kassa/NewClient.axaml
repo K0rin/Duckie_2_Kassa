@@ -6,6 +6,7 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
 			 >
 	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
 		<DockPanel HorizontalAlignment="Center">
@@ -62,29 +63,36 @@
 		/>
 		<DockPanel DockPanel.Dock="Top" Width="240">
 
-			<Button 
+			<Button
+				Name="BackButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="0, 10, 0, 0"
 				Command="{Binding ShowClientsConnectedWithVehicle}" 
 				CommandParameter="{Binding ClientType}"
+				PointerEntered="NewClientBackButtonCursorEntered"
+				PointerExited="NewClientBackButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Back</TextBlock>
+					<svg:Svg Path="{Binding SaveNewClientBackButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding SaveNewClientBackButtonTextColor}">Back</TextBlock>
 				</DockPanel>
 			</Button>
-			<Button 
+			<Button
+				Name="SaveNewClient"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="98, 10, 0, 0"
 				Command="{Binding SaveNewClient}"
+				IsEnabled="{Binding SaveNewClientButtonEnabled}"
+				PointerEntered="SaveNewClientButtonCursorEntered"
+				PointerExited="SaveNewClientButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_save.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Save</TextBlock>
+					<svg:Svg Path="{Binding SaveNewClientButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding SaveNewClientButtonTextColor}">Save</TextBlock>
 				</DockPanel>
 			</Button>
 		</DockPanel>

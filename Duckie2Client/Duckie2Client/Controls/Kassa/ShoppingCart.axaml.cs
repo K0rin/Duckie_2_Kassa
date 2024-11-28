@@ -12,13 +12,5 @@ public partial class ShoppingCart : UserControl
         InitializeComponent();
     }
 
-    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (DataContext is MainKassaScreenViewModel viewModel)
-        {
-            viewModel.SelectGoodExecute(sender,e);
-        }
-    }
-
 
 }

@@ -97,7 +97,7 @@ public class Companies : CrudOperationsBase
             .FirstOrDefault();
 
         if (foundCompanies == null) return returnResult;
-        returnResult = new CompaniesRecord(foundCompanies.Id, foundCompanies.Name);
+        returnResult = new CompaniesRecord(foundCompanies.Id, foundCompanies.Name, foundCompanies.Address, foundCompanies.IsActive, foundCompanies.RegistrationNumber);
         return returnResult;
     }
 

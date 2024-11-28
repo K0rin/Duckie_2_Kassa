@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
              xmlns:duckieControls="clr-namespace:Duckie2Client.Controls.Kassa"
              xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
@@ -10,75 +11,19 @@
              x:CompileBindings="True"
              d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
              x:DataType="screens:MainKassaScreenViewModel"
+			 mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+			 xmlns:views="clr-namespace:Duckie2Client.Views.Kassa"
 >
 
-	<DockPanel Name="MainScreen">
+	<DockPanel Name="MainScreen" Background="#c0b7ad">
 		<!-- Main Menu -->
-		<UserControl Content="{Binding LeftPanelKassaButtonsExecute}"></UserControl>
-		<StackPanel Background="#c0b7ad" Orientation="Vertical" DockPanel.Dock="Left">
-			<DockPanel VerticalAlignment="Top" Dock="Left" Background="#423f3f">
-				<UserControl Content="{Binding UserPanelView}"></UserControl>
-				<UserControl Content="{Binding OrderPanelView}"></UserControl>
-			</DockPanel>
-			
-			
-			<Grid MinHeight="{Binding PanelHeigth}">
-				<Border Grid.Column="0" />
-				<Border Grid.Column="1" />
-				<Panel>
-					<TransitioningContentControl Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DockPanel.Dock="Left" Grid.Row="0" Grid.Column="0">
-						<TransitioningContentControl.PageTransition>
-							<CrossFade Duration="0:00:00.100" />
-						</TransitioningContentControl.PageTransition>
-					</TransitioningContentControl>
-					<DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#918271" Height="80">
-						<DockPanel HorizontalAlignment="Center">
-							<Button
-							DockPanel.Dock="Left"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Margin="10, 10, 0, 0"
-							Command="{Binding ServicesListScreen}"
-							>
-								<DockPanel>
-									<Svg Path="/Assets/icon_service_list.svg" Width="45" Height="45" Margin="0,0,5,0"/>
-									<TextBlock Foreground="Black">Services</TextBlock>
-								</DockPanel>
-							</Button>
-							<Button
-							DockPanel.Dock="Left"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Margin="10, 10, 0, 0"
-							Command="{Binding GoodsListScreen}"
-							>
-								<DockPanel>
-									<Svg Path="/Assets/icon_good_list.svg" Width="45" Height="45" Margin="0,0,5,0"/>
-									<TextBlock Foreground="Black">Goods</TextBlock>
-								</DockPanel>
-							</Button>
-							<Button
-							DockPanel.Dock="Left"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
-							Margin="10, 10, 0, 0"
-							Command="{Binding ShoppingCartScreen}"
-							>
-								<DockPanel>
-									<Svg Path="/Assets/icon_shopping_cart.svg" Width="45" Height="45" Margin="0,0,5,0"/>
-									<TextBlock Foreground="Black">Cart</TextBlock>
-								</DockPanel>
-							</Button>
-						</DockPanel>
-						
-					</DockPanel>
-				</Panel>
-				<Panel>
-					<UserControl Content="{Binding OrderCheckoutPanelView}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></UserControl>
-				</Panel>
-				
-				
-			</Grid>
+		<views:KassaLeftPanel DockPanel.Dock="Left"/>
+		<StackPanel Background="#c0b7ad" Orientation="Vertical">
+			<StackPanel HorizontalAlignment="" Background="#434141" Orientation="Horizontal">
+				<views:UserPanel DockPanel.Dock="Top" />
+				<views:OrderPanel DockPanel.Dock="Top" />
+			</StackPanel>
+			<views:InnerTransactionPanel Height="725"/>
 			
 		</StackPanel>
 		

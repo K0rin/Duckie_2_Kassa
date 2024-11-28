@@ -10,23 +10,23 @@
         x:CompileBindings="True"
         Width="1024"
         Height="768"
-        MinWidth="1024"
-        MinHeight="768"
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         Title="Duckie2: Kassa">
 
+	<Design.DataContext>
+		<vm:KassaWindowViewModel/>
+	</Design.DataContext>
 	<dialogHostAvalonia:DialogHost Identifier="MainDialogHost"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"
                                    Background="Chocolate">
-		<Panel>
+
 			<TransitioningContentControl Content="{Binding CurrentPage}">
 				<TransitioningContentControl.PageTransition>
 					<CrossFade Duration="0:00:00.100" />
 				</TransitioningContentControl.PageTransition>
 			</TransitioningContentControl>
-		</Panel>
 	</dialogHostAvalonia:DialogHost>
 </Window>

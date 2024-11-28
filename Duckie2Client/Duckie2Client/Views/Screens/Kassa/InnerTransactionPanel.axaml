@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="Duckie2Client.Views.Kassa.InnerTransactionPanel"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+			 mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+			 xmlns:views="clr-namespace:Duckie2Client.Views.Kassa"
+>
+	<DockPanel >
+		<StackPanel
+          DockPanel.Dock="Bottom"
+          Orientation="Horizontal"
+          HorizontalAlignment="Center"
+		  VerticalAlignment="Center"
+		  >
+
+			<Button
+				Padding="12"
+				Foreground="#423f3f"
+				Background="Transparent"
+				Command="{Binding ServicesListScreen}">
+
+				<Button.Content>
+					<StackPanel
+						Orientation="Horizontal"
+						VerticalAlignment="Center">
+						
+							<Svg Path="/Assets/icon_service_list.svg" Width="45" Height="45" Margin="0,0,5,0"/>
+						
+						<TextBlock
+							Text="Services"
+							VerticalAlignment="Center" />
+					</StackPanel>
+				</Button.Content>
+
+			</Button>
+
+			<Button
+				Padding="12"
+				Foreground="#423f3f"
+				Background="Transparent"
+				Command="{Binding GoodsListScreen}">
+
+				<Button.Content>
+					<StackPanel
+						Orientation="Horizontal"
+						VerticalAlignment="Center">
+						
+							<Svg Path="/Assets/icon_good_list.svg" Width="45" Height="45" Margin="0,0,5,0"/>
+						
+						<TextBlock
+							Text="Goods"
+							VerticalAlignment="Center" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+
+			<Button
+				Padding="12"
+				Foreground="#423f3f"
+				Background="Transparent"
+				Command="{Binding ShoppingCartScreen}">
+
+				<Button.Content>
+					<StackPanel
+						Orientation="Horizontal"
+						VerticalAlignment="Center">
+						
+							<Svg Path="/Assets/icon_shopping_cart.svg" Width="45" Height="45" Margin="0,0,5,0"/>
+						
+						<TextBlock
+							Text="Shopping Cart"
+							VerticalAlignment="Center" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+
+		</StackPanel>
+		<views:OrderCheckoutPanel1
+            DockPanel.Dock="Right"/>
+		<views:CurrentPageView/>
+	</DockPanel>
+</UserControl>

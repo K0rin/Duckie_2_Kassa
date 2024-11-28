@@ -15,28 +15,15 @@
         <Folder Include="Packages\" />
         <Folder Include="Screens\" />
         <Folder Include="ViewModels\Controls\" />
-        <Folder Include="Views\Screens\Kassa\" />
     </ItemGroup>
 
     <ItemGroup>
         <Compile Update="Controls\Kassa\ShoppingCart.axaml.cs">
           <DependentUpon>ShoppingCart.axaml</DependentUpon>
         </Compile>
-        <Compile Update="Controls\Kassa\OrderCheckoutPanel.axaml.cs">
-          <DependentUpon>OrderCheckoutPanel.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Controls\Kassa\OrderPanel.axaml.cs">
-          <DependentUpon>OrderPanel.axaml</DependentUpon>
-        </Compile>
         <Compile Update="Controls\Kassa\GoodsListScreen.axaml.cs">
           <SubType>Code</SubType>
           <DependentUpon>GoodsListScreen.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Controls\Kassa\UserPanel.axaml.cs">
-          <DependentUpon>UserPanel.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Controls\Kassa\KassaLeftPanel.axaml.cs">
-          <DependentUpon>KassaLeftPanel.axaml</DependentUpon>
         </Compile>
         <Compile Update="Controls\Kassa\ServicesListScreen.axaml.cs">
           <SubType>Code</SubType>
@@ -86,6 +73,25 @@
         <Compile Update="Views\Screens\AuthorizationScreenView.axaml.cs">
             <DependentUpon>AuthorizationScreenView.axaml</DependentUpon>
             <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\CurrentPageView.axaml.cs">
+          <SubType>Code</SubType>
+          <DependentUpon>CurrentPageView.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\KassaLeftPanel.axaml.cs">
+          <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\InnerTransactionPanel.axaml.cs">
+          <DependentUpon>InnerTransactionPanel.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\OrderCheckoutPanel.axaml.cs">
+          <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\OrderPanel.axaml.cs">
+          <DependentUpon>%(Filename)</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Screens\Kassa\UserPanel.axaml.cs">
+          <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
         <Compile Update="Views\Screens\MainConsoleScreenView.axaml.cs">
             <DependentUpon>MainConsoleScreenView.axaml</DependentUpon>
@@ -214,6 +220,9 @@
         <SubType>Designer</SubType>
       </AvaloniaXaml>
       <AvaloniaXaml Update="Controls\Kassa\ListOfServices.axaml">
+        <SubType>Designer</SubType>
+      </AvaloniaXaml>
+      <AvaloniaXaml Update="Views\Screens\Kassa\CurrentPageView.axaml">
         <SubType>Designer</SubType>
       </AvaloniaXaml>
     </ItemGroup>

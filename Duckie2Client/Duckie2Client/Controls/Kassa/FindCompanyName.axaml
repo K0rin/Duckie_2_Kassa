@@ -6,6 +6,7 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
 >
 	<StackPanel 
 		Name="TransportScreenPanel" 
@@ -25,27 +26,34 @@
 		/>
 		<DockPanel DockPanel.Dock="Top">
 			<Button 
+				Name="CompanySearchBackButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="0, 10, 0, 0" 
 				Command="{Binding OrderRoute}"
+				PointerEntered="CompanySerachBackButtonCursorEntered"
+				PointerExited="CompanySerachBackButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_back.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Back</TextBlock>
+					<svg:Svg Path="{Binding CompanySearchBackButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding CompanySearchBackButtonTextColor}">Back</TextBlock>
 				</DockPanel>
 			</Button>
-			<Button 
+			<Button
+				Name="CompanySearchButton"
 				DockPanel.Dock="Left" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Top" 
 				Margin="77, 10, 0, 0" 
 				Command="{Binding FindCompany}"
+				IsEnabled="{Binding CompanySearchButtonEnabled}"
+				PointerEntered="CompanySearchButtonCursorEntered"
+				PointerExited="CompanySearchButtonCursorExited"
 			>
 				<DockPanel>
-					<Svg Path="/Assets/icon_search.svg" Width="15" Height="15" Margin="0,0,5,0"/>
-					<TextBlock Foreground="Black">Search</TextBlock>
+					<svg:Svg Path="{Binding CompanySearchButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding CompanySearchButtonTextColor}">Search</TextBlock>
 				</DockPanel>	
 			</Button>
 		</DockPanel>

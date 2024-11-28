@@ -7,7 +7,7 @@
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
 >
-	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
 		<TextBlock
 			Text="List of Services"
 			DockPanel.Dock="Top"
@@ -32,15 +32,13 @@
 				<DataGridTextColumn Header="End Time" Binding="{Binding TimeToStop}"/>
 			</DataGrid.Columns>
 		</DataGrid>
-		<DockPanel DockPanel.Dock="Top">
-			<Button
+		<Button
 				DockPanel.Dock="Left"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Top"
 				Margin="0, 10, 0, 0"
 				Content="Back"
 				Command="{Binding ShowOrdersScreen}"
-			/>
-		</DockPanel>
+		/>
 	</StackPanel>
 </UserControl>
