@@ -14,7 +14,7 @@ namespace Duckie2Client.Services.DbmsService;
 public class Vehicles : CrudOperationsBase
 {
 
-    public static VehiclesRecord? FindVehicle(string licence)
+    public static VehiclesRecord? FindVehicleRecord(string licence)
     {
         VehiclesRecord returnResult = null;
 
@@ -38,6 +38,20 @@ public class Vehicles : CrudOperationsBase
         return returnResult;
     }
 
+    public static Guid FindVehicleId(string licence)
+    {
+        VehiclesRecord returnResult = null;
+
+        using var db = new DbmsService();
+
+        var foundVehicle = db.Vehicles
+            .Where(v => v.Licence.Equals(licence))
+            .Include(vehicle => vehicle.Clients)
+            .ThenInclude(comm => comm.CommunicationMeans)
+            .FirstOrDefault(v => v.Licence == licence);
+
+        return foundVehicle.Id;
+    }
     public static void AddClientToVehicle(string licence, string firstName, string lastName, string phone, string email, string notes)
     {
 

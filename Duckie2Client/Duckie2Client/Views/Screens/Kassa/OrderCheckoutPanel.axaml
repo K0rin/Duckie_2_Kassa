@@ -128,5 +128,35 @@
 				</Button>
 			</StackPanel>
 		</DockPanel>
+		<DockPanel>
+			<Button
+					DockPanel.Dock="Left"
+					Width="85"
+					Height="60"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+							>
+				<svg:Svg Path="/Assets/icon_clear_shopping_cart.svg" Width="50" Height="50"/>
+			</Button>
+			<Button
+					DockPanel.Dock="Left"
+					Width="85"
+					Height="60"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+							>
+				<svg:Svg Path="/Assets/icon_cancel.svg" Width="50" Height="50"/>
+			</Button>
+			<Button
+					DockPanel.Dock="Left"
+					Width="85"
+					Height="60"
+					Background="#6a91a1"
+					Margin="0,10,0,0"
+					Command="{Binding SaveOrder}"
+							>
+				<svg:Svg Path="/Assets/success_icon.svg" Width="50" Height="50"/>
+			</Button>
+		</DockPanel>
 	</StackPanel>
 </UserControl>

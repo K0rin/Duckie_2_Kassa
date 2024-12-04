@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Duckie2Client.Enums.Flags;
 using Duckie2Client.Models.Database;
@@ -38,5 +39,17 @@ public class Branches : CrudOperationsBase
         }
 
         return (List<TDataModel>)result;
+    }
+
+    public static Guid FindBranchId(Guid userId)
+    {
+
+        using var db = new DbmsService();
+
+        var foundBranch = db.Branches
+            .Where(branch => branch.Users.Any(user => user.Id == userId))
+            .FirstOrDefault();
+
+        return foundBranch.Id;
     }
 }

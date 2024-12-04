@@ -46,7 +46,7 @@ public class Prices : CrudOperationsBase
                             {
                                 // Добавляем только если значение существует
                                 resultTime = currentTime.Add(timeToAdd.Value.ToTimeSpan());
-                                PricesRecord record = new PricesRecord(service.Id, tradeunit.Id, name.Value, service.Value.Id, service.Value.Value, tradeunit.ProcessTime, currentTime, resultTime);
+                                PricesRecord record = new PricesRecord(service.Id, tradeunit.Id, name.Value, service.Value.Id, service.Value.Value, tradeunit.ProcessTime, currentTime, resultTime, false);
                                 returnResult.Add(record);
                             }
                         }
@@ -80,7 +80,7 @@ public class Prices : CrudOperationsBase
                     {
                         foreach (var name in tradeunit.Names)
                         {
-                            PricesRecord record = new PricesRecord(service.Id, tradeunit.Id, name.Value, service.Value.Id, service.Value.Value, null, null, null);
+                            PricesRecord record = new PricesRecord(service.Id, tradeunit.Id, name.Value, service.Value.Id, service.Value.Value, null, null, null, true);
                             returnResult.Add(record);
                         }
                     }

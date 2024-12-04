@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using Bogus.Premium;
 using Duckie2Client.Controls.Kassa;
 using Duckie2Client.Enums.Flags;
@@ -124,6 +125,18 @@ public class Clients : CrudOperationsBase
         if (builtClient?.Bonus != null) newClient.Bonus = newClientBonus;
         PropertySetter.SetProperties<ClientRecord, Client>(ref builtClient!, ref newClient);
         return newClient;
+    }
+
+    public static Guid FindClientId(string phone) 
+    {
+        using var db = new DbmsService();
+
+        var foundClient = db.Clients
+            .Where(client => client.CommunicationMeans.Any(comm => comm.Phone == phone))
+            .Include(client => client.Vehicles)
+            .FirstOrDefault();
+
+        return foundClient.Id;
     }
 
     public static void AddVehicletoClient(string phone, string licenseNumber)

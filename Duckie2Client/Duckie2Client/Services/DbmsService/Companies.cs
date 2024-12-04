@@ -101,6 +101,18 @@ public class Companies : CrudOperationsBase
         return returnResult;
     }
 
+    public static Guid FindCompanyId(string VehicleName)
+    {
+
+        using var db = new DbmsService();
+
+        var foundCompanies = db.Companies
+            .Where(company => company.Vehicles.Any(vehicle => vehicle.Licence == VehicleName) && company.IsActive == true)
+            .FirstOrDefault();
+
+        return foundCompanies.Id;
+    }
+
     public static void AddCompanyToVehicle(string licence, string companyName, string adress, string registrationNumber)
     {
 

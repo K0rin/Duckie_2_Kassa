@@ -47,6 +47,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     //public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; }
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
+    public ReactiveCommand<Unit, Unit> SaveOrder { get; }
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
@@ -304,6 +305,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         ShoppingCartScreen = ReactiveCommand.Create(ShoppingCartScreenExecute);
         AddItemToShoppingCart = ReactiveCommand.Create(AddItemToShoppingCartExecute);
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
+        SaveOrder = ReactiveCommand.Create(SaveOrderExecute);
         ClientPanelVisibility = false;
         this.WhenAnyValue(x => x.CarNumber)
             .Where(value => !string.IsNullOrEmpty(value)) // if CarNumber is not Empty
@@ -1139,6 +1141,16 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     }
 
 
+    public void SaveOrderExecute() 
+    {
+        Guid client = Clients.FindClientId(SelectedClient.Phone);
+        Guid vehicle = Vehicles.FindVehicleId(SelectedClient.VehicleName);
+        Guid company = Companies.FindCompanyId(SelectedClient.VehicleName);
+        var user = _loggedInUsers[0];
+        Guid branch = Branches.FindBranchId(user.Id);
+        var items = ItemsInShoppingCartList;
+        Washes.AddWashes(items, branch, client, company, vehicle, 0);
+    }
 
     private void SearchClientPhoneExecute() 
     {
@@ -1238,7 +1250,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
                 selectedService.RateValue,
                 selectedService.ProcessTime,
                 selectedService.CurrentTime,
-                selectedService.TimeToStop
+                selectedService.TimeToStop,
+                selectedService.isGood
             );
             SelectedService = serviceRecord;
             var debug = true;
@@ -1262,7 +1275,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
                 selectedGood.RateValue,
                 selectedGood.ProcessTime,
                 selectedGood.CurrentTime,
-                selectedGood.TimeToStop
+                selectedGood.TimeToStop,
+                selectedGood.isGood
             );
             SelectedGood = goodRecord;
             var debug = true;
@@ -1278,7 +1292,14 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             CompaniesRecord company = Companies.FindCompanyConnectedWithVehicle(SelectedClient.VehicleId);
             CompanyVehicle = new ObservableCollection<CompaniesRecord>();
             CompanyVehicle.Add(company);
-            CurrentPage = new CompanyConnectedWithVehicle();
+            if (company != null)
+            {
+                CurrentPage = new CompanyConnectedWithVehicle();
+            }
+            else 
+            {
+                FindCompanyScreenExecute();
+            }
         }
         else if (ClientType.Equals("private")) 
         {
@@ -1309,7 +1330,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     private void VehicleRoute(string parameter)
     {
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
-        FoundVehicle = Vehicles.FindVehicle(CarNumber);
+        FoundVehicle = Vehicles.FindVehicleRecord(CarNumber);
         ClientType = parameter;
         if (FoundVehicle == null)
         {
