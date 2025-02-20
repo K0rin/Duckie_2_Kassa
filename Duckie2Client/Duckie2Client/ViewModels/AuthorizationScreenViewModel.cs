@@ -14,6 +14,8 @@ using Duckie2Client.Services.DbmsService;
 using Duckie2Client.ViewModels.Screens;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System.Reactive.Linq;
+using DynamicData.Binding;
 
 namespace Duckie2Client.ViewModels;
 
@@ -22,12 +24,28 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> BeginAuthorizationCommand { get; set; }
     public ReactiveCommand<Unit, Unit> ExitApplicationCommand { get; set; }
     [Reactive] public string UserLogin { get; set; }
-    [Reactive] public string UserPassword { get; set; }
+    //[Reactive] public string UserPassword { get; set; }
     [Reactive] public string Message { get; set; }
     private bool _isDialogLoaded;
     private readonly Mutex _mutexObj = new();
     private SpinnerDialog _processDialog;
     private ErrorDialog _errorDialog;
+    [Reactive] public string LoginIconPath { get; set; }
+    [Reactive] public string BackButtonIconPath { get; set; }
+    [Reactive] public string BackButtonTextColor { get; set; }
+    [Reactive] public string LoginButtonColor { get; set; }
+    [Reactive] public string LoginTextColor { get; set; }
+    [Reactive] public bool LoginButtonEnabled { get; set; }
+    
+    private string _userPassword;
+
+    [Reactive]
+    public string UserPassword
+    {
+        get => _userPassword;
+        set => this.RaiseAndSetIfChanged(ref _userPassword, value);
+    }
+
     public string initialUser { get; set; }
     private const string AUTHORIZATION_DIALOGS = "AuthorizationDialogs";
 
@@ -36,11 +54,24 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
         BeginAuthorizationCommand = ReactiveCommand.Create(BeginAuthorizationCommandExecute);
         ExitApplicationCommand = ReactiveCommand.Create(ExitApplicationCommandExecute);
 #if DEBUG
-        UserLogin = "jevgeni";
-        UserPassword = "urugula";
+        UserLogin = "Evgenij";
+        UserPassword = "Urugula";
 #endif
         _processDialog = CreateDialog();
         // todo: Localization for "Enter" and "Exit" button.
+        this.WhenAnyValue(x => x.UserPassword)
+            .Where(value => !string.IsNullOrEmpty(value)) // if CarNumber is not Empty
+            .Subscribe(value =>
+            {
+                AuthorizationScreenButtons(true);
+            });
+        this.WhenAnyValue(x => x.UserPassword)
+            .Where(value => !string.IsNullOrEmpty(value) == false) // if CarNumber is Empty
+            .Subscribe(value =>
+            {
+                AuthorizationScreenButtons(false);
+            });
+        
     }
 
     private static void ExitApplicationCommandExecute()
@@ -160,5 +191,28 @@ public class AuthorizationScreenViewModel : ViewModelPageBase
 
         // Страница 1, это MainKassaScreenViewModel
         (PagerViewModel?.CurrentPage as MainKassaScreenViewModel)?.AddLoggedInUser(_authorizedUserRecord);
+    }
+
+    private void AuthorizationScreenButtons(bool status)
+    {
+        if (status == false)
+        {
+            BackButtonIconPath = "/Assets/icon_back.svg";
+            BackButtonTextColor = "Black";
+            LoginIconPath = "/Assets/icon_open_lock_disabled.svg";
+            LoginTextColor = "#B5B8B1";
+            LoginButtonEnabled = false;
+            LoginButtonColor = "#6a91a1";
+            
+        }
+        else
+        {
+            BackButtonIconPath = "/Assets/icon_back.svg";
+            BackButtonTextColor = "Black";
+            LoginIconPath = "/Assets/icon_open_lock.svg";
+            LoginTextColor = "Black";
+            LoginButtonEnabled = true;
+            LoginButtonColor = "#7a92a1";
+        }
     }
 }

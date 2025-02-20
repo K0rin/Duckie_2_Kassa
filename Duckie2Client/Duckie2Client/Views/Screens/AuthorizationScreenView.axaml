@@ -11,17 +11,25 @@
              x:CompileBindings="True"
              xmlns:duckie2Client="clr-namespace:Duckie2Client"
              d:DataContext="{x:Static duckie2Client:App.VM_AuthorizationScreen}"
-             x:DataType="vm:AuthorizationScreenViewModel">
+             x:DataType="vm:AuthorizationScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+			 Background="#c0b7ad"
+			 >
+	
+	
+	
     <dialogHostAvalonia:DialogHost Identifier="AuthorizationDialogs"
                                    DialogMargin="0"
                                    dialogHostAvalonia:DialogHostStyle.CornerRadius="0"
                                    OverlayBackground="Black"
                                    Background="Chocolate">
         <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+					>
             <Grid Width="341"
                   ColumnDefinitions="*,*"
-                  RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,*">
+                  RowDefinitions="*,Auto,Auto,Auto,Auto,Auto,*"
+				  >
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
@@ -51,15 +59,29 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Margin="0,32,6,0"
-                        Content="Enter"
-                        Command="{Binding BeginAuthorizationCommand}" />
-                <Button Grid.Row="6"
+                        Content="Exit"
+						Background="#7a92a1"
+                        Command="{Binding ExitApplicationCommand}">
+					<DockPanel>
+						<svg:Svg Path="{Binding BackButtonIconPath}" Width="35" Height="35" Margin="0,0,5,0"/>
+						<TextBlock Foreground="{Binding BackButtonTextColor}" VerticalAlignment="Center">Back</TextBlock>
+					</DockPanel>
+				</Button>
+                
+				<Button Grid.Row="6"
                         Grid.Column="1"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="6,32,0,0"
                         Content="Exit"
-                        Command="{Binding ExitApplicationCommand}" />
+						IsEnabled="{Binding LoginButtonEnabled}"
+						Background="#7a92a1"
+                        Command="{Binding BeginAuthorizationCommand}">
+					<DockPanel>
+						<svg:Svg Path="{Binding LoginIconPath}" Width="35" Height="35" Margin="0,0,5,0"/>
+						<TextBlock Foreground="{Binding LoginTextColor}" VerticalAlignment="Center">Login</TextBlock>
+					</DockPanel>
+				</Button>
             </Grid>
         </StackPanel>
     </dialogHostAvalonia:DialogHost>

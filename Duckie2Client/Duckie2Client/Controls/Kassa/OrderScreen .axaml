@@ -1,0 +1,274 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.OrderScreen"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+>
+	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<DockPanel HorizontalAlignment="Center" Margin="0,20,0,20">
+			<TextBlock FontSize="20" FontWeight="Bold">Order Number: </TextBlock>
+			<TextBlock FontSize="20" FontWeight="Bold" Text="{Binding OrderData.Id}"></TextBlock>
+		</DockPanel>
+		<Grid HorizontalAlignment="Center">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- Заголовки -->
+			
+			
+			<TextBlock Grid.Row="0" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Client Firstname:"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="1" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Client LastName:"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="2" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Vehicle Number: "></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="3" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Payment Type: "></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="4" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Branch Name: "></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="5" Grid.Column="0">
+				<Border Background="Gainsboro"
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="Branch Address: "></TextBlock>
+				</Border>
+			</TextBlock>
+			
+			<!-- Data Column -->
+			<TextBlock Grid.Row="0" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.ClientFirstName}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="1" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.ClientLastName}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="2" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.Carnumber}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="2" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.Carnumber}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="3" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.Payment}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="4" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.BranchName}"></TextBlock>
+				</Border>
+			</TextBlock>
+			<TextBlock Grid.Row="5" Grid.Column="1">
+				<Border
+					BorderBrush="Black"
+					BorderThickness="2"
+					CornerRadius="3"
+					Padding="10"
+					Width="140"
+				>
+					<TextBlock Text="{Binding OrderData.BranchAddress}"></TextBlock>
+				</Border>
+			</TextBlock>
+
+		</Grid>
+		
+		<DockPanel HorizontalAlignment="Center" Margin="0,20,0,0" IsVisible="{Binding OrderGoodsTableVisible}">
+			<TextBlock
+				Text="Goods connected with order "
+				DockPanel.Dock="Left"
+				HorizontalAlignment="Center"
+				Margin="0, 0, 0, 20"
+				IsVisible="True"
+				FontSize="15"
+				FontWeight="Bold"
+			/>
+			<TextBlock 
+				Text="{Binding OrderData.Id}"
+				DockPanel.Dock="Left"
+				FontSize="15"
+				FontWeight="Bold"
+			></TextBlock>
+		</DockPanel>
+		
+		<DataGrid 
+			ItemsSource="{Binding OrderData.GoodsList}" 
+			AutoGenerateColumns="False" 
+			IsReadOnly="True" 
+			GridLinesVisibility="All" 
+			BorderThickness="1" 
+			BorderBrush="Gray"
+			IsVisible="{Binding OrderGoodsTableVisible}"
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Good's Name            " Binding="{Binding GoodName}"/>
+				<DataGridTextColumn Header="Good's Price            " Binding="{Binding GoodPrice}"/>
+				
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<DockPanel 
+			HorizontalAlignment="Center" 
+			IsVisible="{Binding OrderServicesTableVisible}"
+			Margin="0,20,0,0">
+			<TextBlock
+				Text="Services connected with order "
+				DockPanel.Dock="Left"
+				HorizontalAlignment="Center"
+				Margin="0, 0, 0, 20"
+				FontSize="15"
+				FontWeight="Bold"
+			/>
+			<TextBlock 
+				Text="{Binding OrderData.Id}"
+				DockPanel.Dock="Left"
+				FontSize="15"
+				FontWeight="Bold"
+			></TextBlock>
+		</DockPanel>
+
+		<DataGrid
+			Margin="0,0,0,20"
+			ItemsSource="{Binding OrderData.ServiceList}"
+			AutoGenerateColumns="False"
+			IsReadOnly="True"
+			GridLinesVisibility="All"
+			BorderThickness="1"
+			BorderBrush="Gray"
+			IsVisible="{Binding OrderServicesTableVisible}"
+			
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Service's Name         " Binding="{Binding ServiceName}"/>
+				<DataGridTextColumn Header="Service's Price        " Binding="{Binding ServicePrice}"/>
+
+			</DataGrid.Columns>
+		</DataGrid>
+		
+		<DockPanel DockPanel.Dock="Top">			
+			<Button
+				Name="NextButton"
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Center" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Command="{Binding OrderCompleteStatusSave}"
+				CommandParameter="{Binding OrderData.Id}"
+				IsEnabled="{Binding OrderCompletedButtonEnabled}"
+				PointerEntered="VehicleScreenNextButtonCursorEntered"
+				PointerExited="VehicleScreenNextButtonCursorExited"
+			>
+				<DockPanel>
+
+					<svg:Svg Path="{Binding VehicleClientsScreenNextButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding VehicleClientsScreenNextButtonTextColor}">Order Completed</TextBlock>
+				</DockPanel>
+			</Button>
+		</DockPanel>
+	</StackPanel>
+</UserControl>

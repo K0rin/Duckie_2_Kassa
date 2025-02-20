@@ -154,6 +154,7 @@
 					Background="#6a91a1"
 					Margin="0,10,0,0"
 					Command="{Binding SaveOrder}"
+					IsEnabled="{Binding SaveOrderButtonEnabled}"
 							>
 				<svg:Svg Path="/Assets/success_icon.svg" Width="50" Height="50"/>
 			</Button>

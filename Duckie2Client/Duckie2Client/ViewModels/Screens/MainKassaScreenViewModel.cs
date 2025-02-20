@@ -38,6 +38,12 @@ using ExCSS;
 using System.ComponentModel;
 using Avalonia.Input;
 using System.Xml;
+using Avalonia.LogicalTree;
+using Avalonia.Svg;
+using Avalonia.Svg.Skia;
+using Avalonia.Media;
+using Avalonia.Layout;
+using DataFaker;
 
 namespace Duckie2Client.ViewModels.Screens;
 
@@ -50,6 +56,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> SaveOrder { get; }
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
+    public ReactiveCommand<Guid, Unit> OrderCompleteStatusSave { get; }
     public ReactiveCommand<Unit, Unit> ShowWashesScreen { get; }
     public ReactiveCommand<Unit, Unit> PageClientPhoneSearch { get; }
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
@@ -75,6 +82,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     #endregion
 
     private List<LoginUserRecord?> _loggedInUsers = [];
+    
+    private List<OrderButtonRecord?> _ordersList = [];
 
     private VehiclesRecord? FoundVehicle { get; set; }
 
@@ -82,7 +91,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
 
     [Reactive] public bool IsDashboardVisible { get; set; }
-
+    [Reactive] public bool OrderCompletedButtonEnabled { get; set; }
     [Reactive] public string NewClientFirstName { get; set; }
     [Reactive] public string NewClientLastName { get; set; }
     [Reactive] public string NewClientEmail { get; set; }
@@ -97,6 +106,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public string ClientType { get; set; }
     [Reactive] public string BonusButtonIconPath { get; set; }
     [Reactive] public bool BonusButtonEnabled { get; set; }
+    [Reactive] public bool SaveOrderButtonEnabled { get; set; }
+    [Reactive] public bool OrderCompletedButtonIsVisible { get; set; }
     [Reactive] public decimal BonusValue { get; set; }
     [Reactive] public string PrivateButtonIconPath { get; set; }
     [Reactive] public string PrivateButtonTextColor { get; set; }
@@ -143,6 +154,9 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public string SaveNewClientBackButtonIconPath { get; set; }
     [Reactive] public string SaveNewClientBackButtonTextColor { get; set; }
     [Reactive] public string SaveNewClientButtonTextColor { get; set; }
+    [Reactive] public bool OrderGoodsTableVisible { get; set; }
+    [Reactive] public bool OrderServicesTableVisible { get; set; }
+
 
 
     private object _currentPage;
@@ -177,6 +191,24 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     { 
         get => _selectedClient; 
         set => this.RaiseAndSetIfChanged(ref _selectedClient, value); 
+    }
+
+    private OrderRecord _orderData;
+
+    [Reactive]
+    public OrderRecord OrderData
+    {
+        get => _orderData;
+        set => this.RaiseAndSetIfChanged(ref _orderData, value);
+    }
+
+    private List<OrderRecord> _ordersPerPeriodData;
+
+    [Reactive]
+    public List<OrderRecord> OrdersPerPeriod
+    {
+        get => _ordersPerPeriodData;
+        set => this.RaiseAndSetIfChanged(ref _ordersPerPeriodData, value);
     }
 
     private string _companyName;
@@ -225,6 +257,14 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         get => contentUserButtons;
         set => this.RaiseAndSetIfChanged(ref contentUserButtons, value);
+    }
+
+    public object contentOrderButtons = new DockPanel();
+
+    public object DockaPanelOrderButtons
+    {
+        get => contentOrderButtons;
+        set => this.RaiseAndSetIfChanged(ref contentOrderButtons, value);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -288,6 +328,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
+        OrderCompleteStatusSave = ReactiveCommand.Create<Guid>(OrderCompleteStatusSaveExecute);
         ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(VehicleRoute);
         SearchClientPhone = ReactiveCommand.Create(SearchClientPhoneExecute);
         PageClientPhoneSearch = ReactiveCommand.Create(PageClientPhoneSearchExecute);
@@ -306,7 +347,9 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         AddItemToShoppingCart = ReactiveCommand.Create(AddItemToShoppingCartExecute);
         NewClientScreen = ReactiveCommand.Create<string>(NewClientScreenExecute);
         SaveOrder = ReactiveCommand.Create(SaveOrderExecute);
+        SaveOrderButtonEnabled = false;
         ClientPanelVisibility = false;
+        OrderCompletedButtonEnabled = false;
         this.WhenAnyValue(x => x.CarNumber)
             .Where(value => !string.IsNullOrEmpty(value)) // if CarNumber is not Empty
             .Subscribe(value =>
@@ -561,7 +604,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             _loggedInUsers.Add(userRecord);
             AddOperatorButtonExecute(_loggedInUsers);
         }
-        
+        CurrentPage = new VehicleScreen();
     }
 
     private void TabCloseCommandExecute(object value)
@@ -607,12 +650,24 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void CheckoutAndExitExecute()
     {
-        App.ShutdownApplication();
+        bool isAnyoneBusy = false;
+        foreach (var user in _loggedInUsers) 
+        {
+            if (user.IsBusy == true) 
+            { 
+                isAnyoneBusy = true;
+            }
+        }
+        if (isAnyoneBusy == false && _ordersList.IsNullOrEmpty() == true)
+        {
+            App.ShutdownApplication();
+        }        
     }
 
     private void ShowWashesScreenExecute()
     {
-        App.ShutdownApplication();
+        OrdersPerPeriod = Washes.FindAllWashesPerPeriod();
+        CurrentPage = new OrdersPerYearScreen();
     }
 
     private void NewUserAuthorizationExecute()
@@ -1149,7 +1204,15 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         var user = _loggedInUsers[0];
         Guid branch = Branches.FindBranchId(user.Id);
         var items = ItemsInShoppingCartList;
-        Washes.AddWashes(items, branch, client, company, vehicle, 0);
+        Washes.AddWashes(items, branch, client, company, vehicle, SelectedPaymentTypeIndex);
+        CurrentPage = new VehicleScreen();
+        Wash savedWash = Washes.FindLastWash();
+        OrderButtonRecord order = new OrderButtonRecord(savedWash.Id, CarNumber);
+        _ordersList.Add(order);
+        ClientPanelVisibility = false;
+        OrderButtonExecute(_ordersList);
+        CurrentPage = new VehicleScreen();
+        SaveOrderButtonEnabled = false;
     }
 
     private void SearchClientPhoneExecute() 
@@ -1213,7 +1276,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             else 
             {
                 ItemsInShoppingCartList.Add(SelectedGood);
-                var debug = false;
+                //var debug = false;
+                SaveOrderButtonEnabled = true;
             }
         }else if (GoodsList == null)
         {
@@ -1224,6 +1288,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             else 
             {
                 ItemsInShoppingCartList.Add(SelectedService);
+                SaveOrderButtonEnabled = true;
             }
         }
     }
@@ -1329,6 +1394,14 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     private void VehicleRoute(string parameter)
     {
+        foreach (var orderInList in _ordersList)
+        {
+            if (CarNumber.Equals(orderInList.Carnumber) == true)
+            {
+                CurrentPage = new WarningOrderAlreadyExists();
+                return;
+            }
+        }
         if (string.IsNullOrWhiteSpace(CarNumber)) return;
         FoundVehicle = Vehicles.FindVehicleRecord(CarNumber);
         ClientType = parameter;
@@ -1360,38 +1433,262 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         foreach (LoginUserRecord? user in users) 
         {
             var userButton = new Button();
+            userButton.Margin = new Thickness(0, 10, 3, 0);
+            var addOrderDockPanel = new DockPanel();
+            var excludeFromOrderDockPanel = new DockPanel();
+            var finishJobDockPanel = new DockPanel();
+            
+            var svgAddOrder = new Image();
+            var svgFinishJob = new Image();
+            var svgExcludeOrder = new Image();
+
+            string projectRoot = Path.Combine(Environment.CurrentDirectory, @"..\..\..");
+            string assetsPathAddOrder = Path.Combine(projectRoot, "Assets", "icon_include_operator.png");
+            string assetsPathExludeOrder = Path.Combine(projectRoot, "Assets", "icon_exclude_operator.png");
+            string assetsPathFinishJob = Path.Combine(projectRoot, "Assets", "icon_logout_operator.png");
+            
+            svgAddOrder.Source = new Avalonia.Media.Imaging.Bitmap(assetsPathAddOrder);
+            svgExcludeOrder.Source = new Avalonia.Media.Imaging.Bitmap(assetsPathExludeOrder);
+            svgFinishJob.Source = new Avalonia.Media.Imaging.Bitmap(assetsPathFinishJob);
+            
+            svgAddOrder.Height = 40;
+            svgAddOrder.Width = 40;
+            svgExcludeOrder.Height = 40;
+            svgExcludeOrder.Width = 40;
+            svgFinishJob.Height = 40;
+            svgFinishJob.Width = 40;
+
+            svgAddOrder.Margin = new Thickness(15, 15, 15, 15);
+            svgFinishJob.Margin = new Thickness(15, 15, 15, 15);
+            svgExcludeOrder.Margin = new Thickness(15, 15, 15, 15);
+
+            addOrderDockPanel.Margin = new Thickness(120,0,0,0);
+            finishJobDockPanel.Margin = new Thickness(120, 0, 0, 0);
+            excludeFromOrderDockPanel.Margin = new Thickness(120, 0, 0, 0);
+
+            addOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            addOrderDockPanel.PointerEntered += (sender, args) => 
+            {
+                addOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#f0c30f"));
+            };
+            addOrderDockPanel.PointerExited += (sender, args) =>
+            {
+                addOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            };
+
+            excludeFromOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            excludeFromOrderDockPanel.PointerEntered += (sender, args) =>
+            {
+                excludeFromOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#f0c30f"));
+            };
+            excludeFromOrderDockPanel.PointerExited += (sender, args) =>
+            {
+                excludeFromOrderDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            };
+
+            finishJobDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            finishJobDockPanel.PointerEntered += (sender, args) =>
+            {
+                finishJobDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#f0c30f"));
+            };
+            finishJobDockPanel.PointerExited += (sender, args) =>
+            {
+                finishJobDockPanel.Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#7a92a1"));
+            };
+
             var stackPanel = new StackPanel();
             var popup = new Popup();
+            var stackPanelOrdersList = new StackPanel();
             var stackPanelList = new StackPanel();
+            
             var textBlock1 = new TextBlock();
             var textBlock2 = new TextBlock();
+            var textBlock3 = new TextBlock();
+            
             textBlock1.Text = "Add to order";
             textBlock2.Text = "Finish job";
+            textBlock3.Text = "Exclude from order";
+
+            textBlock1.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center;
+            textBlock2.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center;
+            textBlock3.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center;
+
             textBlock2.Name = user.Id.ToString();
-            textBlock1.Margin = new Thickness(50, 0, 0, 0);
-            textBlock2.Margin = new Thickness(50, 0, 0, 0);
-            textBlock1.Background = Avalonia.Media.Brushes.Red;
-            textBlock2.Background = Avalonia.Media.Brushes.Red;
+            userButton.Name = user.Id.ToString();
+            //textBlock1.Margin = new Thickness(0, 0, 0, 0);
+            //textBlock2.Margin = new Thickness(0, 0, 0, 0);
             userButton.Content = user.Initials;
             popup.IsOpen = false;
             userButton.Click += (sender, args) => 
             {
+                stackPanelOrdersList.IsVisible = false;
                 popup.IsOpen = !popup.IsOpen;
             };
+
+            addOrderDockPanel.Children.Add(svgAddOrder);
+            addOrderDockPanel.Children.Add(textBlock1);
+            finishJobDockPanel.Children.Add(svgFinishJob);
+            finishJobDockPanel.Children.Add(textBlock2);
+            excludeFromOrderDockPanel.Children.Add(svgExcludeOrder);
+            excludeFromOrderDockPanel.Children.Add(textBlock3);
+
+            stackPanel.Children.Add(userButton);
+            stackPanel.Children.Add(popup);
+            popup.Child = stackPanelList;
+            stackPanelList.Children.Add(addOrderDockPanel);
+            stackPanelList.Children.Add(finishJobDockPanel);
+            dockPanel.Children.Add(stackPanel);
+
+            textBlock1.Tapped += (sender, args) =>
+            {
+                addOrderDockPanel.Children.Remove(stackPanelOrdersList);
+                if (user.IsBusy == false && _ordersList.IsNullOrEmpty() == false)
+                {
+                    stackPanelOrdersList = new StackPanel();
+                    stackPanelOrdersList.IsVisible = true;
+                    foreach (var order in _ordersList) 
+                    {
+                        var orderTextBlock = new TextBlock();
+                        orderTextBlock.Text = order.Id.ToString().Substring(0,6) + "    " + order.Carnumber;
+                        var buttonOrderToAdd = new Button();
+                        buttonOrderToAdd.Content = orderTextBlock;
+                        stackPanelOrdersList.Children.Add(buttonOrderToAdd);
+                        buttonOrderToAdd.Click += (sender, args) => 
+                        {
+                            user.IsBusy = true;
+                            user.OrderID = order.Id.ToString();
+                            stackPanelOrdersList.IsVisible = false;
+                            stackPanelList.Children.Remove(addOrderDockPanel);
+                            stackPanelList.Children.Remove(finishJobDockPanel);
+                            stackPanelList.Children.Add(excludeFromOrderDockPanel);
+                            stackPanelList.Children.Add(finishJobDockPanel);
+                        };
+                    }
+                    //addOrderDockPanel = new DockPanel();
+                    addOrderDockPanel.Children.Add(stackPanelOrdersList);
+                }
+                else 
+                {
+                    return;
+                }
+            };
+
             textBlock2.Tapped += (sender, args) => 
             {
                 var userId = textBlock2.Name.ToString();
                 LogoutOperator(userId);
                 popup.IsOpen = false;
             };
-            stackPanel.Children.Add( userButton );
-            stackPanel.Children.Add( popup );
-            popup.Child = stackPanelList;
-            stackPanelList.Children.Add(textBlock1);
-            stackPanelList.Children.Add(textBlock2);
-            dockPanel.Children.Add(stackPanel);
+
+            textBlock3.Tapped += (sender, args) => 
+            {
+                user.IsBusy = false;
+                user.OrderID = "";
+                stackPanelOrdersList.IsVisible = true;
+                stackPanelList.Children.Remove(excludeFromOrderDockPanel);
+                stackPanelList.Children.Remove(finishJobDockPanel);
+                stackPanelList.Children.Add(addOrderDockPanel);
+                stackPanelList.Children.Add(finishJobDockPanel);
+            };
         }
         DockaPanelUserButtons = dockPanel;
+    }
+
+    private void OrderButtonExecute(List<OrderButtonRecord> orders)
+    {
+        var dockPanel = new DockPanel();
+        foreach (OrderButtonRecord order in orders)
+        {
+            // Создаем кнопку
+            var orderButton = new Button
+            {
+                Margin = new Thickness(0, 0, 3, 0),
+                Name = order.Id.ToString()
+            };
+
+            // Загрузка изображения
+            string projectRoot = Path.Combine(Environment.CurrentDirectory, @"..\..\..");
+            string assetsPathOrder = Path.Combine(projectRoot, "Assets", "icon_shopping_cart_disabled.png");
+            var svgOrder = new Image
+            {
+                Source = new Avalonia.Media.Imaging.Bitmap(assetsPathOrder),
+                //Stretch = Stretch.Fill, // Stretch image
+                Height = 40,
+                Width = 40
+            };
+
+            // Create Grid holding image and text for button
+            var grid = new Grid();
+            grid.Height = 45;
+            grid.Width = 45;
+
+            // Add image as background
+            grid.Children.Add(svgOrder);
+
+            // Add text as foreground
+            var textBlock = new TextBlock
+            {
+                Text = order.Carnumber.Substring(0,3),
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Bottom,
+                Foreground = Brushes.Red, // text color
+                FontSize = 7, // fontsize
+                FontWeight = Avalonia.Media.FontWeight.Bold
+            };
+            grid.Children.Add(textBlock);
+
+            // make grid as button content
+            orderButton.Content = grid;
+
+            // click holder
+            orderButton.Click += (sender, args) =>
+            {
+                Guid id = Guid.Parse(orderButton.Name);
+                OrderData = Washes.FindWashById(id);
+
+                if (OrderData.GoodsList.IsNullOrEmpty() == true)
+                {
+                    OrderGoodsTableVisible = false;
+                }
+                else 
+                {
+                    OrderGoodsTableVisible = true;
+                }
+                if (OrderData.ServiceList.IsNullOrEmpty() == true)
+                {
+                    OrderServicesTableVisible = false;
+                }
+                else 
+                {
+                    OrderServicesTableVisible = true;
+                }
+                foreach (var user in _loggedInUsers) 
+                {
+                    var debug = true;
+                    if (user.OrderID.Equals("") == false) 
+                    {
+                        if (Guid.Parse(user.OrderID) == id)
+                        {
+                            OrderCompletedButtonEnabled = true;
+                        }
+                        else 
+                        {
+                            OrderCompletedButtonEnabled = false;
+                        }                       
+                    }
+                }
+                CurrentPage = new OrderScreen();
+            };
+
+            orderButton.Height = 45;
+            orderButton.Width = 45;
+
+            // Добавляем кнопку в DockPanel
+            dockPanel.Children.Add(orderButton);
+        }
+
+        // assign DockaPanelOrderButtons
+        DockaPanelOrderButtons = dockPanel;
     }
 
     private void ClientInfoStackPanelExecute() 
@@ -1431,7 +1728,10 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         var guid = Guid.Parse(userId);
         var foundUser = _loggedInUsers.FirstOrDefault(u => u?.Id == guid);
-        _loggedInUsers.Remove(foundUser);
+        if (foundUser.IsBusy == false) 
+        {
+            _loggedInUsers.Remove(foundUser);
+        }
         if (_loggedInUsers.IsNullOrEmpty() == true) 
         {
             App.ShutdownApplication();
@@ -1440,6 +1740,30 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         {
             AddOperatorButtonExecute(_loggedInUsers);
         }
+    }
+
+    private void OrderCompleteStatusSaveExecute(Guid id) 
+    {
+        Washes.WashCompleted(id);
+        foreach (var user in _loggedInUsers) 
+        {
+            if (Guid.Parse(user.OrderID) == id) 
+            {
+                user.IsBusy = false;
+                user.OrderID = "";
+            }
+        }
+        RemoveOrderFromOrderList(id);
+        OrderButtonExecute(_ordersList);
+        AddOperatorButtonExecute(_loggedInUsers);
+        OrderCompletedButtonEnabled = false;
+        CurrentPage = new VehicleScreen();
+    }
+
+    private void RemoveOrderFromOrderList(Guid id) 
+    {
+        var founOrder = _ordersList.FirstOrDefault(u => u?.Id == id);
+        _ordersList.Remove(founOrder);
     }
 
     private void HideDashboard()

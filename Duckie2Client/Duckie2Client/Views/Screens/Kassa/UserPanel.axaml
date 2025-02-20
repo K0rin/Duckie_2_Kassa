@@ -6,14 +6,20 @@
 			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
 			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
 			 x:DataType="screens:MainKassaScreenViewModel"
->
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia">
 	<StackPanel Orientation="Horizontal" Height="50">
+		<TextBlock
+			VerticalAlignment="Center"
+			Margin="5,0,5,0"
+			Foreground="Gray">Operators:
+		</TextBlock>
 		<ContentControl Content="{Binding DockaPanelUserButtons}"></ContentControl>
 		<Button
 			DockPanel.Dock="Left"
 			Command="{Binding NewUserAuthorization}"
-					>
-			<Image Source="avares://Duckie2Client/Assets/addIcon.png" Width="35" Height="32"/>
+			Height="35"
+			Width="30">
+			<svg:Svg Path="/Assets/ribbon_add.svg" Width="35" Height="35" Margin="0,0,5,0"/>
 		</Button>
 	</StackPanel>
 </UserControl>

@@ -18,6 +18,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Update="Controls\Kassa\OrdersPerYearScreen.axaml.cs">
+          <SubType>Code</SubType>
+          <DependentUpon>OrdersPerYearScreen.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\OrderScreen .axaml.cs">
+          <SubType>Code</SubType>
+          <DependentUpon>OrderScreen .axaml</DependentUpon>
+        </Compile>
         <Compile Update="Controls\Kassa\ShoppingCart.axaml.cs">
           <DependentUpon>ShoppingCart.axaml</DependentUpon>
         </Compile>
@@ -47,6 +55,9 @@
         </Compile>
         <Compile Update="Controls\Kassa\NewCompany.axaml.cs">
           <DependentUpon>NewCompany.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\Kassa\WarningOrderAlreadyExists.axaml.cs">
+          <DependentUpon>WarningOrderAlreadyExists.axaml</DependentUpon>
         </Compile>
         <Compile Update="Controls\Kassa\VehicleScreen.axaml.cs">
           <DependentUpon>VehicleScreen.axaml</DependentUpon>
@@ -213,6 +224,12 @@
 
 
     <ItemGroup>
+      <AvaloniaXaml Update="Controls\Kassa\OrdersPerYearScreen.axaml">
+        <SubType>Designer</SubType>
+      </AvaloniaXaml>
+      <AvaloniaXaml Update="Controls\Kassa\OrderScreen .axaml">
+        <SubType>Designer</SubType>
+      </AvaloniaXaml>
       <AvaloniaXaml Update="Controls\Kassa\GoodsListScreen.axaml">
         <SubType>Designer</SubType>
       </AvaloniaXaml>

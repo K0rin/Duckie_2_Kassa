@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Duckie2Client.Controls.Kassa.OrdersPerYearScreen"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:KassaControls="clr-namespace:Duckie2Client.Controls.Kassa"
+			 xmlns:screens="clr-namespace:Duckie2Client.ViewModels.Screens"
+			 d:DataContext="{x:True duckie2Client:App.VM_MainKassaScreen}"
+			 x:DataType="screens:MainKassaScreenViewModel"
+			 xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+>
+	<StackPanel Name="TransportScreenPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<DockPanel HorizontalAlignment="Center" Margin="0,20,0,20">
+			<TextBlock FontSize="20" FontWeight="Bold">Orders Per Year: </TextBlock>
+		</DockPanel>
+		
+		<DataGrid 
+			Margin="0,0,0,20" 
+			ItemsSource="{Binding OrdersPerPeriod}" 
+			AutoGenerateColumns="False" 
+			IsReadOnly="True" 
+			GridLinesVisibility="All" 
+			BorderThickness="1" 
+			BorderBrush="Gray"
+			IsVisible="True"
+		>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Order Id" Binding="{Binding Id}"/>
+				<DataGridTextColumn Header="Client's First Name" Binding="{Binding ClientFirstName}"/>
+				<DataGridTextColumn Header="Client's Last Name" Binding="{Binding ClientLastName}"/>
+				<DataGridTextColumn Header="Vehicle Number" Binding="{Binding Carnumber}"/>
+				<DataGridTextColumn Header="Payment type" Binding="{Binding Payment}"/>
+				<DataGridTextColumn Header="Branch Name" Binding="{Binding BranchName}"/>
+				
+			</DataGrid.Columns>
+		</DataGrid>
+		
+		<DockPanel DockPanel.Dock="Top">			
+			<Button
+				Name="NextButton"
+				DockPanel.Dock="Left" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Top" 
+				Margin="10, 10, 0, 0" 
+				Content="Back"
+				Command="{Binding OrderRoute}"
+				IsEnabled="{Binding VehicleClientsScreenNextButtonEnabled}"
+				PointerEntered="VehicleScreenNextButtonCursorEntered"
+				PointerExited="VehicleScreenNextButtonCursorExited"
+			>
+				<DockPanel>
+
+					<svg:Svg Path="{Binding VehicleClientsScreenNextButtonIconPath}" Width="15" Height="15" Margin="0,0,5,0"/>
+					<TextBlock Foreground="{Binding VehicleClientsScreenNextButtonTextColor}">Back</TextBlock>
+				</DockPanel>
+			</Button>
+		</DockPanel>
+	</StackPanel>
+</UserControl>

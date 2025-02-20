@@ -77,4 +77,202 @@ public class Washes : CrudOperationsBase
         db.Branches.Update(foundBranch);
         db.SaveChanges();
     }
+
+    public static Wash FindLastWash()
+    {
+        using var db = new DbmsService();
+        var foundWash = db.Washes
+            .OrderByDescending(wash => wash.DateTime)
+            .FirstOrDefault();
+        return foundWash;
+
+    }
+
+    public static List<OrderRecord> FindAllWashesPerPeriod() 
+    {
+        Wash lastWash = FindLastWash();
+        DateTime requiredDate;
+        requiredDate = lastWash.DateTime.AddDays(-300);
+        using var db = new DbmsService();
+        var foundWashes = db.Washes
+            .Where(ws => ws.DateTime > requiredDate)
+            .Include(ws => ws.Client)
+            .ThenInclude(client => client.CommunicationMeans)
+            .Include(ws => ws.Vehicle)
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Names.Where(nm => nm.Locale == "EN"))
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Prices)
+            .ThenInclude(pr => pr.Value)
+            .Include(ws => ws.Branch)
+            .ToList();
+        
+        List<OrderRecord> washes = new List<OrderRecord>();
+
+        foreach (var foundWash in foundWashes) 
+        {
+            List<OrderGoodsRecord> orderGoods = new List<OrderGoodsRecord>();
+            List<OrderServicesRecord> orderServices = new List<OrderServicesRecord>();
+            List<ClientPhonesRecord> clientPhonesRecords = new List<ClientPhonesRecord>();
+            foreach (var tradeUnit in foundWash.TradeUnits)
+            {
+
+                if (tradeUnit.IsGood == true)
+                {
+                    string goodName = "";
+                    decimal goodPrice = 0;
+                    foreach (var price in tradeUnit.Prices)
+                    {
+                        goodPrice = price.Value.Value;
+                    }
+                    foreach (var name in tradeUnit.Names)
+                    {
+                        goodName = name.Value;
+                    }
+
+                    OrderGoodsRecord result = new OrderGoodsRecord(foundWash.Id, tradeUnit.Id, goodName, goodPrice);
+                    orderGoods.Add(result);
+                }
+                else
+                {
+                    string serviceName = "";
+                    decimal servicePrice = 0;
+                    foreach (var price in tradeUnit.Prices)
+                    {
+                        servicePrice = price.Value.Value;
+                    }
+                    foreach (var name in tradeUnit.Names)
+                    {
+                        serviceName = name.Value;
+                    }
+                    OrderServicesRecord result = new OrderServicesRecord(foundWash.Id, tradeUnit.Id, serviceName, servicePrice);
+                    orderServices.Add(result);
+                }
+
+            }
+            string paymentDescription = "";
+            int payment = foundWash.PaymentType;
+            if (payment == 0)
+            {
+                paymentDescription = "Cash";
+            }
+            else if (payment == 1)
+            {
+                paymentDescription = "Debit Card";
+            }
+            else if (payment == 2)
+            {
+                paymentDescription = "Loan";
+            }
+            foreach (var comm in foundWash.Client.CommunicationMeans)
+            {
+                ClientPhonesRecord result = new ClientPhonesRecord(foundWash.Client.Id, comm.Phone, comm.Email);
+                clientPhonesRecords.Add(result);
+            }
+            OrderRecord orderRecord = new OrderRecord(foundWash.Id, foundWash.Vehicle.Id, foundWash.Vehicle.Licence, foundWash.Client.Id, foundWash.Client.FirstName, foundWash.Client.LastName, clientPhonesRecords, orderGoods, orderServices, paymentDescription, foundWash.Branch.Name, foundWash.Branch.Address);
+            washes.Add(orderRecord);
+        }
+
+        return washes;
+    }
+
+    public static OrderRecord FindWashById(Guid id) 
+    {
+        using var db = new DbmsService();
+        var foundWash = db.Washes
+            .Where(ws => ws.Id.Equals(id))
+            .Include(ws => ws.Client)
+            .ThenInclude(client => client.CommunicationMeans)
+            .Include(ws => ws.Vehicle)
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Names.Where(nm => nm.Locale == "EN"))
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Prices)
+            .ThenInclude(pr => pr.Value)
+            .Include(ws => ws.Branch)
+            .FirstOrDefault();
+
+        List<OrderGoodsRecord> orderGoods = new List<OrderGoodsRecord>();
+        List<OrderServicesRecord> orderServices = new List<OrderServicesRecord>();
+        List<ClientPhonesRecord> clientPhonesRecords = new List<ClientPhonesRecord>();
+        foreach (var tradeUnit in foundWash.TradeUnits) 
+        {
+            
+            if (tradeUnit.IsGood == true)
+            {
+                string goodName = "";
+                decimal goodPrice = 0;
+                foreach (var price in tradeUnit.Prices)
+                {
+                    goodPrice = price.Value.Value;
+                }
+                foreach (var name in tradeUnit.Names)
+                {
+                    goodName = name.Value;
+                }
+                
+                OrderGoodsRecord result = new OrderGoodsRecord(foundWash.Id, tradeUnit.Id, goodName, goodPrice);
+                orderGoods.Add(result);
+            }
+            else 
+            {
+                string serviceName = "";
+                decimal servicePrice = 0;
+                foreach (var price in tradeUnit.Prices)
+                {
+                    servicePrice = price.Value.Value;
+                }
+                foreach (var name in tradeUnit.Names)
+                {
+                    serviceName = name.Value;
+                }
+                OrderServicesRecord result = new OrderServicesRecord(foundWash.Id, tradeUnit.Id, serviceName, servicePrice);
+                orderServices.Add(result);
+            }
+             
+        }
+        string paymentDescription = "";
+        int payment = foundWash.PaymentType;
+        if (payment == 0)
+        {
+            paymentDescription = "Cash";
+        }
+        else if (payment == 1)
+        {
+            paymentDescription = "Debit Card";
+        }
+        else if (payment == 2) 
+        {
+            paymentDescription = "Loan";
+        }
+        foreach (var comm in foundWash.Client.CommunicationMeans) 
+        {
+            ClientPhonesRecord result = new ClientPhonesRecord(foundWash.Client.Id, comm.Phone, comm.Email);
+            clientPhonesRecords.Add(result);
+        }
+        OrderRecord orderRecord = new OrderRecord(foundWash.Id, foundWash.Vehicle.Id, foundWash.Vehicle.Licence, foundWash.Client.Id, foundWash.Client.FirstName, foundWash.Client.LastName, clientPhonesRecords, orderGoods, orderServices, paymentDescription, foundWash.Branch.Name, foundWash.Branch.Address); 
+
+        return orderRecord;
+    }
+
+    public static void WashCompleted(Guid id) 
+    {
+        using var db = new DbmsService();
+        var foundWash = db.Washes
+            .Where(ws => ws.Id.Equals(id))
+            .Include(ws => ws.Client)
+            .ThenInclude(client => client.CommunicationMeans)
+            .Include(ws => ws.Vehicle)
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Names.Where(nm => nm.Locale == "EN"))
+            .Include(ws => ws.TradeUnits)
+            .ThenInclude(td => td.Prices)
+            .ThenInclude(pr => pr.Value)
+            .Include(ws => ws.Branch)
+            .FirstOrDefault();
+
+        foundWash.Status = 1;
+        db.Washes.Update(foundWash);
+        db.SaveChanges();
+    }
 }
