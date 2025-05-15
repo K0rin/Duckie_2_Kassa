@@ -133,6 +133,7 @@
 					DockPanel.Dock="Left"
 					Width="85"
 					Height="60"
+					Command="{Binding ClearShoppingCart}"
 					Background="#6a91a1"
 					Margin="0,10,0,0"
 							>
@@ -142,6 +143,7 @@
 					DockPanel.Dock="Left"
 					Width="85"
 					Height="60"
+					Command="{Binding ShowOrdersScreen}"
 					Background="#6a91a1"
 					Margin="0,10,0,0"
 							>

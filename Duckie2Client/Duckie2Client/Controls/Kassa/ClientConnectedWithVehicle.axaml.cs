@@ -117,5 +117,7 @@ public partial class ClientConnectedWithVehicle : UserControl
         }
     }
 
-
+    private void Binding(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+    }
 }

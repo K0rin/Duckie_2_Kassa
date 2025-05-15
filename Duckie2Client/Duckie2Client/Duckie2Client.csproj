@@ -56,6 +56,10 @@
         <Compile Update="Controls\Kassa\NewCompany.axaml.cs">
           <DependentUpon>NewCompany.axaml</DependentUpon>
         </Compile>
+        <Compile Update="Controls\Kassa\CalendarScreen.axaml.cs">
+          <SubType>Code</SubType>
+          <DependentUpon>CalendarScreen.axaml</DependentUpon>
+        </Compile>
         <Compile Update="Controls\Kassa\WarningOrderAlreadyExists.axaml.cs">
           <DependentUpon>WarningOrderAlreadyExists.axaml</DependentUpon>
         </Compile>
@@ -237,6 +241,9 @@
         <SubType>Designer</SubType>
       </AvaloniaXaml>
       <AvaloniaXaml Update="Controls\Kassa\ListOfServices.axaml">
+        <SubType>Designer</SubType>
+      </AvaloniaXaml>
+      <AvaloniaXaml Update="Controls\Kassa\CalendarScreen.axaml">
         <SubType>Designer</SubType>
       </AvaloniaXaml>
       <AvaloniaXaml Update="Views\Screens\Kassa\CurrentPageView.axaml">

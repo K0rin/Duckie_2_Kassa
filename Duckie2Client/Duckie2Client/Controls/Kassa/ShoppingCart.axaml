@@ -36,6 +36,7 @@
 				VerticalAlignment="Top"
 				Margin="0, 10, 0, 0"
 				Content="Back"
+				IsVisible="False"
 				Command="{Binding ShowOrdersScreen}"
 			/>
 		</DockPanel>

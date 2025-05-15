@@ -53,6 +53,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     //public ReactiveCommand<Unit, Unit> BatchServiceAddingCommand { get; }
     public ReactiveCommand<Unit, Unit> ExitMenuCommand { get; }
+    public ReactiveCommand<Unit, Unit> Cursor1 { get; }
+    public ReactiveCommand<Unit, Unit> ShowCalendarScreen { get; }
     public ReactiveCommand<Unit, Unit> SaveOrder { get; }
     //public ReactiveCommand<Unit, Unit> PersonnelCommand { get; }
     public ReactiveCommand<Unit, Unit> ShowOrdersScreen { get; }
@@ -62,6 +64,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public ReactiveCommand<Unit, Unit> NewUserAuthorization { get; }
     public ReactiveCommand<Unit, Unit> CheckoutAndExit { get; }
     public ReactiveCommand<Unit, Unit> OrderRoute { get; }
+    public ReactiveCommand<Unit, Unit> ClearShoppingCart { get; }
     public ReactiveCommand<Unit, Unit> SearchClientPhone { get; }
     public ReactiveCommand<Unit, Unit> ServicesListScreen { get; }
     public ReactiveCommand<Unit, Unit> GoodsListScreen { get; }
@@ -89,7 +92,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     public ObservableCollection<TabItemViewModel> TabItems { get; } = [];
 
-
+    [Reactive] public DateTimeOffset? SelectedDate { get; set; }
     [Reactive] public bool IsDashboardVisible { get; set; }
     [Reactive] public bool OrderCompletedButtonEnabled { get; set; }
     [Reactive] public string NewClientFirstName { get; set; }
@@ -155,6 +158,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     [Reactive] public string SaveNewClientBackButtonTextColor { get; set; }
     [Reactive] public string SaveNewClientButtonTextColor { get; set; }
     [Reactive] public bool OrderGoodsTableVisible { get; set; }
+    [Reactive] public bool BottomPanelVisible { get; set; }
     [Reactive] public bool OrderServicesTableVisible { get; set; }
 
 
@@ -326,8 +330,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
 
     public MainKassaScreenViewModel()
     {
+        ClearShoppingCart = ReactiveCommand.Create(ClearShoppingCartExecute);
         ExitMenuCommand = ReactiveCommand.Create(ExitMenuCommandExecute);
+        Cursor1 = ReactiveCommand.Create(ExitMenuCommandExecute);
         ShowOrdersScreen = ReactiveCommand.Create(ShowOrdersScreenExecute);
+        ShowCalendarScreen = ReactiveCommand.Create(ShowCalendarScreenExecute);
         OrderCompleteStatusSave = ReactiveCommand.Create<Guid>(OrderCompleteStatusSaveExecute);
         ShowClientsConnectedWithVehicle = ReactiveCommand.Create<string>(VehicleRoute);
         SearchClientPhone = ReactiveCommand.Create(SearchClientPhoneExecute);
@@ -350,6 +357,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         SaveOrderButtonEnabled = false;
         ClientPanelVisibility = false;
         OrderCompletedButtonEnabled = false;
+        BottomPanelVisible = false;
+        //SelectedDate = DateTimeOffset.Now;
         this.WhenAnyValue(x => x.CarNumber)
             .Where(value => !string.IsNullOrEmpty(value)) // if CarNumber is not Empty
             .Subscribe(value =>
@@ -596,6 +605,13 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         var debug = true;
     }
 
+    private void ClearShoppingCartExecute() 
+    {
+        ItemsInShoppingCartList = new ObservableCollection<PricesRecord>();
+        SaveOrderButtonEnabled = false;
+        ServicesListScreenExecute();
+    }
+
     public void AddLoggedInUser(LoginUserRecord? userRecord)
     {
         var foundUser = _loggedInUsers.FirstOrDefault(u => u?.Id == userRecord.Id);
@@ -604,6 +620,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
             _loggedInUsers.Add(userRecord);
             AddOperatorButtonExecute(_loggedInUsers);
         }
+        ItemsInShoppingCartList = new ObservableCollection<PricesRecord>();
         CurrentPage = new VehicleScreen();
     }
 
@@ -679,7 +696,9 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         SelectedClient = null;
         ClientPanelVisibility = false;
+        BottomPanelVisible = false;
         CurrentPage = new VehicleScreen();
+        ItemsInShoppingCartList = new ObservableCollection<PricesRecord>();
     }
 
 
@@ -752,7 +771,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         CompaniesRecord company = Companies.FindCompanyConnectedWithVehicle(SelectedClient.VehicleId);
         bool exist = Companies.FindCompany(CompanyName);
-        var debug = true;
+        //var debug = true;
         if (company == null )
         {
             NewCopmanyName = CompanyName;
@@ -1069,6 +1088,12 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         }
     }
 
+    public void Cursor1Execute() 
+    {
+        VehicleScreenBackButtonIconPath = "/Assets/icon_back_active.svg";
+        VehicleScreenBackButtonTextColor = "#eef5f7";
+    }
+
     public void AnotherClientButtonCursor(bool status)
     {
         if (status == true)
@@ -1204,13 +1229,14 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         var user = _loggedInUsers[0];
         Guid branch = Branches.FindBranchId(user.Id);
         var items = ItemsInShoppingCartList;
-        Washes.AddWashes(items, branch, client, company, vehicle, SelectedPaymentTypeIndex);
+        Washes.AddWashes(items, branch, client, company, vehicle, SelectedPaymentTypeIndex, SelectedPollutionTypeIndex);
         CurrentPage = new VehicleScreen();
         Wash savedWash = Washes.FindLastWash();
         OrderButtonRecord order = new OrderButtonRecord(savedWash.Id, CarNumber);
         _ordersList.Add(order);
         ClientPanelVisibility = false;
         OrderButtonExecute(_ordersList);
+        BottomPanelVisible = false;
         CurrentPage = new VehicleScreen();
         SaveOrderButtonEnabled = false;
     }
@@ -1261,7 +1287,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
                 selectedClient.VehicleId,
                 selectedClient.VehicleName
             );
-            SelectedClient = clientRecord;
+            SelectedClient = selectedClient;
         }
     }
 
@@ -1296,6 +1322,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     public void ShoppingCartScreenExecute() 
     {
         CurrentPage = new ShoppingCart();
+        BottomPanelVisible = true;
     }
 
     public void SelectServiceExecute(object? sender, SelectionChangedEventArgs e)
@@ -1379,8 +1406,8 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         ClientBonus();
         ClientInfoStackPanelExecute();
         GoodsList = null;
+        BottomPanelVisible = true;
         CurrentPage = new ServicesListScreen();
-        ItemsInShoppingCartList = new ObservableCollection<PricesRecord>();
     }
 
     private void GoodsListScreenExecute()
@@ -1389,6 +1416,7 @@ public class MainKassaScreenViewModel : ViewModelPageBase
         GoodsList = new ObservableCollection<PricesRecord>(goods);
         ClientInfoStackPanelExecute();
         ServicesList = null;
+        BottomPanelVisible = true;
         CurrentPage = new GoodsListScreen();
     }
 
@@ -1764,6 +1792,11 @@ public class MainKassaScreenViewModel : ViewModelPageBase
     {
         var founOrder = _ordersList.FirstOrDefault(u => u?.Id == id);
         _ordersList.Remove(founOrder);
+    }
+
+    private void ShowCalendarScreenExecute() 
+    {
+        CurrentPage = new CalendarScreen();
     }
 
     private void HideDashboard()

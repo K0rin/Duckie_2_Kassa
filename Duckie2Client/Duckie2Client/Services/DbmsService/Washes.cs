@@ -18,7 +18,7 @@ namespace Duckie2Client.Services.DbmsService;
 public class Washes : CrudOperationsBase
 {
 
-    public static void AddWashes(ObservableCollection<PricesRecord> listServices, Guid branchId, Guid clientId, Guid companyId, Guid vehicleId, int paymentType)
+    public static void AddWashes(ObservableCollection<PricesRecord> listServices, Guid branchId, Guid clientId, Guid companyId, Guid vehicleId, int paymentType, int pollutionType)
     {
 
         using var db = new DbmsService();
@@ -64,7 +64,7 @@ public class Washes : CrudOperationsBase
             DateTime = DateTime.Now,
             Status = 0,
             PaymentType = paymentType,
-        
+            
         };
 
         //var foundVehicle = db.Vehicles

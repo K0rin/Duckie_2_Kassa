@@ -61,7 +61,6 @@
 				Margin="10, 10, 0, 0" 
 				Content="Another Client" 
 				Command="{Binding PageClientPhoneSearch}"
-				IsEnabled="{Binding AnotherClientButtonEnabled}"
 				PointerEntered="AnotherClientButtonCursorEntered"
 				PointerExited="AnotherClientButtonCursorExited"
 			>

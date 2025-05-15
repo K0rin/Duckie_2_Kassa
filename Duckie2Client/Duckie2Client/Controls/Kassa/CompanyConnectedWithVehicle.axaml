@@ -34,7 +34,7 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>
 				<DataGridTextColumn Header="Company Address" Binding="{Binding Address}"/>
-				<DataGridTextColumn Header="Company Name" Binding="{Binding IsActive}"/>
+				<DataGridTextColumn Header="Is Active" Binding="{Binding IsActive}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 		<DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">

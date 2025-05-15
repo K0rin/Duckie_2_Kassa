@@ -10,12 +10,14 @@
 			 mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
 			 xmlns:views="clr-namespace:Duckie2Client.Views.Kassa"
 >
-	<DockPanel >
+	<DockPanel>
+		
 		<StackPanel
           DockPanel.Dock="Bottom"
           Orientation="Horizontal"
           HorizontalAlignment="Center"
 		  VerticalAlignment="Center"
+		  IsVisible="{Binding BottomPanelVisible}"
 		  >
 
 			<Button

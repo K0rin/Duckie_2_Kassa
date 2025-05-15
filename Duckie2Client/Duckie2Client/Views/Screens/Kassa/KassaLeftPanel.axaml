@@ -12,7 +12,7 @@
 		<Button Command="{Binding ShowOrdersScreen}" Background="#6a91a1" Margin="0,30,0,0">
 			<Svg Path="/Assets/orders.svg" Width="30" Height="30"/>
 		</Button>
-		<Button Command="{Binding ShowOrdersScreen}" Background="#6a91a1">
+		<Button Command="{Binding ShowCalendarScreen}" Background="#6a91a1">
 			<Svg Path="/Assets/calendar.svg" Width="30" Height="30"/>
 		</Button>
 		<Button Command="{Binding ShowWashesScreen}" Background="#6a91a1">
